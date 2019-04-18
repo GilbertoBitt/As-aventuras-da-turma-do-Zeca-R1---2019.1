@@ -1,0 +1,421 @@
+fileFormatVersion: 2
+guid: b2b7da76bdaf0de4a88050ee0d9db83b
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: enfermeira_seringa1
+    21300002: enfermeira_seringa2
+    21300004: enfermeira_2
+    21300006: enfermeira_olhoF
+    21300008: "enfermeira_cabe\xE7a"
+    21300010: enfermeira_braco1
+    21300012: enfermeira_peito
+    21300014: enfermeira_braco2
+    21300016: enfermeira_mao1
+    21300018: enfermeira_saia
+    21300020: enfermeira_mao2
+    21300022: enfermeira_seringa1
+    21300024: enfermeira_seringa
+    21300026: enfermeira_olhos
+    21300028: "enfermeira_Cabe\xE7a"
+    21300030: enfermeira_Saia
+    21300032: enfermeira_seringa2
+    21300034: enfermeira_olhos
+    21300036: enfermeira_cabeca
+    21300038: enfermeira_braco1
+    21300040: enfermeira_peito
+    21300042: enfermeira_braco2
+    21300044: enfermeira_mao1
+    21300046: enfermeira_saia
+    21300048: enfermeira_mao2
+  externalObjects: {}
+  serializedVersion: 9
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: 16
+    mipBias: -100
+    wrapU: -1
+    wrapV: -1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Tizen
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Samsung TV
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: enfermeira_seringa1
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 711
+        width: 179
+        height: 481
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8182920c9df4a10479a2f89a7dc48f5d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enfermeira_seringa2
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 717
+        width: 179
+        height: 481
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4df3ca2c8a8c3d4083aeab8ffb1a56b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enfermeira_2
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 135
+        width: 505
+        height: 970
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58247ff16311faf46aa3d3fc40608fa4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enfermeira_olhos
+      rect:
+        serializedVersion: 2
+        x: 1479.4016
+        y: 1046
+        width: 144.46826
+        height: 79.0791
+      alignment: 9
+      pivot: {x: 0.5025205, y: 0.4931786}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 840b20df6dfebfc439ee3d45cfe86ef2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enfermeira_cabeca
+      rect:
+        serializedVersion: 2
+        x: 1746.8
+        y: 877.82874
+        width: 440.2295
+        height: 332.38965
+      alignment: 9
+      pivot: {x: 0.49110767, y: 0.50594616}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 567b68c2eab436844852e904e061fa34
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enfermeira_braco1
+      rect:
+        serializedVersion: 2
+        x: 1501.0082
+        y: 636.15173
+        width: 182.0918
+        height: 262.82727
+      alignment: 9
+      pivot: {x: 0.49695715, y: 0.52257997}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a6fdd1c51475ea48a077aa7c5296e98
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enfermeira_peito
+      rect:
+        serializedVersion: 2
+        x: 1840.455
+        y: 603.1244
+        width: 309.3429
+        height: 239.0517
+      alignment: 9
+      pivot: {x: 0.49959177, y: 0.49937153}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2d510d4d0fde714894da2eb06dd5419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enfermeira_braco2
+      rect:
+        serializedVersion: 2
+        x: 2236.783
+        y: 618.5172
+        width: 182.0918
+        height: 280.03802
+      alignment: 9
+      pivot: {x: 0.49819532, y: 0.55522007}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71586df8d02d61e4185da3b2cf8c9f2c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enfermeira_mao1
+      rect:
+        serializedVersion: 2
+        x: 1545.8379
+        y: 427.4506
+        width: 138.46289
+        height: 222.98074
+      alignment: 9
+      pivot: {x: 0.48505583, y: 0.41954055}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b5bc7f07024eca4789b39bab14ac6f0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enfermeira_saia
+      rect:
+        serializedVersion: 2
+        x: 1751.054
+        y: 51.56354
+        width: 506.88477
+        height: 524.4876
+      alignment: 9
+      pivot: {x: 0.49803442, y: 0.4765346}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5f21b74d592242458dde70b194b9a9d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enfermeira_mao2
+      rect:
+        serializedVersion: 2
+        x: 2307.224
+        y: 402.5807
+        width: 138.46289
+        height: 203.28302
+      alignment: 9
+      pivot: {x: 0.48587662, y: 0.4644722}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8243ac43ab7cbcc45822177f96f2822d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 97774751506395
+  assetBundleName: 
+  assetBundleVariant: 

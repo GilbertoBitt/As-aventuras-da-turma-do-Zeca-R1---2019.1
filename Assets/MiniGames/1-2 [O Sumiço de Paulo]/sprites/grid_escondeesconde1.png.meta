@@ -1,0 +1,900 @@
+fileFormatVersion: 2
+guid: c40f4db342367af48a55bbe8f6150c90
+labels:
+- Image
+- Sprite
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: monte
+    21300002: fabrica
+    21300004: fabrica_frente
+    21300006: fabrica2
+    21300008: casa
+    21300010: casas
+    21300012: grid_escondeesconde1_6
+    21300014: apartamento_fundo
+    21300016: casa fundo
+    21300018: grid_escondeesconde1_9
+    21300020: arvore 01
+    21300022: arvore 02
+    21300024: arvore 03
+    21300026: arvore 04
+    21300028: arvore 05
+    21300030: arvore 06
+    21300032: lixeiras
+    21300034: monte frente
+    21300036: poste
+    21300038: arbusto 01
+    21300040: arbusto 02
+    21300042: arbusto 03
+    21300044: arbusto 04
+    21300046: arbusto 05
+    21300048: arbusto 06
+    21300050: monte de folha
+    21300052: pipoca
+    21300054: "lixeira padr\xE3o"
+    21300056: caixa de areia
+    21300058: escorregador
+    21300060: "bando de pra\xE7a"
+    21300062: sol
+    21300064: velhu
+    21300066: grid_escondeesconde1_0
+    21300068: grid_escondeesconde1_1
+    21300070: grid_escondeesconde1_2
+    21300072: grid_escondeesconde1_3
+    21300074: grid_escondeesconde1_4
+    21300076: grid_escondeesconde1_5
+    21300078: grid_escondeesconde1_7
+    21300080: grid_escondeesconde1_8
+    21300082: grid_escondeesconde1_10
+    21300084: grid_escondeesconde1_11
+    21300086: grid_escondeesconde1_12
+    21300088: grid_escondeesconde1_13
+    21300090: grid_escondeesconde1_14
+    21300092: grid_escondeesconde1_15
+    21300094: grid_escondeesconde1_16
+    21300096: grid_escondeesconde1_17
+    21300098: grid_escondeesconde1_18
+    21300100: grid_escondeesconde1_19
+    21300102: grid_escondeesconde1_20
+    21300104: grid_escondeesconde1_21
+    21300106: grid_escondeesconde1_22
+    21300108: grid_escondeesconde1_23
+    21300110: grid_escondeesconde1_24
+    21300112: grid_escondeesconde1_25
+    21300114: grid_escondeesconde1_26
+    21300116: grid_escondeesconde1_27
+    21300118: grid_escondeesconde1_28
+    21300120: grid_escondeesconde1_29
+    21300122: grid_escondeesconde1_30
+    21300124: grid_escondeesconde1_31
+    21300126: grid_escondeesconde1_32
+    21300128: grid_escondeesconde1_33
+    21300130: grid_escondeesconde1_34
+    21300132: grid_escondeesconde1_35
+  externalObjects: {}
+  serializedVersion: 9
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 0
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: 47
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: grid_escondeesconde1_0
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1264
+        width: 797
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e1b633cb6321454a852142766cd219d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_1
+      rect:
+        serializedVersion: 2
+        x: 937
+        y: 1294
+        width: 369
+        height: 209
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52b3c719eeed17c44a8778aa85b4c64f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_2
+      rect:
+        serializedVersion: 2
+        x: 1415
+        y: 1346
+        width: 352
+        height: 181
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b5f296ff40166843a87802af61c0842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_3
+      rect:
+        serializedVersion: 2
+        x: 1908
+        y: 1328
+        width: 389
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 664f72ca136a4a045be027573c4756b7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_4
+      rect:
+        serializedVersion: 2
+        x: 2408
+        y: 1335
+        width: 265
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d325877f395df6f438293386defbdb7a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_5
+      rect:
+        serializedVersion: 2
+        x: 2700
+        y: 1335
+        width: 145
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 676bd7ac8a00eee44b7d16425749e7bd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_6
+      rect:
+        serializedVersion: 2
+        x: 2847
+        y: 1335
+        width: 187
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 688032868c3ccbd45af68593214f124a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_7
+      rect:
+        serializedVersion: 2
+        x: 3039
+        y: 1335
+        width: 138
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cff49ade840afa64fa4d1056f4965664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_8
+      rect:
+        serializedVersion: 2
+        x: 3325
+        y: 1301
+        width: 134
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4862fb316b3ff5489d141e1c2e03844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_9
+      rect:
+        serializedVersion: 2
+        x: 3562
+        y: 1323
+        width: 103
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bb1eccefe3c7ee4cafb82d1f9935ff4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_10
+      rect:
+        serializedVersion: 2
+        x: 3708
+        y: 1334
+        width: 157
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc50cda79ea97424eab13009c04fd7d4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_11
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 399
+        width: 640
+        height: 834
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0d5dc1cf1801bb4b8d9f43ecbf69002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_12
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 802
+        width: 275
+        height: 369
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afd77abdae282d44b899849b484bdb72
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_13
+      rect:
+        serializedVersion: 2
+        x: 1144
+        y: 832
+        width: 323
+        height: 338
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3708c9c4e60271408b2ff5c7364cd0c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_14
+      rect:
+        serializedVersion: 2
+        x: 1545
+        y: 843
+        width: 222
+        height: 301
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78c1aa9917ffe724abe963ae13b919e4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_15
+      rect:
+        serializedVersion: 2
+        x: 1909
+        y: 866
+        width: 192
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad792d1e6de41fe4eaf6926216a7b243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_16
+      rect:
+        serializedVersion: 2
+        x: 3563
+        y: 1039
+        width: 202
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32a119b17dd10f24d8d0206908b7aa5c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_17
+      rect:
+        serializedVersion: 2
+        x: 2232
+        y: 884
+        width: 131
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0b8356d8f1b7ea4d8a661ff80e755e1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_18
+      rect:
+        serializedVersion: 2
+        x: 2547
+        y: 867
+        width: 779
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ab321ce43ae76b4a95eb9e01f19bf29
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_19
+      rect:
+        serializedVersion: 2
+        x: 3595
+        y: 456
+        width: 138
+        height: 475
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19a92b765b1c57540b42e8bd0c759777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_20
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 443
+        width: 344
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52acc476779def24997d6aeff31bafba
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_21
+      rect:
+        serializedVersion: 2
+        x: 1331
+        y: 467
+        width: 244
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a29c6f8004c408440aee247d46e2b3e5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_22
+      rect:
+        serializedVersion: 2
+        x: 1729
+        y: 478
+        width: 241
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 190adb9eee8b3e04fbabe2e6478b459a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_23
+      rect:
+        serializedVersion: 2
+        x: 2096
+        y: 480
+        width: 217
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9c4528c41ea8a846b67a2bdef63534e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_24
+      rect:
+        serializedVersion: 2
+        x: 2481
+        y: 469
+        width: 189
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b6e221367d69624da1d5c1725552751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_25
+      rect:
+        serializedVersion: 2
+        x: 2818
+        y: 502
+        width: 138
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba14a9cce86c0e747983f26f270a02b3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_26
+      rect:
+        serializedVersion: 2
+        x: 3176
+        y: 475
+        width: 300
+        height: 223
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa2a818e25653ff4cb1c365cd908078d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_27
+      rect:
+        serializedVersion: 2
+        x: 1740
+        y: 467
+        width: 221
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62f4b1d4cde003b449720279e3c5e733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_28
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 409
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2df6a9995f77f14e8f17e485bfe68eb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_29
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 25
+        width: 335
+        height: 348
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89dc25a98dbe58746893ca7da29ba2c0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_30
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 145
+        width: 67
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e71db56bd70eb7842b5edfe971bf876e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_31
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 132
+        width: 338
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e204e7e3b34a207469767a4c2993aa90
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_32
+      rect:
+        serializedVersion: 2
+        x: 1479
+        y: 131
+        width: 196
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 850fd7195f874a340b7f127113e73f50
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_33
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 111
+        width: 368
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 226e09e69a594be4d81be35562337b98
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_34
+      rect:
+        serializedVersion: 2
+        x: 2403
+        y: 109
+        width: 197
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fafec1a56efcdd42833127c818c3d1e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_escondeesconde1_35
+      rect:
+        serializedVersion: 2
+        x: 2736
+        y: 56
+        width: 161
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d9bfedcf71fcbe42852e6dee98c93ac
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

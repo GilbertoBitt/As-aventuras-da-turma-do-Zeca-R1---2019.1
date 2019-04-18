@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/LowSceneLoad.unity
+    guid: 6891234cbbbe76e489155136b101c8c6
+  - enabled: 1
+    path: Assets/StartScene/StartScene.unity
+    guid: 76b215d6585bb14428e4c80e3f53e789
+  - enabled: 1
+    path: Assets/MiniGameSelection/selectionMinigames.unity
+    guid: 53cedabd54d9b1f448fa6a5aba0d0c0f
+  - enabled: 1
+    path: Assets/MiniGames/Rainbow/RainbowMinigame.unity
+    guid: 0845b504c68002f4b9ec63ce3adc3ae3
+  - enabled: 1
+    path: Assets/MiniGames/Memory/MemoryGame.unity
+    guid: 01d471ce031c0a54da5e267cd8e2ce27
+  - enabled: 1
+    path: "Assets/MiniGames/1-2 [O Sumi\xE7o de Paulo]/1-2.unity"
+    guid: 784ca9fc5def45444ad6e3cc8738a171
+  - enabled: 1
+    path: Assets/MiniGames/1-4[A montanha de brinquedos]/1-4.unity
+    guid: 4a37ac3cca467f04d94ddc9583af1277
+  - enabled: 1
+    path: Assets/MiniGames/1-3 [A vacina do Leite Materno]/1-3.unity
+    guid: f79a20c16a9b8ea4e876dce458bf4bae
+  - enabled: 1
+    path: Assets/RA/SceneRa/RA3.unity
+    guid: 1b5e2088d3d71814b80584c9297a88b6
+  - enabled: 1
+    path: Assets/RA/SceneRa/AR.ArcoIris.unity
+    guid: 55d5bcb4a8dc7124e8c29094b35bdc43
+  - enabled: 1
+    path: Assets/RA/SceneRa/AR.Montanha.unity
+    guid: 7eb9b115454d7d44ab5387d802fdee1f
+  - enabled: 1
+    path: "Assets/RA/SceneRa/AR.QuemSomosN\xF3s.unity"
+    guid: 1b9c47a76fd75944ab2bc259d173f2a6
+  - enabled: 1
+    path: "Assets/RA/SceneRa/AR.Sumi\xE7o.unity"
+    guid: 76512ee757f405d488ec2d71c3db49bd
+  - enabled: 1
+    path: Assets/RA/SceneRa/AR.Vacina.unity
+    guid: d3f9b584d5d672d4ea7a282ad30499d1
