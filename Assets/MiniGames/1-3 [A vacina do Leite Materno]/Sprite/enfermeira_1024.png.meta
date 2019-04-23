@@ -1,19 +1,39 @@
 fileFormatVersion: 2
 guid: 6ec8eadcc5d713b488436d559390c0bc
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: enfermeira_1024_0
-    21300002: enfermeira_1024_1
-    21300004: enfermeira_1024_2
-    21300006: enfermeira_1024_3
-    21300008: enfermeira_1024_4
-    21300010: enfermeira_1024_5
-    21300012: enfermeira_1024_6
-    21300014: enfermeira_1024_7
-    21300016: enfermeira_1024_8
-    21300018: enfermeira_1024_9
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: enfermeira_1024_0
+  - first:
+      213: 21300002
+    second: enfermeira_1024_1
+  - first:
+      213: 21300004
+    second: enfermeira_1024_2
+  - first:
+      213: 21300006
+    second: enfermeira_1024_3
+  - first:
+      213: 21300008
+    second: enfermeira_1024_4
+  - first:
+      213: 21300010
+    second: enfermeira_1024_5
+  - first:
+      213: 21300012
+    second: enfermeira_1024_6
+  - first:
+      213: 21300014
+    second: enfermeira_1024_7
+  - first:
+      213: 21300016
+    second: enfermeira_1024_8
+  - first:
+      213: 21300018
+    second: enfermeira_1024_9
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -186,6 +206,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 67835df57342ebf46b536b4fd7117ff2
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -206,6 +227,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: f16a854f8a0e1f740852b7c9005596d2
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -226,6 +248,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 8e7b9e97cea1818498af72780e269914
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -246,6 +269,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 5b2eec4ea06464d4886b5fa3045e8f19
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -266,6 +290,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 1b03c81fc76cadf4d97349defa5ca77a
+      internalID: 21300008
       vertices: []
       indices: 
       edges: []
@@ -286,6 +311,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: e177a6d72c19d174ab621a0d6c3697c9
+      internalID: 21300010
       vertices: []
       indices: 
       edges: []
@@ -306,6 +332,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 48bbd06733df7584db0ced0cc475dbef
+      internalID: 21300012
       vertices: []
       indices: 
       edges: []
@@ -326,6 +353,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: fb31314215b524343a3d8ecb77da559d
+      internalID: 21300014
       vertices: []
       indices: 
       edges: []
@@ -346,6 +374,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 595d3c591bad278459c55d44b0327d99
+      internalID: 21300016
       vertices: []
       indices: 
       edges: []
@@ -366,6 +395,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: ca79f74e1a08e7c419b7214cf01234b7
+      internalID: 21300018
       vertices: []
       indices: 
       edges: []
@@ -374,10 +404,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: Enfermeira
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

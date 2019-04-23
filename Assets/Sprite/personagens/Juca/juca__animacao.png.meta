@@ -1,14 +1,24 @@
 fileFormatVersion: 2
 guid: 392db9621a8a3fb409d39393b3b61e6a
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: juca__sorirolhoA
-    21300002: juca__braco
-    21300004: juca__sorirolhoF
-    21300006: juca__juca
-    21300008: juca__sorirolhoBOcaF
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: juca__sorirolhoA
+  - first:
+      213: 21300002
+    second: juca__braco
+  - first:
+      213: 21300004
+    second: juca__sorirolhoF
+  - first:
+      213: 21300006
+    second: juca__juca
+  - first:
+      213: 21300008
+    second: juca__sorirolhoBOcaF
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -115,6 +125,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 5b3f6ec04035cfa44a72f47f73437418
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -135,6 +146,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 39cfa3072af2bfb47bab6503678f2542
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -155,6 +167,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 1637edf9a1d090f4e88004f6edd0c273
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -175,6 +188,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 72991d6b83122444ab8c31783d3bc56f
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -195,6 +209,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 61ef7dd8baf02d649b96f7999c6879b8
+      internalID: 21300008
       vertices: []
       indices: 
       edges: []
@@ -203,10 +218,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: Montanha07
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,11 +1,15 @@
 fileFormatVersion: 2
 guid: bb00d1a84591bb24d8100dbb492f3122
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: teste_plataforma2_0
-    21300002: teste_plataforma3_0
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: teste_plataforma2_0
+  - first:
+      213: 21300002
+    second: teste_plataforma3_0
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -112,6 +116,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: f2c5ab9231e038840bf30a6970ae222e
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -120,10 +125,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: Vacina_Plataforms
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

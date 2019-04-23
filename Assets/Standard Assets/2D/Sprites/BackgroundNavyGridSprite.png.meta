@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: 1d0c184845252df44a655359de388cb8
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: PrototypeBlue04x04
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: PrototypeBlue04x04
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -143,10 +145,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: c347017f84bb89c4f8ff758b8027d2d1
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

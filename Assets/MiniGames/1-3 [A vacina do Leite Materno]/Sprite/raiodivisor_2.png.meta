@@ -1,18 +1,36 @@
 fileFormatVersion: 2
 guid: d1539720b10ef5f4eaf25047b994de2e
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: raiodivisor_2_0
-    21300002: raiodivisor_2_1
-    21300004: raiodivisor_2_2
-    21300006: raiodivisor_2_3
-    21300008: raiodivisor_2_4
-    21300010: raiodivisor_2_5
-    21300012: raiodivisor_2_6
-    21300014: raiodivisor_2_7
-    21300016: raiodivisor_2_8
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: raiodivisor_2_0
+  - first:
+      213: 21300002
+    second: raiodivisor_2_1
+  - first:
+      213: 21300004
+    second: raiodivisor_2_2
+  - first:
+      213: 21300006
+    second: raiodivisor_2_3
+  - first:
+      213: 21300008
+    second: raiodivisor_2_4
+  - first:
+      213: 21300010
+    second: raiodivisor_2_5
+  - first:
+      213: 21300012
+    second: raiodivisor_2_6
+  - first:
+      213: 21300014
+    second: raiodivisor_2_7
+  - first:
+      213: 21300016
+    second: raiodivisor_2_8
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -119,6 +137,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 8b774254fa7baa244a16b88bfa34f877
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -127,10 +146,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

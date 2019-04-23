@@ -1,13 +1,21 @@
 fileFormatVersion: 2
 guid: 853e91d7f0723844db7445150e023ba4
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: imagens_montanha_brinquedos_0
-    21300002: imagens_montanha_brinquedos_1
-    21300004: imagens_montanha_brinquedos_2
-    21300006: imagens_montanha_brinquedos_3
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: imagens_montanha_brinquedos_0
+  - first:
+      213: 21300002
+    second: imagens_montanha_brinquedos_1
+  - first:
+      213: 21300004
+    second: imagens_montanha_brinquedos_2
+  - first:
+      213: 21300006
+    second: imagens_montanha_brinquedos_3
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -114,6 +122,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 74eab5d2b8965674c8ff0069d0328ee4
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -134,6 +143,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a84aa7f746eb72c4d9fd9925656ebb8c
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -154,6 +164,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a910865f78b45814299aaba4d836f159
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -174,6 +185,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 1e9542abf4f1666439c6d02748083b10
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -182,10 +194,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: Montanha05
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

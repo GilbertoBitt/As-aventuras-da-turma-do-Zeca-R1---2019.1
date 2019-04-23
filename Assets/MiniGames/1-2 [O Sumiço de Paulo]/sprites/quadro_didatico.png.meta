@@ -3,10 +3,12 @@ guid: ac74d54304177f340ae2b2dc7dd0cb9e
 labels:
 - 1-2
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: quadro_didatico_0
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: quadro_didatico_0
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -113,6 +115,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a0bc7cfca1266d643a9793ed252174a0
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -121,10 +124,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: UI_1_2
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,26 +1,60 @@
 fileFormatVersion: 2
 guid: 777889571c9677f448170aa03d3bcc28
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: 1Item
-    21300002: 2Item
-    21300004: 3Item
-    21300006: 4Item
-    21300008: 5Item
-    21300010: 01
-    21300012: 02
-    21300014: 03
-    21300016: 04
-    21300018: 05
-    21300020: 06
-    21300022: montanha_fundocinza_0
-    21300024: montanha_fundocinza_1
-    21300026: montanha_fundocinza_2
-    21300028: montanha_fundocinza_3
-    21300030: montanha_fundocinza_4
-    21300032: montanha_fundocinza_5
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: 1Item
+  - first:
+      213: 21300002
+    second: 2Item
+  - first:
+      213: 21300004
+    second: 3Item
+  - first:
+      213: 21300006
+    second: 4Item
+  - first:
+      213: 21300008
+    second: 5Item
+  - first:
+      213: 21300010
+    second: 01
+  - first:
+      213: 21300012
+    second: 02
+  - first:
+      213: 21300014
+    second: 03
+  - first:
+      213: 21300016
+    second: 04
+  - first:
+      213: 21300018
+    second: 05
+  - first:
+      213: 21300020
+    second: 06
+  - first:
+      213: 21300022
+    second: montanha_fundocinza_0
+  - first:
+      213: 21300024
+    second: montanha_fundocinza_1
+  - first:
+      213: 21300026
+    second: montanha_fundocinza_2
+  - first:
+      213: 21300028
+    second: montanha_fundocinza_3
+  - first:
+      213: 21300030
+    second: montanha_fundocinza_4
+  - first:
+      213: 21300032
+    second: montanha_fundocinza_5
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -127,6 +161,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 99905dd644fc41b4e87bb816ecb5dea9
+      internalID: 21300022
       vertices: []
       indices: 
       edges: []
@@ -135,10 +170,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 1_4_Montanha
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

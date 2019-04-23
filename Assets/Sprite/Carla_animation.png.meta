@@ -1,12 +1,18 @@
 fileFormatVersion: 2
 guid: 9c8ba179f660e7a4ca050c72895e006a
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: Carla_animation_0
-    21300002: Carla_animation_1
-    21300004: Carla_animation_2
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: Carla_animation_0
+  - first:
+      213: 21300002
+    second: Carla_animation_1
+  - first:
+      213: 21300004
+    second: Carla_animation_2
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -135,6 +141,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 17012d9b19b1c7b41a593c2bc6dbbad8
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -168,6 +175,7 @@ TextureImporter:
       tessellationDetail: 1
       bones: []
       spriteID: 8c81a44bdfd43014eaba7f92a3b464ab
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -196,6 +204,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: f1e8036b70995d94ba108b24460f644d
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -204,10 +213,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,12 +1,18 @@
 fileFormatVersion: 2
 guid: ce540a49c33eaf64d8a6eb7ba4c13c22
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: loja_fundo_itens_0
-    21300002: loja_fundo_itens_1
-    21300004: loja_fundo_itens_2
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: loja_fundo_itens_0
+  - first:
+      213: 21300002
+    second: loja_fundo_itens_1
+  - first:
+      213: 21300004
+    second: loja_fundo_itens_2
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -113,6 +119,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a0e194a8ddc532e4da0d05f66678c201
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -133,6 +140,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: aa6ef8a8ee66dca468736eaeca918bdf
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -153,6 +161,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 873da546c59b92d47bd9af5821d7608d
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -161,10 +170,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

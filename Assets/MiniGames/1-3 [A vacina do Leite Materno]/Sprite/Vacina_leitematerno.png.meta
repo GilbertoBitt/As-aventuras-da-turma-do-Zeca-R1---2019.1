@@ -1,12 +1,18 @@
 fileFormatVersion: 2
 guid: e5836b4ee943b8a48a05c55cc2a6809c
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: Vacina_leitematerno_0
-    21300002: Vacina_leitematerno_2
-    21300004: Vacina_leitematerno_3
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: Vacina_leitematerno_0
+  - first:
+      213: 21300002
+    second: Vacina_leitematerno_2
+  - first:
+      213: 21300004
+    second: Vacina_leitematerno_3
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -113,6 +119,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: c936cc23d2712724fbe878b0b5c39982
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -133,6 +140,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 5c466116b038c124f9138d13d4252fc7
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -153,6 +161,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: ffce848db4995454588de6961d6365c0
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -161,10 +170,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: Vacina04
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

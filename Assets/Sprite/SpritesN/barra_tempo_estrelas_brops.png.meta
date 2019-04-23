@@ -1,17 +1,33 @@
 fileFormatVersion: 2
 guid: 6b0d9e703e3f5cf41a944604dd46d198
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: barra_tempo_estrelas_brops_0
-    21300002: barra_tempo_estrelas_brops_1
-    21300004: barra_tempo_estrelas_brops_2
-    21300006: barra_tempo_estrelas_brops_3
-    21300008: barra_tempo_estrelas_brops_4
-    21300010: barra_tempo_estrelas_brops_5
-    21300012: barra_tempo_estrelas_brops_6
-    21300014: barra_tempo_estrelas_brops_7
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: barra_tempo_estrelas_brops_0
+  - first:
+      213: 21300002
+    second: barra_tempo_estrelas_brops_1
+  - first:
+      213: 21300004
+    second: barra_tempo_estrelas_brops_2
+  - first:
+      213: 21300006
+    second: barra_tempo_estrelas_brops_3
+  - first:
+      213: 21300008
+    second: barra_tempo_estrelas_brops_4
+  - first:
+      213: 21300010
+    second: barra_tempo_estrelas_brops_5
+  - first:
+      213: 21300012
+    second: barra_tempo_estrelas_brops_6
+  - first:
+      213: 21300014
+    second: barra_tempo_estrelas_brops_7
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -118,6 +134,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: cab1bd0ba62809746ad28142eb4e3124
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -138,6 +155,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 779d6957286424a49bee49ff0eaff4d2
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -158,6 +176,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 97e7ce630ed86d14881277e379061956
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -178,6 +197,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: b71516dd23a546346b3a1ea6c5f7fdda
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -198,6 +218,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: f0b2e4beaaa0c9f4187c52d7dc2f4900
+      internalID: 21300008
       vertices: []
       indices: 
       edges: []
@@ -218,6 +239,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 184cde73ee1e6a34fbac3dc330a08129
+      internalID: 21300010
       vertices: []
       indices: 
       edges: []
@@ -238,6 +260,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: b4527ffa5f8474c438f2191710714fad
+      internalID: 21300012
       vertices: []
       indices: 
       edges: []
@@ -258,6 +281,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: c0b50efb45837124992cdd7564718100
+      internalID: 21300014
       vertices: []
       indices: 
       edges: []
@@ -266,10 +290,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: "UI-FaixasBot\xF5es"
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

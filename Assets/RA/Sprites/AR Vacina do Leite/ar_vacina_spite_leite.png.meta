@@ -1,12 +1,18 @@
 fileFormatVersion: 2
 guid: 756af07c12b39e340a53e53b2cc9bb9d
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: ar_vacina_spite_leite_0
-    21300002: ar_vacina_spite_leite_1
-    21300004: ar_vacina_spite_leite_2
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: ar_vacina_spite_leite_0
+  - first:
+      213: 21300002
+    second: ar_vacina_spite_leite_1
+  - first:
+      213: 21300004
+    second: ar_vacina_spite_leite_2
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -113,6 +119,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 22c9ac4099b1c554597d6a3240ec18c6
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -133,6 +140,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 9fe58e81fb3ea7c44afe5491c0432069
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -153,6 +161,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 2801ee7bcee0b2c4ebb823d9e0696f8b
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -161,10 +170,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

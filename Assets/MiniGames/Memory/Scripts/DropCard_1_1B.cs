@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO.Pipes;
 using MiniGames.Memory.Scripts;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -85,6 +87,12 @@ public class DropCard_1_1B : MonoBehaviour, IDropHandler, IPointerClickHandler {
 		cardItemName.SetText(characterSprite.NameItem);
 	}
 	
+	public void UpdateName(CardItemAlternative cardItem, int anoLetivo)
+	{
+		characterSprite = cardItem;
+		cardItemName.SetText(anoLetivo == 3 ? cardItem.classification.ToString() : cardItem.NameItem);
+	}
+	
 	
 	IEnumerator<float> TimeCards(){
 
@@ -97,8 +105,10 @@ public class DropCard_1_1B : MonoBehaviour, IDropHandler, IPointerClickHandler {
 		cardDraged = null;
 	}
 
-	public void updateRightText(){
-		cardDraged.RightOneTextComponent.text = this.characterSprite.NameItem;
+	public void updateRightText(int anoLetivo){
+		cardDraged.RightOneTextComponent.SetText(anoLetivo == 2
+			? CultureInfo.CurrentCulture.TextInfo.ToTitleCase(characterSprite.NameItem.ToLower())
+			: characterSprite.NameItem.ToUpper(CultureInfo.CurrentCulture));
 	}
 	public void OnPointerClick(PointerEventData eventData) {
 		if (_voicePlayer == null || (_voicePlayer != null && !_voicePlayer.isPlaying)) {

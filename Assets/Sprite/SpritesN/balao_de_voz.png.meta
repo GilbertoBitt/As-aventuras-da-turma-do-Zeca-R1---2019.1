@@ -1,11 +1,15 @@
 fileFormatVersion: 2
 guid: ec71f44c7f8717d4286e6e03e469cdfc
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: balao_de_voz_0
-    21300002: balao_de_voz_1
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: balao_de_voz_0
+  - first:
+      213: 21300002
+    second: balao_de_voz_1
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -112,6 +116,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: dd4022fe24ffe8840958d52c049d1d1b
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -132,6 +137,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: e7ad1f7c0654e4c4ca1c5b8feb9d21d8
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -140,10 +146,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92721723d15e40adad3af61889694325, type: 3}
+  m_Name: Carta Fiz
+  m_EditorClassIdentifier: 
+  idItem: 0
+  SpriteItem: {fileID: 0}
+  NameItem: Fiz
+  AudioClipItem: {fileID: 0}
+  classification: 0

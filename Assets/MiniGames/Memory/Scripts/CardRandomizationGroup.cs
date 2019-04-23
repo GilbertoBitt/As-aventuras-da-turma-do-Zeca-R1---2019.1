@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using com.csutil;
+using Sirenix.OdinInspector;
+using Sirenix.Utilities;
+using UnityEditor;
 using UnityEngine;
 
 namespace MiniGames.Memory.Scripts
@@ -6,6 +13,43 @@ namespace MiniGames.Memory.Scripts
     public class CardRandomizationGroup : ScriptableObject
     {
         public List<CardItem> GroupItemList = new List<CardItem>();
+        
+        [FoldoutGroup("Tools 2")]
+        [TextArea]
+        public string wordsText;
+
+        [FoldoutGroup("Tools 2")]
+        [Button("Generate Assets")]
+        public void GenerateCoroutine()
+        {
+            var separator = ",";
+            
+            var wordsResult = wordsText.Split(separator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            
+#if UNITY_EDITOR
+            string path = AssetDatabase.GetAssetPath (Selection.activeObject);
+            path = path.Replace (Path.GetFileName (path), "");
+            for (var index = wordsResult.Length - 1; index >= 0; index--)
+            {
+                var word = wordsResult[index];
+                if (word.IsNullOrWhitespace() || word.IsNullOrEmpty()) return;
+                var asset = CreateInstance<CardItem>();
+                var filepath = Path.GetInvalidFileNameChars()
+                    .Aggregate(word, (current, c) => current.Replace(c, ' '));
+                string assetPathAndName = $"{path}Palavras 2 ano/{word}.asset";
+                asset.NameItem = word;
+                AssetDatabase.CreateAsset(asset, assetPathAndName);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+                if (asset != null)
+                {
+                    GroupItemList.Add(asset); 
+                }
+            }
+
+            EditorUtility.FocusProjectWindow ();
+            #endif
+        }
 
         public List<CardItem> SortCardGroup(int level)
         {

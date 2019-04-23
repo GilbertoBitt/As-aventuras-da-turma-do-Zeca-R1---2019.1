@@ -1,17 +1,33 @@
 fileFormatVersion: 2
 guid: e23327e8911ce11448a15497e8f40790
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: bola_tiro
-    21300002: canudo01
-    21300004: canudo02
-    21300006: canudo03
-    21300008: canudo04
-    21300010: canudo05
-    21300012: area_nome
-    21300014: background_area
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: bola_tiro
+  - first:
+      213: 21300002
+    second: canudo01
+  - first:
+      213: 21300004
+    second: canudo02
+  - first:
+      213: 21300006
+    second: canudo03
+  - first:
+      213: 21300008
+    second: canudo04
+  - first:
+      213: 21300010
+    second: canudo05
+  - first:
+      213: 21300012
+    second: area_nome
+  - first:
+      213: 21300014
+    second: background_area
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -118,6 +134,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 7c72e8f3d4a734b4d9950c990902fc04
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -138,6 +155,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 4db4e652dbb109f45b034d2c4fd148d1
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -158,6 +176,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: ff2bbcff4e713b94eacb25816c858b31
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -178,6 +197,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 078b41a60dba12245a6fd6ce8f1e1af4
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -198,6 +218,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 254a4840baf216a43924c2d527462308
+      internalID: 21300008
       vertices: []
       indices: 
       edges: []
@@ -218,6 +239,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 4228be74201b9524a960fa56ec1855a9
+      internalID: 21300010
       vertices: []
       indices: 
       edges: []
@@ -238,6 +260,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 0ecce9acd10bc8f48b7d926c03880db8
+      internalID: 21300012
       vertices: []
       indices: 
       edges: []
@@ -258,6 +281,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: ae1c37d1aeed7fe4b91406041c04e2b8
+      internalID: 21300014
       vertices: []
       indices: 
       edges: []
@@ -266,10 +290,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: Vacina05
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

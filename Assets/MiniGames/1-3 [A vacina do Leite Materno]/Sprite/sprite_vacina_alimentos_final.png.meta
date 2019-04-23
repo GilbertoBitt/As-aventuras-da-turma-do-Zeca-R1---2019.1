@@ -1,41 +1,105 @@
 fileFormatVersion: 2
 guid: 5c62ac6640b51ef48a256731f87bdaf1
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: sprite_vacina_alimentos_final_0
-    21300002: sprite_vacina_alimentos_final_1
-    21300004: sprite_vacina_alimentos_final_2
-    21300006: sprite_vacina_alimentos_final_3
-    21300008: sprite_vacina_alimentos_final_4
-    21300010: sprite_vacina_alimentos_final_5
-    21300012: sprite_vacina_alimentos_final_6
-    21300014: sprite_vacina_alimentos_final_7
-    21300016: sprite_vacina_alimentos_final_8
-    21300018: sprite_vacina_alimentos_final_9
-    21300020: sprite_vacina_alimentos_final_10
-    21300022: sprite_vacina_alimentos_final_11
-    21300024: sprite_vacina_alimentos_final_12
-    21300026: sprite_vacina_alimentos_final_13
-    21300028: sprite_vacina_alimentos_final_14
-    21300030: sprite_vacina_alimentos_final_15
-    21300032: sprite_vacina_alimentos_final_16
-    21300034: sprite_vacina_alimentos_final_17
-    21300036: sprite_vacina_alimentos_final_18
-    21300038: sprite_vacina_alimentos_final_19
-    21300040: sprite_vacina_alimentos_final_20
-    21300042: sprite_vacina_alimentos_final_21
-    21300044: sprite_vacina_alimentos_final_22
-    21300046: sprite_vacina_alimentos_final_23
-    21300048: sprite_vacina_alimentos_final_24
-    21300050: sprite_vacina_alimentos_final_25
-    21300052: sprite_vacina_alimentos_final_26
-    21300054: sprite_vacina_alimentos_final_27
-    21300056: sprite_vacina_alimentos_final_28
-    21300058: sprite_vacina_alimentos_final_29
-    21300060: sprite_vacina_alimentos_final_30
-    21300062: sprite_vacina_alimentos_final_31
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: sprite_vacina_alimentos_final_0
+  - first:
+      213: 21300002
+    second: sprite_vacina_alimentos_final_1
+  - first:
+      213: 21300004
+    second: sprite_vacina_alimentos_final_2
+  - first:
+      213: 21300006
+    second: sprite_vacina_alimentos_final_3
+  - first:
+      213: 21300008
+    second: sprite_vacina_alimentos_final_4
+  - first:
+      213: 21300010
+    second: sprite_vacina_alimentos_final_5
+  - first:
+      213: 21300012
+    second: sprite_vacina_alimentos_final_6
+  - first:
+      213: 21300014
+    second: sprite_vacina_alimentos_final_7
+  - first:
+      213: 21300016
+    second: sprite_vacina_alimentos_final_8
+  - first:
+      213: 21300018
+    second: sprite_vacina_alimentos_final_9
+  - first:
+      213: 21300020
+    second: sprite_vacina_alimentos_final_10
+  - first:
+      213: 21300022
+    second: sprite_vacina_alimentos_final_11
+  - first:
+      213: 21300024
+    second: sprite_vacina_alimentos_final_12
+  - first:
+      213: 21300026
+    second: sprite_vacina_alimentos_final_13
+  - first:
+      213: 21300028
+    second: sprite_vacina_alimentos_final_14
+  - first:
+      213: 21300030
+    second: sprite_vacina_alimentos_final_15
+  - first:
+      213: 21300032
+    second: sprite_vacina_alimentos_final_16
+  - first:
+      213: 21300034
+    second: sprite_vacina_alimentos_final_17
+  - first:
+      213: 21300036
+    second: sprite_vacina_alimentos_final_18
+  - first:
+      213: 21300038
+    second: sprite_vacina_alimentos_final_19
+  - first:
+      213: 21300040
+    second: sprite_vacina_alimentos_final_20
+  - first:
+      213: 21300042
+    second: sprite_vacina_alimentos_final_21
+  - first:
+      213: 21300044
+    second: sprite_vacina_alimentos_final_22
+  - first:
+      213: 21300046
+    second: sprite_vacina_alimentos_final_23
+  - first:
+      213: 21300048
+    second: sprite_vacina_alimentos_final_24
+  - first:
+      213: 21300050
+    second: sprite_vacina_alimentos_final_25
+  - first:
+      213: 21300052
+    second: sprite_vacina_alimentos_final_26
+  - first:
+      213: 21300054
+    second: sprite_vacina_alimentos_final_27
+  - first:
+      213: 21300056
+    second: sprite_vacina_alimentos_final_28
+  - first:
+      213: 21300058
+    second: sprite_vacina_alimentos_final_29
+  - first:
+      213: 21300060
+    second: sprite_vacina_alimentos_final_30
+  - first:
+      213: 21300062
+    second: sprite_vacina_alimentos_final_31
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -142,6 +206,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 6d2c43b8b28196e46b52e97c782a54ef
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -162,6 +227,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 8a29827c5f663b04199fe62463e60722
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -182,6 +248,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 7ccb39bad6543914ab3b36fd192eb8c8
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -202,6 +269,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: c4a6a21e69ce86e4ea2dfc6ecf950cb0
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -222,6 +290,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: b11b1619370733440bc98638299bc12d
+      internalID: 21300008
       vertices: []
       indices: 
       edges: []
@@ -242,6 +311,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 064cf3557678ad248aea27ad1f458e88
+      internalID: 21300010
       vertices: []
       indices: 
       edges: []
@@ -262,6 +332,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 3dce8e7de9d1509479d23a9481c07e2d
+      internalID: 21300012
       vertices: []
       indices: 
       edges: []
@@ -282,6 +353,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 7b41bca35602e04438d0c272295905e6
+      internalID: 21300014
       vertices: []
       indices: 
       edges: []
@@ -302,6 +374,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: afa586bafb1a8284593ca2d82c549d82
+      internalID: 21300016
       vertices: []
       indices: 
       edges: []
@@ -322,6 +395,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 5f1e9585db2060641afeb4196fa9ddaf
+      internalID: 21300018
       vertices: []
       indices: 
       edges: []
@@ -342,6 +416,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 949011cba1ff9984cb9559cf6704a54c
+      internalID: 21300020
       vertices: []
       indices: 
       edges: []
@@ -362,6 +437,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 848a8fd9f6b85a3449e27c9480e5d247
+      internalID: 21300022
       vertices: []
       indices: 
       edges: []
@@ -382,6 +458,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 69080ba654685cf4b89d24ab67bc8b19
+      internalID: 21300024
       vertices: []
       indices: 
       edges: []
@@ -402,6 +479,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: caa65595a7efedf4bb46f7bdd494bbdd
+      internalID: 21300026
       vertices: []
       indices: 
       edges: []
@@ -422,6 +500,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 098fd056cca9bbc479a4653fc549257b
+      internalID: 21300028
       vertices: []
       indices: 
       edges: []
@@ -442,6 +521,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 1cf67a130da9ce544aa410c7885a3d17
+      internalID: 21300030
       vertices: []
       indices: 
       edges: []
@@ -462,6 +542,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 5302a6e53a016c048bb3473053793e5c
+      internalID: 21300032
       vertices: []
       indices: 
       edges: []
@@ -482,6 +563,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: e6143776292eb9546b05f95ff59182d8
+      internalID: 21300034
       vertices: []
       indices: 
       edges: []
@@ -502,6 +584,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 389fcae29a5d9274981225836b9e776a
+      internalID: 21300036
       vertices: []
       indices: 
       edges: []
@@ -522,6 +605,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 77bed69f238cf7f48a865c087ed704b0
+      internalID: 21300038
       vertices: []
       indices: 
       edges: []
@@ -542,6 +626,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 8f8c5d56dd7a67549a3aec996481254e
+      internalID: 21300040
       vertices: []
       indices: 
       edges: []
@@ -562,6 +647,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 0200ab00d06a3f8419c942dab717c31f
+      internalID: 21300042
       vertices: []
       indices: 
       edges: []
@@ -582,6 +668,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: e196a2f6a65087843b466624298938cd
+      internalID: 21300044
       vertices: []
       indices: 
       edges: []
@@ -602,6 +689,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 720337e1fd068ea468db8b2fabbd0e79
+      internalID: 21300046
       vertices: []
       indices: 
       edges: []
@@ -622,6 +710,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 3cef9a0228a8db84db6def7fd78d30d5
+      internalID: 21300048
       vertices: []
       indices: 
       edges: []
@@ -642,6 +731,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: b366ef58a82742a46a27a986de306d5a
+      internalID: 21300050
       vertices: []
       indices: 
       edges: []
@@ -662,6 +752,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 2fc6a8571afef9c46a90a9148305307b
+      internalID: 21300052
       vertices: []
       indices: 
       edges: []
@@ -682,6 +773,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 1ba1d6a75aaa528468f093638261be70
+      internalID: 21300054
       vertices: []
       indices: 
       edges: []
@@ -702,6 +794,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: cb6e4288b44b96b45be57e8f8ae09298
+      internalID: 21300056
       vertices: []
       indices: 
       edges: []
@@ -722,6 +815,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 115386788b0c11f48a3f5892c991fdfb
+      internalID: 21300058
       vertices: []
       indices: 
       edges: []
@@ -742,6 +836,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: bc7db9081286f2a46bf9ac2b1fbb534e
+      internalID: 21300060
       vertices: []
       indices: 
       edges: []
@@ -762,6 +857,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 75af195ef236dc44a9298ecce80667a0
+      internalID: 21300062
       vertices: []
       indices: 
       edges: []
@@ -770,10 +866,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: Vacina06
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,12 +1,18 @@
 fileFormatVersion: 2
 guid: 38a3273eb06ea20439d15bb5b03585c5
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: pressBarra_0
-    21300002: pressBarra_1
-    21300004: pressBarra_2
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: pressBarra_0
+  - first:
+      213: 21300002
+    second: pressBarra_1
+  - first:
+      213: 21300004
+    second: pressBarra_2
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -124,6 +130,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 319f493b7d5035949984565a44c8f49d
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -144,6 +151,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 5fb78b0f27799eb449b5a889ab157859
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -164,6 +172,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 8297b91d545d22c49a27564f2723fe3d
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -172,10 +181,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: "UI-FaixasBot\xF5es"
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

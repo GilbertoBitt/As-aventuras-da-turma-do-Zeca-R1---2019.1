@@ -1,9 +1,9 @@
 fileFormatVersion: 2
 guid: 32030737d4c66bf4a9ee6749b26e38be
 TextureImporter:
-  fileIDToRecycleName: {}
+  internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -98,10 +98,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 6c5177b7a8df73a44b93b14ca8d80770
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: Montanha03
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

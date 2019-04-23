@@ -1,9 +1,9 @@
 fileFormatVersion: 2
 guid: 625f571ddcca34b49b245c062dc69ee2
 TextureImporter:
-  fileIDToRecycleName: {}
+  internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -98,10 +98,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 90751c44cf579f5429b546e1e5bd96b7
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: Arco-Iris03
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

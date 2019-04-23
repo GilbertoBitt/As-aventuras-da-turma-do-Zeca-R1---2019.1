@@ -1,22 +1,48 @@
 fileFormatVersion: 2
 guid: e3885d3b197f2684e914a2d3ee62bcd8
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: GameArco-itens_0
-    21300002: GameArco-itens_1
-    21300004: GameArco-itens_2
-    21300006: GameArco-itens_3
-    21300008: GameArco-itens_4
-    21300010: GameArco-itens_5
-    21300012: GameArco-itens_6
-    21300014: GameArco-itens_7
-    21300016: GameArco-itens_8
-    21300018: GameArco-itens_9
-    21300020: GameArco-itens_10
-    21300022: GameArco-itens_11
-    21300024: GameArco-itens_12
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: GameArco-itens_0
+  - first:
+      213: 21300002
+    second: GameArco-itens_1
+  - first:
+      213: 21300004
+    second: GameArco-itens_2
+  - first:
+      213: 21300006
+    second: GameArco-itens_3
+  - first:
+      213: 21300008
+    second: GameArco-itens_4
+  - first:
+      213: 21300010
+    second: GameArco-itens_5
+  - first:
+      213: 21300012
+    second: GameArco-itens_6
+  - first:
+      213: 21300014
+    second: GameArco-itens_7
+  - first:
+      213: 21300016
+    second: GameArco-itens_8
+  - first:
+      213: 21300018
+    second: GameArco-itens_9
+  - first:
+      213: 21300020
+    second: GameArco-itens_10
+  - first:
+      213: 21300022
+    second: GameArco-itens_11
+  - first:
+      213: 21300024
+    second: GameArco-itens_12
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -189,6 +215,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 8ab08818ad0319c4e87d4e950b915be4
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -209,6 +236,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 029995017951c454a9d925233955b66c
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -229,6 +257,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 161da814fc45cc242866e9673eea811e
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -249,6 +278,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 454379b658c5a124ca5d45aa92e52d9c
+      internalID: 21300008
       vertices: []
       indices: 
       edges: []
@@ -269,6 +299,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: e1162c0cd05ea2d42be5fc48dca9f221
+      internalID: 21300012
       vertices: []
       indices: 
       edges: []
@@ -289,6 +320,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 8c16bc42ec98ee847836c6d7b73ba296
+      internalID: 21300014
       vertices: []
       indices: 
       edges: []
@@ -309,6 +341,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 15f0f7278a5f100419fceef0ae2fa244
+      internalID: 21300020
       vertices: []
       indices: 
       edges: []
@@ -329,6 +362,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 120a097dab94bba49a838c113be8cd6b
+      internalID: 21300022
       vertices: []
       indices: 
       edges: []
@@ -349,6 +383,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 7e83f7b03c92d234bab59ae6dbda1ee3
+      internalID: 21300024
       vertices: []
       indices: 
       edges: []
@@ -369,6 +404,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: dcdb00ff8807f9f4e8731c45f7f52bf0
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -377,10 +413,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: ItemsArcoIris
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

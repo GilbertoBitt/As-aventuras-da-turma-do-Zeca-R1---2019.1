@@ -4,18 +4,36 @@ labels:
 - Image
 - Sprite
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: Circulo
-    21300002: Quadrado
-    21300004: Triangulo
-    21300006: Retangulo
-    21300008: formasgeometricas_4
-    21300010: formasgeometricas_5
-    21300012: formasgeometricas_6
-    21300014: formasgeometricas_7
-    21300016: formasgeometricas_8
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: Circulo
+  - first:
+      213: 21300002
+    second: Quadrado
+  - first:
+      213: 21300004
+    second: Triangulo
+  - first:
+      213: 21300006
+    second: Retangulo
+  - first:
+      213: 21300008
+    second: formasgeometricas_4
+  - first:
+      213: 21300010
+    second: formasgeometricas_5
+  - first:
+      213: 21300012
+    second: formasgeometricas_6
+  - first:
+      213: 21300014
+    second: formasgeometricas_7
+  - first:
+      213: 21300016
+    second: formasgeometricas_8
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -122,6 +140,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: bbcab996ecc0e8643a2b040d1ec4c6fc
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -142,6 +161,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: ff6dea2464c3ac54492f4ee14ee124b5
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -162,6 +182,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 7fa652feca40769488fe23910563bd25
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -182,6 +203,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: efb05fc21105b944aa7ae83e19e1a1d8
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -202,6 +224,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: f6d7c8b25e9325347abe35d2946e6b73
+      internalID: 21300008
       vertices: []
       indices: 
       edges: []
@@ -222,6 +245,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 81ee28c15335e6e4eb1fd7da08a2f275
+      internalID: 21300010
       vertices: []
       indices: 
       edges: []
@@ -242,6 +266,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: f614e8b26f4e40f479f700bf3031d6f5
+      internalID: 21300012
       vertices: []
       indices: 
       edges: []
@@ -262,6 +287,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: e56b456c889475e49872fe151e9ba336
+      internalID: 21300014
       vertices: []
       indices: 
       edges: []
@@ -282,6 +308,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 89997ff44c20e0b4aa519104ae76f2ec
+      internalID: 21300016
       vertices: []
       indices: 
       edges: []
@@ -290,10 +317,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: UI_1_2
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

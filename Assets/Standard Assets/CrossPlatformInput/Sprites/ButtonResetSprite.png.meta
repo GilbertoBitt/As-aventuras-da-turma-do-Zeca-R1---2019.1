@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: a94c9a7eb94ceec4a8d67a1890e22e51
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: ResetButton
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: ResetButton
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -77,10 +79,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 03e528b3a44f35343b082b82556321dc
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

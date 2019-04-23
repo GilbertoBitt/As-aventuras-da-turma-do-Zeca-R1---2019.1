@@ -108,15 +108,29 @@ public class Manager_1_1B : MonoBehaviour
 	[TabGroup("2ª Ano")]
 	[LabelText("Card Group 2ª Ano")]
 	public CardRandomizationGroup cardGroup2Ano;
+	[FormerlySerializedAs("DragCardPrefab2ano")]
 	[TabGroup("2ª Ano")]
 	[LabelText("Drag (Bottom) Cards Prefab")]
 	[SuffixLabel("2ª Ano")]
-	public GameObject DragCardPrefab2ano;
+	public GameObject dragCardPrefab2Ano;
 	[FormerlySerializedAs("DropCardPrefab2ano")]
 	[TabGroup("2ª Ano")]
 	[LabelText("Drop (Top) Cards Prefab")]
 	[SuffixLabel("2ª Ano")]
 	public GameObject dropCardPrefab2Ano;
+	
+	[TabGroup("3ª Ano")]
+	[LabelText("Card Group 3ª Ano")]
+	public CardRandomizationGroupAlternative cardGroup3Ano;
+	[TabGroup("3ª Ano")]
+	[LabelText("Drag (Bottom) Cards Prefab")]
+	[SuffixLabel("3ª Ano")]
+	public GameObject dragCardPrefab3Ano;
+	[FormerlySerializedAs("DropCardPrefab3ano")]
+	[TabGroup("3ª Ano")]
+	[LabelText("Drop (Top) Cards Prefab")]
+	[SuffixLabel("3ª Ano")]
+	public GameObject dropCardPrefab3Ano;
 
 	[TabGroup("Geral")] public int anoLetivo;
 		
@@ -137,8 +151,14 @@ public class Manager_1_1B : MonoBehaviour
 		} else if (anoLetivo == 2)
 		{
 			cardGroup2Ano.GroupItemList.Suffle();
-			InstantiateDragCards(5, DragCardPrefab2ano);
+			InstantiateDragCards(5, dragCardPrefab2Ano);
 			InstantiateDropCards(5, dropCardPrefab2Ano);
+		}
+		else
+		{
+			cardGroup3Ano.ShuffleLists();
+			InstantiateDragCards(4, dragCardPrefab3Ano);
+			InstantiateDropCards(4, dropCardPrefab3Ano);
 		}
 		
 		
@@ -147,7 +167,8 @@ public class Manager_1_1B : MonoBehaviour
 		isPlayTime = false;
 		level = 0;
 		//cardManager.spriteCards.Suffle();
-		for (int i = 0; i < 5; i++){
+		var lenght = dragCards.Length;
+		for (int i = 0; i < lenght; i++){
 			dragCards[i].gameObject.SetActive(false);
 		}
 		//cardMao.enabled=false;
@@ -165,6 +186,7 @@ public class Manager_1_1B : MonoBehaviour
 		{
 			var cardInstance = Instantiate(prefabTarget, bottomCardsParent);
 			var cardManagerInstance = cardInstance.GetComponent(typeof(DragCard_1_1B)) as DragCard_1_1B;
+			cardManagerInstance.OriginalParent = bottomCardsParent;
 			if (cardManagerInstance == null) continue;
 			dragCards[i] = cardManagerInstance;
 			if (cardManagerInstance != null) dragCardsCanvasGroup[i] = cardManagerInstance.thisCanvasGroup;
@@ -204,7 +226,7 @@ public class Manager_1_1B : MonoBehaviour
 			}
 		}
 
-		if(temp >= 5){
+		if(temp >= dropCards.Length){
 			//verify Answers;
 				scoreMade = 0;
 			for (int i = 0; i < dropCardsLength; i++){
@@ -228,7 +250,7 @@ public class Manager_1_1B : MonoBehaviour
         parentDropAnimator.enabled=false;
 		int score = scoreMade * 10;
 		int dropCardsLength = dropCards.Length;
-		scoreTextAnimComponent.text = "Parabéns, você acertou: +" + score.ToString();
+		scoreTextAnimComponent.text = $"Parabéns, você acertou: +{score}";
         LOG.AddPontosPedagogica(score);
 
         for (int i = 0; i < dropCardsLength; i++){
@@ -371,7 +393,7 @@ public class Manager_1_1B : MonoBehaviour
 		parentMiddleGridLayout.enabled = true;
 
 		for (int i = 0; i < wrongs; i++){
-			WrongCardComponent[i].updateRightText();
+			WrongCardComponent[i].updateRightText(anoLetivo);
 		}
 
 		times = 0.0f;
@@ -382,7 +404,7 @@ public class Manager_1_1B : MonoBehaviour
 
 			for (int i = 0; i < wrongs; i++){
 				//WrongCards[i].position = Vector3.Lerp(posFrom[i],posTo[i], repositionCurve.Evaluate (s));
-				WrongCardComponent[i].cardDraged.RightOneTextComponent.transform.localPosition = Vector3.Lerp(new Vector3(0f,0f,0f),posOffsetText,wrongTextCurve.Evaluate(s));
+				WrongCardComponent[i].cardDraged.RightOneTextComponent.transform.localPosition = Vector3.Lerp(new Vector3(0f,-10f,0f),posOffsetText,wrongTextCurve.Evaluate(s));
 				WrongCardComponent[i].cardDraged.RightOneTextComponent.color = Color.Lerp(new Color(1f,1f,1f,0f),YellowColor, wrongTextCurve.Evaluate(s));
 				WrongCardComponent[i].cardDraged.TextComponent.color = Color.Lerp(YellowColor,RedColor, wrongTextCurve.Evaluate(s));
 			}
@@ -479,22 +501,30 @@ public class Manager_1_1B : MonoBehaviour
 
 			spritesChoosen.Suffle();
 		}
+		else if (anoLetivo == 2)
+		{
+			spritesChoosen.Clear();
+			for (int j = level * 5; j < (level*5)+5; j++)
+			{
+				spritesChoosen.Add(cardGroup2Ano.GroupItemList[j]);
+			}
+		}
 		else
 		{
-			for (int i = 0; i < 3; i++)
-			{
-				for (int j = i * 5; j < (i*5)+5; j++)
-				{
-					spritesChoosen.Add(cardGroup2Ano.GroupItemList[j]);
-				}
-			}
+			spritesChoosen.Clear();
+			var result = cardGroup3Ano.GetByIndex(level);
+			spritesChoosen.Add(result.monosillaba);
+			spritesChoosen.Add(result.dissilabo);
+			spritesChoosen.Add(result.trissilabo);
+			spritesChoosen.Add(result.polissilabo);
+			spritesChoosen.Suffle();
 		}
         
 		
-		for (int i = 0; i < 5; i++){			
+		for (int i = 0; i < dragCards.Length; i++){			
 			dragCards[i].transform.SetParent(parentDrag);
 			
-			dragCards[i].UpdateSprite(spritesChoosen[i]);
+			dragCards[i].UpdateSprite(spritesChoosen[i], anoLetivo);
 			dragCards[i].Clear();
 			dragCards[i].thisCanvasGroup.blocksRaycasts = true;
 
@@ -506,13 +536,15 @@ public class Manager_1_1B : MonoBehaviour
 		}
 
 		
-		for (int i = 0; i < 5; i++){
+		for (int i = 0; i < dropCards.Length; i++){
 			dropCards[i].transform.SetParent(parentDrop);
 			if (anoLetivo == 1)
 			{
 				dropCards[i].UpdateSprite(spritesChoosen[i]);
 			} else if (anoLetivo == 2) {
 				dropCards[i].UpdateName(spritesChoosen[i]);
+			}else if (anoLetivo == 3) {
+				dropCards[i].UpdateName(spritesChoosen[i] as CardItemAlternative, anoLetivo);
 			}
 			
 			dropCards[i].Clear();
@@ -542,7 +574,7 @@ public class Manager_1_1B : MonoBehaviour
 	}
 
 	public IEnumerator beginButtons(){
-		for (int i = 0; i < 5; i++){
+		for (int i = 0; i < dragCards.Length; i++){
 			dragCards[i].gameObject.SetActive(true);
 		}
 
@@ -559,7 +591,7 @@ public class Manager_1_1B : MonoBehaviour
 			float xScale = Mathf.Lerp(0f,1f, fadeInButtonCurve.Evaluate(s));
 			float yScale = Mathf.Lerp(0f,1f, fadeInButtonCurve.Evaluate(s));
 
-			for (int i = 0; i < 5; i++){
+			for (int i = 0; i < dragCards.Length; i++){
 				dragCards[i].transform.localScale = new Vector3(xScale,yScale,1f);
 			}
 
@@ -638,9 +670,9 @@ parentDropAnimator.SetBool("nextCanbeStarted", false);
 		groupLayout.enabled = false;
 
         managerMemory.checkdidatica = true;
-        List<Vector3> cardsPos = new List<Vector3>();
+        var cardsPos = new List<Vector3>();
 
-		for (int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++){
 			cardsPos.Add(dropCards[i].transform.position);
 		}
 		

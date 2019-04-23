@@ -4,9 +4,9 @@ labels:
 - Image
 - Sprite
 TextureImporter:
-  fileIDToRecycleName: {}
+  internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -101,10 +101,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 6c85e8a366add9b4c8428388e9abfe1d
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

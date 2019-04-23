@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using com.csutil;
 using MiniGames.Memory.Scripts;
 using TMPro;
 using UnityEngine;
@@ -85,10 +87,23 @@ public class DragCard_1_1B : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 		}
 	}
 
-	public void UpdateSprite(CardItem cardItem){
+	public void UpdateSprite(CardItem cardItem, int anoLetivo){
 		characterSprite = cardItem;
-		TextComponent.text = characterSprite.NameItem;
+		if (anoLetivo == 2)
+		{
+			TextComponent.SetText(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(characterSprite.NameItem.ToLower()));
+			Log.d("Valores de texto", TextComponent.text);
+		}
+		else
+		{
+			TextComponent.SetText(characterSprite.NameItem.ToUpper(CultureInfo.CurrentCulture));
+		}
+		
+		
+		
 	}
+	
+	
 
 	public void Clear(){
 		dropedCard = null;

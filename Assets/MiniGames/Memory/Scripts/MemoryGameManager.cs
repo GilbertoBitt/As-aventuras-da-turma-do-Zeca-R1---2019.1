@@ -375,28 +375,28 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 //			checkTrue = false;
 //			//timeM = Time.realtimeSinceStartup;
 //		}
-		if (Time.realtimeSinceStartup-timeM > 15f && managerNext.dragCards[0].gameObject.activeInHierarchy==true && gTutorMemory.activeInHierarchy == false && checkTrue==false){
-		timeM = Time.realtimeSinceStartup;
-		gTutorMemory.GetComponent<Image> ().color= gTutorMemory.GetComponent<ColImageFund> ().fundCor;
-		gTutorMemory.SetActive(true);
-		TutorBTajuda.SetActive(true);
-		TutorBTavancar.SetActive(false);
-		gTutorMemoryAnimator.SetInteger(NumB,2);
-		//pauseButton.interactable = false;
-		
-
-	}
-		if (  gTutorMemory.activeInHierarchy == true && (managerNext.dragCardsCanvasGroup[0].blocksRaycasts==false ||  managerNext.dragCardsCanvasGroup[1].blocksRaycasts==false || managerNext.dragCardsCanvasGroup[2].blocksRaycasts==false ||  managerNext.dragCardsCanvasGroup[3].blocksRaycasts==false || managerNext.dragCardsCanvasGroup[4].blocksRaycasts==false)){
-		gTutorMemoryAnimator.SetInteger(NumB,0);
-		timeM = Time.realtimeSinceStartup;
-		gTutorMemory.SetActive(false);
-		TutorBTajuda.SetActive(false);
-		TutorBTavancar.SetActive(false);
-		gTutorMemoryAnimator.SetInteger(NumB,0);
-		//	pauseButton.interactable = true;
-		
-
-	}
+//		if (Time.realtimeSinceStartup-timeM > 15f && managerNext.dragCards[0].gameObject.activeInHierarchy==true && gTutorMemory.activeInHierarchy == false && checkTrue==false){
+//		timeM = Time.realtimeSinceStartup;
+//		gTutorMemory.GetComponent<Image> ().color= gTutorMemory.GetComponent<ColImageFund> ().fundCor;
+//		gTutorMemory.SetActive(true);
+//		TutorBTajuda.SetActive(true);
+//		TutorBTavancar.SetActive(false);
+//		gTutorMemoryAnimator.SetInteger(NumB,2);
+//		//pauseButton.interactable = false;
+//		
+//
+//	}
+//		if (  gTutorMemory.activeInHierarchy == true && (managerNext.dragCardsCanvasGroup[0].blocksRaycasts==false ||  managerNext.dragCardsCanvasGroup[1].blocksRaycasts==false || managerNext.dragCardsCanvasGroup[2].blocksRaycasts==false ||  managerNext.dragCardsCanvasGroup[3].blocksRaycasts==false || managerNext.dragCardsCanvasGroup[4].blocksRaycasts==false)){
+//		gTutorMemoryAnimator.SetInteger(NumB,0);
+//		timeM = Time.realtimeSinceStartup;
+//		gTutorMemory.SetActive(false);
+//		TutorBTajuda.SetActive(false);
+//		TutorBTavancar.SetActive(false);
+//		gTutorMemoryAnimator.SetInteger(NumB,0);
+//		//	pauseButton.interactable = true;
+//		
+//
+//	}
 
 	}
 

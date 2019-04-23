@@ -1,14 +1,24 @@
 fileFormatVersion: 2
 guid: 323f12b53aa6f694d9d8415414ca8bc7
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: novocenario_corteobjetos_0
-    21300002: novocenario_corteobjetos_1
-    21300004: novocenario_corteobjetos_2
-    21300006: novocenario_corteobjetos_3
-    21300008: novocenario_corteobjetos_4
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: novocenario_corteobjetos_0
+  - first:
+      213: 21300002
+    second: novocenario_corteobjetos_1
+  - first:
+      213: 21300004
+    second: novocenario_corteobjetos_2
+  - first:
+      213: 21300006
+    second: novocenario_corteobjetos_3
+  - first:
+      213: 21300008
+    second: novocenario_corteobjetos_4
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -115,6 +125,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 7e785c6c756edb04b95c6398d88b64f5
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -135,6 +146,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 40199433928e24246be5345c958b1484
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -155,6 +167,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a32e48fe25aa6b141b1e2ba1e5496b1c
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -175,6 +188,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 700e7d6ce2b0ce4418b437c901bc005a
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -195,6 +209,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 9fd97ced59aec2a4193f3f8e9564929a
+      internalID: 21300008
       vertices: []
       indices: 
       edges: []
@@ -203,10 +218,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: Vacina01_2
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

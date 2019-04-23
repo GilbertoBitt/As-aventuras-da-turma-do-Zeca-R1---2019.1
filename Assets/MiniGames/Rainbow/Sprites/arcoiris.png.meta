@@ -1,9 +1,9 @@
 fileFormatVersion: 2
 guid: f48cc45e5eb731a43ac38c22e525d76e
 TextureImporter:
-  fileIDToRecycleName: {}
+  internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -98,10 +98,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: c346c577747ba7c40a593e9742d079ce
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: RainbowMiniGame
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
