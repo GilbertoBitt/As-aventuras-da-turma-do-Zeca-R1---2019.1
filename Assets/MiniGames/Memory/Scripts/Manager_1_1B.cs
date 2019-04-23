@@ -4,9 +4,18 @@ using MiniGames.Memory.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 using MEC;
+using Sirenix.OdinInspector;
+using TMPro;
+using UnityEngine.Serialization;
 
-public class Manager_1_1B : MonoBehaviour {
+public class Manager_1_1B : MonoBehaviour
+{
 
+	[TabGroup("Geral")] 
+	public Transform bottomCardsParent;
+	[TabGroup("Geral")] 
+	public Transform topCardsParent;
+	
 	public int level = 0;
 	public SpriteRenderer[] cardMaos;
 
@@ -17,7 +26,17 @@ public class Manager_1_1B : MonoBehaviour {
 	public GameObject[] partsCards2;
 	public GameObject partCards2;
 	public MemoryGameManager cardManager;
-	public CardRandomizationGroup CardGroup;
+	[TabGroup("1ª Ano")]
+	public CardRandomizationGroup cardGroup;
+	[TabGroup("1ª Ano")]
+	[LabelText("Name Cards Prefab")]
+	[SuffixLabel("1ª Ano")]
+	public GameObject bottomCardsPrefab1;
+	[TabGroup("1ª Ano")]
+	[LabelText("Image Cards Prefab")]
+	[SuffixLabel("1ª Ano")]
+	public GameObject topCardsPrefab1;
+	
 	public DragCard_1_1B[] dragCards = new DragCard_1_1B[5];
 	public CanvasGroup[] dragCardsCanvasGroup = new CanvasGroup[5];
 	public GridLayoutGroup groupLayout;
@@ -30,11 +49,14 @@ public class Manager_1_1B : MonoBehaviour {
 	GridLayoutGroup parentMiddleGridLayout;
 	public GameObject prefabMiddle;
 	public List<GameObject> middleCardsPositions = new List<GameObject>();
-	public DropCard_1_1B[] dropCards = new DropCard_1_1B[5];
+	public DropCard_1_1B[] 	dropCards = new DropCard_1_1B[5];
+	[TabGroup("1ª Ano")]
+	[LabelText("Sprites Escolhidos")]
+	[SuffixLabel("1ª Ano")]
 	public List<CardItem> spritesChoosen = new List<CardItem>();
 	public GameObject[] deactiveThisPanels;
 	public GameObject nextButton;
-	public Text scoreTextAnimComponent;
+	public TextMeshProUGUI scoreTextAnimComponent;
 	public AudioClip[] clips = new AudioClip[13];
     public AudioClip[] fxsClips = new AudioClip[3];
 	public SoundManager sound;
@@ -47,8 +69,8 @@ public class Manager_1_1B : MonoBehaviour {
 	public Color RedColor;
 	public Color GreenColor;
 	public Color YellowColor;
-	public Text textRight;
-	public Text textWrong;
+	public TextMeshProUGUI textRight;
+	public TextMeshProUGUI textWrong;
 
 	[HeaderAttribute("Animation Settings")]
 	public float repositionDuration;
@@ -82,7 +104,22 @@ public class Manager_1_1B : MonoBehaviour {
 	public int idHabilidade;
 	public int idDificuldade;
 	public LogSystem LOG;
+	
+	[TabGroup("2ª Ano")]
+	[LabelText("Card Group 2ª Ano")]
+	public CardRandomizationGroup cardGroup2Ano;
+	[TabGroup("2ª Ano")]
+	[LabelText("Drag (Bottom) Cards Prefab")]
+	[SuffixLabel("2ª Ano")]
+	public GameObject DragCardPrefab2ano;
+	[FormerlySerializedAs("DropCardPrefab2ano")]
+	[TabGroup("2ª Ano")]
+	[LabelText("Drop (Top) Cards Prefab")]
+	[SuffixLabel("2ª Ano")]
+	public GameObject dropCardPrefab2Ano;
 
+	[TabGroup("Geral")] public int anoLetivo;
+		
 
 	// Use this for initialization
 	void Start () {
@@ -91,6 +128,20 @@ public class Manager_1_1B : MonoBehaviour {
 		parentDropAnimator = parentDrop.GetComponent<Animator>();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
 		managerMemory = GetComponent<MemoryGameManager>();
+//		managerMemory.config.UpdateCurrent(managerMemory.config.currentUser);
+//		anoLetivo = managerMemory.config.currentYear.idAnoLetivo;
+		if (anoLetivo == 1)
+		{
+			InstantiateDragCards(5, bottomCardsPrefab1);
+			InstantiateDropCards(5, topCardsPrefab1);
+		} else if (anoLetivo == 2)
+		{
+			cardGroup2Ano.GroupItemList.Suffle();
+			InstantiateDragCards(5, DragCardPrefab2ano);
+			InstantiateDropCards(5, dropCardPrefab2Ano);
+		}
+		
+		
 		zecaCard = managerMemory.personReation;
 //particulasCartsDita.SetActive(false);
 		isPlayTime = false;
@@ -104,6 +155,33 @@ public class Manager_1_1B : MonoBehaviour {
 		partCards2.SetActive(false);
 		cardMao.enabled=false;
 		//panelDesafio.SetActive(checkpanelDesafio);
+	}
+
+	public void InstantiateDragCards(int amount, GameObject prefabTarget)
+	{
+		dragCards = new DragCard_1_1B[amount];
+		dragCardsCanvasGroup = new CanvasGroup[amount];
+		for (int i = 0; i < amount; i++)
+		{
+			var cardInstance = Instantiate(prefabTarget, bottomCardsParent);
+			var cardManagerInstance = cardInstance.GetComponent(typeof(DragCard_1_1B)) as DragCard_1_1B;
+			if (cardManagerInstance == null) continue;
+			dragCards[i] = cardManagerInstance;
+			if (cardManagerInstance != null) dragCardsCanvasGroup[i] = cardManagerInstance.thisCanvasGroup;
+		}
+	}
+
+	public void InstantiateDropCards(int amount, GameObject prefabTarget)
+	{
+		dropCards = new DropCard_1_1B[amount];
+		for (int i = 0; i < amount; i++)
+		{
+			var dropInstance = Instantiate(prefabTarget, topCardsParent);
+			var dropManagerInstance = dropInstance.GetComponent(typeof(DropCard_1_1B)) as DropCard_1_1B;
+			if (dropManagerInstance == null) continue;
+			dropManagerInstance.manager = this;
+			dropCards[i] = dropManagerInstance;
+		}
 	}
 	
 	// Update is called once per frame
@@ -312,7 +390,7 @@ public class Manager_1_1B : MonoBehaviour {
 			yield return Yielders.EndOfFrame;
 		}
 
-		groupLayoutDrop.enabled = false;
+//		groupLayoutDrop.enabled = false;
 		level++;
 		nextButton.SetActive(true);
 
@@ -373,46 +451,70 @@ public class Manager_1_1B : MonoBehaviour {
             }
 		}
 
-        
 
-        spritesChoosen.Clear();
-		switch (level){
-			case 0:
-				for (int i = 0; i < 5; i++){
-					spritesChoosen.Add(CardGroup.GroupItemList[i]);
-				}
-			break;	
-			case 1:
-				for (int i = 5; i < 10; i++){
-					spritesChoosen.Add(CardGroup.GroupItemList[i]);
-				}
-			break;
-			case 2:
-				for (int i = 0; i < 11; i++){
-					if(i%2==1){
-						spritesChoosen.Add(CardGroup.GroupItemList[i]);
+		if (anoLetivo == 1)
+		{
+			spritesChoosen.Clear();
+			switch (level){
+				case 0:
+					for (int i = 0; i < 5; i++){
+						spritesChoosen.Add(cardGroup.GroupItemList[i]);
 					}
-				}
-			break;
-			default:
-			break;
-		}
+					break;	
+				case 1:
+					for (int i = 5; i < 10; i++){
+						spritesChoosen.Add(cardGroup.GroupItemList[i]);
+					}
+					break;
+				case 2:
+					for (int i = 0; i < 11; i++){
+						if(i%2==1){
+							spritesChoosen.Add(cardGroup.GroupItemList[i]);
+						}
+					}
+					break;
+				default:
+					break;
+			}
 
-		spritesChoosen.Suffle();
+			spritesChoosen.Suffle();
+		}
+		else
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = i * 5; j < (i*5)+5; j++)
+				{
+					spritesChoosen.Add(cardGroup2Ano.GroupItemList[j]);
+				}
+			}
+		}
+        
 		
 		for (int i = 0; i < 5; i++){			
 			dragCards[i].transform.SetParent(parentDrag);
+			
 			dragCards[i].UpdateSprite(spritesChoosen[i]);
 			dragCards[i].Clear();
 			dragCards[i].thisCanvasGroup.blocksRaycasts = true;
 
 		}
 
-		spritesChoosen.Suffle();
+		if (anoLetivo == 1)
+		{
+			spritesChoosen.Suffle();
+		}
 
+		
 		for (int i = 0; i < 5; i++){
 			dropCards[i].transform.SetParent(parentDrop);
-			dropCards[i].UpdateSprite(spritesChoosen[i]);
+			if (anoLetivo == 1)
+			{
+				dropCards[i].UpdateSprite(spritesChoosen[i]);
+			} else if (anoLetivo == 2) {
+				dropCards[i].UpdateName(spritesChoosen[i]);
+			}
+			
 			dropCards[i].Clear();
 		}
         //ResetCardScale();
@@ -490,7 +592,7 @@ public class Manager_1_1B : MonoBehaviour {
       
 
 	
-		CardGroup.GroupItemList.Suffle();
+        cardGroup.GroupItemList.Suffle();
 		int deactiveThisPanelsLength = deactiveThisPanels.Length;
 		for (int i = 0; i < deactiveThisPanelsLength; i++){
 			deactiveThisPanels[i].SetActive(false);
@@ -554,8 +656,8 @@ parentDropAnimator.SetBool("nextCanbeStarted", false);
 			float yScale = Mathf.Lerp(1f, 0f, cardManager.makeDeckCurve.Evaluate(s));
 
 			for (int i = 0; i < 5; i++){
-				dropCards[i].transform.localScale = new Vector3(xScale,yScale,1f);
-				dropCards[i].transform.position = Vector3.Lerp(cardsPos[i],cardManager.characterDeckLocation.position,cardManager.makeDeckCurve.Evaluate(s));
+//				dropCards[i].transform.localScale = new Vector3(xScale,yScale,1f);
+//				dropCards[i].transform.position = Vector3.Lerp(cardsPos[i],cardManager.characterDeckLocation.position,cardManager.makeDeckCurve.Evaluate(s));
               
 			}
 

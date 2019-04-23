@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using MEC;
+using TMPro;
 
 public class DropCard_1_1B : MonoBehaviour, IDropHandler, IPointerClickHandler {
 
@@ -17,7 +18,9 @@ public class DropCard_1_1B : MonoBehaviour, IDropHandler, IPointerClickHandler {
 	public List<AudioClip> clips = new List<AudioClip>();
 	private Image thisImageComp;
 	public Outline thisoutline;
-
+	public TextMeshProUGUI cardItemName;
+	private AudioSource _voicePlayer;
+	private static readonly int PosCorpoZeca = Animator.StringToHash("posCorpoZeca");
 	// Use this for initialization
 	void Start () {
 
@@ -75,11 +78,19 @@ public class DropCard_1_1B : MonoBehaviour, IDropHandler, IPointerClickHandler {
 		thisImageComp.sprite = characterSprite.SpriteItem;
 		Timing.RunCoroutine(TimeCards());
 	}
+
+	public void UpdateName(CardItem cardItem)
+	{
+		characterSprite = cardItem;
+		cardItemName.SetText(characterSprite.NameItem);
+	}
+	
+	
 	IEnumerator<float> TimeCards(){
 
-		manager.zecaCard.ControlAnimCorpo.SetInteger ("posCorpoZeca",5);
+		manager.zecaCard.ControlAnimCorpo.SetInteger (PosCorpoZeca,5);
 		yield return Timing.WaitForSeconds(3f);
-		manager.zecaCard.ControlAnimCorpo.SetInteger ("posCorpoZeca",5);
+		manager.zecaCard.ControlAnimCorpo.SetInteger (PosCorpoZeca,5);
 	}
 
 	public void Clear(){
@@ -89,8 +100,6 @@ public class DropCard_1_1B : MonoBehaviour, IDropHandler, IPointerClickHandler {
 	public void updateRightText(){
 		cardDraged.RightOneTextComponent.text = this.characterSprite.NameItem;
 	}
-
-	private AudioSource _voicePlayer;
 	public void OnPointerClick(PointerEventData eventData) {
 		if (_voicePlayer == null || (_voicePlayer != null && !_voicePlayer.isPlaying)) {
 			_voicePlayer = sound.startVoiceFXReturn(characterSprite.AudioClipItem);

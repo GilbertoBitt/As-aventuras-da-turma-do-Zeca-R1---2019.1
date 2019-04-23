@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using MEC;
 using DG.Tweening;
 using MiniGames.Memory.Scripts;
+using TMPro;
 
 public class MemoryGameManager : OverridableMonoBehaviour {
 
@@ -41,7 +42,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 	public Transform animatedTextTransform;
 	public Transform starsParent;
 	public Image[] starsImage = new Image[3];
-	public Text textPoints;
+	public TextMeshProUGUI textPoints;
 	public Slider timeSlider;
 	public GridLayoutGroup gridLayout;
 
@@ -131,8 +132,8 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 
     public GameObject btTextProfPular;
     public string[] textProfS;
-	 public Text textProf;
-	 public Text textAvancar;
+	 public TextMeshProUGUI textProf;
+	 public TextMeshProUGUI textAvancar;
 
 	 public GameObject btInicar;
 	public GameObject _EventSystem;
@@ -247,8 +248,9 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		}
 		if(SelPersonsR.PersonSel==0){
 			personReation = personReations[0];
-			foreach (var item in part) {
-			item.sortingLayerName = "zeca";
+			foreach (var item in part)
+			{
+				if (item != null) item.sortingLayerName = "zeca";
 			} 
 			managerNext.cardMao = managerNext.cardMaos[0];
 			managerNext.partCards = managerNext.partsCards[0];
@@ -256,8 +258,9 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		}
 		else if(SelPersonsR.PersonSel==1){
 			personReation = personReations[1];
-			foreach (var item in part) {
-			item.sortingLayerName = "Tati";
+			foreach (var item in part)
+			{
+				if (item != null) item.sortingLayerName = "Tati";
 			}
 			managerNext.cardMao = managerNext.cardMaos[1];
 			managerNext.partCards = managerNext.partsCards[1];
@@ -265,8 +268,9 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		}
 		else if(SelPersonsR.PersonSel==2){
 			personReation = personReations[2];
-			foreach (var item in part) {
-			item.sortingLayerName = "Paulo";
+			foreach (var item in part)
+			{
+				if (item != null) item.sortingLayerName = "Paulo";
 			}
 			managerNext.cardMao = managerNext.cardMaos[2];
 			managerNext.partCards = managerNext.partsCards[2];
@@ -274,8 +278,9 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		}
 		else if(SelPersonsR.PersonSel==3){
 			personReation = personReations[3];
-			foreach (var item in part) {
-			item.sortingLayerName = "manu";
+			foreach (var item in part)
+			{
+				if (item != null) item.sortingLayerName = "manu";
 			}
 			managerNext.cardMao = managerNext.cardMaos[3];
 			managerNext.partCards = managerNext.partsCards[3];
@@ -283,8 +288,9 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		}
 		else if(SelPersonsR.PersonSel==4){
 			personReation = personReations[4];
-			foreach (var item in part) {
-			item.sortingLayerName = "Joao";
+			foreach (var item in part)
+			{
+				if (item != null) item.sortingLayerName = "Joao";
 			}
 			managerNext.cardMao = managerNext.cardMaos[4];
 			managerNext.partCards = managerNext.partsCards[4];
@@ -292,8 +298,9 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		}
 		else if(SelPersonsR.PersonSel==5){
 			personReation = personReations[5];
-			foreach (var item in part) {
-			item.sortingLayerName = "Bia";
+			foreach (var item in part)
+			{
+				if (item != null) item.sortingLayerName = "Bia";
 			}
 			managerNext.cardMao = managerNext.cardMaos[5];
 			managerNext.partCards = managerNext.partsCards[5];
@@ -361,13 +368,13 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 
 		#endif
 
-		if (DragCard_1_1B1[0].hasDroped == true || DragCard_1_1B1[1].hasDroped == true || DragCard_1_1B1[2].hasDroped == true || DragCard_1_1B1[3].hasDroped == true || DragCard_1_1B1[4].hasDroped == true) {
-			checkTrue = true;
-			timeM = Time.realtimeSinceStartup;
-		} else {
-			checkTrue = false;
-			//timeM = Time.realtimeSinceStartup;
-		}
+//		if (DragCard_1_1B1[0].hasDroped == true || DragCard_1_1B1[1].hasDroped == true || DragCard_1_1B1[2].hasDroped == true || DragCard_1_1B1[3].hasDroped == true || DragCard_1_1B1[4].hasDroped == true) {
+//			checkTrue = true;
+//			timeM = Time.realtimeSinceStartup;
+//		} else {
+//			checkTrue = false;
+//			//timeM = Time.realtimeSinceStartup;
+//		}
 		if (Time.realtimeSinceStartup-timeM > 15f && managerNext.dragCards[0].gameObject.activeInHierarchy==true && gTutorMemory.activeInHierarchy == false && checkTrue==false){
 		timeM = Time.realtimeSinceStartup;
 		gTutorMemory.GetComponent<Image> ().color= gTutorMemory.GetComponent<ColImageFund> ().fundCor;

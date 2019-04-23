@@ -22,14 +22,16 @@ public class ZecaCards : OverridableMonoBehaviour {
 	}
 	void AtivarPartCards(){
 
-		foreach (var item in parcards) {
-			item.SetActive (true);
+		foreach (var item in parcards)
+		{
+			if (item != null) item.SetActive(true);
 		}
 	}
 	void DesativarPartCards(){
 
-		foreach (var item in parcards) {
-			item.SetActive (false);
+		foreach (var item in parcards)
+		{
+			if (item != null) item.SetActive(false);
 		}
 	}
 
@@ -75,8 +77,9 @@ public class ZecaCards : OverridableMonoBehaviour {
 	yield return new WaitForSeconds(1f);
 	Manager_1_1BB.partCards.SetActive(false);	
 	GetComponent<Animator>().SetInteger("posCorpoZeca",0);
-		foreach (var item in parcards) {
-			item.SetActive (false);
+		foreach (var item in parcards)
+		{
+			if (item != null) item.SetActive(false);
 		}
 		
 	}

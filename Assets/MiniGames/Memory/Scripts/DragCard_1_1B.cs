@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using MiniGames.Memory.Scripts;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
@@ -11,8 +12,8 @@ public class DragCard_1_1B : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 	
 	public Manager_1_1B manager;
 	public CardItem characterSprite;
-	public Text TextComponent;
-	public Text RightOneTextComponent;
+	public TextMeshProUGUI TextComponent;
+	public TextMeshProUGUI RightOneTextComponent;
 	public UnityEvent OnBeginDragE;
 	public UnityEvent OnDragE;
 	public UnityEvent OnEndDragE;
