@@ -125,7 +125,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.2.322
+  bundleVersion: 2.2.325
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -172,9 +172,9 @@ PlayerSettings:
     iPhone: br.com.eduqbrinq.asaventurasdaturmadozeca
     tvOS: br.com.mentor
   buildNumber:
-    Standalone: 322
-    iPhone: 322
-  AndroidBundleVersionCode: 22322
+    Standalone: 325
+    iPhone: 325
+  AndroidBundleVersionCode: 22325
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -264,12 +264,11 @@ PlayerSettings:
   clonedFromGUID: 00000000000000000000000000000000
   templatePackageId: 
   templateDefaultScene: 
-  AndroidTargetArchitectures: 7
+  AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 2
   androidSplashScreen: {fileID: 2800000, guid: 4b5c96134846a3b478b5140d4ef70465, type: 3}
-  AndroidKeystoreName: C:/Users/Administrador.WIN-2I1P2GRMKPH/keystores/As aventuras
-    da Turma do Zeca R1.keystore
-  AndroidKeyaliasName: alpha
+  AndroidKeystoreName: C:/Users/Administrador.WIN-2I1P2GRMKPH/user.keystore
+  AndroidKeyaliasName: mentor
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1

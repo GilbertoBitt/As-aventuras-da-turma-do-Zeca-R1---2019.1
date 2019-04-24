@@ -672,7 +672,7 @@ parentDropAnimator.SetBool("nextCanbeStarted", false);
         managerMemory.checkdidatica = true;
         var cardsPos = new List<Vector3>();
 
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < dropCards.Length; i++){
 			cardsPos.Add(dropCards[i].transform.position);
 		}
 		

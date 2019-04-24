@@ -7,6 +7,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MiniGames.Memory.Scripts
 {
@@ -19,9 +20,10 @@ namespace MiniGames.Memory.Scripts
         [HideInInspector] public List<CardItemAlternative> trissilabo = new List<CardItemAlternative>();
         [HideInInspector] public List<CardItemAlternative> polissilabo = new List<CardItemAlternative>();
         
+        [FormerlySerializedAs("wordsText")]
         [FoldoutGroup("Tools 1")]
         [TextArea]
-        public string wordsText;
+        public string wordsText2;
         [FoldoutGroup("Tools 1")]
         public Classification wordsClassification;
 
@@ -33,7 +35,7 @@ namespace MiniGames.Memory.Scripts
 #if UNITY_EDITOR
             var separator = ",";
             
-            var wordsResult = wordsText.Split(separator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            var wordsResult = wordsText2.Split(separator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             
             
             string path = AssetDatabase.GetAssetPath (Selection.activeObject);
