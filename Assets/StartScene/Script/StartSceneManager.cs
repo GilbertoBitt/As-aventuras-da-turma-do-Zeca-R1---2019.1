@@ -184,7 +184,7 @@ public class StartSceneManager : MonoBehaviour {
         if (_progressBarGameObject.activeInHierarchy == false) {
             _progressBarGameObject.SetActive(true);
         }
-        if (request == null) yield break;
+
         while (!request.isDone) {
             if (request.uploadHandler != null) {
                 ProgressSliderBar.value += request.uploadProgress;
@@ -820,7 +820,7 @@ public class StartSceneManager : MonoBehaviour {
     }
 
     public void OnlineAcessFailed() {
-        Invoke("AcessFailed", 0.1f);
+        Invoke(nameof(AcessFailed), 0.1f);
         Timing.KillCoroutines("LoginRoutine");
     }
 

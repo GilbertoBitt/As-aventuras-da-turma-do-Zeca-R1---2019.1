@@ -13,25 +13,7 @@ public class DBOESTATISTICA_DIDATICA {
 	public int idMinigame {get; set;}
 	public int acertou {get; set;}
     public int online { get; set; }
-
-    public override string ToString ()
-	{
-		return string.Format (
-			"<color=#ffffff> -------------------------------------------------------------</color>\n" +
-			"<color=#ffffff>ID Usuario - </color><color=#4286f4>{0}</color>\n" +
-			"<color=#ffffff>Data Insert - </color><color=#4286f4>{1}</color>\n" +
-			"<color=#ffffff>ID Competencia - </color><color=#4286f4>{2}</color>\n" +
-			"<color=#ffffff>ID Dificuldade - </color><color=#4286f4>{3}</color>\n" +
-			"<color=#ffffff>ID Minigame - </color><color=#4286f4>{4}</color>\n" +
-			"<color=#ffffff>Acertou - </color><color=#4286f4>{5}</color>\n" +
-			"<color=#ffffff> -------------------------------------------------------------</color>\n",
-			idUsuario, 
-			dataInsert,
-            idGameDidatico,
-			idDificuldade,
-			idMinigame,
-			acertou);
-	}
+	
 
     public DBOESTATISTICA_DIDATICA() {
         idUsuario = 0;

@@ -74,7 +74,7 @@ public class TutorItem : MonoBehaviour {
       
 
     }
-
+/*
     // Update is called once per frame
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -171,29 +171,11 @@ public class TutorItem : MonoBehaviour {
             }
             Time.timeScale = 0;
             thisCollider2D.enabled = false;
-
-        } /*else if (PlayerPrefs.HasKey("tutorpularN1") == false && pular && thisCollider2D.IsTouching(manager.BoxCollider2DPlayer)) {
-              TutorVacine1.btTelao.SetActive(true);
-                TutorVacine1.pularTex.SetActive(false);
-            Timing.RunCoroutine(SomTutor(4));
-            PlayerPrefs.SetInt("tutorpularN1", 1);
-           // manager.checkTutorPular = PlayerPrefs.GetInt("tutorpularN1", 1) == 1 ? true : false;
-            TutorVacine1.textTutor.text = textoItem;
-            manager.tutorVacineGame = true;
-            manager.tutorVacine.SetActive(true);
-            // TutorVacine1.iniciarG1.SetActive(true);
-            TutorVacine1.turtorVac2.SetActive(true);
-            TutorVacine1.Professora.SetActive(true);
-            TutorVacine1.pularTex.SetActive(true);
-            TutorVacine1.Professora.GetComponent<Animator>().enabled = true;
-            tutorAnim.enabled = true;
-            if (tutorAnim.isActiveAndEnabled == true) {
-                tutorAnim.SetInteger("iniTutor", 1);
-            }
-            Time.timeScale = 0;
-            thisCollider2D.enabled = false;
-
-        }
-        */
+            
+        } 
     }
+    
+    
+    */
+  
 }

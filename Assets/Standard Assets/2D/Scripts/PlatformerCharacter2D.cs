@@ -11,7 +11,7 @@ namespace UnityStandardAssets._2D
 
     public class PlatformerCharacter2D : MonoBehaviour {
         [SerializeField] public float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
-        [SerializeField] private float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
+        [SerializeField] public float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
         [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;
@@ -63,7 +63,10 @@ namespace UnityStandardAssets._2D
         public float speedItemSpeed = 7f;
         public bool EndedByLife;
         public Collider2D collVoando;
-
+        public bool piscinaBolas;
+       
+        public GameObject piscina2;
+        public UnityEvent PiscinaBolaIv;
 
         #region events
 
@@ -228,12 +231,7 @@ namespace UnityStandardAssets._2D
             // Set whether or not the character is crouching in the animator
           
                 m_Anim.SetBool("Crouch", crouch);
-
                 boxCollider2D.enabled = !crouch;
-              
-
-
-            
 
             //only control the player if grounded or airControl is turned on
             if (m_Grounded || m_AirControl) {
@@ -391,9 +389,18 @@ namespace UnityStandardAssets._2D
                 Invoke("FimM", 1f);
 
             }
+            
 
         }
-      
+
+        void OnCollisionEnter2D(Collision2D collision) {
+            if (piscinaBolas && collision.gameObject.name == "BoxColliderPiscina1") {
+                piscinaBolas = false;
+                PiscinaBolaIv.Invoke();
+            }
+
+        }
+
         void FimM() {
             PararCorrer.Invoke();
             m_Anim.SetInteger("EndColl", 1);

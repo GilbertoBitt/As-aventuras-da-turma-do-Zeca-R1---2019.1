@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using Newtonsoft.Json;
+using com.csutil;
+using MiniJSON;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -30,12 +30,16 @@ public class networkHelper {
     public void NetworkVeryfier(GameConfig configs) {
         configs.isVerifingNetwork = true;
 
-        if(Application.internetReachability == NetworkReachability.NotReachable) {
-            configs.isOnline = false;
-            configs.isVerifingNetwork = false;
-        } else if ((Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork || Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork)){
-            configs.isOnline = true;
-            /*string HtmlText = GetHtmlFromUri("https://google.com");
+        switch (Application.internetReachability)
+        {
+            case NetworkReachability.NotReachable:
+                configs.isOnline = false;
+                configs.isVerifingNetwork = false;
+                break;
+            case NetworkReachability.ReachableViaCarrierDataNetwork:
+            case NetworkReachability.ReachableViaLocalAreaNetwork:
+                configs.isOnline = true;
+                /*string HtmlText = GetHtmlFromUri("https://google.com");
             if (string.IsNullOrEmpty(HtmlText)) {              //No connection
                 configs.isOnline = false;
                 //Debug.Log("[<color=#ffffff>IsOnline</color> " + configs.isOnline + "]");
@@ -51,7 +55,8 @@ public class networkHelper {
                 //Debug.Log("[<color=#ffffff>IsOnline</color> " + configs.isOnline + "]");
                 //success login
             }*/
-            configs.isVerifingNetwork = false;
+                configs.isVerifingNetwork = false;
+                break;
         }
         configs.isVerifingNetwork = false;
         /* string HtmlText = GetHtmlFromUri("http://google.com");
@@ -77,30 +82,7 @@ public class networkHelper {
          //Debug.Log("[<color=#ffffff>IsOnline</color> " + configs.isOnline + "]");*/
     }
 
-    public string GetHtmlFromUri(string resource) {
-        string html = string.Empty;
-        HttpWebRequest req = (HttpWebRequest)WebRequest.Create(resource);
-        try {
-            using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse()) {
-                bool isSuccess = (int)resp.StatusCode < 299 && (int)resp.StatusCode >= 200;
-                if (isSuccess) {
-                    using (StreamReader reader = new StreamReader(resp.GetResponseStream())) {
-                        //We are limiting the array to 80 so we don't have
-                        //to parse the entire html document feel free to 
-                        //adjust (probably stay under 300)
-                        char[] cs = new char[80];
-                        reader.Read(cs, 0, cs.Length);
-                        foreach (char ch in cs) {
-                            html += ch;
-                        }
-                    }
-                }
-            }
-        } catch {
-            return "";
-        }
-        return html;
-    }
+    
 
     #region dboSync
     /*public void GetDBOSYNC(string dbosyncURI, int idCliente) {
@@ -123,7 +105,7 @@ public class networkHelper {
         form.AddField("idGame", _idClient);
         form.AddField("gameKey", config.returnDecryptKey());
 
-        using (UnityWebRequest request = UnityWebRequest.Post(dbosyncURI, form)) {
+        using (var request = UnityWebRequest.Post(dbosyncURI, form)) {
             request.timeout = 10;
             request.redirectLimit = 2;
             yield return Timing.WaitUntilDone(startScene.StartProgressWebRequest(request));
@@ -286,105 +268,105 @@ public class networkHelper {
         Timing.RunCoroutine(QueueSend(_logToSend, _rankToSend, _statisticaToSend, _logsGames, userScoreUpdates, userInventoryUdpdate));
     }*/
 
-    public IEnumerator<float> QueueSend(Action<bool,string,string> failed, List<JogosLogSerializeble> _logToSend, List<rankLogSeriazeble> _rankToSend, List<EstatisticaDidaticaSerialazeble> _statisticaToSend, List<GamesLogSerializable> _logsGames, List<int> userScoreUpdates, List<InventorySerializable> userInventoryUdpdate) {
-        LoginFailedEvent = failed;
-        startScene.MessageStatus("Sincronizando Jogo");
-        int countTemp = _logToSend.Count;
-       
-        if (countTemp >= 1 && config.isOnline) {
-            startScene.MessageStatus("Sincronizando Logs do Jogo");
-            do {
-                _logToSend[0].token = token;
-                
-                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetJogosLog(_logToSend[0], true)));
-                yield return Timing.WaitForSeconds(0.1f);
-                //countTemp--;
-            } while (_logToSend.Count >= 1 && config.isOnline);
-        }
-
-        
-        countTemp = _rankToSend.Count;
-        if (countTemp >= 1 && config.isOnline) {
-            startScene.MessageStatus("Sincronizando Ranking");
-            do {
-                
-                _rankToSend[0].token = token;                
-                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(setRanking(_rankToSend[0])));
-                yield return Timing.WaitForSeconds(0.1f);
-                
-            } while (_rankToSend.Count >= 1 && config.isOnline);
-        }
-
-        countTemp = _statisticaToSend.Count;
-        
-        if (countTemp >= 1 && config.isOnline) {
-            startScene.MessageStatus("Sincronizando Estatísticas");
-            do {
-                //_statisticaToSend[0].token = token;
-                
-                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetStatistics(_statisticaToSend[0])));
-                yield return Timing.WaitForSeconds(0.1f);
-                //countTemp--;
-            } while (config.isOnline && _statisticaToSend.Count > 0);
-        }
-
-        countTemp = _logsGames.Count;
-        if (countTemp >= 1 && config.isOnline) {
-            startScene.MessageStatus("Sincronizando Logs");
-            do {
-                
-                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(SendGamesLog(_logsGames[0])));
-                yield return Timing.WaitForSeconds(0.1f);
-            } while (_logsGames.Count >= 1 && config.isOnline);
-        }
-
-        
-        countTemp = userScoreUpdates.Count;
-
-        if (countTemp >= 1 && config.isOnline) {
-            startScene.MessageStatus("Sincronizando Pontuações");
-            do {
-                DBOPONTUACAO scoreToUpdate = config.openDB().GetScore(userScoreUpdates[0]);
-                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(setPontuacao(userScoreUpdates[0], token)));
-                yield return Timing.WaitForSeconds(0.1f);
-            } while (userScoreUpdates.Count >= 1 && config.isOnline);
-        }
-
-        /*countTemp = userScoreUpdates.Count;
-        if(countTemp >= 1 && config.isOnline) {
-            for (int i = 0; i < countTemp; i++) {
-                if (config.isOnline) {
-                    
-                    DBOPONTUACAO scoreToUpdate = config.openDB().GetScore(userScoreUpdates[0]);
-                    yield return Timing.WaitForSeconds(0.1f);
-                    yield return Timing.WaitUntilDone(Timing.RunCoroutine(setPontuacao(scoreToUpdate, token)));
-
-                }
-            }
-        }*/
-
-        
-        countTemp = userInventoryUdpdate.Count;
-        if (countTemp >= 1 && config.isOnline) {
-            startScene.MessageStatus("Sincronizando Inventário");
-            do {
-                DBOPONTUACAO scoreToUpdate = config.openDB().GetScore(userScoreUpdates[0]);
-                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetInventario(userInventoryUdpdate[0])));
-                yield return Timing.WaitForSeconds(0.1f);
-            } while (userInventoryUdpdate.Count >= 1 && config.isOnline);
-        }
-
-        /*countTemp = userInventoryUdpdate.Count;
-        if(countTemp >= 1 && config.isOnline) {
-            for (int i = 0; i < countTemp; i++) {
-                if (config.isOnline) {
-                    yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetInventario(userInventoryUdpdate[0])));
-                }
-            }
-        }*/
-
-
-    }
+//    public IEnumerator<float> QueueSend(Action<bool,string,string> failed, List<JogosLogSerializeble> _logToSend, List<rankLogSeriazeble> _rankToSend, List<EstatisticaDidaticaSerialazeble> _statisticaToSend, List<GamesLogSerializable> _logsGames, List<int> userScoreUpdates, List<InventorySerializable> userInventoryUdpdate) {
+//        LoginFailedEvent = failed;
+//        startScene.MessageStatus("Sincronizando Jogo");
+//        int countTemp = _logToSend.Count;
+//       
+//        if (countTemp >= 1 && config.isOnline) {
+//            startScene.MessageStatus("Sincronizando Logs do Jogo");
+//            do {
+//                _logToSend[0].token = token;
+//                
+//                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetJogosLog(_logToSend[0], true)));
+//                yield return Timing.WaitForSeconds(0.1f);
+//                //countTemp--;
+//            } while (_logToSend.Count >= 1 && config.isOnline);
+//        }
+//
+//        
+//        countTemp = _rankToSend.Count;
+//        if (countTemp >= 1 && config.isOnline) {
+//            startScene.MessageStatus("Sincronizando Ranking");
+//            do {
+//                
+//                _rankToSend[0].token = token;                
+//                yield return Timing.WaitUntilDone(Timing.RunCoroutine(setRanking(_rankToSend[0], token)));
+//                yield return Timing.WaitForSeconds(0.1f);
+//                
+//            } while (_rankToSend.Count >= 1 && config.isOnline);
+//        }
+//
+//        countTemp = _statisticaToSend.Count;
+//        
+//        if (countTemp >= 1 && config.isOnline) {
+//            startScene.MessageStatus("Sincronizando Estatísticas");
+//            do {
+//                //_statisticaToSend[0].token = token;
+//                
+//                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetStatistics(_statisticaToSend[0])));
+//                yield return Timing.WaitForSeconds(0.1f);
+//                //countTemp--;
+//            } while (config.isOnline && _statisticaToSend.Count > 0);
+//        }
+//
+//        countTemp = _logsGames.Count;
+//        if (countTemp >= 1 && config.isOnline) {
+//            startScene.MessageStatus("Sincronizando Logs");
+//            do {
+//                
+//                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(SendGamesLog(_logsGames[0])));
+//                yield return Timing.WaitForSeconds(0.1f);
+//            } while (_logsGames.Count >= 1 && config.isOnline);
+//        }
+//
+//        
+//        countTemp = userScoreUpdates.Count;
+//
+//        if (countTemp >= 1 && config.isOnline) {
+//            startScene.MessageStatus("Sincronizando Pontuações");
+//            do {
+//                DBOPONTUACAO scoreToUpdate = config.openDB().GetScore(userScoreUpdates[0]);
+//                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(setPontuacao(userScoreUpdates[0], token)));
+//                yield return Timing.WaitForSeconds(0.1f);
+//            } while (userScoreUpdates.Count >= 1 && config.isOnline);
+//        }
+//
+//        /*countTemp = userScoreUpdates.Count;
+//        if(countTemp >= 1 && config.isOnline) {
+//            for (int i = 0; i < countTemp; i++) {
+//                if (config.isOnline) {
+//                    
+//                    DBOPONTUACAO scoreToUpdate = config.openDB().GetScore(userScoreUpdates[0]);
+//                    yield return Timing.WaitForSeconds(0.1f);
+//                    yield return Timing.WaitUntilDone(Timing.RunCoroutine(setPontuacao(scoreToUpdate, token)));
+//
+//                }
+//            }
+//        }*/
+//
+//        
+//        countTemp = userInventoryUdpdate.Count;
+//        if (countTemp >= 1 && config.isOnline) {
+//            startScene.MessageStatus("Sincronizando Inventário");
+//            do {
+//                DBOPONTUACAO scoreToUpdate = config.openDB().GetScore(userScoreUpdates[0]);
+//                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetInventario(userInventoryUdpdate[0])));
+//                yield return Timing.WaitForSeconds(0.1f);
+//            } while (userInventoryUdpdate.Count >= 1 && config.isOnline);
+//        }
+//
+//        /*countTemp = userInventoryUdpdate.Count;
+//        if(countTemp >= 1 && config.isOnline) {
+//            for (int i = 0; i < countTemp; i++) {
+//                if (config.isOnline) {
+//                    yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetInventario(userInventoryUdpdate[0])));
+//                }
+//            }
+//        }*/
+//
+//
+//    }
 
     public void RunStatistics(List<DBOESTATISTICA_DIDATICA> _list) {
         Timing.RunCoroutine(SendStatisticsList(_list));
@@ -506,7 +488,7 @@ public class networkHelper {
         UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setJogosLogs", form);
 
 
-        yield return Timing.WaitUntilDone(request.Send());
+        yield return Timing.WaitUntilDone(request.SendWebRequest());
 
         string response = request.downloadHandler.text;
         var result = JSON.Parse(response);
@@ -545,7 +527,7 @@ public class networkHelper {
             request.timeout = 10;
             request.redirectLimit = 2;
 
-            yield return Timing.WaitUntilDone(request.Send());
+            yield return Timing.WaitUntilDone(request.SendWebRequest());
 
             string response = request.downloadHandler.text;
             var result = JSON.Parse(response);
@@ -620,7 +602,7 @@ public class networkHelper {
         UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setEstatisticaDidatica", form);
 
 
-        yield return Timing.WaitUntilDone(request.Send());
+        yield return Timing.WaitUntilDone(request.SendWebRequest());
 
         string response = request.downloadHandler.text;
         var result = JSON.Parse(response);
@@ -679,6 +661,13 @@ public class networkHelper {
         form.AddField("JsonValue", jsonValue);
         var hashValue = GenerateHashInJson(jsonValue);
         form.AddField("HashValue", hashValue);
+        
+        var objects = new object[4];
+        objects[0] = token;
+        objects[1] = config.currentUser.idUsuario;
+        objects[2] = jsonValue;
+        objects[3] = hashValue;
+        Log.d("WWWForm details", objects);
 
         UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setEstatisticaDidatica2", form);
 
@@ -716,7 +705,7 @@ public class networkHelper {
         UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setEstatisticaDidatica", form);
 
 
-        yield return Timing.WaitUntilDone(request.Send());
+        yield return Timing.WaitUntilDone(request.SendWebRequest());
         
         string response = request.downloadHandler.text;
         
@@ -812,7 +801,7 @@ public class networkHelper {
         UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setRanking", form);
 
 
-        yield return Timing.WaitUntilDone(request.Send());
+        yield return Timing.WaitUntilDone(request.SendWebRequest());
 
         string response = request.downloadHandler.text;
         var result = JSON.Parse(response);
@@ -932,7 +921,7 @@ public class networkHelper {
         UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setPontuacao", form);
 
 
-        yield return Timing.WaitUntilDone(request.Send());
+        yield return Timing.WaitUntilDone(request.SendWebRequest());
 
         string response = request.downloadHandler.text;
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
@@ -979,7 +968,7 @@ public class networkHelper {
         //TODO adicionar link da API SetInventario.
         UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ2/setInventario", form);
 
-        yield return Timing.WaitUntilDone(request.Send());
+        yield return Timing.WaitUntilDone(request.SendWebRequest());
         string response = request.downloadHandler.text;
 
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
@@ -1722,7 +1711,7 @@ public class networkHelper {
 
         UnityWebRequest request = UnityWebRequest.Post(URI, form);
 
-        yield return Timing.WaitUntilDone(request.Send());
+        yield return Timing.WaitUntilDone(request.SendWebRequest());
 
         string response = request.downloadHandler.text;
         var result = JSON.Parse(response);
@@ -2045,7 +2034,7 @@ public class networkHelper {
         using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(stringfast.ToString())){
             www.redirectLimit = 2;
             www.timeout = 30;
-            yield return Timing.WaitUntilDone(www.Send());
+            yield return Timing.WaitUntilDone(www.SendWebRequest());
 
             if (www.isNetworkError || www.isHttpError) {
                 config.isOnline = false;
@@ -2066,7 +2055,7 @@ public class networkHelper {
         UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("https://api.eduqbrinq.com.br/midias/perguntas/" + QuestionID + ".ogg", AudioType.OGGVORBIS);
         www.timeout = 20;
         www.redirectLimit = 2;
-        yield return Timing.WaitUntilDone(www.Send());
+        yield return Timing.WaitUntilDone(www.SendWebRequest());
 
         
 
@@ -2096,7 +2085,7 @@ public class networkHelper {
         UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("https://api.eduqbrinq.com.br/midias/respostas/" + AnswerID + ".ogg", AudioType.OGGVORBIS);
         www.timeout = 20;
         www.redirectLimit = 2;
-        yield return Timing.WaitUntilDone(www.Send());
+        yield return Timing.WaitUntilDone(www.SendWebRequest());
 
         if (www.isNetworkError || www.isHttpError)
         {
@@ -2118,10 +2107,11 @@ public class networkHelper {
         www.Dispose();
     }
 
-    public string JsonSerialize(object toSerialization) {
-        var jsonValue = JsonConvert.SerializeObject(toSerialization);
+    public string JsonSerialize(object toSerialization)
+    {
+        var jsonValue = JsonWriter.GetWriter().Write(toSerialization);
         #if UNITY_EDITOR
-        Debug.Log(string.Format("{0}{1}{2}", StackTraceUtility.ExtractStackTrace(), '\n', jsonValue));
+        Debug.Log($"{StackTraceUtility.ExtractStackTrace()}{'\n'}{jsonValue}");
         #endif
         return jsonValue;
     }
@@ -2138,7 +2128,7 @@ public class networkHelper {
         }
         var JsonHash = JsonSerialize(BytesInInt);
         #if UNITY_EDITOR
-        Debug.Log(string.Format("{0}{1}{2}", StackTraceUtility.ExtractStackTrace(), '\n', JsonHash));
+        Debug.Log($"{StackTraceUtility.ExtractStackTrace()}{'\n'}{JsonHash}");
         #endif
         return JsonHash;
     }
