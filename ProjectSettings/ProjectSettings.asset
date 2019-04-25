@@ -125,7 +125,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.2.327
+  bundleVersion: 2.2.328
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -174,7 +174,7 @@ PlayerSettings:
   buildNumber:
     Standalone: 327
     iPhone: 327
-  AndroidBundleVersionCode: 22327
+  AndroidBundleVersionCode: 22328
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -264,7 +264,7 @@ PlayerSettings:
   clonedFromGUID: 00000000000000000000000000000000
   templatePackageId: 
   templateDefaultScene: 
-  AndroidTargetArchitectures: 5
+  AndroidTargetArchitectures: 7
   AndroidSplashScreenScale: 2
   androidSplashScreen: {fileID: 2800000, guid: 4b5c96134846a3b478b5140d4ef70465, type: 3}
   AndroidKeystoreName: C:/Users/Administrador.WIN-2I1P2GRMKPH/user.keystore

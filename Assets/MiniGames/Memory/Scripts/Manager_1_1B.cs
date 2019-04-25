@@ -153,7 +153,10 @@ public class Manager_1_1B : MonoBehaviour
 	public Vector2 cellsizeDrag_3ano;
 
 	[TabGroup("Geral")] public int anoLetivo;
-		
+
+	private GridLayoutGroup _mMiddleCanvasGroup;
+
+	private static readonly int NextCanbeStarted = Animator.StringToHash("nextCanbeStarted");
 
 	// Use this for initialization
 	void Start () {
@@ -164,16 +167,20 @@ public class Manager_1_1B : MonoBehaviour
 		managerMemory = GetComponent<MemoryGameManager>();
 //		managerMemory.config.UpdateCurrent(managerMemory.config.currentUser);
 //		anoLetivo = managerMemory.config.currentYear.idAnoLetivo;
+		_mMiddleCanvasGroup = parentMiddle.GetComponent(typeof(GridLayoutGroup)) as GridLayoutGroup;
 		if (anoLetivo == 1)
 		{
 			groupLayout.cellSize = cellsizeDrag_1ano;
 			groupLayoutDrop.cellSize = cellsize_1ano;
+			if (_mMiddleCanvasGroup != null) _mMiddleCanvasGroup.cellSize = cellsize_1ano;
 			InstantiateDragCards(5, bottomCardsPrefab1);
 			InstantiateDropCards(5, topCardsPrefab1);
 		} else if (anoLetivo == 2)
 		{
 			groupLayout.cellSize = cellsizeDrag_2ano;
 			groupLayoutDrop.cellSize = cellsize_2ano;
+			if (_mMiddleCanvasGroup != null) _mMiddleCanvasGroup.cellSize = cellsize_2ano;
+
 			cardGroup2Ano.GroupItemList.Suffle();
 			InstantiateDragCards(5, dragCardPrefab2Ano);
 			InstantiateDropCards(5, dropCardPrefab2Ano);
@@ -182,6 +189,7 @@ public class Manager_1_1B : MonoBehaviour
 		{
 			groupLayout.cellSize = cellsizeDrag_3ano;
 			groupLayoutDrop.cellSize = cellsize_3ano;
+			if (_mMiddleCanvasGroup != null) _mMiddleCanvasGroup.cellSize = cellsize_3ano;
 			cardGroup3Ano.ShuffleLists();
 			InstantiateDragCards(4, dragCardPrefab3Ano);
 			InstantiateDropCards(4, dropCardPrefab3Ano);
@@ -331,7 +339,7 @@ public class Manager_1_1B : MonoBehaviour
 		}
 		
 	//	particulasCartsDita.SetActive(true);
-	 parentDropAnimator.SetBool("nextCanbeStarted", false);
+	 parentDropAnimator.SetBool(NextCanbeStarted, false);
 
 		parentDropAnimator.enabled=false;
 		parentMiddleGridLayout.enabled = true;
@@ -729,10 +737,11 @@ parentDropAnimator.SetBool("nextCanbeStarted", false);
         cardMao.enabled = true;
         partCards2.SetActive(true);
 
-        for (int i = 0; i < 5; i++){
-			if(dragCards[i] != null)
-			dragCards[i].gameObject.SetActive(false);
-		}
+        foreach (var card in dragCards)
+        {
+	        if(card != null)
+		        card.gameObject.SetActive(false);
+        }
 
         //ResetCardScale();
         //cardMao.enabled = true;
@@ -759,4 +768,6 @@ parentDropAnimator.SetBool("nextCanbeStarted", false);
         partCards2.SetActive(false);      
 
     }
+    
+    //TODO embaralhar ordem das cartas. no segundo e terceiro ano.
 }

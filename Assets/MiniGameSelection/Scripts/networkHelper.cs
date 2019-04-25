@@ -194,6 +194,8 @@ public class networkHelper {
         form.AddField("ScreenHeight", Screen.height);
         form.AddField("SystemMemorySize", SystemInfo.systemMemorySize);
         form.AddField("idCliente", _idCliente);
+        
+        Log.e("Login Information", form.headers.Values);
 
         UnityWebRequest request = UnityWebRequest.Post(uri, form);
         request.timeout = 30;

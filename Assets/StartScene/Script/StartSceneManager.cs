@@ -725,6 +725,7 @@ public class StartSceneManager : MonoBehaviour {
         HideCredentials();
         isPreloadRotating = true;
         string md5pass = Md5Sum(passwordInputField.text);
+        
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.GetTokenIE(tokenRequest, config.clientID.ToString(), loginInputField.text, md5pass, SystemInfo.deviceUniqueIdentifier, this)));
         yield return Timing.WaitForSeconds(0.5f);
         LoginFailedEvent = OfflineAcess;
