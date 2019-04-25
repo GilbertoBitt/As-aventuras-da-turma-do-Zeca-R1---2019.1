@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a3d8808a-c79d-4380-ba46-bf3e6e1c0d6b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.As Aventuras da Turma do Zeca - R1 - Unity 2019.1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.As Aventuras da Turma do Zeca - R1 - Unity 2019.1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" afterDir="false" />
-    </list>
+    <list default="true" id="a3d8808a-c79d-4380-ba46-bf3e6e1c0d6b" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -581,7 +577,7 @@
       <updated>1555947803795</updated>
       <workItem from="1555947817395" duration="14080000" />
       <workItem from="1556028132918" duration="19438000" />
-      <workItem from="1556053641524" duration="4632000" />
+      <workItem from="1556053641524" duration="5260000" />
     </task>
     <task id="LOCAL-00001" summary="- mudanças">
       <created>1556028267593</created>
@@ -604,11 +600,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556141565642</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="- Android logcat package atualizado.">
+      <created>1556199780404</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1556199780404</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38150000" />
+    <option name="totallyTimeSpent" value="38778000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -661,7 +664,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="- mudanças" />
     <MESSAGE value="- jogo da memoria modificado." />
-    <option name="LAST_COMMIT_MESSAGE" value="- jogo da memoria modificado." />
+    <MESSAGE value="- Android logcat package atualizado." />
+    <option name="LAST_COMMIT_MESSAGE" value="- Android logcat package atualizado." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
