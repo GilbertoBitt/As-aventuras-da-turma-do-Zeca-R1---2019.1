@@ -3,67 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a3d8808a-c79d-4380-ba46-bf3e6e1c0d6b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.As Aventuras da Turma do Zeca - R1 - Unity 2019.1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.As Aventuras da Turma do Zeca - R1 - Unity 2019.1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Book-Page Curl Pro/Prefabs/BookPro.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Book-Page Curl Pro/Prefabs/BookPro.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/ErekiBall2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/ErekiBall2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/GreenCore.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/GreenCore.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/Spark.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/Spark.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/WhityBomb.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/WhityBomb.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/energyBlast.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/energyBlast.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/fireShot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/fireShot.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/frameBall.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/frameBall.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/skillAttack.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/skillAttack.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/skillAttack2.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/00_primitive/skillAttack2.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/ErekiBall.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/ErekiBall.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/ErekiBall2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/ErekiBall2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/GreenCore.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/GreenCore.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/Spark.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/Spark.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/WhityBomb.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/WhityBomb.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/energyBlast.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/energyBlast.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/fireShot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/fireShot.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/frameBall.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/frameBall.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/skillAttack.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/skillAttack.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/skillAttack2.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KY_effects/MagicEffectsPackFree/prefab/skillAttack2.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MiniGames/1-4[A montanha de brinquedos]/1-4.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MiniGames/1-4[A montanha de brinquedos]/1-4.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MiniGames/Memory/MemoryGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MiniGames/Memory/MemoryGame.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MiniGames/Memory/Scripts/CardRandomizationGroupAlternative.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MiniGames/Memory/Scripts/CardRandomizationGroupAlternative.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MiniGames/Memory/Scripts/Manager_1_1B.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MiniGames/Memory/Scripts/Manager_1_1B.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Particle Ribbon/Prefabs/Spiral_02.5 Tentacle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Particle Ribbon/Prefabs/Spiral_02.5 Tentacle.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PowerUp/Particles Systems/Flame-1-Particles.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PowerUp/Particles Systems/Flame-1-Particles.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PowerUp/Particles Systems/Flame-2-Particles.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PowerUp/Particles Systems/Flame-2-Particles.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PowerUp/Particles Systems/Flame-3-Particles.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PowerUp/Particles Systems/Flame-3-Particles.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PowerUp/Particles Systems/Shine-2-Particles.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PowerUp/Particles Systems/Shine-2-Particles.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PowerUp/Particles Systems/Spark-1-Particles.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PowerUp/Particles Systems/Spark-1-Particles.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PowerUp/Particles Systems/Spark-2-Particles.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PowerUp/Particles Systems/Spark-2-Particles.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sky FX Pack/Prefabs/BlowingLeaves.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sky FX Pack/Prefabs/BlowingLeaves.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sky FX Pack/Prefabs/DustCloud.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sky FX Pack/Prefabs/DustCloud.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sky FX Pack/Prefabs/GodHaze.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sky FX Pack/Prefabs/GodHaze.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sky FX Pack/Prefabs/GodRays.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sky FX Pack/Prefabs/GodRays.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sky FX Pack/Prefabs/SandStorm.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sky FX Pack/Prefabs/SandStorm.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprite/NewCharacterSelection/NewCharacterSelection.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/NewCharacterSelection/NewCharacterSelection.spriteatlas" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SpriteAtlas/Arco-Iris/Arco-Iris01.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SpriteAtlas/Arco-Iris/Arco-Iris01.spriteatlas" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SpriteAtlas/LOGOS.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SpriteAtlas/LOGOS.spriteatlas" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SpriteAtlas/UI-SpriteAtlas02.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SpriteAtlas/UI-SpriteAtlas02.spriteatlas" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SpriteTestes/Modelo.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SpriteTestes/Modelo.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Standard Assets/2D/Prefabs/CharacterRobotBoy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Standard Assets/2D/Prefabs/CharacterRobotBoy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Standard Assets/CrossPlatformInput/Prefabs/MobileAircraftControls.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Standard Assets/CrossPlatformInput/Prefabs/MobileAircraftControls.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Bangers SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Bangers SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Oswald Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Oswald Bold SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Sprite Assets/Default Sprite Asset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Sprite Assets/Default Sprite Asset.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Sprite Assets/DropCap Numbers.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Sprite Assets/DropCap Numbers.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Vuforia/Prefabs/DefaultMidAirIndicator.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Vuforia/Prefabs/DefaultMidAirIndicator.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Vuforia/Prefabs/DefaultPlaneIndicator.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Vuforia/Prefabs/DefaultPlaneIndicator.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/[0] As Aventuras da Turma do Zeca/Fonts/Khunter Scripts/SDF/KUNSTLER SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/[0] As Aventuras da Turma do Zeca/Fonts/Khunter Scripts/SDF/KUNSTLER SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/unity-ui-extensions/Examples/ColorPicker/Picker 2.0.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/unity-ui-extensions/Examples/ColorPicker/Picker 2.0.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/BurstAotSettings_Android.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/BurstAotSettings_Android.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -221,21 +162,21 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/MiniGames/Memory/Scripts/CardRandomizationGroupAlternative.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+            <state relative-caret-position="225">
+              <caret line="31" selection-start-line="31" selection-end-line="31" />
               <folding>
-                <marker date="1556126850125" expanded="false" signature="6:226" ph="..." />
-                <marker date="1556126850125" expanded="true" signature="262:4376" ph="{...}" />
-                <marker date="1556126850125" expanded="true" signature="459:4374" ph="{...}" />
-                <marker date="1556126850125" expanded="true" signature="1318:2672" ph="{...}" />
-                <marker date="1556126850125" expanded="true" signature="1758:2593" ph="{...}" />
-                <marker date="1556126850125" expanded="true" signature="2495:2579" ph="{...}" />
-                <marker date="1556126850125" expanded="true" signature="2741:3663" ph="{...}" />
-                <marker date="1556126850125" expanded="true" signature="2931:3653" ph="{...}" />
-                <marker date="1556126850125" expanded="true" signature="2990:3639" ph="{...}" />
-                <marker date="1556126850125" expanded="true" signature="3699:3890" ph="{...}" />
-                <marker date="1556126850125" expanded="true" signature="4176:4368" ph="{...}" />
-                <marker date="1556126850125" expanded="true" signature="4284:4358" ph="{...}" />
+                <marker date="1556142265643" expanded="false" signature="6:226" ph="..." />
+                <marker date="1556142265643" expanded="true" signature="262:4376" ph="{...}" />
+                <marker date="1556142265643" expanded="true" signature="459:4374" ph="{...}" />
+                <marker date="1556142265643" expanded="true" signature="1318:2672" ph="{...}" />
+                <marker date="1556142265643" expanded="true" signature="1758:2593" ph="{...}" />
+                <marker date="1556142265643" expanded="true" signature="2495:2579" ph="{...}" />
+                <marker date="1556142265643" expanded="true" signature="2741:3663" ph="{...}" />
+                <marker date="1556142265643" expanded="true" signature="2931:3653" ph="{...}" />
+                <marker date="1556142265643" expanded="true" signature="2990:3639" ph="{...}" />
+                <marker date="1556142265643" expanded="true" signature="3699:3890" ph="{...}" />
+                <marker date="1556142265643" expanded="true" signature="4176:4368" ph="{...}" />
+                <marker date="1556142265643" expanded="true" signature="4284:4358" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -640,7 +581,7 @@
       <updated>1555947803795</updated>
       <workItem from="1555947817395" duration="14080000" />
       <workItem from="1556028132918" duration="19438000" />
-      <workItem from="1556053641524" duration="3234000" />
+      <workItem from="1556053641524" duration="4632000" />
     </task>
     <task id="LOCAL-00001" summary="- mudanças">
       <created>1556028267593</created>
@@ -656,11 +597,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556053972609</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="- jogo da memoria modificado.">
+      <created>1556141565642</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1556141565642</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36752000" />
+    <option name="totallyTimeSpent" value="38150000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -673,7 +621,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2553305" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -1344,21 +1291,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/MiniGames/Memory/Scripts/CardRandomizationGroupAlternative.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+        <state relative-caret-position="225">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
           <folding>
-            <marker date="1556126850125" expanded="false" signature="6:226" ph="..." />
-            <marker date="1556126850125" expanded="true" signature="262:4376" ph="{...}" />
-            <marker date="1556126850125" expanded="true" signature="459:4374" ph="{...}" />
-            <marker date="1556126850125" expanded="true" signature="1318:2672" ph="{...}" />
-            <marker date="1556126850125" expanded="true" signature="1758:2593" ph="{...}" />
-            <marker date="1556126850125" expanded="true" signature="2495:2579" ph="{...}" />
-            <marker date="1556126850125" expanded="true" signature="2741:3663" ph="{...}" />
-            <marker date="1556126850125" expanded="true" signature="2931:3653" ph="{...}" />
-            <marker date="1556126850125" expanded="true" signature="2990:3639" ph="{...}" />
-            <marker date="1556126850125" expanded="true" signature="3699:3890" ph="{...}" />
-            <marker date="1556126850125" expanded="true" signature="4176:4368" ph="{...}" />
-            <marker date="1556126850125" expanded="true" signature="4284:4358" ph="{...}" />
+            <marker date="1556142265643" expanded="false" signature="6:226" ph="..." />
+            <marker date="1556142265643" expanded="true" signature="262:4376" ph="{...}" />
+            <marker date="1556142265643" expanded="true" signature="459:4374" ph="{...}" />
+            <marker date="1556142265643" expanded="true" signature="1318:2672" ph="{...}" />
+            <marker date="1556142265643" expanded="true" signature="1758:2593" ph="{...}" />
+            <marker date="1556142265643" expanded="true" signature="2495:2579" ph="{...}" />
+            <marker date="1556142265643" expanded="true" signature="2741:3663" ph="{...}" />
+            <marker date="1556142265643" expanded="true" signature="2931:3653" ph="{...}" />
+            <marker date="1556142265643" expanded="true" signature="2990:3639" ph="{...}" />
+            <marker date="1556142265643" expanded="true" signature="3699:3890" ph="{...}" />
+            <marker date="1556142265643" expanded="true" signature="4176:4368" ph="{...}" />
+            <marker date="1556142265643" expanded="true" signature="4284:4358" ph="{...}" />
           </folding>
         </state>
       </provider>
