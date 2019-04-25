@@ -25125,6 +25125,8 @@ MonoBehaviour:
     type: 3}
   topCardsPrefab1: {fileID: 1725110607927846, guid: 6aae66abc43701e409fb828bdebaa6c6,
     type: 3}
+  cellsize_1ano: {x: 150, y: 150}
+  cellsizeDrag_1ano: {x: 130, y: 60}
   dragCards:
   - {fileID: 0}
   - {fileID: 0}
@@ -25357,12 +25359,16 @@ MonoBehaviour:
     type: 3}
   dropCardPrefab2Ano: {fileID: 8763469588357880406, guid: c478b1ddbe67e2e47bebeb6dc73d3f17,
     type: 3}
+  cellsize_2ano: {x: 180, y: 80}
+  cellsizeDrag_2ano: {x: 130, y: 60}
   cardGroup3Ano: {fileID: 11400000, guid: 76049843e829af0498a436cd30e0341c, type: 2}
   dragCardPrefab3Ano: {fileID: 1766697251717243524, guid: c70566f5ed7b4bd439fa73fb8037aa60,
     type: 3}
   dropCardPrefab3Ano: {fileID: 8763469588357880406, guid: c478b1ddbe67e2e47bebeb6dc73d3f17,
     type: 3}
-  anoLetivo: 2
+  cellsize_3ano: {x: 220, y: 60}
+  cellsizeDrag_3ano: {x: 180, y: 60}
+  anoLetivo: 3
 --- !u!95 &599420760
 Animator:
   serializedVersion: 3

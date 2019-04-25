@@ -16,8 +16,8 @@ namespace MiniGames.Memory.Scripts
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
         private void OnValidate()
         {
-            var path = AssetDatabase.GetAssetPath(this);
-            AssetDatabase.RenameAsset(path,"Carta " + NameItem);
+//            var path = AssetDatabase.GetAssetPath(this);
+//            AssetDatabase.RenameAsset(path,"Carta " + NameItem);
         }
 #endif
     }

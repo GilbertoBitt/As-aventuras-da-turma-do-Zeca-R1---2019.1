@@ -36,10 +36,18 @@ public class Manager_1_1B : MonoBehaviour
 	[LabelText("Image Cards Prefab")]
 	[SuffixLabel("1ª Ano")]
 	public GameObject topCardsPrefab1;
+	[LabelText("Cell Size 1ª Ano")]
+	[TabGroup("1ª Ano")] 
+	public Vector2 cellsize_1ano;
+	[LabelText("Cell Size Drag 1ª Ano")]
+	[TabGroup("1ª Ano")] 
+	public Vector2 cellsizeDrag_1ano;
 	
 	public DragCard_1_1B[] dragCards = new DragCard_1_1B[5];
 	public CanvasGroup[] dragCardsCanvasGroup = new CanvasGroup[5];
+	[TabGroup("Geral")] 
 	public GridLayoutGroup groupLayout;
+	[TabGroup("Geral")] 
 	public GridLayoutGroup groupLayoutDrop;
 	public GameObject panelDitatica;
 	public Transform parentDrag;
@@ -118,6 +126,12 @@ public class Manager_1_1B : MonoBehaviour
 	[LabelText("Drop (Top) Cards Prefab")]
 	[SuffixLabel("2ª Ano")]
 	public GameObject dropCardPrefab2Ano;
+	[LabelText("Cell Size 2ª Ano")]
+	[TabGroup("2ª Ano")] 
+	public Vector2 cellsize_2ano;
+	[LabelText("Cell Size Drag 2ª Ano")]
+	[TabGroup("2ª Ano")] 
+	public Vector2 cellsizeDrag_2ano;
 	
 	[TabGroup("3ª Ano")]
 	[LabelText("Card Group 3ª Ano")]
@@ -131,6 +145,12 @@ public class Manager_1_1B : MonoBehaviour
 	[LabelText("Drop (Top) Cards Prefab")]
 	[SuffixLabel("3ª Ano")]
 	public GameObject dropCardPrefab3Ano;
+	[LabelText("Cell Size 3ª Ano")]
+	[TabGroup("3ª Ano")] 
+	public Vector2 cellsize_3ano;
+	[LabelText("Cell Size Drag 3ª Ano")]
+	[TabGroup("3ª Ano")] 
+	public Vector2 cellsizeDrag_3ano;
 
 	[TabGroup("Geral")] public int anoLetivo;
 		
@@ -146,16 +166,22 @@ public class Manager_1_1B : MonoBehaviour
 //		anoLetivo = managerMemory.config.currentYear.idAnoLetivo;
 		if (anoLetivo == 1)
 		{
+			groupLayout.cellSize = cellsizeDrag_1ano;
+			groupLayoutDrop.cellSize = cellsize_1ano;
 			InstantiateDragCards(5, bottomCardsPrefab1);
 			InstantiateDropCards(5, topCardsPrefab1);
 		} else if (anoLetivo == 2)
 		{
+			groupLayout.cellSize = cellsizeDrag_2ano;
+			groupLayoutDrop.cellSize = cellsize_2ano;
 			cardGroup2Ano.GroupItemList.Suffle();
 			InstantiateDragCards(5, dragCardPrefab2Ano);
 			InstantiateDropCards(5, dropCardPrefab2Ano);
 		}
 		else
 		{
+			groupLayout.cellSize = cellsizeDrag_3ano;
+			groupLayoutDrop.cellSize = cellsize_3ano;
 			cardGroup3Ano.ShuffleLists();
 			InstantiateDragCards(4, dragCardPrefab3Ano);
 			InstantiateDropCards(4, dropCardPrefab3Ano);
@@ -296,7 +322,7 @@ public class Manager_1_1B : MonoBehaviour
 
 		parentMiddleGridLayout.enabled = false;
 		
-		groupLayout.enabled = false;
+		groupLayout.enabled = true;
 		middleCardsPositions.Clear();
 		for (int i = 0; i < wrongs; i++){
 			GameObject temp = Instantiate(prefabMiddle,parentMiddle) as GameObject;
@@ -598,12 +624,13 @@ public class Manager_1_1B : MonoBehaviour
 			yield return Yielders.EndOfFrame;
 		}
 
-		groupLayout.enabled = false;
+		var enabled1 = groupLayout.enabled;
+		enabled1 = false;
+		enabled1 = true;
+		groupLayout.enabled = enabled1;
 
-       
 
-
-        yield return Yielders.Get(0.1f);
+		yield return Yielders.Get(0.1f);
 
 		
 		//animação pra voltar pra tela.

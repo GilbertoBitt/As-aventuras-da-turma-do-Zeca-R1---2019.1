@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3607661840795592831, guid: 8c0f3230335f5284a943783cf1e656bb,
         type: 3}
       propertyPath: m_Name
-      value: "CardDidaticaName Varitant(2\xAA Ano) Variant"
+      value: "CardDidaticaName Varitant(3\xAA Ano) Variant"
       objectReference: {fileID: 0}
     - target: {fileID: 3533120821370512553, guid: 8c0f3230335f5284a943783cf1e656bb,
         type: 3}
@@ -144,6 +144,11 @@ PrefabInstance:
       propertyPath: m_firstOverflowCharacterIndex
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 4263499327201372442, guid: 8c0f3230335f5284a943783cf1e656bb,
+        type: 3}
+      propertyPath: m_margin.w
+      value: 9.50192
+      objectReference: {fileID: 0}
     - target: {fileID: 7698240122353140529, guid: 8c0f3230335f5284a943783cf1e656bb,
         type: 3}
       propertyPath: m_fontAsset
@@ -170,6 +175,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_firstOverflowCharacterIndex
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698240122353140529, guid: 8c0f3230335f5284a943783cf1e656bb,
+        type: 3}
+      propertyPath: m_margin.w
+      value: 9.50192
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c0f3230335f5284a943783cf1e656bb, type: 3}
