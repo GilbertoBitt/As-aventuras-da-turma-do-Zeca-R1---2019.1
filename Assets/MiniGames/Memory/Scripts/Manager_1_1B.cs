@@ -737,8 +737,12 @@ parentDropAnimator.SetBool("nextCanbeStarted", false);
         cardMao.enabled = true;
         partCards2.SetActive(true);
 
+<<<<<<< HEAD
         foreach (var card in dragCards)
         {
+=======
+        foreach (var card in dragCards) {
+>>>>>>> master
 	        if(card != null)
 		        card.gameObject.SetActive(false);
         }

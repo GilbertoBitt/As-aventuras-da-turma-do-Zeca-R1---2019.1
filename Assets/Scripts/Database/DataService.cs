@@ -558,7 +558,7 @@ public class DataService {
             List<DBOMINIGAMES_LOGS> resultList = result.ToList();
             return resultList;
         }
-
+        
         public void DeleteMinigamesLog(DBOMINIGAMES_LOGS _minigameLog) {
             _connection.Delete(_minigameLog);
         }

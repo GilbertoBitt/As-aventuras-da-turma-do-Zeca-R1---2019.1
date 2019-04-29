@@ -266,110 +266,6 @@ public class networkHelper {
         Timing.RunCoroutine(SetJogosLog(LOGs, token));
     }
 
-    /*public void SetJogosLogM(List<JogosLogSerializeble> _logToSend, List<rankLogSeriazeble> _rankToSend, List<EstatisticaDidaticaSerialazeble> _statisticaToSend, List<GamesLogSerializable> _logsGames, List<int> userScoreUpdates, List<DBOINVENTARIO> userInventoryUdpdate) {
-        Timing.RunCoroutine(QueueSend(_logToSend, _rankToSend, _statisticaToSend, _logsGames, userScoreUpdates, userInventoryUdpdate));
-    }*/
-
-//    public IEnumerator<float> QueueSend(Action<bool,string,string> failed, List<JogosLogSerializeble> _logToSend, List<rankLogSeriazeble> _rankToSend, List<EstatisticaDidaticaSerialazeble> _statisticaToSend, List<GamesLogSerializable> _logsGames, List<int> userScoreUpdates, List<InventorySerializable> userInventoryUdpdate) {
-//        LoginFailedEvent = failed;
-//        startScene.MessageStatus("Sincronizando Jogo");
-//        int countTemp = _logToSend.Count;
-//       
-//        if (countTemp >= 1 && config.isOnline) {
-//            startScene.MessageStatus("Sincronizando Logs do Jogo");
-//            do {
-//                _logToSend[0].token = token;
-//                
-//                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetJogosLog(_logToSend[0], true)));
-//                yield return Timing.WaitForSeconds(0.1f);
-//                //countTemp--;
-//            } while (_logToSend.Count >= 1 && config.isOnline);
-//        }
-//
-//        
-//        countTemp = _rankToSend.Count;
-//        if (countTemp >= 1 && config.isOnline) {
-//            startScene.MessageStatus("Sincronizando Ranking");
-//            do {
-//                
-//                _rankToSend[0].token = token;                
-//                yield return Timing.WaitUntilDone(Timing.RunCoroutine(setRanking(_rankToSend[0], token)));
-//                yield return Timing.WaitForSeconds(0.1f);
-//                
-//            } while (_rankToSend.Count >= 1 && config.isOnline);
-//        }
-//
-//        countTemp = _statisticaToSend.Count;
-//        
-//        if (countTemp >= 1 && config.isOnline) {
-//            startScene.MessageStatus("Sincronizando Estatísticas");
-//            do {
-//                //_statisticaToSend[0].token = token;
-//                
-//                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetStatistics(_statisticaToSend[0])));
-//                yield return Timing.WaitForSeconds(0.1f);
-//                //countTemp--;
-//            } while (config.isOnline && _statisticaToSend.Count > 0);
-//        }
-//
-//        countTemp = _logsGames.Count;
-//        if (countTemp >= 1 && config.isOnline) {
-//            startScene.MessageStatus("Sincronizando Logs");
-//            do {
-//                
-//                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(SendGamesLog(_logsGames[0])));
-//                yield return Timing.WaitForSeconds(0.1f);
-//            } while (_logsGames.Count >= 1 && config.isOnline);
-//        }
-//
-//        
-//        countTemp = userScoreUpdates.Count;
-//
-//        if (countTemp >= 1 && config.isOnline) {
-//            startScene.MessageStatus("Sincronizando Pontuações");
-//            do {
-//                DBOPONTUACAO scoreToUpdate = config.openDB().GetScore(userScoreUpdates[0]);
-//                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(setPontuacao(userScoreUpdates[0], token)));
-//                yield return Timing.WaitForSeconds(0.1f);
-//            } while (userScoreUpdates.Count >= 1 && config.isOnline);
-//        }
-//
-//        /*countTemp = userScoreUpdates.Count;
-//        if(countTemp >= 1 && config.isOnline) {
-//            for (int i = 0; i < countTemp; i++) {
-//                if (config.isOnline) {
-//                    
-//                    DBOPONTUACAO scoreToUpdate = config.openDB().GetScore(userScoreUpdates[0]);
-//                    yield return Timing.WaitForSeconds(0.1f);
-//                    yield return Timing.WaitUntilDone(Timing.RunCoroutine(setPontuacao(scoreToUpdate, token)));
-//
-//                }
-//            }
-//        }*/
-//
-//        
-//        countTemp = userInventoryUdpdate.Count;
-//        if (countTemp >= 1 && config.isOnline) {
-//            startScene.MessageStatus("Sincronizando Inventário");
-//            do {
-//                DBOPONTUACAO scoreToUpdate = config.openDB().GetScore(userScoreUpdates[0]);
-//                //yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetInventario(userInventoryUdpdate[0])));
-//                yield return Timing.WaitForSeconds(0.1f);
-//            } while (userInventoryUdpdate.Count >= 1 && config.isOnline);
-//        }
-//
-//        /*countTemp = userInventoryUdpdate.Count;
-//        if(countTemp >= 1 && config.isOnline) {
-//            for (int i = 0; i < countTemp; i++) {
-//                if (config.isOnline) {
-//                    yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetInventario(userInventoryUdpdate[0])));
-//                }
-//            }
-//        }*/
-//
-//
-//    }
-
     public void RunStatistics(List<DBOESTATISTICA_DIDATICA> _list) {
         Timing.RunCoroutine(SendStatisticsList(_list));
     }
@@ -445,7 +341,6 @@ public class networkHelper {
         if (countTemp >= 1 && config.isOnline) {
             startScene.MessageStatus("Sincronizando Pontuações");
             do {
-                //DBOPONTUACAO scoreToUpdate = config.openDB().GetScore(userScoreUpdates[0]);
                 yield return Timing.WaitUntilDone(Timing.RunCoroutine(setPontuacao(userScoreUpdates[0], userScoreUpdates)));
                 yield return Timing.WaitForSeconds(0.1f);
             } while (userScoreUpdates.Count >= 1 && config.isOnline);
@@ -458,7 +353,6 @@ public class networkHelper {
         if (countTemp >= 1 && config.isOnline) {
             startScene.MessageStatus("Sincronizando Inventário");
             do {
-                //DBOPONTUACAO scoreToUpdate = config.openDB().GetScore(userScoreUpdates[0]);
                 DBOITENS item = config.openDB().GetItemStore((userInventoryUdpdate[0].idItem));
                 yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetInventario(userInventoryUdpdate[0], userInventoryUdpdate, item.valor)));
                 yield return Timing.WaitForSeconds(0.1f);

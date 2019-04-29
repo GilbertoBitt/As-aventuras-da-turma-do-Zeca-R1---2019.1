@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92721723d15e40adad3af61889694325, type: 3}
-  m_Name: Harpa
+  m_Name: Carta Harpa
   m_EditorClassIdentifier: 
   idItem: 0
   SpriteItem: {fileID: 0}
