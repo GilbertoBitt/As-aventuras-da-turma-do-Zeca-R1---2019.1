@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -11,9 +12,9 @@ public class StoreManager : MonoBehaviour {
     public GameObject mainPanel;
     public Canvas thisPanel;
     public gameSelection gameSelectionScript;
-    public Text bropsText;
-    public Text buyConfirmText;
-    public Text buyConfirmValueText;
+    public TextMeshProUGUI bropsText;
+    public TextMeshProUGUI buyConfirmText;
+    public TextMeshProUGUI buyConfirmValueText;
     public RawImage buyConfirmSpriteIcon;
     public GameObject buyConfirmPanel;
     public StoreItem storeItemSeleced;

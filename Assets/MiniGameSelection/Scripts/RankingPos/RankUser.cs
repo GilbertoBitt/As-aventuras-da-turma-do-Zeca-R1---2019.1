@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class RankUser : MonoBehaviour {
+public class RankUser {
 
     public int scoreRank;
     public int posRank;

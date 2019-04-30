@@ -194,8 +194,6 @@ public class networkHelper {
         form.AddField("ScreenHeight", Screen.height);
         form.AddField("SystemMemorySize", SystemInfo.systemMemorySize);
         form.AddField("idCliente", _idCliente);
-        
-        Log.e("Login Information", form.headers.Values);
 
         UnityWebRequest request = UnityWebRequest.Post(uri, form);
         request.timeout = 30;
@@ -703,22 +701,19 @@ public class networkHelper {
         var result = JSON.Parse(response);
 
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
-            //Debug.Log(request.error);
-
-
             if (request.isNetworkError || request.isHttpError) {
                 config.isOnline = false;
-                
               } else {
                 config.isOnline = false;
                 ranking.online = 0;
                 config.openDB().InsertRanking(ranking);
+                Log.d("Ranking offline Atualizado");
             }
-
-            
         } else {
-            Debug.Log("RANKING SAVED");
+            Log.d("Ranking Online Atualizdo");
         }
+        
+        request.Dispose();
 
         isDoingOperation = false;
     }
@@ -1491,7 +1486,7 @@ public class networkHelper {
                     });
                 }
 
-                db.ClearRanking();
+//                db.ClearRanking();
                 db.InsertRanking(rankingDB);
 
                 dbo.ranking = currentSyncDB.ranking;
@@ -1744,7 +1739,7 @@ public class networkHelper {
                     });
                 }
 
-                db.ClearRanking();
+//                db.ClearRanking();
                 db.InsertRanking(rankingDB);
 
                 dbo.ranking = currentSyncDB.ranking;

@@ -165,8 +165,8 @@ public class Manager_1_1B : MonoBehaviour
 		parentDropAnimator = parentDrop.GetComponent<Animator>();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
 		managerMemory = GetComponent<MemoryGameManager>();
-//		managerMemory.config.UpdateCurrent(managerMemory.config.currentUser);
-//		anoLetivo = managerMemory.config.currentYear.idAnoLetivo;
+		managerMemory.config.UpdateCurrent(managerMemory.config.currentUser);
+		anoLetivo = managerMemory.config.currentYear.idAnoLetivo;
 		_mMiddleCanvasGroup = parentMiddle.GetComponent(typeof(GridLayoutGroup)) as GridLayoutGroup;
 		if (anoLetivo == 1)
 		{
@@ -541,6 +541,7 @@ public class Manager_1_1B : MonoBehaviour
 			for (int j = level * 5; j < (level*5)+5; j++)
 			{
 				spritesChoosen.Add(cardGroup2Ano.GroupItemList[j]);
+				spritesChoosen.Suffle();
 			}
 		}
 		else
@@ -553,12 +554,15 @@ public class Manager_1_1B : MonoBehaviour
 			spritesChoosen.Add(result.polissilabo);
 			spritesChoosen.Suffle();
 		}
-        
-		
-		for (int i = 0; i < dragCards.Length; i++){			
+		spritesChoosen.Suffle();
+		var tempList = spritesChoosen;
+		tempList.Suffle();
+		for (int i = 0; i < dragCards.Length; i++)
+		{
+			
 			dragCards[i].transform.SetParent(parentDrag);
 			
-			dragCards[i].UpdateSprite(spritesChoosen[i], anoLetivo);
+			dragCards[i].UpdateSprite(tempList[i], anoLetivo);
 			dragCards[i].Clear();
 			dragCards[i].thisCanvasGroup.blocksRaycasts = true;
 
@@ -569,7 +573,7 @@ public class Manager_1_1B : MonoBehaviour
 			spritesChoosen.Suffle();
 		}
 
-		
+		spritesChoosen.Suffle();
 		for (int i = 0; i < dropCards.Length; i++){
 			dropCards[i].transform.SetParent(parentDrop);
 			if (anoLetivo == 1)

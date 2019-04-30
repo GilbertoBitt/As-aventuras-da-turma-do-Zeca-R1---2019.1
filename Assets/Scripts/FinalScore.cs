@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Collections;
+using com.csutil;
 using UnityEngine.SceneManagement;
 
 public class FinalScore : MonoBehaviour {
@@ -53,12 +54,13 @@ public class FinalScore : MonoBehaviour {
 
 	public void startTransfer(){
 		OnTransferStart.Invoke ();
+		Log.d($"ID Minigame: {idMinigame} \n Pontuação: {scoreAmount} \n Estrelas: {starsAmount}");
+		
 		StartCoroutine (PointsStart ());
         
     }
 
 	public IEnumerator PointsStart(){
-
         Debug.Log("rankSaved");
         gameConfig.Rank(idMinigame, scoreAmount, starsAmount);
         int bropsTarget = bropsAmount + scoreAmount;

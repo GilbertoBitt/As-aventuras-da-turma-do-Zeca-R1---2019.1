@@ -2,10 +2,13 @@
 using System.Collections;
 using System.Linq;
 using System.Globalization;
-using SQLite4Unity3d;
+//using SQLite;
+using SQLite;
 using System.Collections.Generic;
 using System.IO;
 using System;
+using System.Threading.Tasks;
+using com.csutil;
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
 using UnityEditor;
 #endif
@@ -15,18 +18,20 @@ public class DataService {
     public bool removeLinq = false;
 
 	private SQLiteConnection _connection;
+    private SQLiteAsyncConnection _AsyncConnection;
 	
 	public DataService(string DatabaseName){
         // check if file exists in Application.persistentDataPath
-		var filepath = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
+		var filepath = $"{Application.persistentDataPath}/{DatabaseName}";
 		if (File.Exists(filepath)){
         	_connection = new SQLiteConnection(filepath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
-        	//Debug.Log("<color=#ffffff>Final PATH:</color> <color=#33bfea>" + filepath + "</color>"); 
+            _AsyncConnection = new SQLiteAsyncConnection(filepath);
+            //Debug.Log("<color=#ffffff>Final PATH:</color> <color=#33bfea>" + filepath + "</color>"); 
 		} else {
     #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_STANDALONE
-            var _loaddb = string.Format("{0}/{1}", Application.streamingAssetsPath, DatabaseName);
+            var _loaddb = $"{Application.streamingAssetsPath}/{DatabaseName}";
             Debug.Log(_loaddb);
-            var filepathTo = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
+            var filepathTo = $"{Application.persistentDataPath}/{DatabaseName}";
             var bytesTOLoad = File.ReadAllBytes(_loaddb);
             Debug.Log(filepathTo);
             //File.Copy(_loaddb,filepathTo,true);
@@ -52,7 +57,8 @@ public class DataService {
             filepath = filepathTo;
 #endif
             _connection = new SQLiteConnection(filepath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
-        	//Debug.Log("<color=#ffffff>Final PATH:</color> <color=#33bfea>" + filepath + "</color>"); 
+            _AsyncConnection = new SQLiteAsyncConnection(filepath);
+            //Debug.Log("<color=#ffffff>Final PATH:</color> <color=#33bfea>" + filepath + "</color>"); 
 		}       
 
 	}
@@ -65,20 +71,12 @@ public class DataService {
 	    /// <returns>The user.</returns>
 	    /// <param name="login">Login.</param>
 	    public DBOUSUARIOS GetUser(string loginUser){
-		    return _connection.Table<DBOUSUARIOS>().Where(x => x.login == loginUser).FirstOrDefault();
+		    return _AsyncConnection.Table<DBOUSUARIOS>().Where(x => x.login == loginUser).FirstOrDefaultAsync().Result;
             //test                           
 	    }
 
-        public DBOUSUARIOS GetUser(int userID) {
-
-            if (!removeLinq) {
-                return _connection.Table<DBOUSUARIOS>().Where(x => x.idUsuario == userID).FirstOrDefault();
-            } else {
-                object[] argss = new object[1];
-                argss[0] = userID;
-                return _connection.Query<DBOUSUARIOS>("SELECT * FROM DBOUSUARIOS WHERE idUsuario = ? AND ativo = 1 LIMIT 1;", argss).FirstOrDefault();
-            }
-
+        public async Task<DBOUSUARIOS> GetUser(int userID) {
+            return await _AsyncConnection.Table<DBOUSUARIOS>().Where(x => x.idUsuario == userID).FirstOrDefaultAsync();
         }
 
 
@@ -88,37 +86,19 @@ public class DataService {
         /// <returns>The user list.</returns>
         /// <param name="ClassID">Class I.</param>
         public List<DBOUSUARIOS> GetUserList (int ClassID){
-            if (!removeLinq) {
-                IEnumerable<DBOUSUARIOS> result = _connection.Table<DBOUSUARIOS>().Where(x => x.idTurma == ClassID);
-                List<DBOUSUARIOS> resultList = result.ToList();
-                return resultList;
-            } else {
-                string command = "SELECT * FROM DBOUSUARIOS WHERE idTurma == ?";
-                object[] variables = new object[1];
-                variables[0] = ClassID;
-                //IEnumerable<DBOUSUARIOS> result = _connection.Query(sqliteCommand, variables)
-                List<DBOUSUARIOS> result = _connection.Query<DBOUSUARIOS>(command, variables);               
-                return result;
-            }
+            var query = _AsyncConnection.Table<DBOUSUARIOS>().Where(x => x.idTurma == ClassID);
+            var result = query.ToListAsync();
+            var resultList = result.Result;
+            return resultList;
 	    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ClassID"></param>
-        /// <returns></returns>
-        /*public List<DBOUSUARIOS> GetUserList(int ClassID, int _escolaID, int clientID) {
-            IEnumerable<DBOUSUARIOS> result = _connection.Table<DBOUSUARIOS>().Where(x => x.idTurma == ClassID && x.idEscola == _escolaID && x.idCliente == clientID);
-            List<DBOUSUARIOS> resultList = result.ToList();
-            return resultList;
-        }*/
-
+       
         /// <summary>
         /// Updates the user.
         /// </summary>
         /// <param name="USER">USE.</param>
         public void UpdateUser(DBOUSUARIOS USER){
-		    _connection.Update(USER);
+		    _AsyncConnection.UpdateAsync(USER);
 	    }
 
         public void InsertUser(DBOUSUARIOS user) {
@@ -135,7 +115,7 @@ public class DataService {
 	    /// <returns>The score.</returns>
 	    /// <param name="userID">User I.</param>
 	    public DBOPONTUACAO GetScore(int userID){
-		    DBOPONTUACAO score = _connection.Table<DBOPONTUACAO>().Where(x => x.idUsuario == userID).FirstOrDefault();
+		    DBOPONTUACAO score = _connection.Table<DBOPONTUACAO>().FirstOrDefault(x => x.idUsuario == userID);
             if(score == null) {
                 score = new DBOPONTUACAO();
             }
@@ -169,44 +149,47 @@ public class DataService {
 
         public void InsertOrReplateScore(DBOPONTUACAO _score) {
             //Connection.Query("UPDATE Book SET Name = '" + inputfield.text + "' WHERE Id = " + intBookNo);
-            object[] argss = new object[7];
-            argss[0] = _score.idUsuario;
-            argss[1] = _score.brops;
-            argss[2] = _score.pontuacaoTotal;
-            argss[3] = _score.dataUpdate;
-            argss[4] = _score.BropsDevice;
-            argss[5] = _score.PontuacaoTotalDevice;
-            argss[6] = _score.online;
+//            object[] argss = new object[7];
+//            argss[0] = _score.idUsuario;
+//            argss[1] = _score.brops;
+//            argss[2] = _score.pontuacaoTotal;
+//            argss[3] = _score.dataUpdate;
+//            argss[4] = _score.BropsDevice;
+//            argss[5] = _score.PontuacaoTotalDevice;
+//            argss[6] = _score.online;
             //object[] argss02 = new object[6];
 
 
-            String command01 = "REPLACE INTO DBOPONTUACAO (idUsuario, brops, pontuacaoTotal, dataUpdate, BropsDevice, PontuacaoTotalDevice, online) VALUES(?,?,?,?,?,?,?);";
+//            String command01 = "REPLACE INTO DBOPONTUACAO (idUsuario, brops, pontuacaoTotal, dataUpdate, BropsDevice, PontuacaoTotalDevice, online) VALUES(?,?,?,?,?,?,?);";
             //String commandFull = command01 + command02;
             // _connection.Query(commansd, argss);
             //_connection.CreateCommand(commansd,argss);
-            _connection.Execute(command01, argss);
+//            _connection.Execute(command01, argss);
             //_connection.Execute(command02, argss2);
+            _connection.InsertOrReplace(_score);
         }
 
-        public void UpdateToOnlineScore(DBOPONTUACAO _score) {
-            //Connection.Query("UPDATE Book SET Name = '" + inputfield.text + "' WHERE Id = " + intBookNo);
-            object[] argss = new object[7];
-            argss[0] = _score.idUsuario;
-            argss[1] = _score.brops;
-            argss[2] = _score.pontuacaoTotal;
-            argss[3] = _score.dataUpdate;
-            argss[4] = _score.BropsDevice;
-            argss[5] = _score.PontuacaoTotalDevice;
-            argss[6] = 1;
-            //object[] argss02 = new object[6];
-
-
-            String command01 = "REPLACE INTO DBOPONTUACAO (idUsuario, brops, pontuacaoTotal, dataUpdate, BropsDevice, PontuacaoTotalDevice, online) VALUES(?,?,?,?,?,?,?);";
-            //String commandFull = command01 + command02;
-            // _connection.Query(commansd, argss);
-            //_connection.CreateCommand(commansd,argss);
-            _connection.Execute(command01, argss);
-            //_connection.Execute(command02, argss2);
+        public void UpdateToOnlineScore(DBOPONTUACAO _score)
+        {
+            _connection.Update(_score);
+//            //Connection.Query("UPDATE Book SET Name = '" + inputfield.text + "' WHERE Id = " + intBookNo);
+//            object[] argss = new object[7];
+//            argss[0] = _score.idUsuario;
+//            argss[1] = _score.brops;
+//            argss[2] = _score.pontuacaoTotal;
+//            argss[3] = _score.dataUpdate;
+//            argss[4] = _score.BropsDevice;
+//            argss[5] = _score.PontuacaoTotalDevice;
+//            argss[6] = 1;
+//            //object[] argss02 = new object[6];
+//
+//
+//            String command01 = "REPLACE INTO DBOPONTUACAO (idUsuario, brops, pontuacaoTotal, dataUpdate, BropsDevice, PontuacaoTotalDevice, online) VALUES(?,?,?,?,?,?,?);";
+//            //String commandFull = command01 + command02;
+//            // _connection.Query(commansd, argss);
+//            //_connection.CreateCommand(commansd,argss);
+//            _connection.Execute(command01, argss);
+//            //_connection.Execute(command02, argss2);
         }
 
         #endregion
@@ -230,8 +213,8 @@ public class DataService {
 	/// </summary>
 	/// <returns>The school.</returns>
 	/// <param name="idEscola">Identifier escola.</param>
-	public DBOESCOLA GetSchool (int idEscola){
-		DBOESCOLA result = _connection.Table<DBOESCOLA>().Where(x => x.idEscola == idEscola).FirstOrDefault();
+	public async Task<DBOESCOLA> GetSchool (int idEscola){
+		var result = await _AsyncConnection.Table<DBOESCOLA>().Where(x => x.idEscola == idEscola).FirstOrDefaultAsync();
 		return result;
 	}
 
@@ -253,14 +236,11 @@ public class DataService {
 	    /// </summary>
 	    /// <returns>The client name.</returns>
 	    /// <param name="clientID">Client I.</param>
-	    public string GetClientName(int clientID){
-		    DBOCLIENTES cliente = _connection.Table<DBOCLIENTES>().Where(x => x.idCliente == clientID).FirstOrDefault();
-		    if (cliente != null) {
-			    return cliente.nomeCliente;
-		    } else {
-			    return "";
-		    }
-	    }
+	    public string GetClientName(int clientID)
+        {
+            var cliente = _connection.Table<DBOCLIENTES>().FirstOrDefault(x => x.idCliente == clientID);
+            return cliente != null ? cliente.nomeCliente : "";
+        }
 
 	    /// <summary>
 	    /// Gets the client.
@@ -268,7 +248,7 @@ public class DataService {
 	    /// <returns>The client.</returns>
 	    /// <param name="clientID">Client I.</param>
 	    public DBOCLIENTES GetClient(int clientID){
-		    DBOCLIENTES cliente = _connection.Table<DBOCLIENTES>().Where(x => x.idCliente == clientID).FirstOrDefault();
+		    DBOCLIENTES cliente = _connection.Table<DBOCLIENTES>().FirstOrDefault(x => x.idCliente == clientID);
 		    return cliente;
 	    }
 
@@ -294,7 +274,7 @@ public class DataService {
 	    /// <returns>The class.</returns>
 	    /// <param name="idTurma">Identifier turma.</param>
 	    public DBOANOLETIVO GetYears (int idAnoLetivo){
-		    DBOANOLETIVO result = _connection.Table<DBOANOLETIVO>().Where(x => x.idAnoLetivo == idAnoLetivo).FirstOrDefault();
+		    DBOANOLETIVO result = _connection.Table<DBOANOLETIVO>().FirstOrDefault(x => x.idAnoLetivo == idAnoLetivo);
 		    return result;
 	    }
 
@@ -328,16 +308,10 @@ public class DataService {
 	    /// </summary>
 	    /// <returns>The class.</returns>
 	    /// <param name="idTurma">Identifier turma.</param>
-	    public DBOTURMA GetClass (int idTurma){
-            if (!removeLinq) {
-                DBOTURMA result = _connection.Table<DBOTURMA>().Where(x => x.idTurma == idTurma).FirstOrDefault();
-                return result;
-            } else {
-                object[] argss = new object[1];
-                argss[0] = idTurma;
-                return _connection.Query<DBOTURMA>("SELECT * FROM DBOTURMA WHERE idTurma = ? LIMIT 1", argss).FirstOrDefault();
-            }
-	    }
+	    public async Task<DBOTURMA> GetClass (int idTurma)
+        {
+            return await _AsyncConnection.Table<DBOTURMA>().Where(x => x.idTurma == idTurma).FirstOrDefaultAsync();
+        }
 
         public void ClearTurmas() {
             _connection.DropTable<DBOTURMA>();
@@ -358,14 +332,18 @@ public class DataService {
 	    /// <returns>The ranking.</returns>
 	    /// <param name="idMinigame">Identifier minigame.</param>
 	    /// <param name="idUsuario">Identifier usuario.</param>
-	    public DBORANKING GetRanking(int _idMinigame, int _idUsuario){
-		    DBORANKING ranking = _connection.Table<DBORANKING>().Where(x => x.idMinigame == _idMinigame && x.idUsuario == _idUsuario).FirstOrDefault();
-		    return ranking;
+	    public async Task<DBORANKING> GetRanking(int _idMinigame, int _idUsuario){
+            Log.d("tentar pegar ranking existente");
+            Log.d($"Minigame ID: {_idMinigame} | ID Usuário: {_idUsuario}");
+            var query = await _AsyncConnection.Table<DBORANKING>().Where(x => x.idMinigame == _idMinigame && x.idUsuario == _idUsuario).FirstOrDefaultAsync();
+            var result = query;
+            Log.d(JsonWriter.GetWriter().Write(query));
+		    return result;
 	    }
 
         public List<DBORANKING> GetMinigameRanking(int idMinigame) {
-            IEnumerable<DBORANKING> minigamesRankingDB = _connection.Table<DBORANKING>().Where(x => x.idMinigame == idMinigame && x.idUsuario != 0).OrderByDescending(x => x.highscore).Take(10);
-            return minigamesRankingDB.ToList();
+            var query = _AsyncConnection.Table<DBORANKING>().Where(x => x.idMinigame == idMinigame && x.idUsuario != 0).OrderByDescending(x => x.highscore).Take(10);
+            return query.ToListAsync().Result;
         }
 
         public List<DBORANKING> GetAllUserRanks(int idUsuario) {
@@ -424,54 +402,57 @@ public class DataService {
 
         public void UpdateOrReplaceDBORANKING(DBORANKING _ranking) {
             //Connection.Query("UPDATE Book SET Name = '" + inputfield.text + "' WHERE Id = " + intBookNo);
-            object[] argss = new object[8];
-            argss[0] = _ranking.idMinigame;
-            argss[1] = _ranking.idUsuario;
-            argss[2] = _ranking.highscore;
-            argss[3] = _ranking.dataInsert;
-            argss[4] = _ranking.dataUpdate;
-            argss[5] = _ranking.posicao;
-            argss[6] = _ranking.estrelas;
-            argss[7] = _ranking.online;
-            //object[] argss02 = new object[6];
-
-
-            String command01 = "REPLACE INTO DBORANKING (idMinigame, idUsuario, highscore, dataInsert, dataUpdate, posicao, estrelas, online) VALUES(?,?,?,?,?,?,?,?);";
-            //String commandFull = command01 + command02;
-            // _connection.Query(commansd, argss);
-            //_connection.CreateCommand(commansd,argss);
-            _connection.Execute(command01, argss);
+//            object[] argss = new object[8];
+//            argss[0] = _ranking.idMinigame;
+//            argss[1] = _ranking.idUsuario;
+//            argss[2] = _ranking.highscore;
+//            argss[3] = _ranking.dataInsert;
+//            argss[4] = _ranking.dataUpdate;
+//            argss[5] = _ranking.posicao;
+//            argss[6] = _ranking.estrelas;
+//            argss[7] = _ranking.online;
+//            //object[] argss02 = new object[6];
+//
+//
+//            String command01 = "REPLACE INTO DBORANKING (idMinigame, idUsuario, highscore, dataInsert, dataUpdate, posicao, estrelas, online) VALUES(?,?,?,?,?,?,?,?);";
+//            //String commandFull = command01 + command02;
+//            // _connection.Query(commansd, argss);
+//            //_connection.CreateCommand(commansd,argss);
+//            _connection.Execute(command01, argss);
             //_connection.Execute(command02, argss2);
+            _connection.InsertOrReplace(_ranking);
         }
 
         public void UpdateRanking(DBORANKING _ranking) {
-            object[] argss = new object[8];
-            argss[0] = _ranking.highscore;
-            argss[1] = _ranking.dataInsert;
-            argss[2] = _ranking.dataUpdate;
-            argss[3] = _ranking.posicao;
-            argss[4] = _ranking.estrelas;
-            argss[5] = _ranking.online;
-            argss[6] = _ranking.idMinigame;
-            argss[7] = _ranking.idUsuario;
-
-            String command02 = "UPDATE DBORANKING SET highscore=?,dataInsert=?,dataUpdate=?,posicao=?,estrelas=?,online=? WHERE idMinigame=? AND idUsuario=?;";
-            _connection.Execute(command02, argss);
+//            object[] argss = new object[8];
+//            argss[0] = _ranking.highscore;
+//            argss[1] = _ranking.dataInsert;
+//            argss[2] = _ranking.dataUpdate;
+//            argss[3] = _ranking.posicao;
+//            argss[4] = _ranking.estrelas;
+//            argss[5] = _ranking.online;
+//            argss[6] = _ranking.idMinigame;
+//            argss[7] = _ranking.idUsuario;
+//
+//            String command02 = "UPDATE DBORANKING SET highscore=?,dataInsert=?,dataUpdate=?,posicao=?,estrelas=?,online=? WHERE idMinigame=? AND idUsuario=?;";
+//            _connection.Execute(command02, argss);
+            _connection.InsertOrReplace(_ranking);
         }
 
         public void InserRanking2(DBORANKING _ranking) {
-            object[] argss = new object[8];
-            argss[0] = _ranking.idMinigame;
-            argss[1] = _ranking.idUsuario;
-            argss[2] = _ranking.highscore;
-            argss[3] = _ranking.dataInsert;
-            argss[4] = _ranking.dataUpdate;
-            argss[5] = _ranking.posicao;
-            argss[6] = _ranking.estrelas;
-            argss[7] = _ranking.online;
-
-            String command01 = "REPLACE INTO DBORANKING (idMinigame, idUsuario, highscore, dataInsert, dataUpdate, posicao, estrelas, online) VALUES(?,?,?,?,?,?,?,?);";
-            _connection.Execute(command01, argss);
+//            object[] argss = new object[8];
+//            argss[0] = _ranking.idMinigame;
+//            argss[1] = _ranking.idUsuario;
+//            argss[2] = _ranking.highscore;
+//            argss[3] = _ranking.dataInsert;
+//            argss[4] = _ranking.dataUpdate;
+//            argss[5] = _ranking.posicao;
+//            argss[6] = _ranking.estrelas;
+//            argss[7] = _ranking.online;
+//
+//            String command01 = "REPLACE INTO DBORANKING (idMinigame, idUsuario, highscore, dataInsert, dataUpdate, posicao, estrelas, online) VALUES(?,?,?,?,?,?,?,?);";
+//            _connection.Execute(command01, argss);
+            _connection.InsertOrReplace(_ranking);
         }
 
         public void ClearRanking() {
@@ -563,34 +544,13 @@ public class DataService {
             _connection.Delete(_minigameLog);
         }
 
-        public void DeleteMinigamesLogs(List<DBOMINIGAMES_LOGS> logs) {
-            _connection.DeleteAll<DBOMINIGAMES_LOGS>(logs);
+        public void DeleteMinigamesLogs(List<DBOMINIGAMES_LOGS> logs)
+        {
+            _connection.Delete<DBOMINIGAMES_LOGS>(logs);
         }
 
         public void InsertMinigamesLOG(DBOMINIGAMES_LOGS _minigamesLog) {
-            //Connection.Query("UPDATE Book SET Name = '" + inputfield.text + "' WHERE Id = " + intBookNo);
-            object[] argss = new object[12];
-            argss[0] = _minigamesLog.idUsuario;
-            argss[1] = _minigamesLog.idMinigame;
-            argss[2] = _minigamesLog.pontosLudica;
-            argss[3] = _minigamesLog.pontosPedagogica;
-            argss[4] = _minigamesLog.pontosInteragindo;
-            argss[5] = _minigamesLog.personagem;
-            argss[6] = _minigamesLog.dataAcesso;
-            argss[7] = _minigamesLog.tempoLudica;
-            argss[8] = _minigamesLog.tempoDidatica;
-            argss[9] = _minigamesLog.faseLudica;
-            argss[10] = _minigamesLog.deviceID;
-            argss[11] = _minigamesLog.online;
-            //object[] argss02 = new object[6];
-
-
-            String command01 = "INSERT INTO DBOMINIGAMES_LOGS (idUsuario, idMinigame, pontosLudica, pontosPedagogica, pontosInteragindo, personagem, dataAcesso, tempoLudica, tempoDidatica, faseLudica, deviceID, online) VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
-            //String command02 = "UPDATE DBOINVENTARIO SET quantidade=?,dataUpdate=?,dataInsert=?,ativo=?  WHERE idItem=? AND idUsuario=?;";
-            //String commandFull = command01 + command02;
-            // _connection.Query(commansd, argss);
-            //_connection.CreateCommand(commansd,argss);
-            _connection.Execute(command01, argss);
+            _connection.Insert(_minigamesLog);
         }
 
         #endregion
@@ -617,27 +577,11 @@ public class DataService {
     /// </summary>
     /// <param name="logs"> List de logs</param>
     public void DeleteGamesLogs(List<DBOGAMES_LOGS> logsGames_logs) {
-        _connection.DeleteAll(logsGames_logs);
+        _connection.Delete<DBOGAMES_LOGS>(logsGames_logs);
     }
 
     public void InsertDBOGAMES_LOG(DBOGAMES_LOGS _gamesLog) {
-        //Connection.Query("UPDATE Book SET Name = '" + inputfield.text + "' WHERE Id = " + intBookNo);
-        object[] argss = new object[6];
-        argss[0] = _gamesLog.idUsuario;
-        argss[1] = _gamesLog.idGame;
-        argss[2] = _gamesLog.dataAcesso;
-        argss[3] = _gamesLog.versao;
-        argss[4] = _gamesLog.deviceID;
-        argss[5] = _gamesLog.online;
-        //object[] argss02 = new object[6];
-
-
-        String command01 = "INSERT INTO DBOGAMES_LOGS (idUsuario, idGame, dataAcesso, versao, deviceID, online) VALUES(?,?,?,?,?,?);";
-        //String command02 = "UPDATE DBOINVENTARIO SET quantidade=?,dataUpdate=?,dataInsert=?,ativo=?  WHERE idItem=? AND idUsuario=?;";
-        //String commandFull = command01 + command02;
-        // _connection.Query(commansd, argss);
-        //_connection.CreateCommand(commansd,argss);
-        _connection.Execute(command01, argss);
+        _connection.Insert(_gamesLog);
     }
 
     #endregion
@@ -663,26 +607,9 @@ public class DataService {
         }
     }
 
-    public void InsertStatistic2(DBOESTATISTICA_DIDATICA _statistic) {
-        //Connection.Query("UPDATE Book SET Name = '" + inputfield.text + "' WHERE Id = " + intBookNo);
-        object[] argss = new object[8];
-        argss[0] = _statistic.idUsuario;
-        argss[1] = _statistic.dataInsert;
-        argss[2] = _statistic.idGameDidatico;
-        argss[3] = _statistic.idHabilidade;
-        argss[4] = _statistic.idDificuldade;
-        argss[5] = _statistic.idMinigame;
-        argss[6] = _statistic.acertou;
-        argss[7] = _statistic.online;
-        //object[] argss02 = new object[6];
-
-
-        String command01 = "INSERT INTO DBOESTATISTICA_DIDATICA (idUsuario, dataInsert, idGameDidatico, idHabilidade, idDificuldade, idMinigame, acertou, online) VALUES(?,?,?,?,?,?,?,?);";
-        //String command02 = "UPDATE DBOINVENTARIO SET quantidade=?,dataUpdate=?,dataInsert=?,ativo=?  WHERE idItem=? AND idUsuario=?;";
-        //String commandFull = command01 + command02;
-        // _connection.Query(commansd, argss);
-        //_connection.CreateCommand(commansd,argss);
-        _connection.Execute(command01, argss);
+    public void InsertStatistic2(DBOESTATISTICA_DIDATICA _statistic)
+    {
+        _connection.Insert(_statistic);
     }
 
     public List<DBOESTATISTICA_DIDATICA> GetAllStatisticDidatica() {
@@ -695,8 +622,9 @@ public class DataService {
         _connection.Delete(_minigameLog);
     }
     
-    public void DeleteEstatisticas(List<DBOESTATISTICA_DIDATICA> @logs) {
-        _connection.DeleteAll(@logs);
+    public void DeleteEstatisticas(List<DBOESTATISTICA_DIDATICA> @logs)
+    {
+        _connection.Delete<DBOESTATISTICA_DIDATICA>(@logs);
     }
 
 
@@ -706,10 +634,8 @@ public class DataService {
     #region DBOSINCRONIZACAO
 
     public DBOSINCRONIZACAO GetSync(int idCliente) {
-        DBOSINCRONIZACAO sinc = _connection.Table<DBOSINCRONIZACAO>().Where(x => x.idCliente == idCliente).FirstOrDefault();
-        if(sinc == null) {
-            sinc = new DBOSINCRONIZACAO();
-        }
+        DBOSINCRONIZACAO sinc = _connection.Table<DBOSINCRONIZACAO>().FirstOrDefault(x => x.idCliente == idCliente) ??
+                                new DBOSINCRONIZACAO();
         return sinc;
     }
 
@@ -816,7 +742,7 @@ public class DataService {
     }
 
     public DBOITENS GetItemStore(int _idItem) {
-        DBOITENS storeItens = _connection.Table<DBOITENS>().Where(x => x.idItem == _idItem).FirstOrDefault() ;
+        DBOITENS storeItens = _connection.Table<DBOITENS>().FirstOrDefault(x => x.idItem == _idItem) ;
         return storeItens;
     }
 
@@ -828,25 +754,7 @@ public class DataService {
     public void AddItens(List<DBOITENS> _itens) {
         int _countTemp = _itens.Count;
         for (int i = 0; i < _countTemp; i++) {
-
-            if (!removeLinq) {
-                _connection.InsertOrReplace(_itens[i]);
-            } else {
-                string commandSQLITE = "REPLACE INTO DBOITENS (idItem, idCliente, idCategoriaItem, nomeItem, infoItem, valor, ativo, dataUpdate, Downloaded) values (?,?,?,?,?,?,?,?,?)";
-                object[] variables = new object[9];
-                variables[0] = _itens[i].idItem;
-                variables[1] = _itens[i].idCliente;
-                variables[2] = _itens[i].idCategoriaItem;
-                variables[3] = _itens[i].nomeItem;
-                variables[4] = _itens[i].infoItem;
-                variables[5] = _itens[i].valor;
-                variables[6] = _itens[i].ativo;
-                variables[7] = _itens[i].dataUpdate;
-                variables[8] = _itens[i].downloaded;
-                _connection.Execute(commandSQLITE, variables);
-            }
-
-
+            _connection.InsertOrReplace(_itens[i]);
         }
     }
 
@@ -884,26 +792,9 @@ public class DataService {
         UpdateOrReplateInventory(_temp);
     }
 
-    public void UpdateOrReplateInventory(DBOINVENTARIO _itemUpdate){
-        //Connection.Query("UPDATE Book SET Name = '" + inputfield.text + "' WHERE Id = " + intBookNo);
-        object[] argss = new object[8];
-        argss[0] = _itemUpdate.idItem;
-        argss[1] = _itemUpdate.deviceQuantity;
-        argss[2] = _itemUpdate.idUsuario;
-        argss[3] = _itemUpdate.quantidade;
-        argss[4] = _itemUpdate.dataUpdate;
-        argss[5] = _itemUpdate.dataInsert;
-        argss[6] = _itemUpdate.ativo;
-        argss[7] = _itemUpdate.online;
-        //object[] argss02 = new object[6];
-
-
-        String command01 = "REPLACE INTO DBOINVENTARIO (idItem,deviceQuantity , idUsuario, quantidade, dataUpdate, dataInsert, ativo, online) VALUES(?,?,?,?,?,?,?,?);";
-        //String command02 = "UPDATE DBOINVENTARIO SET quantidade=?,dataUpdate=?,dataInsert=?,ativo=?  WHERE idItem=? AND idUsuario=?;";
-        //String commandFull = command01 + command02;
-       // _connection.Query(commansd, argss);
-       //_connection.CreateCommand(commansd,argss);
-       _connection.Execute(command01, argss);
+    public void UpdateOrReplateInventory(DBOINVENTARIO _itemUpdate)
+    {
+        _connection.InsertOrReplace(_itemUpdate);
     }
     #endregion
 
@@ -935,7 +826,7 @@ public class DataService {
     }
 
     public DBOVERSION GetDBVersion() {
-        return _connection.Table<DBOVERSION>().Where(x => x.id == 1).FirstOrDefault();       
+        return _connection.Table<DBOVERSION>().FirstOrDefault(x => x.id == 1);       
     }
 
     public void UpdateDBVersion(DBOVERSION _dbv) {
