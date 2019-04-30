@@ -1044,6 +1044,7 @@ public class networkHelper {
                     });
                 }               
                 for (int i = 0; i < size; i++) {
+                    //TODO async WhenAllTask();
                     startScene.MessageStatus("Atualizando Itens " + (i + 1) + "/" + size + "");
 
                     if (_itensDB[i].ativo == 1 && config.isOnline == true) {
@@ -1368,6 +1369,7 @@ public class networkHelper {
             var score = tablesJSON["pontuacao"];
             var escolas = tablesJSON["escola"];
             var turmas = tablesJSON["turma"];
+            Log.d($"Turma Json: {turmas}");
             var usuarios = tablesJSON["usuarios"];
             var ranking = tablesJSON["ranking"];
             var ranking2 = tablesJSON["rankingusuario"];
@@ -1434,7 +1436,7 @@ public class networkHelper {
                     });
                 }
 
-                db.ClearTurmas();
+//                db.ClearTurmas();
                 db.AddAllTurmas(turmasDB);
 
                 dbo.turma = currentSyncDB.turma;
@@ -1605,6 +1607,7 @@ public class networkHelper {
         yield return Timing.WaitUntilDone(request.SendWebRequest());
 
         string response = request.downloadHandler.text;
+        Log.d(response);
         var result = JSON.Parse(response);
 
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
@@ -1621,6 +1624,7 @@ public class networkHelper {
             var score = tablesJSON["pontuacao"];
             var escolas = tablesJSON["escola"];
             var turmas = tablesJSON["turma"];
+            Log.d($"Turma Json: {turmas}");
             var usuarios = tablesJSON["usuarios"];
             var ranking = tablesJSON["ranking"];
             var ranking2 = tablesJSON["rankingusuario"];
@@ -1687,7 +1691,7 @@ public class networkHelper {
                     });
                 }
 
-                db.ClearTurmas();
+//                db.ClearTurmas();
                 db.AddAllTurmas(turmasDB);
 
                 dbo.turma = currentSyncDB.turma;
@@ -1755,7 +1759,7 @@ public class networkHelper {
 
 
                 List<DBORANKING> rankingDB = new List<DBORANKING>();
-                startScene.MessageStatus("Atualizando Ranking dos Minigames");
+                startScene.MessageStatus("Atualizando Ranking dos Minigames 2");
 
                 for (int i = 0; i < size; i++) {
                     DBORANKING temp = new DBORANKING() {
@@ -1770,7 +1774,7 @@ public class networkHelper {
                     rankingDB.Add(temp);
                 }
 
-                db.UpdateRankings(rankingDB);
+                db.InsertRanking(rankingDB);
 
             }
 

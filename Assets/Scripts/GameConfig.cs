@@ -172,10 +172,9 @@ public class GameConfig : ScriptableObject {
 
     public DataService openDB()
     {
-        db = new DataService(dbName);
+        db = new DataService(dbName) {removeLinq = false};
 
         //Only SQLITE COMMAND.
-        db.removeLinq = true;
 
         var dbv = db.GetDBVersion();
 
@@ -251,11 +250,16 @@ public class GameConfig : ScriptableObject {
 	public void UpdateCurrent(DBOUSUARIOS user){
 		currentUser = user;
         if (currentUser == null) return;
-        currentClass = openDB().GetClass(currentUser.idTurma).Result;
+        var getTurmaTask = openDB().GetClass(currentUser.idTurma);
+        currentClass = getTurmaTask;
         if (currentClass == null) return;
-        currentYear = openDB().GetYears(currentClass.idAnoLetivo);
-        if (currentSchool == null) return;
-        currentClient = openDB().GetClient(currentSchool.idCliente);
+        
+        var getCurrentClassTask = openDB().GetYears(currentClass.idAnoLetivo);
+        currentYear = getCurrentClassTask;
+        currentSchool = openDB().GetSchool(currentClass.idEscola);
+//        if (currentYear == null) return;
+//        var getCurrentSchoolTask = openDB().GetClient(currentSchool.idCliente);
+//        currentClient = getCurrentSchoolTask;
     }
 
     public void UpdateScore(DBOUSUARIOS user) {
@@ -281,7 +285,7 @@ public class GameConfig : ScriptableObject {
 			int id = i + 1;
 			DBORANKING thisRank = new DBORANKING();
 			if (hasCredentials) {
-				thisRank = db.GetRanking(id, playerID).Result;
+				thisRank = db.GetRanking(id, playerID);
 			}
 			if (thisRank != null) {
 				allMinigames[i].highscore = thisRank.highscore;
@@ -304,14 +308,11 @@ public class GameConfig : ScriptableObject {
         if (currentUser != null) {
             int userID = currentUser.idUsuario;
 
-            DBORANKING rank = openDB().GetRanking(minigameID, userID).Result;
-            if(rank == null) {
-                rank = new DBORANKING() {
-                    highscore = 0,
-                    idMinigame = minigameID,
-                    idUsuario = userID
-                };
-            }
+            DBORANKING rank = openDB().GetRanking(minigameID, userID) ?? new DBORANKING() {
+                highscore = 0,
+                idMinigame = minigameID,
+                idUsuario = userID
+            };
 
             return rank;
         } else {
@@ -369,7 +370,7 @@ public class GameConfig : ScriptableObject {
 
 	public void Rank(int _idMinigame, int score, int _starsAmount) {
     
-		DBORANKING rank = openDB().GetRanking (_idMinigame, GetCurrentUserID()).Result;
+		DBORANKING rank = openDB().GetRanking (_idMinigame, GetCurrentUserID());
 
 		if (rank != null) {
             bool hasUpdated = false;
@@ -485,7 +486,6 @@ public class GameConfig : ScriptableObject {
 	}
 
 	public string ReturnCurrentDate(){
-
         return System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture);
     }
 
@@ -672,11 +672,14 @@ public class GameConfig : ScriptableObject {
 
     public void UpdateAll(int _idUser) {
         if (currentUser != null) return;
-        currentUser = openDB().GetUser(_idUser).Result;
+        var taskUser = openDB().GetUser(_idUser);
+        currentUser = taskUser;
         if (currentClass != null) return;
-        currentClass = openDB().GetClass(currentUser.idTurma).Result;
+        var taskClass = openDB().GetClass(currentUser.idTurma);
+        currentClass = taskClass;
         if (currentSchool != null) return;
-        currentSchool = openDB().GetSchool(currentClass.idEscola).Result;
+        var taskSchool = openDB().GetSchool(currentClass.idEscola);
+        currentSchool = taskSchool;
     }
 
     public MinigameStruct GetMinigameID(int _idMinigame) {

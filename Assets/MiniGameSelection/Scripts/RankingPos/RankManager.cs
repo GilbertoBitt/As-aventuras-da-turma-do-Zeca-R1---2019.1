@@ -59,11 +59,11 @@ public class RankManager : MonoBehaviour {
         Debug.Log("Ranking Escola.");
         bool userIsOnTop = false;
 
-        DBOUSUARIOS users = config.openDB().GetUser(config.currentUser.idUsuario).Result;
+        DBOUSUARIOS users = config.openDB().GetUser(config.currentUser.idUsuario);
         yield return Timing.WaitForOneFrame;
-        DBOTURMA turmaUser = config.openDB().GetClass(users.idTurma).Result;
+        DBOTURMA turmaUser = config.openDB().GetClass(users.idTurma);
         yield return Timing.WaitForOneFrame;
-        DBOESCOLA escolaUser = config.openDB().GetSchool(turmaUser.idEscola).Result;
+        DBOESCOLA escolaUser = config.openDB().GetSchool(turmaUser.idEscola);
 
         yield return Timing.WaitForOneFrame;
 
@@ -85,7 +85,7 @@ public class RankManager : MonoBehaviour {
             
             yield return Timing.WaitForSeconds(0.1f);
             rankUsers.Add(new RankUser() {
-                nameUser = ds.GetUser(rankings[i].idUsuario).Result.nomeJogador,
+                nameUser = ds.GetUser(rankings[i].idUsuario).nomeJogador,
                 idMinigame = rankings[i].idMinigame,
                 scoreRank = rankings[i].highscore,
                 idUsuario = rankings[i].idUsuario,
@@ -109,11 +109,11 @@ public class RankManager : MonoBehaviour {
 
         if (userIsOnTop == false) {
             //DBOUSUARIOS users = config.openDB().GetUser(config.currentUser.idUsuario);
-            DBORANKING usersRank = config.openDB().GetRanking(tempIdMInigame, config.currentUser.idUsuario).Result;
+            DBORANKING usersRank = config.openDB().GetRanking(tempIdMInigame, config.currentUser.idUsuario);
 
             if (config.currentSchool == null) {
-                DBOTURMA turmaUser2 = config.openDB().GetClass(config.currentUser.idTurma).Result;
-                DBOESCOLA escolaUser2 = config.openDB().GetSchool(turmaUser.idEscola).Result;
+                DBOTURMA turmaUser2 = config.openDB().GetClass(config.currentUser.idTurma);
+                DBOESCOLA escolaUser2 = config.openDB().GetSchool(turmaUser.idEscola);
                 config.currentSchool = escolaUser2;
             }
             yield return Timing.WaitForSeconds(0.1f);
@@ -166,9 +166,9 @@ public class RankManager : MonoBehaviour {
         for (int i = 0; i < countTemp; i++) {
             Debug.Log("rankingResult.Count " + countTemp.ToString());
             Debug.Log(rankingResult[i].ToString());
-            DBOUSUARIOS users = config.openDB().GetUser(rankingResult[i].idUsuario).Result;
-            DBOTURMA turmaUser = config.openDB().GetClass(users.idTurma).Result;
-            DBOESCOLA escolaUser = config.openDB().GetSchool(turmaUser.idEscola).Result;
+            DBOUSUARIOS users = config.openDB().GetUser(rankingResult[i].idUsuario);
+            DBOTURMA turmaUser = config.openDB().GetClass(users.idTurma);
+            DBOESCOLA escolaUser = config.openDB().GetSchool(turmaUser.idEscola);
             yield return Timing.WaitForSeconds(0.1f);
             rankUsers.Add(new RankUser() {
                 nameUser = users.nomeJogador,                
@@ -189,11 +189,11 @@ public class RankManager : MonoBehaviour {
 
         if(userIsOnTop == false ) {
             //DBOUSUARIOS users = config.openDB().GetUser(config.currentUser.idUsuario);
-            var usersRank = config.openDB().GetRanking(tempIdMInigame, config.currentUser.idUsuario).Result;
+            var usersRank = config.openDB().GetRanking(tempIdMInigame, config.currentUser.idUsuario);
            
             if (config.currentSchool == null) {
-                DBOTURMA turmaUser = config.openDB().GetClass(config.currentUser.idTurma).Result;
-                DBOESCOLA escolaUser = config.openDB().GetSchool(turmaUser.idEscola).Result;
+                DBOTURMA turmaUser = config.openDB().GetClass(config.currentUser.idTurma);
+                DBOESCOLA escolaUser = config.openDB().GetSchool(turmaUser.idEscola);
                 config.currentSchool = escolaUser;
             }
             yield return Timing.WaitForSeconds(0.1f);

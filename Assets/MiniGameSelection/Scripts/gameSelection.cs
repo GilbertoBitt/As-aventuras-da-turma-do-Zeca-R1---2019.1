@@ -67,7 +67,7 @@ public class gameSelection : MonoBehaviour {
     }
 
     public void TrocaUsu() {
-        gameConfigs.UpdateAll(gameConfigs.playerID);
+        gameConfigs.UpdateCurrent(gameConfigs.currentUser);
         texBrops.text = "" + gameConfigs.BropsAmount;
         texPoints.text = "" + gameConfigs.TotalPoints;
         texNameAluno.text = "" + gameConfigs.namefull;

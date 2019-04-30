@@ -75,8 +75,8 @@ public class DataService {
             //test                           
 	    }
 
-        public async Task<DBOUSUARIOS> GetUser(int userID) {
-            return await _AsyncConnection.Table<DBOUSUARIOS>().Where(x => x.idUsuario == userID).FirstOrDefaultAsync();
+        public DBOUSUARIOS GetUser(int userID) {
+            return _AsyncConnection.Table<DBOUSUARIOS>().Where(x => x.idUsuario == userID).FirstOrDefaultAsync().Result;
         }
 
 
@@ -102,7 +102,7 @@ public class DataService {
 	    }
 
         public void InsertUser(DBOUSUARIOS user) {
-            _connection.InsertOrReplace(user);
+            _AsyncConnection.InsertOrReplaceAsync(user);
         }
 
     #endregion
@@ -213,8 +213,8 @@ public class DataService {
 	/// </summary>
 	/// <returns>The school.</returns>
 	/// <param name="idEscola">Identifier escola.</param>
-	public async Task<DBOESCOLA> GetSchool (int idEscola){
-		var result = await _AsyncConnection.Table<DBOESCOLA>().Where(x => x.idEscola == idEscola).FirstOrDefaultAsync();
+	public DBOESCOLA GetSchool (int idEscola){
+		var result = _AsyncConnection.Table<DBOESCOLA>().Where(x => x.idEscola == idEscola).FirstOrDefaultAsync().Result;
 		return result;
 	}
 
@@ -248,7 +248,7 @@ public class DataService {
 	    /// <returns>The client.</returns>
 	    /// <param name="clientID">Client I.</param>
 	    public DBOCLIENTES GetClient(int clientID){
-		    DBOCLIENTES cliente = _connection.Table<DBOCLIENTES>().FirstOrDefault(x => x.idCliente == clientID);
+		    DBOCLIENTES cliente = _AsyncConnection.Table<DBOCLIENTES>().Where(x => x.idCliente == clientID).FirstOrDefaultAsync().Result;
 		    return cliente;
 	    }
 
@@ -274,7 +274,7 @@ public class DataService {
 	    /// <returns>The class.</returns>
 	    /// <param name="idTurma">Identifier turma.</param>
 	    public DBOANOLETIVO GetYears (int idAnoLetivo){
-		    DBOANOLETIVO result = _connection.Table<DBOANOLETIVO>().FirstOrDefault(x => x.idAnoLetivo == idAnoLetivo);
+		    DBOANOLETIVO result = _AsyncConnection.Table<DBOANOLETIVO>().Where(x => x.idAnoLetivo == idAnoLetivo).FirstOrDefaultAsync().Result;
 		    return result;
 	    }
 
@@ -308,9 +308,9 @@ public class DataService {
 	    /// </summary>
 	    /// <returns>The class.</returns>
 	    /// <param name="idTurma">Identifier turma.</param>
-	    public async Task<DBOTURMA> GetClass (int idTurma)
+	    public DBOTURMA GetClass (int idTurma)
         {
-            return await _AsyncConnection.Table<DBOTURMA>().Where(x => x.idTurma == idTurma).FirstOrDefaultAsync();
+            return _AsyncConnection.Table<DBOTURMA>().Where(x => x.idTurma == idTurma).FirstOrDefaultAsync().Result;
         }
 
         public void ClearTurmas() {
@@ -319,7 +319,7 @@ public class DataService {
         }
 
         public void AddAllTurmas(List<DBOTURMA> turmas) {
-            _connection.InsertAll(turmas);
+            _AsyncConnection.InsertAllAsync(turmas);
         }
 
     #endregion
@@ -332,13 +332,13 @@ public class DataService {
 	    /// <returns>The ranking.</returns>
 	    /// <param name="idMinigame">Identifier minigame.</param>
 	    /// <param name="idUsuario">Identifier usuario.</param>
-	    public async Task<DBORANKING> GetRanking(int _idMinigame, int _idUsuario){
+	    public DBORANKING GetRanking(int _idMinigame, int _idUsuario){
             Log.d("tentar pegar ranking existente");
             Log.d($"Minigame ID: {_idMinigame} | ID Usuário: {_idUsuario}");
-            var query = await _AsyncConnection.Table<DBORANKING>().Where(x => x.idMinigame == _idMinigame && x.idUsuario == _idUsuario).FirstOrDefaultAsync();
+            var query = _AsyncConnection.Table<DBORANKING>().Where(x => x.idMinigame == _idMinigame && x.idUsuario == _idUsuario).FirstOrDefaultAsync();
             var result = query;
-            Log.d(JsonWriter.GetWriter().Write(query));
-		    return result;
+            Log.d(JsonWriter.GetWriter().Write(query.Result));
+		    return query.Result;
 	    }
 
         public List<DBORANKING> GetMinigameRanking(int idMinigame) {
@@ -420,7 +420,7 @@ public class DataService {
 //            //_connection.CreateCommand(commansd,argss);
 //            _connection.Execute(command01, argss);
             //_connection.Execute(command02, argss2);
-            _connection.InsertOrReplace(_ranking);
+            _AsyncConnection.InsertOrReplaceAsync(_ranking);
         }
 
         public void UpdateRanking(DBORANKING _ranking) {
@@ -436,7 +436,7 @@ public class DataService {
 //
 //            String command02 = "UPDATE DBORANKING SET highscore=?,dataInsert=?,dataUpdate=?,posicao=?,estrelas=?,online=? WHERE idMinigame=? AND idUsuario=?;";
 //            _connection.Execute(command02, argss);
-            _connection.InsertOrReplace(_ranking);
+            _AsyncConnection.InsertOrReplaceAsync(_ranking);
         }
 
         public void InserRanking2(DBORANKING _ranking) {
@@ -452,7 +452,7 @@ public class DataService {
 //
 //            String command01 = "REPLACE INTO DBORANKING (idMinigame, idUsuario, highscore, dataInsert, dataUpdate, posicao, estrelas, online) VALUES(?,?,?,?,?,?,?,?);";
 //            _connection.Execute(command01, argss);
-            _connection.InsertOrReplace(_ranking);
+            _AsyncConnection.InsertOrReplaceAsync(_ranking);
         }
 
         public void ClearRanking() {
@@ -640,7 +640,7 @@ public class DataService {
     }
 
     public void UpdateSync(DBOSINCRONIZACAO syncTemp) {
-        _connection.Update(syncTemp);
+        _AsyncConnection.InsertOrReplaceAsync(syncTemp);
     }
 
     /// <summary>
@@ -794,15 +794,22 @@ public class DataService {
 
     public void UpdateOrReplateInventory(DBOINVENTARIO _itemUpdate)
     {
-        _connection.InsertOrReplace(_itemUpdate);
+        _AsyncConnection.InsertOrReplaceAsync(_itemUpdate);
     }
     #endregion
 
     public void UpdateMinigames(List<DBOMINIGAMES> _minigames) {
+        
         int tempCount = _minigames.Count;
         for (int i = 0; i < tempCount; i++) {
+            
             _connection.InsertOrReplace(_minigames[i]);
         }
+    }
+
+    public async Task<int> InsertOrReplaceAsyncMiniGames(DBOMINIGAMES minigame)
+    {
+        return await _AsyncConnection.InsertOrReplaceAsync(minigame);
     }
 
     public List<DBOMINIGAMES> GetAllMinigames() {
