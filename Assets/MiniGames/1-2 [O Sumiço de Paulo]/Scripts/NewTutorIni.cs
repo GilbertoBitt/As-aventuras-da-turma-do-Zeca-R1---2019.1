@@ -24,6 +24,7 @@ public class NewTutorIni : MonoBehaviour
   public Animator profAnim;
   public GameObject profBoca;
   public GameObject profOlhos;
+  public bool fimFala;
 
 
   public 
@@ -46,6 +47,7 @@ public class NewTutorIni : MonoBehaviour
 
 
 void profStopFalandoTime(){
+  fimFala=true;
     profAnim.enabled=false;
     profBoca.SetActive(false);
     profOlhos.SetActive(false);
@@ -59,7 +61,9 @@ void profStopFalandoTime(){
 
     public void audioChamar(bool check){
 
-        avancBt(check);
+        if(fimFala){
+          avancBt(check);
+        }
         for (int i = 0; i < btsAv.Length; i++)
         {
             btsAv[i].SetActive(false);
@@ -108,8 +112,9 @@ void profStopFalandoTime(){
            
         }
       
-        
+        fimFala=false;
         if(ControlSomTutor2.numTutor==0){
+        
           Invoke("profStopFalandoTime",9);
         }
         else if(ControlSomTutor2.numTutor==1){
