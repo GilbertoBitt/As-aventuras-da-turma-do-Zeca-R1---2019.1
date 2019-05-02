@@ -68,25 +68,29 @@ public class gameSelection : MonoBehaviour {
 
     public void TrocaUsu() {
         gameConfigs.UpdateCurrent(gameConfigs.currentUser);
-        texBrops.text = "" + gameConfigs.BropsAmount;
-        texPoints.text = "" + gameConfigs.TotalPoints;
-        texNameAluno.text = "" + gameConfigs.namefull;
+        texBrops.text = $"{gameConfigs.BropsAmount}";
+        texPoints.text = $"{gameConfigs.TotalPoints}";
+        texNameAluno.text = $"{gameConfigs.namefull}";
         textClass.text = gameConfigs.currentClass.descTurma;
         textSchool.text = gameConfigs.currentSchool.nomeEscola;
-        textYear.text = "" + gameConfigs.currentClass.idAnoLetivo + " ANO";
+        textYear.text = $"{gameConfigs.currentClass.idAnoLetivo} ANO";
     }
 
     public void ActiveNomeGame(bool check) {
 
-        if (check) {
-            for (int i = 0; i < textNomeGame.Length; i++) {
-                textNomeGame[i].SetActive(true);
-            }
+        if (check)
+        {
+	        foreach (var t in textNomeGame)
+	        {
+		        t.SetActive(true);
+	        }
         } 
-        else {
-            for (int i = 0; i < textNomeGame.Length; i++) {
-                textNomeGame[i].SetActive(false);
-            }
+        else
+        {
+	        foreach (var t in textNomeGame)
+	        {
+		        t.SetActive(false);
+	        }
         }
        
 
@@ -101,10 +105,11 @@ public class gameSelection : MonoBehaviour {
 		selectedChars = -1;
 		UpdateState (stateMenu);
 		BropsTextUpdate ();
-        for (int i = 0; i < textsUpdate.Length; i++) {
-            textsUpdate[i].ForceMeshUpdate();
-            textsUpdate[i].UpdateFontAsset();
-            textsUpdate[i].SetAllDirty();
+        foreach (var t in textsUpdate)
+        {
+	        t.ForceMeshUpdate();
+	        t.UpdateFontAsset();
+	        t.SetAllDirty();
         }
 
         //gameConfigs.AddOrReplateMinigame

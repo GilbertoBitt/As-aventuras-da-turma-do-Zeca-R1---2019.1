@@ -2,7 +2,10 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using com.csutil;
+using DG.Tweening;
+using MEC;
 using UnityEngine.SceneManagement;
 
 public class FinalScore : MonoBehaviour {
@@ -41,13 +44,7 @@ public class FinalScore : MonoBehaviour {
 		bropsText.text = bropsAmount.ToString ();
         soundManager = FindObjectOfType<SoundManager>();
         PanelDesafioControl2 = FindObjectOfType<PanelDesafioControl>();
-        audio1 = PanelDesafioControl2.audio[1];
-
-
-
-
-
-    }
+        audio1 = PanelDesafioControl2.audio[1];}
 	
 	// Update is called once per frame
 
@@ -55,12 +52,11 @@ public class FinalScore : MonoBehaviour {
 	public void startTransfer(){
 		OnTransferStart.Invoke ();
 		Log.d($"ID Minigame: {idMinigame} \n Pontuação: {scoreAmount} \n Estrelas: {starsAmount}");
-		
-		StartCoroutine (PointsStart ());
-        
-    }
+		Timing.RunCoroutine(PointsStart());
 
-	public IEnumerator PointsStart(){
+	}
+
+	public IEnumerator<float> PointsStart(){
         Debug.Log("rankSaved");
         gameConfig.Rank(idMinigame, scoreAmount, starsAmount);
         int bropsTarget = bropsAmount + scoreAmount;
@@ -75,41 +71,45 @@ public class FinalScore : MonoBehaviour {
         Debug.Log(" playerID  --- " + gameConfig.playerID);
         Debug.Log(" scoreAmount  --- " + scoreAmount);
         Debug.Log(" bropsTarget  --- " + scoreAmount);
+        scoreText.DOTextInt(0, scoreAmount, transferDurationTime).SetEase(transferCurve);
+        yield return Timing.WaitForOneFrame;
 
-        float times = 0.0f;
-		int scoreTarget = scoreAmount;
-		//int bropsTarget = bropsAmount + scoreAmount;
-		//int scoreT = totalPointsAmount + scoreAmount;
-		while (times < transferDurationTime)
-		{
-			times += Time.deltaTime;
-			float s = times / transferDurationTime;
-
-			int score = (int)Mathf.Lerp (0, scoreTarget, transferCurve.Evaluate (s));
-			scoreText.text = score.ToString ();
-
-			//bucketTextComponent.color = Color.Lerp (startColor, colors, transferCurve.Evaluate (s));
-			yield return Yielders.EndOfFrame;
-		}        
+//        float times = 0.0f;
+//		int scoreTarget = scoreAmount;
+//		//int bropsTarget = bropsAmount + scoreAmount;
+//		//int scoreT = totalPointsAmount + scoreAmount;
+//		while (times < transferDurationTime)
+//		{
+//			times += Time.deltaTime;
+//			float s = times / transferDurationTime;
+//
+//			int score = (int)Mathf.Lerp (0, scoreTarget, transferCurve.Evaluate (s));
+//			scoreText.text = score.ToString ();
+//
+//			//bucketTextComponent.color = Color.Lerp (startColor, colors, transferCurve.Evaluate (s));
+//			yield return Yielders.EndOfFrame;
+//		}        
 	}
 
-	public IEnumerator StartBrops(){
-		float times = 0.0f;
+	public IEnumerator StartBrops()
+	{
 		int bropsTarget = bropsAmount + scoreAmount;
-		//gameConfig.BropsAmount = bropsTarget;
-		while (times < transferDurationTime)
-		{
-			times += Time.deltaTime;
-			float s = times / transferDurationTime;
-
-			int brops = (int)Mathf.Lerp (bropsAmount, bropsTarget, transferCurve.Evaluate (s));
-			bropsText.text = brops.ToString ();
-
-			//bucketTextComponent.color = Color.Lerp (startColor, colors, transferCurve.Evaluate (s));
-			yield return Yielders.EndOfFrame;
-		}
-
-        
+		bropsText.DOTextInt(bropsAmount, bropsTarget, transferDurationTime).SetEase(transferCurve);
+		yield return Yielders.EndOfFrame;
+//		float times = 0.0f;
+//		
+//		//gameConfig.BropsAmount = bropsTarget;
+//		while (times < transferDurationTime)
+//		{
+//			times += Time.deltaTime;
+//			float s = times / transferDurationTime;
+//
+//			int brops = (int)Mathf.Lerp (bropsAmount, bropsTarget, transferCurve.Evaluate (s));
+//			bropsText.text = brops.ToString ();
+//
+//			//bucketTextComponent.color = Color.Lerp (startColor, colors, transferCurve.Evaluate (s));
+//			yield return Yielders.EndOfFrame;
+//		}
 	}
 
 	public void UpdateGameScore(){
@@ -117,18 +117,21 @@ public class FinalScore : MonoBehaviour {
 	}
 
 	public IEnumerator StartTotalPoints(){
-		float times = 0.0f;
+		
 		int scoreT = totalPointsAmount + scoreAmount;
-		gameConfig.TotalPoints = scoreT;
-		while (times < transferDurationTime)
-		{
-			times += Time.deltaTime;
-			float s = times / transferDurationTime;
-
-			int scory = (int)Mathf.Lerp (totalPointsAmount, scoreT, transferCurve.Evaluate (s));
-			totalPoints.text = scory.ToString ();
-			yield return Yielders.EndOfFrame;
-		}
+		totalPoints.DOTextInt(totalPointsAmount, scoreT, transferDurationTime).SetEase(transferCurve);
+		yield return Yielders.EndOfFrame;
+//		float times = 0.0f;
+//		gameConfig.TotalPoints = scoreT;
+//		while (times < transferDurationTime)
+//		{
+//			times += Time.deltaTime;
+//			float s = times / transferDurationTime;
+//
+//			int scory = (int)Mathf.Lerp (totalPointsAmount, scoreT, transferCurve.Evaluate (s));
+//			totalPoints.text = scory.ToString ();
+//			yield return Yielders.EndOfFrame;
+//		}
 
         //gameConfig.UpdateScore(scoreAmount);
     }
@@ -198,7 +201,7 @@ public class FinalScore : MonoBehaviour {
             PanelDesafioControl2 = FindObjectOfType<PanelDesafioControl>();
             audio1 = PanelDesafioControl2.audio[1];
         }
-       soundManager.startVoiceFX(audio1);
+        soundManager.startVoiceFX(audio1);
         
         LoadManager load = GameObject.FindObjectOfType<LoadManager> ();
         if (load != null) {

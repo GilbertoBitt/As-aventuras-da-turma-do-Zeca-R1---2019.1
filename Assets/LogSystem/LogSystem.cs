@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MEC;
 using UnityEngine;
 
 public class LogSystem : OverridableMonoBehaviour {
@@ -33,6 +34,8 @@ public class LogSystem : OverridableMonoBehaviour {
 	private bool isTimerD = false;
 
 	private List<DBOESTATISTICA_DIDATICA> statistics = new List<DBOESTATISTICA_DIDATICA> ();
+	
+	//TODO ScriptableSingleton Object. avoid loosing data when scene context change.
 
     public override void UpdateMe() {
 		if (isTimerL) {
@@ -62,34 +65,38 @@ public class LogSystem : OverridableMonoBehaviour {
 	/// <summary>
 	/// Sends the game log.
 	/// </summary>
-	public void SendGameLog(){
+	public void SendGameLog()
+	{
 
-        config.SaveLOG(new DBOMINIGAMES_LOGS() {
-            deviceID = SystemInfo.deviceUniqueIdentifier,
-            faseLudica = faseLudica,
-            tempoLudica = config.TimeToIntMilliseconds(tempoLudica),
-            tempoDidatica = config.TimeToIntMilliseconds(tempoDidatica),
-            pontosLudica = pontosLudica,
-            pontosPedagogica = pontosPedagogica,
-            pontosInteragindo = pontosInteragindo,
-            idMinigame = idMinigame,
-            personagem = config.GetCharName(PlayerPrefs.GetInt("characterSelected", 0)),
-            online = 0,
-            idUsuario = config.playerID,
-            dataAcesso = config.ReturnCurrentDate()            
-        });
-         //(Log);
+		Timing.RunCoroutine(SendAllLogs());
+	}
 
-		int count = statistics.Count;
-
-		if(count >= 1) {
-            //config.SaveStatistic(statistics);
-            config.SaveAllStatistic(statistics);         
-        }
-
-
+	private IEnumerator<float> SendAllLogs()
+	{
+		config.SaveLOG(new DBOMINIGAMES_LOGS() {
+                    deviceID = SystemInfo.deviceUniqueIdentifier,
+                    faseLudica = faseLudica,
+                    tempoLudica = config.TimeToIntMilliseconds(tempoLudica),
+                    tempoDidatica = config.TimeToIntMilliseconds(tempoDidatica),
+                    pontosLudica = pontosLudica,
+                    pontosPedagogica = pontosPedagogica,
+                    pontosInteragindo = pontosInteragindo,
+                    idMinigame = idMinigame,
+                    personagem = config.GetCharName(PlayerPrefs.GetInt("characterSelected", 0)),
+                    online = 0,
+                    idUsuario = config.playerID,
+                    dataAcesso = config.ReturnCurrentDate()            
+                });
+                 //(Log);
         
-		
+        		int count = statistics.Count;
+        
+        		if(count >= 1) {
+                    //config.SaveStatistic(statistics);
+                    config.SaveAllStatistic(statistics);         
+                }
+
+                yield return Timing.WaitForOneFrame;
 	}
 
 	/// <summary>
@@ -133,31 +140,45 @@ public class LogSystem : OverridableMonoBehaviour {
 		isTimerD = enable;
 	}
 
-	public void SaveEstatistica(int _idGameDidatico, int _idDificuldade, bool _isRight){
-        DBOESTATISTICA_DIDATICA statisticTemp = new DBOESTATISTICA_DIDATICA() {
-            acertou = (_isRight) ? 1 : 0,
-            idDificuldade = _idDificuldade,
-            idGameDidatico = _idGameDidatico,
-            idHabilidade = -1,
-            idMinigame = idMinigame,
-            dataInsert = config.ReturnCurrentDate()
-        };
-        if (config.currentUser != null) {
+	public void SaveEstatistica(int _idGameDidatico, int _idDificuldade, bool _isRight)
+	{
+		Timing.RunCoroutine(SaveStatisticaCoroutine(_idGameDidatico, _idGameDidatico, _isRight));
+	}
+
+	private IEnumerator<float> SaveStatisticaCoroutine(int _idGameDidatico, int _idDificuldade, bool isRight)
+	{
+		var statisticTemp = new DBOESTATISTICA_DIDATICA() {
+			acertou = (isRight) ? 1 : 0,
+			idDificuldade = _idDificuldade,
+			idGameDidatico = _idGameDidatico,
+			idHabilidade = -1,
+			idMinigame = idMinigame,
+			dataInsert = config.ReturnCurrentDate()
+		};
+		if (config.currentUser != null) {
 			statisticTemp.idUsuario = config.currentUser.idUsuario;
 		}
 		statistics.Add(statisticTemp);
+		yield return Timing.WaitForOneFrame;
 	}
 
-    public void SaveEstatistica(DBOESTATISTICA_DIDATICA temp) {
-        DBOESTATISTICA_DIDATICA statisticTemp = temp;        
-        statisticTemp.dataInsert = config.ReturnCurrentDate();
-        if (config.currentUser != null) {
-            statisticTemp.idUsuario = config.currentUser.idUsuario;
-        }
-        statistics.Add(statisticTemp);
-    }
+	public void SaveEstatistica(DBOESTATISTICA_DIDATICA temp)
+	{
+		Timing.RunCoroutine(SaveOnStatistica(temp));
+	}
 
-    public void SaveHighscore(int score, int idUser) {
+	private IEnumerator<float> SaveOnStatistica(DBOESTATISTICA_DIDATICA temp)
+	{
+		DBOESTATISTICA_DIDATICA statisticTemp = temp;        
+                statisticTemp.dataInsert = config.ReturnCurrentDate();
+                if (config.currentUser != null) {
+                    statisticTemp.idUsuario = config.currentUser.idUsuario;
+                }
+                statistics.Add(statisticTemp);
+                yield return Timing.WaitForOneFrame;
+	}
+
+	public void SaveHighscore(int score, int idUser) {
         if(config.currentScore == null) {
             config.currentScore = new DBOPONTUACAO();
         }       

@@ -20,7 +20,7 @@
 
 			if(editorUtils == null)
 			{
-				editorUtils = (EditorUtils) ScriptableObject.CreateInstance("EditorUtils");
+				editorUtils = (EditorUtils) ScriptableObject.CreateInstance("DynamicLight2D.EditorUtils");
 			}
 
 			if (relativepath != null)

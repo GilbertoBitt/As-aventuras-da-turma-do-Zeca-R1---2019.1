@@ -152,15 +152,7 @@ public class GameConfig : ScriptableObject {
     {
         var value = PlayerPrefs.GetInt(key, 1);
 
-        if (value == 1)
-        {
-            return true;
-        }
-
-        else
-        {
-            return false;
-        }
+        return value == 1;
     }
 
    /* public void resetJogador()
@@ -170,34 +162,7 @@ public class GameConfig : ScriptableObject {
     }*/
 
 
-    public DataService openDB()
-    {
-        db = new DataService(dbName) {removeLinq = false};
-
-        //Only SQLITE COMMAND.
-
-        var dbv = db.GetDBVersion();
-
-        if(dbv == null) {
-            dbv = new DBOVERSION() {
-                id = 1,
-                version = sqliteVersion
-            };
-        }
-
-        int temp = dbv.version;
-        if (temp < sqliteVersion) {
-           // db = new DataService(dbName);
-
-            
-
-            OnUpgrade(dbv);
-            Debug.Log("Updating SQLITE: " + temp + " to " + sqliteVersion);
-        }
-
-        
-        return db;
-    }
+    public DataService openDB() => db ?? (db = new DataService(dbName));
 
     public void OnUpgrade(DBOVERSION dbv) {
         for (int i = dbv.version; i < sqliteVersion; i++) {            
@@ -234,10 +199,7 @@ public class GameConfig : ScriptableObject {
 		currentYear = year;
 		currentUser = user;
 		currentClass = classe;
-		//currentUser = user;
 		currentScore = openDB ().GetScore (currentUser.idUsuario);
-		//BropsAmount = currentScore.brops;
-		//TotalPoints = currentScore.pontuacaoTotal;
         playerID = currentUser.idUsuario;
         nickname = currentUser.login;
         namefull = currentUser.nomeJogador;
@@ -279,26 +241,26 @@ public class GameConfig : ScriptableObject {
     }  
 
 	public void UpdateMinigames(){
-		DataService db = openDB();
+		var LocalDB = openDB();
 		int countTemp = allMinigames.Count;
 		for (int i = 0; i < countTemp; i++) {
 			int id = i + 1;
 			DBORANKING thisRank = new DBORANKING();
 			if (hasCredentials) {
-				thisRank = db.GetRanking(id, playerID);
+				thisRank = LocalDB.GetRanking(id, playerID);
 			}
 			if (thisRank != null) {
 				allMinigames[i].highscore = thisRank.highscore;
                 allMinigames[i].stars = thisRank.estrelas;
 
             } else {
-				DBORANKING Rank = new DBORANKING();
+				var Rank = new DBORANKING();
 				Rank.highscore = 0;
 				allMinigames[i].highscore = 0;
                 allMinigames[i].stars = 0;
                 Rank.idMinigame = id;
 				Rank.idUsuario = GetCurrentUserID();
-				db.InsertRanking(Rank);
+				LocalDB.InsertRanking(Rank);
             }
 		}
 
@@ -361,11 +323,11 @@ public class GameConfig : ScriptableObject {
             _log.online = 0;
             openDB().InsertJogosLog(_log);
         };
-            /*JogosLogSerializeble glog = new JogosLogSerializeble();
-            glog.token = netHelper.token;
-            glog.log = _log;
-            glog.log.idUsuario = currentUser.idUsuario;           
-            jogosLog.Add(glog);*/
+        /*JogosLogSerializeble glog = new JogosLogSerializeble();
+        glog.token = netHelper.token;
+        glog.log = _log;
+        glog.log.idUsuario = currentUser.idUsuario;           
+        jogosLog.Add(glog);*/
      }
 
 	public void Rank(int _idMinigame, int score, int _starsAmount) {

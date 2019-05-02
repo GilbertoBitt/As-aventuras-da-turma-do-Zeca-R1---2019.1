@@ -402,7 +402,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
             countTemp = placesToHide.Count;
             for (int i = 0; i < countTemp; i++){
 				placesToHide[i].transform.rotation = originRotation[i];	
-		}
+            }
 		}
 
 		itemsToHide.Suffle ();
@@ -458,13 +458,12 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 		placesChoosen[5].imageComponent.color = Color.clear;
 
 		for (int i = 0; i < 6; i++) {
-			if(ImagensPanel [i] != null && placesChoosen [i] != null){
-				ImagensPanel [i].sprite = itemsToChoosen [i];
-				buttonsOnPanel[i].spriteOfButton = itemsToChoosen [i];
-				buttonsOnPanel[i].UpdateText();
-				ImagensPanel [i].color = Color.black;
-				placesChoosen [i].imagePanel = ImagensPanel [i];
-			}
+			if (ImagensPanel[i] == null || placesChoosen[i] == null) continue;
+			ImagensPanel [i].sprite = itemsToChoosen [i];
+			buttonsOnPanel[i].spriteOfButton = itemsToChoosen [i];
+			buttonsOnPanel[i].UpdateText();
+			ImagensPanel [i].color = Color.black;
+			placesChoosen [i].imagePanel = ImagensPanel [i];
 		}
         
 		for (int i = 0; i < ButtonsPanelG.Length; i++){
