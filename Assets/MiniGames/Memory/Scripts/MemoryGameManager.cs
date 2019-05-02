@@ -209,7 +209,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
            // Invoke("SomTutorMemoria", 2f);
         }
 		else{
-		//	if (gTutorMemory.activeInHierarchy == true) 
+			//	if (gTutorMemory.activeInHierarchy == true) 
 			PlayerPrefs.SetInt("TutorMemory_1",1);
 			tutorMemor_1 = PlayerPrefs.GetInt("TutorMemory_1",1);		
 			
@@ -220,7 +220,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		}
 		
 		
-		}
+    }
 
     public void SomTutorMemoria() {
         sound.startVoiceFX(audiosTutorial[numTutor]);
@@ -229,13 +229,11 @@ public class MemoryGameManager : OverridableMonoBehaviour {
     private bool started = false;
 	// Use this for initialization
 		public void Startlate () {
-        if (started == false) {
-            started = true;
-            Debug.Log("test2");
-            if (checkAvancar1 != 3) {
-                Timing.RunCoroutine(TimeStartlate());
-            }
-
+			if (started != false) return;
+			started = true;
+        Debug.Log("test2");
+        if (checkAvancar1 != 3) {
+	        Timing.RunCoroutine(TimeStartlate());
         }
 		}
 	public IEnumerator<float> TimeStartlate () {
@@ -308,20 +306,20 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		}
         managerNext.zecaCard = personReation;
         if (tutorMemor_0==1){
-		yield return Timing.WaitForSeconds(0.2f);
-		SelPersonsG.SetActive(true);
-		isGameEnded = false;
-            Timing.RunCoroutine(randomCardsList());
-           // Debug.Log("test");
-		timeSlider.maxValue = timePerGame;
-		ClearStars();
-		nextCanbeStarted = false;	
-		if(managerNext.contCart==0){
-		//managerNext.StartCoroutine(managerNext.StartBGame());
-		}	
+	        yield return Timing.WaitForSeconds(0.2f);
+	        SelPersonsG.SetActive(true);
+	        isGameEnded = false;
+	        Timing.RunCoroutine(randomCardsList());
+	        // Debug.Log("test");
+	        timeSlider.maxValue = timePerGame;
+	        ClearStars();
+	        nextCanbeStarted = false;	
+	        if(managerNext.contCart==0){
+		        //managerNext.StartCoroutine(managerNext.StartBGame());
+	        }	
 		
-		characterSelected = PlayerPrefs.GetInt("characterSelected", 0);
-			//personReation.ControlAnimCorpo.SetInteger (posCorpoZeca,0);
+	        characterSelected = PlayerPrefs.GetInt("characterSelected", 0);
+	        //personReation.ControlAnimCorpo.SetInteger (posCorpoZeca,0);
 
 		}
 		else{
@@ -337,7 +335,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		nextCanbeStarted = false;
 	//	contCart=contCart +1;
 		if(managerNext.contCart==0){
-		//managerNext.StartCoroutine(managerNext.StartBGame());
+			//managerNext.StartCoroutine(managerNext.StartBGame());
 		}
 		characterSelected = PlayerPrefs.GetInt("characterSelected", 0);
 		//personReation.ControlAnimCorpo.SetInteger (posCorpoZeca,0);
@@ -1139,8 +1137,8 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		int cardInstanceMemoryCompCount = cardInstanceMemoryComp.Count;
 			if(tutorMemor_1==0 || tutorMemor_1==1){
          
-            numTutor = 1;
-            canFlipped = false;
+				numTutor = 1;
+				canFlipped = false;
 				puxarCardsCheck=true;
 			
 				List<Vector3> cardsPos = new List<Vector3>();
@@ -1154,113 +1152,113 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 				float times = 0.0f;
 				while (times < makeDeckDuration)
 				{
-				times += Time.deltaTime;
-				float s = times / makeDeckDuration;
+					times += Time.deltaTime;
+					float s = times / makeDeckDuration;
 
-				float xScale = Mathf.Lerp (1f, makeDeckScaleSize.x, makeDeckCurve.Evaluate (s));
-				float yScale = Mathf.Lerp (1f, makeDeckScaleSize.y, makeDeckCurve.Evaluate (s));
+					float xScale = Mathf.Lerp (1f, makeDeckScaleSize.x, makeDeckCurve.Evaluate (s));
+					float yScale = Mathf.Lerp (1f, makeDeckScaleSize.y, makeDeckCurve.Evaluate (s));
 			
 
-				if(xScale >= 0f){
-					for (int i = 0; i < cardInstanceMemoryCompCount; i++){
-						if(cardInstanceMemoryComp[i] != null)
-						cardInstanceMemoryComp[i].updateSprite(false);
+					if(xScale >= 0f){
+						for (int i = 0; i < cardInstanceMemoryCompCount; i++){
+							if(cardInstanceMemoryComp[i] != null)
+								cardInstanceMemoryComp[i].updateSprite(false);
+						}
 					}
-				}
 
-				/*for (int i = 0; i < cardInstanceCount; i++)
-				{
-				cardInstance[i].transform.localScale = new Vector3(xScale, yScale,1f);
-				}*/
+					/*for (int i = 0; i < cardInstanceCount; i++)
+					{
+					cardInstance[i].transform.localScale = new Vector3(xScale, yScale,1f);
+					}*/
 
-				for (int i = 0; i < cardInstance.Count; i++)
-				{
-				cardInstance[i].transform.localScale = new Vector3(xScale, yScale,1f);
-				cardInstance[i].transform.position = Vector3.Lerp(cardsPos[i], characterDeckLocation.position, makeDeckCurve.Evaluate (s));
+					for (int i = 0; i < cardInstance.Count; i++)
+					{
+						cardInstance[i].transform.localScale = new Vector3(xScale, yScale,1f);
+						cardInstance[i].transform.position = Vector3.Lerp(cardsPos[i], characterDeckLocation.position, makeDeckCurve.Evaluate (s));
 
-				}	
+					}	
 				
 				
 
-				yield return Timing.WaitForOneFrame;
-			//	managerNext.cardMao.enabled=true;	
+					yield return Timing.WaitForOneFrame;
+					//	managerNext.cardMao.enabled=true;	
 			
 				}
 				managerNext.cardMao.enabled=true;	
 				managerNext.partCards2.SetActive(true);
-            btTextProfPular.SetActive(true);
+				btTextProfPular.SetActive(true);
 
-            if (levelDificult == 0 && correctsAmount == 0) {
-                textProf.text = textos[0];
-            } else if (levelDificult >= 0 && correctsAmount >= 0 && correctsAmount <= 8 && levelDificult <= 6) {
-                textProf.text = textos[1];
-            } else if (levelDificult == 6 && correctsAmount == 9) {
-                textProf.text = textos[2];
-            }
+				if (levelDificult == 0 && correctsAmount == 0) {
+					textProf.text = textos[0];
+				} else if (levelDificult >= 0 && correctsAmount >= 0 && correctsAmount <= 8 && levelDificult <= 6) {
+					textProf.text = textos[1];
+				} else if (levelDificult == 6 && correctsAmount == 9) {
+					textProf.text = textos[2];
+				}
 
-            gTutorMemory.SetActive(true);
+				gTutorMemory.SetActive(true);
 				TutorBTavancarBT.interactable=true;
 
-			if (gTutorMemory.activeInHierarchy == true) {
-				gTutorMemoryAnimator.SetInteger(NumB,1);
-			}
+				if (gTutorMemory.activeInHierarchy == true) {
+					gTutorMemoryAnimator.SetInteger(NumB,1);
+				}
 				
 				TutorBTavancar.SetActive(true);
-					pauseButton.interactable = false;
+				pauseButton.interactable = false;
 				}
 
 			else if(tutorMemor_1==1){
          
 				if(puxarCardsCheck==false){
-				canFlipped = false;
-				//puxarCardsCheck=true;
+					canFlipped = false;
+					//puxarCardsCheck=true;
 			
-				List<Vector3> cardsPos = new List<Vector3>();
+					List<Vector3> cardsPos = new List<Vector3>();
 
-				for (int i = 0; i < cardInstanceCount; i++)
-				{
-					cardsPos.Add(cardInstance[i].transform.position);
-				}
-
-				float times = 0.0f;
-				while (times < makeDeckDuration)
-				{
-				times += Time.deltaTime;
-				float s = times / makeDeckDuration;
-
-				float xScale = Mathf.Lerp (1f, makeDeckScaleSize.x, makeDeckCurve.Evaluate (s));
-				float yScale = Mathf.Lerp (1f, makeDeckScaleSize.y, makeDeckCurve.Evaluate (s));
-			
-
-				if(xScale >= 0f){
-					for (int i = 0; i < cardInstanceMemoryCompCount; i++){
-							if (cardInstanceMemoryComp [i] != null) {
-								cardInstanceMemoryComp [i].updateSprite (false);
-							}
-					}
-				}
-
-				for (int i = 0; i < cardInstanceCount; i++)
+					for (int i = 0; i < cardInstanceCount; i++)
 					{
-						if (cardInstance [i] != null) {
-							cardInstance [i].transform.localScale = new Vector3 (xScale, yScale, 1f);
-							cardInstance [i].transform.position = Vector3.Lerp (cardsPos [i], characterDeckLocation.position, makeDeckCurve.Evaluate (s));
+						cardsPos.Add(cardInstance[i].transform.position);
+					}
+
+					float times = 0.0f;
+					while (times < makeDeckDuration)
+					{
+						times += Time.deltaTime;
+						float s = times / makeDeckDuration;
+
+						float xScale = Mathf.Lerp (1f, makeDeckScaleSize.x, makeDeckCurve.Evaluate (s));
+						float yScale = Mathf.Lerp (1f, makeDeckScaleSize.y, makeDeckCurve.Evaluate (s));
+			
+
+						if(xScale >= 0f){
+							for (int i = 0; i < cardInstanceMemoryCompCount; i++){
+								if (cardInstanceMemoryComp [i] != null) {
+									cardInstanceMemoryComp [i].updateSprite (false);
+								}
+							}
 						}
-				}
+
+						for (int i = 0; i < cardInstanceCount; i++)
+						{
+							if (cardInstance [i] != null) {
+								cardInstance [i].transform.localScale = new Vector3 (xScale, yScale, 1f);
+								cardInstance [i].transform.position = Vector3.Lerp (cardsPos [i], characterDeckLocation.position, makeDeckCurve.Evaluate (s));
+							}
+						}
 				
 
-				yield return Timing.WaitForOneFrame;
+						yield return Timing.WaitForOneFrame;
 
-                }
-                //	managerNext.cardMao.enabled=true;
-                btTextProfPular.SetActive(true);
-                if (levelDificult == 0 && correctsAmount == 0) {
-                    textProf.text = "Que pena! Vamos tente melhor na proxima vez.";
-                } else if (levelDificult >= 0 && correctsAmount >= 0 && correctsAmount <= 8 && levelDificult <= 6) {
-                    textProf.text = "Muito bem! Você tem uma boa memória.";
-                } else if (levelDificult == 6 && correctsAmount == 9) {
-                    textProf.text = "Excelente! Você acertou todas as cartas.";
-                }
+					}
+					//	managerNext.cardMao.enabled=true;
+					btTextProfPular.SetActive(true);
+					if (levelDificult == 0 && correctsAmount == 0) {
+						textProf.text = "Que pena! Vamos tente melhor na proxima vez.";
+					} else if (levelDificult >= 0 && correctsAmount >= 0 && correctsAmount <= 8 && levelDificult <= 6) {
+						textProf.text = "Muito bem! Você tem uma boa memória.";
+					} else if (levelDificult == 6 && correctsAmount == 9) {
+						textProf.text = "Excelente! Você acertou todas as cartas.";
+					}
             }
             btTextProfPular.SetActive(true);
 

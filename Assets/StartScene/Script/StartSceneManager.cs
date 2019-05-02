@@ -498,7 +498,15 @@ public class StartSceneManager : MonoBehaviour {
     void LoadYearsOfSchool() {
         List<string> optionYears = new List<string>();
         anoLetivoList.Clear();
-        anoLetivoList = openedDB().GetYearsList();
+        var anoLetivoListRaw = openedDB().GetYearsList();
+        var avaibleAnoLetivo = GetAvaibleAnoLetivo();
+        foreach (var dboanoletivo in anoLetivoListRaw)
+        {
+            if (avaibleAnoLetivo.Contains(dboanoletivo.idAnoLetivo))
+            {
+                anoLetivoList.Add(dboanoletivo);
+            }
+        }
         int countTemp = anoLetivoList.Count;
         optionYears.Add("-");
         for (int i = 0; i < countTemp; i++) {
@@ -550,6 +558,7 @@ public class StartSceneManager : MonoBehaviour {
             yearDropDown.interactable = true;
             classDropDown.value = 0;
             userDropDown.value = 0;
+            
             yearDropDown.value = 0;
             classDropDown.interactable = false;
             userDropDown.interactable = false;
@@ -557,6 +566,21 @@ public class StartSceneManager : MonoBehaviour {
         } else {
             yearDropDown.interactable = false;
         }
+    }
+
+    public List<int> GetAvaibleAnoLetivo()
+    {
+        var turmas = openedDB().GetClassBySchoolID(currentSelectedEscola.idEscola);
+        var anosLetivo = new List<int>();
+        foreach (var turma in turmas)
+        {
+            if (!anosLetivo.Contains(turma.idAnoLetivo))
+            {
+                anosLetivo.Add(turma.idAnoLetivo);
+            }
+        }
+
+        return anosLetivo;
     }
 
     public void OnValidadeYearsDropDown() {

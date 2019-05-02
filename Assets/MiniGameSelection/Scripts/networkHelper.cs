@@ -1413,8 +1413,6 @@ public class networkHelper {
                     });
                 }
 
-                db.ClearEscolas();
-
                 db.AddAllEscolas(escolasDB);
 
                 dbo.escola = currentSyncDB.escola;
@@ -1435,8 +1433,6 @@ public class networkHelper {
                         dataUpdate = turmas[i]["dataUpdate"],
                     });
                 }
-
-//                db.ClearTurmas();
                 db.AddAllTurmas(turmasDB);
 
                 dbo.turma = currentSyncDB.turma;
@@ -1668,8 +1664,6 @@ public class networkHelper {
                     });
                 }
 
-                db.ClearEscolas();
-
                 db.AddAllEscolas(escolasDB);
 
                 dbo.escola = currentSyncDB.escola;
@@ -1690,8 +1684,6 @@ public class networkHelper {
                         dataUpdate = turmas[i]["dataUpdate"],
                     });
                 }
-
-//                db.ClearTurmas();
                 db.AddAllTurmas(turmasDB);
 
                 dbo.turma = currentSyncDB.turma;

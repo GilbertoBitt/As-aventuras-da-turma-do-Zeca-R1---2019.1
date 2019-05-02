@@ -266,12 +266,12 @@ public class Manager_1_1B : MonoBehaviour
 			for (int i = 0; i < dropCardsLength; i++){
 					dropCards[i].cardDraged.ParticleItem.SetActive(false);
 					if(dropCards[i].characterSprite.idItem == dropCards[i].cardDraged.characterSprite.idItem){
-					scoreMade++;
+						scoreMade++;
 					}
-				}
-				isPlayTime = false;
-				//Debug.Log("Check if its Correct");
-				StartCoroutine(correction());
+			}
+			isPlayTime = false;
+			//Debug.Log("Check if its Correct");
+			StartCoroutine(correction());
 		}
 
 	}
@@ -338,8 +338,8 @@ public class Manager_1_1B : MonoBehaviour
 			middleCardsPositions.Add(temp);
 		}
 		
-	//	particulasCartsDita.SetActive(true);
-	 parentDropAnimator.SetBool(NextCanbeStarted, false);
+		//	particulasCartsDita.SetActive(true);
+		parentDropAnimator.SetBool(NextCanbeStarted, false);
 
 		parentDropAnimator.enabled=false;
 		parentMiddleGridLayout.enabled = true;

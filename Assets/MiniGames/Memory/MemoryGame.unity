@@ -1451,81 +1451,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1000014220418706, guid: 40482f5722b28114b80056e27c2f17a3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013616501170, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013616501170, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 670bb3f3c759d2445b4ae29b01ce222d,
-        type: 3}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EndRoutines
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: EndRoutines
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: loadSliderGameObject
-      value: 
-      objectReference: {fileID: 88321166}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: panelLoad
-      value: 
-      objectReference: {fileID: 88321165}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: panelLoadImage
-      value: 
-      objectReference: {fileID: 88321164}
     - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
         type: 3}
       propertyPath: m_RenderMode
@@ -1546,6 +1471,17 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -2135078457
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013616501170, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013616501170, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 670bb3f3c759d2445b4ae29b01ce222d,
+        type: 3}
     - target: {fileID: 224000010024376192, guid: 40482f5722b28114b80056e27c2f17a3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1639,6 +1575,70 @@ PrefabInstance:
     - target: {fileID: 114000010942288262, guid: 40482f5722b28114b80056e27c2f17a3,
         type: 3}
       propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndRoutines
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: EndRoutines
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: loadSliderGameObject
+      value: 
+      objectReference: {fileID: 88321166}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: panelLoad
+      value: 
+      objectReference: {fileID: 88321165}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: panelLoadImage
+      value: 
+      objectReference: {fileID: 88321164}
+    - target: {fileID: 1000014220418706, guid: 40482f5722b28114b80056e27c2f17a3, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224000012218424484, guid: 40482f5722b28114b80056e27c2f17a3,
@@ -25373,7 +25373,7 @@ MonoBehaviour:
     type: 3}
   cellsize_3ano: {x: 220, y: 60}
   cellsizeDrag_3ano: {x: 180, y: 60}
-  anoLetivo: 3
+  anoLetivo: 2
 --- !u!95 &599420760
 Animator:
   serializedVersion: 3
@@ -39444,37 +39444,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114000014193778932, guid: 76b9c4e4b94783845acd0a68f4b2398b,
-        type: 3}
-      propertyPath: gameConfig
-      value: 
-      objectReference: {fileID: 11400000, guid: 8a44dcc961734d549bdf44791a1678c8,
-        type: 2}
-    - target: {fileID: 114000014193778932, guid: 76b9c4e4b94783845acd0a68f4b2398b,
-        type: 3}
-      propertyPath: backgroundMusic
-      value: 
-      objectReference: {fileID: 8300000, guid: b25bd24f6528d9f4b90dde5467b0887a, type: 3}
-    - target: {fileID: 114000014193778932, guid: 76b9c4e4b94783845acd0a68f4b2398b,
-        type: 3}
-      propertyPath: OnVoiceEffectVolumeBackground
-      value: 0.26666668
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000014193778932, guid: 76b9c4e4b94783845acd0a68f4b2398b,
-        type: 3}
-      propertyPath: OnVoiceEffectVolumeAmbient
-      value: 0.13333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000014193778932, guid: 76b9c4e4b94783845acd0a68f4b2398b,
-        type: 3}
-      propertyPath: hasAmbientFX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000014193778932, guid: 76b9c4e4b94783845acd0a68f4b2398b,
-        type: 3}
-      propertyPath: endGameTheme
-      value: 
-      objectReference: {fileID: 8300000, guid: 0c212fb08b3274e4084fd54b472a9dcd, type: 3}
     - target: {fileID: 4000011592771120, guid: 76b9c4e4b94783845acd0a68f4b2398b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 393.40872
@@ -39507,6 +39476,37 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000014193778932, guid: 76b9c4e4b94783845acd0a68f4b2398b,
+        type: 3}
+      propertyPath: gameConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 8a44dcc961734d549bdf44791a1678c8,
+        type: 2}
+    - target: {fileID: 114000014193778932, guid: 76b9c4e4b94783845acd0a68f4b2398b,
+        type: 3}
+      propertyPath: backgroundMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: b25bd24f6528d9f4b90dde5467b0887a, type: 3}
+    - target: {fileID: 114000014193778932, guid: 76b9c4e4b94783845acd0a68f4b2398b,
+        type: 3}
+      propertyPath: OnVoiceEffectVolumeBackground
+      value: 0.26666668
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000014193778932, guid: 76b9c4e4b94783845acd0a68f4b2398b,
+        type: 3}
+      propertyPath: OnVoiceEffectVolumeAmbient
+      value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000014193778932, guid: 76b9c4e4b94783845acd0a68f4b2398b,
+        type: 3}
+      propertyPath: hasAmbientFX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000014193778932, guid: 76b9c4e4b94783845acd0a68f4b2398b,
+        type: 3}
+      propertyPath: endGameTheme
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c212fb08b3274e4084fd54b472a9dcd, type: 3}
     - target: {fileID: 82000010566421618, guid: 76b9c4e4b94783845acd0a68f4b2398b,
         type: 3}
       propertyPath: spreadCustomCurve.m_RotationOrder

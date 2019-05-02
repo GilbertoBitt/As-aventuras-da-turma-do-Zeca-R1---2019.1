@@ -164,8 +164,8 @@ public class RankManager : MonoBehaviour {
 
         int countTemp = rankingResult.Count;
         for (int i = 0; i < countTemp; i++) {
-            Debug.Log("rankingResult.Count " + countTemp.ToString());
-            Debug.Log(rankingResult[i].ToString());
+//            Debug.Log("rankingResult.Count " + countTemp.ToString());
+//            Debug.Log(rankingResult[i].ToString());
             DBOUSUARIOS users = config.openDB().GetUser(rankingResult[i].idUsuario);
             DBOTURMA turmaUser = config.openDB().GetClass(users.idTurma);
             DBOESCOLA escolaUser = config.openDB().GetSchool(turmaUser.idEscola);

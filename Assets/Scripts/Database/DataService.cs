@@ -57,7 +57,7 @@ public class DataService {
             filepath = filepathTo;
 #endif
             _connection = new SQLiteConnection(filepath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
-            _AsyncConnection = new SQLiteAsyncConnection(filepath);
+            _AsyncConnection = new SQLiteAsyncConnection(filepath, key: "eduqbrinqlp");
             //Debug.Log("<color=#ffffff>Final PATH:</color> <color=#33bfea>" + filepath + "</color>"); 
 		}       
 
@@ -115,20 +115,18 @@ public class DataService {
 	    /// <returns>The score.</returns>
 	    /// <param name="userID">User I.</param>
 	    public DBOPONTUACAO GetScore(int userID){
-		    DBOPONTUACAO score = _connection.Table<DBOPONTUACAO>().FirstOrDefault(x => x.idUsuario == userID);
-            if(score == null) {
-                score = new DBOPONTUACAO();
-            }
-		    return score;
+		    DBOPONTUACAO score = _AsyncConnection.Table<DBOPONTUACAO>().Where(x => x.idUsuario == userID).FirstOrDefaultAsync().Result ??
+                                 new DBOPONTUACAO();
+            return score;
 	    }
 
         public List<DBOPONTUACAO> GetallScoresOffline() {
-            IEnumerable<DBOPONTUACAO> inventory = _connection.Table<DBOPONTUACAO>().Where(x => x.online == 0);
+            IEnumerable<DBOPONTUACAO> inventory = _AsyncConnection.Table<DBOPONTUACAO>().Where(x => x.online == 0).ToListAsync().Result;
             return inventory.ToList();
         }
 
         public void DeleteScore(DBOPONTUACAO _delete) {
-            _connection.Delete(_delete);
+            _AsyncConnection.DeleteAsync(_delete);
         }
 
 
@@ -166,12 +164,12 @@ public class DataService {
             //_connection.CreateCommand(commansd,argss);
 //            _connection.Execute(command01, argss);
             //_connection.Execute(command02, argss2);
-            _connection.InsertOrReplace(_score);
+            _AsyncConnection.InsertOrReplaceAsync(_score);
         }
 
         public void UpdateToOnlineScore(DBOPONTUACAO _score)
         {
-            _connection.Update(_score);
+            _AsyncConnection.UpdateAsync(_score);
 //            //Connection.Query("UPDATE Book SET Name = '" + inputfield.text + "' WHERE Id = " + intBookNo);
 //            object[] argss = new object[7];
 //            argss[0] = _score.idUsuario;
@@ -202,7 +200,7 @@ public class DataService {
     /// <returns>The school list.</returns>
     /// <param name="idCliente">Identifier cliente.</param>
     public List<DBOESCOLA> GetSchoolList (int idCliente){
-		IEnumerable<DBOESCOLA> result = _connection.Table<DBOESCOLA>().Where(x => x.idCliente == idCliente);
+		IEnumerable<DBOESCOLA> result = _AsyncConnection.Table<DBOESCOLA>().Where(x => x.idCliente == idCliente).ToListAsync().Result;
 		List<DBOESCOLA> resultList = result.ToList();
 		return resultList;
 	}
@@ -218,13 +216,13 @@ public class DataService {
 		return result;
 	}
 
-    public void ClearEscolas() {
-        _connection.DropTable<DBOESCOLA>();
-        _connection.CreateTable<DBOESCOLA>();
-    }
+
 
     public void AddAllEscolas(List<DBOESCOLA> escolas) {
-        _connection.InsertAll(escolas);
+        foreach (var dboescola in escolas)
+        {
+            _AsyncConnection.InsertOrReplaceAsync(dboescola);
+        }
     }
 
 #endregion
@@ -238,7 +236,7 @@ public class DataService {
 	    /// <param name="clientID">Client I.</param>
 	    public string GetClientName(int clientID)
         {
-            var cliente = _connection.Table<DBOCLIENTES>().FirstOrDefault(x => x.idCliente == clientID);
+            var cliente = _AsyncConnection.Table<DBOCLIENTES>().Where(x => x.idCliente == clientID).FirstOrDefaultAsync().Result;
             return cliente != null ? cliente.nomeCliente : "";
         }
 
@@ -262,7 +260,7 @@ public class DataService {
 	    /// <returns>The years list.</returns>
 	    /// <param name="SchoolID">School ID.</param>
 	    public List<DBOANOLETIVO> GetYearsList (){
-            IEnumerable<DBOANOLETIVO> result = _connection.Table<DBOANOLETIVO>().AsEnumerable();
+            IEnumerable<DBOANOLETIVO> result = _AsyncConnection.Table<DBOANOLETIVO>().ToListAsync().Result;
 		    List<DBOANOLETIVO> resultList = result.ToList();
 		    return resultList;
 	    }
@@ -278,13 +276,10 @@ public class DataService {
 		    return result;
 	    }
 
-        public void ClearAnoLetivo() {
-            _connection.DropTable<DBOANOLETIVO>();
-            _connection.CreateTable<DBOANOLETIVO>();
-        }
+  
 
         public void AddAllAnoLetivo(List<DBOANOLETIVO> anosLetivos) {
-            _connection.InsertAll(anosLetivos);
+            _AsyncConnection.InsertAllAsync(anosLetivos);
         }
 
     #endregion
@@ -297,7 +292,7 @@ public class DataService {
 	    /// <returns>The class list.</returns>
 	    /// <param name="YearID">Year I.</param>
 	    public List<DBOTURMA> GetClassList (int YearID){
-		    IEnumerable<DBOTURMA> result = _connection.Table<DBOTURMA>().Where(x => x.idAnoLetivo == YearID);
+		    IEnumerable<DBOTURMA> result = _AsyncConnection.Table<DBOTURMA>().Where(x => x.idAnoLetivo == YearID).ToListAsync().Result;
 		    List<DBOTURMA> resultList = result.ToList();
 		    return resultList;
 	    }
@@ -313,10 +308,11 @@ public class DataService {
             return _AsyncConnection.Table<DBOTURMA>().Where(x => x.idTurma == idTurma).FirstOrDefaultAsync().Result;
         }
 
-        public void ClearTurmas() {
-            _connection.DropTable<DBOTURMA>();
-            _connection.CreateTable<DBOTURMA>();
+        public List<DBOTURMA> GetClassBySchoolID(int idSchool)
+        {
+            return _AsyncConnection.Table<DBOTURMA>().Where(x => x.idEscola == idSchool).ToListAsync().Result;
         }
+
 
         public void AddAllTurmas(List<DBOTURMA> turmas) {
             _AsyncConnection.InsertAllAsync(turmas);
@@ -347,12 +343,12 @@ public class DataService {
         }
 
         public List<DBORANKING> GetAllUserRanks(int idUsuario) {
-            IEnumerable<DBORANKING> minigamesRankingDB = _connection.Table<DBORANKING>().Where(x => x.idUsuario == idUsuario).OrderBy(x => x.idMinigame).Take(5);
+            IEnumerable<DBORANKING> minigamesRankingDB = _AsyncConnection.Table<DBORANKING>().Where(x => x.idUsuario == idUsuario).OrderBy(x => x.idMinigame).Take(5).ToListAsync().Result;
             return minigamesRankingDB.ToList();
         }
 
         public List<DBORANKING> GetAllOfflineRanks() {
-            IEnumerable<DBORANKING> minigamesRankingDB = _connection.Table<DBORANKING>().Where(x => x.online == 0);
+            IEnumerable<DBORANKING> minigamesRankingDB = _AsyncConnection.Table<DBORANKING>().Where(x => x.online == 0).ToListAsync().Result;
             return minigamesRankingDB.ToList();
         }
 
@@ -362,7 +358,8 @@ public class DataService {
             objs[0] = idMinigame;
             objs[1] = idSchool;
             string cmdText = "SELECT * FROM DBORANKFILTER WHERE idMinigame = ? AND idEscola = ? ORDER BY DBORANKFILTER.highscore DESC LIMIT 10";
-            return _connection.Query<DBORANKFILTER>(cmdText, objs);
+            return _AsyncConnection.QueryAsync<DBORANKFILTER>(cmdText, objs).Result;
+            
             
         }
 
@@ -455,13 +452,7 @@ public class DataService {
             _AsyncConnection.InsertOrReplaceAsync(_ranking);
         }
 
-        public void ClearRanking() {
-            //_connection.DropTable<DBORANKING>();
-            //_connection.CreateTable<DBORANKING>();
-            String command01 = "DELETE FROM DBORANKING;";
-            _connection.Execute(command01);
 
-        }
 
 	    /*public void UpdateRanking(DBORANKING _rank){
 		    _rank.dataUpdate = ReturnCurrentDate ();
@@ -477,15 +468,13 @@ public class DataService {
 	    /// <returns>The question list.</returns>
 	    /// <param name="idBook">Identifier book.</param>
 	    public List<DBOPERGUNTAS> GetQuestionList (int idBook){
-		    IEnumerable<DBOPERGUNTAS> result = _connection.Table<DBOPERGUNTAS>().Where(x => x.idLivro == idBook);
-		    List<DBOPERGUNTAS> resultList = result.ToList();
-		    return resultList;
+		    var result = _AsyncConnection.Table<DBOPERGUNTAS>().Where(x => x.idLivro == idBook).ToListAsync().Result;
+//		    List<DBOPERGUNTAS> resultList = result.ToList();
+		    return result;
 	    }
 
         public List<DBOPERGUNTAS> GetQuestionListE(int idBook, int _idCliente) {
-            IEnumerable<DBOPERGUNTAS> result = _connection.Table<DBOPERGUNTAS>().Where(x => x.idLivro == idBook && x.idCliente == _idCliente);
-            List<DBOPERGUNTAS> resultList = result.ToList();
-            return resultList;
+            return _AsyncConnection.Table<DBOPERGUNTAS>().Where(x => x.idLivro == idBook && x.idCliente == _idCliente).ToListAsync().Result;
         }
 
         public List<DBOPERGUNTAS> GetQuestionList(int idBook, int _idCliente) {
@@ -498,8 +487,8 @@ public class DataService {
             DBOPERGUNTAS temp = new DBOPERGUNTAS() {
                 idPergunta = _idPerguntas
             };
-            _connection.Delete(temp);
-            //_connection.Delete(idPerguntas);
+            _AsyncConnection.DeleteAsync(temp);
+            //_AsyncConnection.DeleteAsync(idPerguntas);
         }
 
     #endregion
@@ -521,7 +510,7 @@ public class DataService {
             DBORESPOSTAS temp = new DBORESPOSTAS() {
                 idResposta = _idRespostas
             };
-            _connection.Delete(temp);
+            _AsyncConnection.DeleteAsync(temp);
         }
 
     #endregion
@@ -535,22 +524,22 @@ public class DataService {
 	    }
 
         public List<DBOMINIGAMES_LOGS> GetAllMinigamesLog() {
-            IEnumerable<DBOMINIGAMES_LOGS> result = _connection.Table<DBOMINIGAMES_LOGS>();
+            IEnumerable<DBOMINIGAMES_LOGS> result = _AsyncConnection.Table<DBOMINIGAMES_LOGS>().ToListAsync().Result;
             List<DBOMINIGAMES_LOGS> resultList = result.ToList();
             return resultList;
         }
         
         public void DeleteMinigamesLog(DBOMINIGAMES_LOGS _minigameLog) {
-            _connection.Delete(_minigameLog);
+            _AsyncConnection.DeleteAsync(_minigameLog);
         }
 
         public void DeleteMinigamesLogs(List<DBOMINIGAMES_LOGS> logs)
         {
-            _connection.Delete<DBOMINIGAMES_LOGS>(logs);
+            _AsyncConnection.DeleteAsync<DBOMINIGAMES_LOGS>(logs);
         }
 
         public void InsertMinigamesLOG(DBOMINIGAMES_LOGS _minigamesLog) {
-            _connection.Insert(_minigamesLog);
+            _AsyncConnection.InsertOrReplaceAsync(_minigamesLog);
         }
 
         #endregion
@@ -563,13 +552,13 @@ public class DataService {
     }
 
     public List<DBOGAMES_LOGS> GetAllGamesLOG() {
-        IEnumerable<DBOGAMES_LOGS> result = _connection.Table<DBOGAMES_LOGS>();
+        IEnumerable<DBOGAMES_LOGS> result = _AsyncConnection.Table<DBOGAMES_LOGS>().ToListAsync().Result;
         List<DBOGAMES_LOGS> resultList = result.ToList();
         return resultList;
     }
 
     public void DeleteGamesLog(DBOGAMES_LOGS _minigameLog) {
-        _connection.Delete(_minigameLog);
+        _AsyncConnection.DeleteAsync(_minigameLog);
     }
     
     /// <summary>
@@ -577,11 +566,11 @@ public class DataService {
     /// </summary>
     /// <param name="logs"> List de logs</param>
     public void DeleteGamesLogs(List<DBOGAMES_LOGS> logsGames_logs) {
-        _connection.Delete<DBOGAMES_LOGS>(logsGames_logs);
+        _AsyncConnection.DeleteAsync<DBOGAMES_LOGS>(logsGames_logs);
     }
 
     public void InsertDBOGAMES_LOG(DBOGAMES_LOGS _gamesLog) {
-        _connection.Insert(_gamesLog);
+        _AsyncConnection.InsertAsync(_gamesLog);
     }
 
     #endregion
@@ -609,22 +598,22 @@ public class DataService {
 
     public void InsertStatistic2(DBOESTATISTICA_DIDATICA _statistic)
     {
-        _connection.Insert(_statistic);
+        _AsyncConnection.InsertAsync(_statistic);
     }
 
     public List<DBOESTATISTICA_DIDATICA> GetAllStatisticDidatica() {
-        IEnumerable<DBOESTATISTICA_DIDATICA> result = _connection.Table<DBOESTATISTICA_DIDATICA>();
+        IEnumerable<DBOESTATISTICA_DIDATICA> result = _AsyncConnection.Table<DBOESTATISTICA_DIDATICA>().ToListAsync().Result;
         List<DBOESTATISTICA_DIDATICA> resultList = result.ToList();
         return resultList;
     }
 
     public void DeleteEstatistica(DBOESTATISTICA_DIDATICA _minigameLog) {
-        _connection.Delete(_minigameLog);
+        _AsyncConnection.DeleteAsync(_minigameLog);
     }
     
     public void DeleteEstatisticas(List<DBOESTATISTICA_DIDATICA> @logs)
     {
-        _connection.Delete<DBOESTATISTICA_DIDATICA>(@logs);
+        _AsyncConnection.DeleteAsync<DBOESTATISTICA_DIDATICA>(@logs);
     }
 
 
@@ -634,7 +623,7 @@ public class DataService {
     #region DBOSINCRONIZACAO
 
     public DBOSINCRONIZACAO GetSync(int idCliente) {
-        DBOSINCRONIZACAO sinc = _connection.Table<DBOSINCRONIZACAO>().FirstOrDefault(x => x.idCliente == idCliente) ??
+        DBOSINCRONIZACAO sinc = _AsyncConnection.Table<DBOSINCRONIZACAO>().Where(x => x.idCliente == idCliente).FirstOrDefaultAsync().Result ??
                                 new DBOSINCRONIZACAO();
         return sinc;
     }
@@ -656,29 +645,25 @@ public class DataService {
 
     #region DBOPERGUNTAS
 
-        public void ClearAllPerguntas() {
-            _connection.DropTable<DBOPERGUNTAS>();
-            _connection.CreateTable<DBOPERGUNTAS>();
-        }
 
         public void AddAllPerguntas(List<DBOPERGUNTAS> perguntas) {
             int size = perguntas.Count;
             for (int i = 0; i < size; i++) {
-                _connection.InsertOrReplace(perguntas[i]);
+                _AsyncConnection.InsertOrReplaceAsync(perguntas[i]);
             }
             //_connection.InsertAll(perguntas);
         }
 
     public void AddStatisticasDidaticaMock(List<DBOESTATISTICA_DIDATICA> statisticas) {
-        _connection.InsertAll(statisticas);
+        _AsyncConnection.InsertAllAsync(statisticas);
     }
 
     public void AddMinigamesLogs(List<DBOMINIGAMES_LOGS> @logs) {
-        _connection.InsertAll(@logs);
+        _AsyncConnection.InsertAllAsync(@logs);
     }
         
     public void AddPerguntaOrReplace(DBOPERGUNTAS _pergunta) {
-        _connection.InsertOrReplace(_pergunta);
+        _AsyncConnection.InsertOrReplaceAsync(_pergunta);
     }
 
         public List<DBOPERGUNTAS> PerguntasToDownload() {
@@ -690,21 +675,18 @@ public class DataService {
 
     #region DBORESPOSTAS
 
-        public void ClearRespostas() {
-            _connection.DropTable<DBORESPOSTAS>();
-            _connection.CreateTable<DBORESPOSTAS>();
-        }
+
 
         public void AddAllRespostas(List<DBORESPOSTAS> respostas) {
             //_connection.InsertAll(respostas);
             int size = respostas.Count;
             for (int i = 0; i < size; i++) {
-                _connection.InsertOrReplace(respostas[i]);
+                _AsyncConnection.InsertOrReplaceAsync(respostas[i]);
             }
         }
 
     public void AddRespostaOrReplace(DBORESPOSTAS _resposta) {
-        _connection.InsertOrReplace(_resposta);
+        _AsyncConnection.InsertOrReplaceAsync(_resposta);
     }
 
     public List<DBORESPOSTAS> RespostaNotDownloaded() {
@@ -727,7 +709,7 @@ public class DataService {
     public void AddItensCategory(List<DBOITENS_CATEGORIAS> _itensCategory) {
     int _tempCount = _itensCategory.Count;
     for (int i = 0; i < _tempCount; i++) {
-        _connection.InsertOrReplace(_itensCategory[i]);
+        _AsyncConnection.InsertOrReplaceAsync(_itensCategory[i]);
     }
     //_connection.InsertAll(_itensCategory);
     }
@@ -737,30 +719,30 @@ public class DataService {
     #region storeItem
 
     public DBOITENS[] GetItensStore() {
-        IEnumerable<DBOITENS> storeItens = _connection.Table<DBOITENS>().Where(x => x.ativo == 1);
+        IEnumerable<DBOITENS> storeItens = _AsyncConnection.Table<DBOITENS>().Where(x => x.ativo == 1).ToListAsync().Result;
         return storeItens.ToArray();
     }
 
     public DBOITENS GetItemStore(int _idItem) {
-        DBOITENS storeItens = _connection.Table<DBOITENS>().FirstOrDefault(x => x.idItem == _idItem) ;
+        DBOITENS storeItens = _AsyncConnection.Table<DBOITENS>().Where(x => x.idItem == _idItem).FirstOrDefaultAsync().Result ;
         return storeItens;
     }
 
     public List<DBOITENS> GetItensStoreList() {
-        IEnumerable<DBOITENS> storeItens = _connection.Table<DBOITENS>().Where(x => x.ativo == 1);
+        IEnumerable<DBOITENS> storeItens = _AsyncConnection.Table<DBOITENS>().Where(x => x.ativo == 1).ToListAsync().Result;
         return storeItens.ToList();
     }
 
     public void AddItens(List<DBOITENS> _itens) {
         int _countTemp = _itens.Count;
         for (int i = 0; i < _countTemp; i++) {
-            _connection.InsertOrReplace(_itens[i]);
+            _AsyncConnection.InsertOrReplaceAsync(_itens[i]);
         }
     }
 
     public List<DBOITENS> NotDownloadedItens() {
         string commandSQLITE = "SELECT * FROM DBOITENS WHERE downloaded == 0 AND ativo = 1";
-        return _connection.Query<DBOITENS>(commandSQLITE,new object[0]);
+        return _AsyncConnection.QueryAsync<DBOITENS>(commandSQLITE,new object[0]).Result;
     }
 
     #endregion
@@ -768,12 +750,12 @@ public class DataService {
     #region Inventario
 
     public List<DBOINVENTARIO> GetAllInventory() {
-        IEnumerable<DBOINVENTARIO> inventory = _connection.Table<DBOINVENTARIO>().Where(x => x.online == 0);
+        IEnumerable<DBOINVENTARIO> inventory = _AsyncConnection.Table<DBOINVENTARIO>().Where(x => x.online == 0).ToListAsync().Result;
         return inventory.ToList();
     }
 
     public DBOINVENTARIO[] GetInventory(int _idUser) {
-        IEnumerable<DBOINVENTARIO> inventory = _connection.Table<DBOINVENTARIO>().Where(x => x.idUsuario == _idUser && x.quantidade >= 1);
+        IEnumerable<DBOINVENTARIO> inventory = _AsyncConnection.Table<DBOINVENTARIO>().Where(x => x.idUsuario == _idUser && x.quantidade >= 1).ToListAsync().Result;
         return inventory.ToArray();
     }
 
@@ -802,8 +784,7 @@ public class DataService {
         
         int tempCount = _minigames.Count;
         for (int i = 0; i < tempCount; i++) {
-            
-            _connection.InsertOrReplace(_minigames[i]);
+            _AsyncConnection.InsertOrReplaceAsync(_minigames[i]);
         }
     }
 
@@ -813,7 +794,7 @@ public class DataService {
     }
 
     public List<DBOMINIGAMES> GetAllMinigames() {
-        IEnumerable<DBOMINIGAMES> inventory = _connection.Table<DBOMINIGAMES>().Where(x => x.ativo == 1);
+        IEnumerable<DBOMINIGAMES> inventory = _AsyncConnection.Table<DBOMINIGAMES>().Where(x => x.ativo == 1).ToListAsync().Result;
         return inventory.ToList();
     }
 
@@ -833,11 +814,11 @@ public class DataService {
     }
 
     public DBOVERSION GetDBVersion() {
-        return _connection.Table<DBOVERSION>().FirstOrDefault(x => x.id == 1);       
+        return _AsyncConnection.Table<DBOVERSION>().Where(x => x.id == 1).FirstOrDefaultAsync().Result;       
     }
 
     public void UpdateDBVersion(DBOVERSION _dbv) {
-        _connection.Update(_dbv);
+        _AsyncConnection.UpdateAsync(_dbv);
     }
 
     public void InsertOrReplaceRecentItem(int userID, int itemId) {
@@ -853,7 +834,7 @@ public class DataService {
     }
 
     public List<DBORECENTITEM> GerAllRecentOfUser(int userID) {
-        IEnumerable<DBORECENTITEM> recentItens = _connection.Table<DBORECENTITEM>().Where(x => x.userId == userID);
+        IEnumerable<DBORECENTITEM> recentItens = _AsyncConnection.Table<DBORECENTITEM>().Where(x => x.userId == userID).ToListAsync().Result;
         return recentItens.ToList();
     }
 
