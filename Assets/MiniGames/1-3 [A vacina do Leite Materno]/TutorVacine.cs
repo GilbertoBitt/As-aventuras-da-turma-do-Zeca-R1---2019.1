@@ -36,10 +36,8 @@ public class TutorVacine : MonoBehaviour {
         iniciarBt1 = iniciarG1.GetComponent<Button>();
         iniciarBt2 = iniciarG2.GetComponent<Button>();
         if (PlayerPrefs.HasKey("TutorV_Ini") == false)
-        {
-         
-           
-            if (animTurtor.isActiveAndEnabled == true) {
+        {        
+           if (animTurtor.isActiveAndEnabled == true) {
                 animTurtor.SetInteger("iniTutor", 1);
             } 
             PlayerPrefs.SetInt("TutorV_Ini", 1);
@@ -49,7 +47,6 @@ public class TutorVacine : MonoBehaviour {
             inici.SetActive(false);
             Invoke("Onprof", 1f);
             Invoke("Som1", 1f);
-
         }
         else
         {           
@@ -57,13 +54,14 @@ public class TutorVacine : MonoBehaviour {
             iniciarG1.SetActive(false);
             iniciarG2.SetActive(true);
             chamarAjudaBT.SetActive(true);
+            /* */
             if (animTurtor.isActiveAndEnabled == true)
             {
                 animTurtor.SetInteger("iniTutor", 2);
             }
+            
             Invoke("Som2", 1f);
-        }
-      
+        }      
     }
     public void BtchamarAjuda()
     {
@@ -73,14 +71,6 @@ public class TutorVacine : MonoBehaviour {
         iniciarG2.SetActive(false);
         Invoke("Onprof", 1f);
         Invoke("Som1", 1f);
-    }
-
-    public void ZerarAnim() {
-        if (animTurtor.isActiveAndEnabled == true)
-        {
-            animTurtor.SetInteger("iniTutor", 0);
-            Invoke("AnimOff", 2f);
-        }
     }
     void AnimOff() {
         animTurtor.enabled = false;
