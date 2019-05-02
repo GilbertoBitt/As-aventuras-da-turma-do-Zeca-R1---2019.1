@@ -147,7 +147,7 @@ PrefabInstance:
     - target: {fileID: 4263499327201372442, guid: 8c0f3230335f5284a943783cf1e656bb,
         type: 3}
       propertyPath: m_margin.w
-      value: 9.50192
+      value: -0.29159832
       objectReference: {fileID: 0}
     - target: {fileID: 7698240122353140529, guid: 8c0f3230335f5284a943783cf1e656bb,
         type: 3}
@@ -179,7 +179,7 @@ PrefabInstance:
     - target: {fileID: 7698240122353140529, guid: 8c0f3230335f5284a943783cf1e656bb,
         type: 3}
       propertyPath: m_margin.w
-      value: 9.50192
+      value: 0.15356159
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c0f3230335f5284a943783cf1e656bb, type: 3}

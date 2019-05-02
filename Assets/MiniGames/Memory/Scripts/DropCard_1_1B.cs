@@ -90,7 +90,7 @@ public class DropCard_1_1B : MonoBehaviour, IDropHandler, IPointerClickHandler {
 	public void UpdateName(CardItemAlternative cardItem, int anoLetivo)
 	{
 		characterSprite = cardItem;
-		cardItemName.SetText(anoLetivo == 3 ? cardItem.classification.ToString() : cardItem.NameItem);
+		cardItemName.SetText(anoLetivo == 3 ? cardItem.GetString() : cardItem.NameItem);
 	}
 	
 	

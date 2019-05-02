@@ -25373,7 +25373,7 @@ MonoBehaviour:
     type: 3}
   cellsize_3ano: {x: 220, y: 60}
   cellsizeDrag_3ano: {x: 180, y: 60}
-  anoLetivo: 2
+  anoLetivo: 3
 --- !u!95 &599420760
 Animator:
   serializedVersion: 3
