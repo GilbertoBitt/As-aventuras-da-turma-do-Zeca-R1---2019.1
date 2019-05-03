@@ -100,7 +100,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
     public Button buttonIncrease;
     public Button buttonDecrease;
     bool checkpassAudio;
-    public TutorMontanha TutorMontanha2;
+    //public TutorMontanha TutorMontanha2;
 
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
     [SeparatorAttribute("-- new")]
@@ -130,7 +130,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
     public CanvasGroup nexPanelGroupComp;
 
     void Start() {
-        TutorMontanha2 = previousManager.TutorMontanha2;
+     //   TutorMontanha2 = previousManager.TutorMontanha2;
     }
 
     public override void UpdateMe() {
@@ -172,11 +172,11 @@ public class Manager1_4B : OverridableMonoBehaviour {
             PlayerPrefs.SetInt("TutorM_Didatica", 0);
 
             yield return Yielders.Get(.3f);
-            this.tutorial.GetComponent<TutorMontanha>().animTutor.enabled = true;
-            this.tutorial.GetComponent<TutorMontanha>().animTutor.SetInteger("numbTutor", 6);
-            this.tutorial.GetComponent<TutorMontanha>().profBalao.text = this.tutorial.GetComponent<TutorMontanha>().TextTutor[7];
-            TutorMontanha2.soundManager.startVoiceFXReturn(TutorMontanha2.audiosTutorial[7]);
-            TutorMontanha2.profBalao.enabled = true;
+//            this.tutorial.GetComponent<TutorMontanha>().animTutor.enabled = true;
+ //           this.tutorial.GetComponent<TutorMontanha>().animTutor.SetInteger("numbTutor", 6);
+ //           this.tutorial.GetComponent<TutorMontanha>().profBalao.text = this.tutorial.GetComponent<TutorMontanha>().TextTutor[7];
+          //  TutorMontanha2.soundManager.startVoiceFXReturn(TutorMontanha2.audiosTutorial[7]);
+          //  TutorMontanha2.profBalao.enabled = true;
             this.tutorial.GetComponent<TutorMontanha>().btPulartext.text = "Iniciar";
             this.tutorial.GetComponent<TutorMontanha>().tutorNumber = 7;
             foreach (var item in tutorial.GetComponent<TutorMontanha>().gTutor) {

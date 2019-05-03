@@ -14,7 +14,7 @@ public class TutorMontanha : MonoBehaviour {
 	public GameObject Manage;
 	public GameObject montanha;
 	public GameObject didatica;
-	public Animator animTutor;
+	//public Animator animTutor;
 	public ChestHandler1_4A[] ChestHandler1_4A2;
 	public int numbTutor;
 	public int tutorIniM_0;
@@ -37,9 +37,9 @@ public class TutorMontanha : MonoBehaviour {
     bool checkIni;
 
     void Start () {
-		animTutor = tutorialMontanha.GetComponent<Animator> ();
-        animTutor.enabled = true;
-		animTutor.SetInteger ("numbTutor",2);
+		//animTutor = tutorialMontanha.GetComponent<Animator> ();
+       // animTutor.enabled = true;
+		//animTutor.SetInteger ("numbTutor",2);
 		if(PlayerPrefs.HasKey("TutorM_0P")==false){
 		//	profBalao.text = TextTutor [0];
 			PlayerPrefs.SetInt("TutorMP_0P",1);
@@ -91,7 +91,7 @@ public class TutorMontanha : MonoBehaviour {
 			}	
 			Manage.SetActive (true);
 			GetComponent<GraphicRaycaster> ().enabled = false;
-			animTutor.SetInteger ("numbTutor", 1);
+			//animTutor.SetInteger ("numbTutor", 1);
 			montanha.GetComponent<GraphicRaycaster> ().enabled = true;
 			didatica.GetComponent<GraphicRaycaster> ().enabled = true;
 			Prof.GetComponent<Animator> ().enabled = true;
@@ -103,7 +103,7 @@ public class TutorMontanha : MonoBehaviour {
 				item.SetActive (false);
 			}	
 			GetComponent<GraphicRaycaster> ().enabled = false;
-			animTutor.SetInteger ("numbTutor", 0);
+		//	animTutor.SetInteger ("numbTutor", 0);
             StartCoroutine(TimeVoltarIniAnimator());
             //animTutor.enabled = false;
             ///GetComponent<GameObject>().SetActive (false);
@@ -119,7 +119,7 @@ public class TutorMontanha : MonoBehaviour {
 				item.SetActive (false);
 			}	
 			GetComponent<GraphicRaycaster> ().enabled = false;
-			animTutor.SetInteger ("numbTutor", 0);
+		///	animTutor.SetInteger ("numbTutor", 0);
             //animTutor.enabled = false;
             StartCoroutine(TimeVoltarIniAnimator());
             //animTutor.SetInteger ("numbTutor", 1);
@@ -132,7 +132,7 @@ public class TutorMontanha : MonoBehaviour {
 				item.SetActive (false);
 			}	
 			GetComponent<GraphicRaycaster> ().enabled = false;
-			animTutor.SetInteger ("numbTutor", 0);
+		//	animTutor.SetInteger ("numbTutor", 0);
             //animTutor.enabled = false;
             StartCoroutine(TimeVoltarIniAnimator());
             //animTutor.SetInteger ("numbTutor", 1);
@@ -145,7 +145,7 @@ public class TutorMontanha : MonoBehaviour {
 				item.SetActive (false);
 			}	
 			GetComponent<GraphicRaycaster> ().enabled = false;
-			animTutor.SetInteger ("numbTutor", 0);
+		//	animTutor.SetInteger ("numbTutor", 0);
             //animTutor.enabled = false;
             StartCoroutine(TimeVoltarIniAnimator());
             //animTutor.SetInteger ("numbTutor", 1);
@@ -158,7 +158,7 @@ public class TutorMontanha : MonoBehaviour {
 				item.SetActive (false);
 			}	
 			GetComponent<GraphicRaycaster> ().enabled = false;
-			animTutor.SetInteger ("numbTutor", 0);
+		//	animTutor.SetInteger ("numbTutor", 0);
             //animTutor.enabled = false;
             StartCoroutine(TimeVoltarIniAnimator());
             //animTutor.SetInteger ("numbTutor", 1);
@@ -171,7 +171,7 @@ public class TutorMontanha : MonoBehaviour {
 				item.SetActive (false);
 			}	
 			GetComponent<GraphicRaycaster> ().enabled = false;
-			animTutor.SetInteger ("numbTutor", 0);
+		//	animTutor.SetInteger ("numbTutor", 0);
             //animTutor.enabled = false;
             StartCoroutine(TimeVoltarIniAnimator());
             //animTutor.SetInteger ("numbTutor", 1);
@@ -184,7 +184,7 @@ public class TutorMontanha : MonoBehaviour {
 				item.SetActive (false);
 			}	
 			GetComponent<GraphicRaycaster> ().enabled = false;
-			animTutor.SetInteger ("numbTutor", 0);
+		//	animTutor.SetInteger ("numbTutor", 0);
             //	animTutor.enabled = false;
             StartCoroutine(TimeVoltarIniAnimator());
             //animTutor.SetInteger ("numbTutor", 1);
@@ -197,14 +197,14 @@ public class TutorMontanha : MonoBehaviour {
        // StartCoroutine(TimeVoltarIniAnimator());
 	}
 	void VoltarIniAnimator(){
-		animTutor.SetInteger ("numbTutor", 0);
-		animTutor.enabled = false;
+		//animTutor.SetInteger ("numbTutor", 0);
+	//	animTutor.enabled = false;
 		
 	}
    public IEnumerator TimeVoltarIniAnimator() {
         yield return Yielders.Get(.5f);
        // animTutor.SetInteger("numbTutor", 0);
-        animTutor.enabled = false;
+       // animTutor.enabled = false;
 
     }
     
@@ -222,7 +222,7 @@ public class TutorMontanha : MonoBehaviour {
         
          yield return Yielders.Get(.1f);
        
-        animTutor.enabled = true;
+      //  animTutor.enabled = true;
         //	animTutor.SetInteger ("numbTutor", 0);
 
     }
@@ -239,8 +239,8 @@ public class TutorMontanha : MonoBehaviour {
 	}
 
     public void ChamarTutor() {
-        animTutor.enabled = true;
-        animTutor.SetInteger("numbTutor", -2);
+        //animTutor.enabled = true;
+        //animTutor.SetInteger("numbTutor", -2);
         StartCoroutine(TimnebtActiv());
 
     }

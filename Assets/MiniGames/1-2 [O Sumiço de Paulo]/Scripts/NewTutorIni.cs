@@ -26,6 +26,14 @@ public class NewTutorIni : MonoBehaviour
   public GameObject profOlhos;
   public bool fimFala;
 
+  public float[] timeFala;
+
+  public bool[] checkB;
+
+  public GameObject btRepet;
+
+
+
 
   public 
     void Start()
@@ -33,30 +41,45 @@ public class NewTutorIni : MonoBehaviour
           somPref.SetActive(true);
           tam = btsAv[0].transform.localScale;
           ControlSomTutor2 = Camera.main.GetComponent<ControlSomTutor>();
-            Invoke("profStopFalandoTime",9);
+            if(checkB[ControlSomTutor2.numTutor]){
+            Invoke("profStopFalandoTime",timeFala[ControlSomTutor2.numTutor]);
+            }
+           
            // atvBt();
           Invoke("audioChamarIni",1);
+
+             Debug.Log(textFala.Length);     
+
     }
 
     // Update is called once per frame
     void audioChamarIni(){
         ControlSomTutor2.numTutor = 0;
-        ControlSomTutor2.SomTutor();
+         Invoke("profStopFalandoTime",timeFala[ControlSomTutor2.numTutor]);
+        if(ControlSomTutor2.audiosTutorial[ControlSomTutor2.numTutor]!=null){
+          
+      ControlSomTutor2.SomTutor();
+        }
+       
          graphicRaycaster2.enabled=true; 
     }
 
 
 void profStopFalandoTime(){
   fimFala=true;
+   btsAv[1].GetComponent<Button>().interactable=true;
     profAnim.enabled=false;
     profBoca.SetActive(false);
     profOlhos.SetActive(false);
+    btRepet.SetActive(true);
     checkActBt();
 
 }
  public void somTutor2(){
      
- ControlSomTutor2.SomTutor();
+ if(ControlSomTutor2.audiosTutorial[ControlSomTutor2.numTutor]!=null){
+      ControlSomTutor2.SomTutor();
+        }
  }
 
     public void audioChamar(bool check){
@@ -69,6 +92,17 @@ void profStopFalandoTime(){
             btsAv[i].SetActive(false);
         }
     }
+    public void audioRepete(){
+       for (int i = 0; i < btsAv.Length; i++)
+        {
+            btsAv[i].SetActive(false);
+        }   
+    ControlSomTutor2.SomTutor();
+ profAnim.enabled=true;
+      Invoke("profStopFalandoTime",timeFala[ControlSomTutor2.numTutor]);
+    
+
+    }
 
     void checkActBt(){
         if(ControlSomTutor2.numTutor == 0){
@@ -78,7 +112,8 @@ void profStopFalandoTime(){
             btsAv[0].SetActive(true);
             btsAv[0].transform.localScale= tam;
         }
-        if(ControlSomTutor2.numTutor == 4){
+       
+        if(textFala.Length==(ControlSomTutor2.numTutor+1)){
               btsAv[1].SetActive(false);
         }
         else{
@@ -92,50 +127,34 @@ void profStopFalandoTime(){
      {
         // wait for 1 second
         profAnim.enabled=true;
+      
        
         for (int i = 0; i < btsAv.Length; i++)
         {
             btsAv[i].SetActive(false);
-        }
-      
+        }      
+       
+
         if(check){
-            ControlSomTutor2.numTutor++;
-            ControlSomTutor2.SomTutor();
-             //yield return new WaitForSeconds(3.0f);
-          
-           
+            ControlSomTutor2.numTutor++;           
+            if(ControlSomTutor2.audiosTutorial[ControlSomTutor2.numTutor]!=null){
+              ControlSomTutor2.SomTutor();
+              }
         }
         else{
              ControlSomTutor2.numTutor--;
-             ControlSomTutor2.SomTutor();
-              //yield return new WaitForSeconds(3.0f);
-           
-        }
-      
+             if(ControlSomTutor2.audiosTutorial[ControlSomTutor2.numTutor]!=null){
+               ControlSomTutor2.SomTutor();
+             }
+        }      
         fimFala=false;
-        if(ControlSomTutor2.numTutor==0){
-        
-          Invoke("profStopFalandoTime",9);
-        }
-        else if(ControlSomTutor2.numTutor==1){
-        textC.text = textFala[ControlSomTutor2.numTutor];  
-          Invoke("profStopFalandoTime",5);
-        }
-        else if(ControlSomTutor2.numTutor==2){
-        textC.text = textFala[ControlSomTutor2.numTutor] + System.Environment.NewLine;  
-         Invoke("profStopFalandoTime",5);
-        }
-        else if(ControlSomTutor2.numTutor==3){
-        textC.text = textFala[ControlSomTutor2.numTutor] + System.Environment.NewLine;  
-          Invoke("profStopFalandoTime",4);
-        }
-        else if(ControlSomTutor2.numTutor==4){
-        textC.text = textFala[ControlSomTutor2.numTutor] + System.Environment.NewLine;  
-          Invoke("profStopFalandoTime",4);
+        if(checkB[ControlSomTutor2.numTutor]){
+           textC.text = textFala[ControlSomTutor2.numTutor] + System.Environment.NewLine;  
         }
         else{
-        textC.text = textFala[ControlSomTutor2.numTutor];        
+          textC.text = textFala[ControlSomTutor2.numTutor];
         }
          imgsC.sprite = imgsT[ControlSomTutor2.numTutor];
+          Invoke("profStopFalandoTime",timeFala[ControlSomTutor2.numTutor]);
     }
 }

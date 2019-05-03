@@ -12,9 +12,9 @@ public class JucaBauMontanha : MonoBehaviour {
 	public GameObject tutorial;
 	public int tutorJuca;
     bool checkpassAudio;
-    public TutorMontanha TutorMontanha2;
+  //  public TutorMontanha TutorMontanha2;
     void Start() {
-        TutorMontanha2 = Manager1_Mont.TutorMontanha2;
+       // TutorMontanha2 = Manager1_Mont.TutorMontanha2;
 
     }
     void JucaFecha () {
@@ -44,11 +44,11 @@ public class JucaBauMontanha : MonoBehaviour {
 			this.tutorJuca = PlayerPrefs.GetInt("TutorJuca_0",1);
             this.tutorial.GetComponent<TutorMontanha>().tutorialMontanha.GetComponent<Animator>().enabled = true;
             this.tutorial.GetComponent<TutorMontanha>().btPulartext.text = "Continuar";
-            TutorMontanha2.numtext = 2;
+          // TutorMontanha2.numtext = 2;
             this.tutorial.GetComponent<TutorMontanha>().tutorNumber = 2;
 			this.tutorial.GetComponent<TutorMontanha>().profBalao.text = this.tutorial.GetComponent<TutorMontanha>().TextTutor [2];
-            TutorMontanha2.soundManager.startVoiceFXReturn(TutorMontanha2.audiosTutorial[2]);
-            TutorMontanha2.profBalao.enabled = true;
+           // TutorMontanha2.soundManager.startVoiceFXReturn(TutorMontanha2.audiosTutorial[2]);
+           // TutorMontanha2.profBalao.enabled = true;
 
             foreach (var item in tutorial.GetComponent<TutorMontanha>().gTutor) {
 				item.SetActive (true);

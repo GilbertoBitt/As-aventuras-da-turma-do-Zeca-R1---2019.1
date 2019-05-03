@@ -27,8 +27,10 @@ public class ControlSomTutor : MonoBehaviour {
             checkPassou = false;
         }
         else if (!checkSom) {
-           
-            audio = soundManager.startVoiceFXReturn(audiosTutorial[numTutor]);
+              if(soundManager.startVoiceFXReturn(audiosTutorial[numTutor])!=null){
+  audio = soundManager.startVoiceFXReturn(audiosTutorial[numTutor]);
+              }
+          
           if(audio!=null)
             audio.ignoreListenerPause = true;
            // audio.Play();

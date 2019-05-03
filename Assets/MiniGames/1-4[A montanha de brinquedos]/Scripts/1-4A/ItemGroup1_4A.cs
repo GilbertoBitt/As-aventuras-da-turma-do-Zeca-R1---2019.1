@@ -31,7 +31,7 @@ public class ItemGroup1_4A : OverridableMonoBehaviour {
 	Color[] corLuz = new Color[7];
 	public GameObject tutorial;
 	public int tutorObBonus;
-    public TutorMontanha TutorMontanha2;
+   // public TutorMontanha TutorMontanha2;
 
     public CanvasGroup canvasGroupComp;
     public float timeToShowLock = 0.3f;
@@ -62,7 +62,7 @@ public class ItemGroup1_4A : OverridableMonoBehaviour {
 		if (circleCollider == null) {
 			circleCollider = this.GetComponent<CircleCollider2D> ();
 		}
-        TutorMontanha2 = manager.TutorMontanha2;
+      //  TutorMontanha2 = manager.TutorMontanha2;
 
     }
 
@@ -77,14 +77,16 @@ public class ItemGroup1_4A : OverridableMonoBehaviour {
 	public void BonusItemFix(){
 		if(isBonusItem && bonusItemParticle.activeInHierarchy == false){
 			bonusItemParticle.SetActive(true);
-			StartCoroutine (TimeitemBonus());
+			//StartCoroutine (TimeitemBonus());
 
 		} else if (!isBonusItem && bonusItemParticle.activeInHierarchy == true){
 			bonusItemParticle.SetActive(false);
 		}
 	}
+
+	/* 
 	IEnumerator TimeitemBonus(){
-        manager.tutorial.SetActive(true);
+//        manager.tutorial.SetActive(true);
       
         yield return Yielders.Get(0.5f);
 		if (PlayerPrefs.HasKey ("TutorM_Bonus") == false) {
@@ -94,14 +96,14 @@ public class ItemGroup1_4A : OverridableMonoBehaviour {
            // this.tutorial.GetComponent<TutorMontanha> ().Manage.GetComponent<Manager1_4A> ().montanha.GetComponent<GraphicRaycaster> ().enabled = false;
             manager.didatica.GetComponent<GraphicRaycaster>().enabled = false;
 
-            manager.tutorial.GetComponent<TutorMontanha> ().animTutor.enabled = true;
+//            manager.tutorial.GetComponent<TutorMontanha> ().animTutor.enabled = true;
             manager.tutorial.GetComponent<TutorMontanha>().tutorialMontanha.GetComponent<Animator>().enabled = true;
-            manager.tutorial.GetComponent<TutorMontanha> ().animTutor.SetInteger ("numbTutor",3);
+          //  manager.tutorial.GetComponent<TutorMontanha> ().animTutor.SetInteger ("numbTutor",3);
 			PlayerPrefs.SetInt ("TutorM_Bonus", 0);
-            TutorMontanha2.numtext = 5;
-            manager.tutorial.GetComponent<TutorMontanha>().profBalao.text = this.tutorial.GetComponent<TutorMontanha>().TextTutor [5];
-            TutorMontanha2.soundManager.startVoiceFXReturn(TutorMontanha2.audiosTutorial[TutorMontanha2.numtext]);
-               TutorMontanha2.profBalao.enabled = true;
+           // TutorMontanha2.numtext = 5;
+           // manager.tutorial.GetComponent<TutorMontanha>().profBalao.text = this.tutorial.GetComponent<TutorMontanha>().TextTutor [5];
+           // TutorMontanha2.soundManager.startVoiceFXReturn(TutorMontanha2.audiosTutorial[TutorMontanha2.numtext]);
+           //    TutorMontanha2.profBalao.enabled = true;
             manager.tutorial.GetComponent<TutorMontanha>().btPulartext.text = "Continuar";
             manager.tutorial.GetComponent<TutorMontanha>().tutorNumber = 5;
 
@@ -118,7 +120,7 @@ public class ItemGroup1_4A : OverridableMonoBehaviour {
 		}
 
 	}
-
+*/
 
 	public void startDragging(){
 		if (!isBeenDrag) {
