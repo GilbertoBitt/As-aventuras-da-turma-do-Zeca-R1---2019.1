@@ -12,6 +12,7 @@ using UnityEditor;
 #endif
 using UnityEngine.Events;
 using TMPro;
+using Segment = MEC.Segment;
 
 public class gameSelection : MonoBehaviour {
 
@@ -118,7 +119,8 @@ public class gameSelection : MonoBehaviour {
 
         int tempCount = dboMinigames.Count;
         for (int i = 0; i < tempCount; i++) {
-            gameConfigs.AddOrReplateMinigame(new MinigameStruct() {
+            gameConfigs.AddOrReplateMinigame(new MinigameStruct
+            {
                 idMinigame = dboMinigames[i].idMinigames,
                 idLivro = dboMinigames[i].idLivro,
                 infoMinigame = dboMinigames[i].infoMinigame,

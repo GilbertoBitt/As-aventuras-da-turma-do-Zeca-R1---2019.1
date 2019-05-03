@@ -67,35 +67,39 @@ public class LogSystem : OverridableMonoBehaviour {
 	/// </summary>
 	public void SendGameLog()
 	{
-
 		Timing.RunCoroutine(SendAllLogs());
 	}
 
 	private IEnumerator<float> SendAllLogs()
 	{
-		config.SaveLOG(new DBOMINIGAMES_LOGS() {
-                    deviceID = SystemInfo.deviceUniqueIdentifier,
-                    faseLudica = faseLudica,
-                    tempoLudica = config.TimeToIntMilliseconds(tempoLudica),
-                    tempoDidatica = config.TimeToIntMilliseconds(tempoDidatica),
-                    pontosLudica = pontosLudica,
-                    pontosPedagogica = pontosPedagogica,
-                    pontosInteragindo = pontosInteragindo,
-                    idMinigame = idMinigame,
-                    personagem = config.GetCharName(PlayerPrefs.GetInt("characterSelected", 0)),
-                    online = 0,
-                    idUsuario = config.playerID,
-                    dataAcesso = config.ReturnCurrentDate()            
-                });
-                 //(Log);
-        
-        		int count = statistics.Count;
-        
-        		if(count >= 1) {
-                    //config.SaveStatistic(statistics);
-                    config.SaveAllStatistic(statistics);         
-                }
-
+		var log = new DBOMINIGAMES_LOGS()
+		{
+			deviceID = SystemInfo.deviceUniqueIdentifier,
+			faseLudica = faseLudica,
+			tempoLudica = config.TimeToIntMilliseconds(tempoLudica),
+			tempoDidatica = config.TimeToIntMilliseconds(tempoDidatica),
+			pontosLudica = pontosLudica,
+			pontosPedagogica = pontosPedagogica,
+			pontosInteragindo = pontosInteragindo,
+			idMinigame = idMinigame,
+			personagem = config.GetCharName(PlayerPrefs.GetInt("characterSelected", 0)),
+			online = EduqbrinqLogger.Instance.IsOnlineInt,
+			idUsuario = config.playerID,
+			dataAcesso = config.ReturnCurrentDate()
+		};
+		var info = EduqbrinqLogger.Instance.GenerateGameInfo(log, statistics);
+		EduqbrinqLogger.Instance.AddGameInfo(info);
+		EduqbrinqLogger.Instance.SendDataLog();
+//		config.SaveLOG();
+//                 //(Log);
+//        
+//        		int count = statistics.Count;
+//        
+//        		if(count >= 1) {
+//                    //config.SaveStatistic(statistics);
+//                    config.SaveAllStatistic(statistics);         
+//                }
+//
                 yield return Timing.WaitForOneFrame;
 	}
 
@@ -153,6 +157,7 @@ public class LogSystem : OverridableMonoBehaviour {
 			idGameDidatico = _idGameDidatico,
 			idHabilidade = -1,
 			idMinigame = idMinigame,
+			online = EduqbrinqLogger.Instance.IsOnlineInt,
 			dataInsert = config.ReturnCurrentDate()
 		};
 		if (config.currentUser != null) {

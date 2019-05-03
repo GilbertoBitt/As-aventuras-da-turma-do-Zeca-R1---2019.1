@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using com.csutil;
 using MiniJSON;
+using UniRx.Async;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -597,7 +598,6 @@ public class networkHelper {
         form.AddField("idUsuarioOnline", config.currentUser.idUsuario);
 
         UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setEstatisticaDidatica", form);
-
 
         yield return Timing.WaitUntilDone(request.SendWebRequest());
         

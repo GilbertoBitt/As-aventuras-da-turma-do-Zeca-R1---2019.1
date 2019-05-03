@@ -749,7 +749,6 @@ public class StartSceneManager : MonoBehaviour {
         HideCredentials();
         isPreloadRotating = true;
         string md5pass = Md5Sum(passwordInputField.text);
-        
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.GetTokenIE(tokenRequest, config.clientID.ToString(), loginInputField.text, md5pass, SystemInfo.deviceUniqueIdentifier, this)));
         yield return Timing.WaitForSeconds(0.5f);
         LoginFailedEvent = OfflineAcess;
@@ -944,16 +943,15 @@ public class StartSceneManager : MonoBehaviour {
             config.usageCounter++;
             loadManager.LoadAsync("selectionMinigames");
         } else {
-            if (userTemp == null || userTemp.login != username || userTemp.senha != password) {
-                //Login ou senha errado.
-                textWrong.enabled = true;
-                textWrong.DOFade(1f, 0.3f);
-                loginOutlineField.effectColor = WrongColorOutline;
-                passwordOutlineField.effectColor = WrongColorOutline;
-                passwordInputField.text = string.Empty;
-                PlayerPrefs.SetString("PlayerLastLogin", string.Empty);
-                MessageStatus(string.Empty);
-            }
+            if (userTemp != null && userTemp.login == username && userTemp.senha == password) return;
+            //Login ou senha errado.
+            textWrong.enabled = true;
+            textWrong.DOFade(1f, 0.3f);
+            loginOutlineField.effectColor = WrongColorOutline;
+            passwordOutlineField.effectColor = WrongColorOutline;
+            passwordInputField.text = string.Empty;
+            PlayerPrefs.SetString("PlayerLastLogin", string.Empty);
+            MessageStatus(string.Empty);
         }
     }
 

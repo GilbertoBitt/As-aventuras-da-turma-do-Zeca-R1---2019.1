@@ -9,6 +9,7 @@ using System.IO;
 using System;
 using System.Threading.Tasks;
 using com.csutil;
+using UniRx.Async;
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
 using UnityEditor;
 #endif
@@ -542,6 +543,11 @@ public class DataService {
             _AsyncConnection.InsertOrReplaceAsync(_minigamesLog);
         }
 
+        public async UniTask InsertLogAsync(DBOMINIGAMES_LOGS minigamesLog)
+        {
+            await _AsyncConnection.InsertOrReplaceAsync(minigamesLog);
+        }
+
         #endregion
 
     #region DBOGAMESLOG
@@ -599,6 +605,11 @@ public class DataService {
     public void InsertStatistic2(DBOESTATISTICA_DIDATICA _statistic)
     {
         _AsyncConnection.InsertAsync(_statistic);
+    }
+
+    public async Task InsertLogAsync(DBOESTATISTICA_DIDATICA log)
+    { 
+        await _AsyncConnection.InsertAsync(log);
     }
 
     public List<DBOESTATISTICA_DIDATICA> GetAllStatisticDidatica() {
