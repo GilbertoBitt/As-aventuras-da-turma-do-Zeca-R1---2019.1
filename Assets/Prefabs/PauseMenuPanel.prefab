@@ -65,7 +65,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Musica de Fundo
+  m_text: "M\xFAsica de Fundo"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9767346c44a58584398664efb4aca847, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 8e09fe9790039844d88a46589fd2faa8, type: 2}

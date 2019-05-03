@@ -166,6 +166,7 @@ public class Manager_1_1B : MonoBehaviour
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
 		managerMemory = GetComponent<MemoryGameManager>();
 		managerMemory.config.UpdateCurrent(managerMemory.config.currentUser);
+		//TODO variação do texto do erro e acerto.
 		anoLetivo = managerMemory.config.currentYear.idAnoLetivo;
 		_mMiddleCanvasGroup = parentMiddle.GetComponent(typeof(GridLayoutGroup)) as GridLayoutGroup;
 		if (anoLetivo == 1)

@@ -1451,6 +1451,81 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1000014220418706, guid: 40482f5722b28114b80056e27c2f17a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013616501170, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013616501170, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 670bb3f3c759d2445b4ae29b01ce222d,
+        type: 3}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndRoutines
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: EndRoutines
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: loadSliderGameObject
+      value: 
+      objectReference: {fileID: 88321166}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: panelLoad
+      value: 
+      objectReference: {fileID: 88321165}
+    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: panelLoadImage
+      value: 
+      objectReference: {fileID: 88321164}
     - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
         type: 3}
       propertyPath: m_RenderMode
@@ -1471,17 +1546,6 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -2135078457
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013616501170, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013616501170, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 670bb3f3c759d2445b4ae29b01ce222d,
-        type: 3}
     - target: {fileID: 224000010024376192, guid: 40482f5722b28114b80056e27c2f17a3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1575,70 +1639,6 @@ PrefabInstance:
     - target: {fileID: 114000010942288262, guid: 40482f5722b28114b80056e27c2f17a3,
         type: 3}
       propertyPath: m_UiScaleMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EndRoutines
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: EndRoutines
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: OnBeforeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: loadSliderGameObject
-      value: 
-      objectReference: {fileID: 88321166}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: panelLoad
-      value: 
-      objectReference: {fileID: 88321165}
-    - target: {fileID: 114000011916202786, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: panelLoadImage
-      value: 
-      objectReference: {fileID: 88321164}
-    - target: {fileID: 1000014220418706, guid: 40482f5722b28114b80056e27c2f17a3, type: 3}
-      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224000012218424484, guid: 40482f5722b28114b80056e27c2f17a3,
@@ -25364,15 +25364,15 @@ MonoBehaviour:
     type: 3}
   dropCardPrefab2Ano: {fileID: 8763469588357880406, guid: c478b1ddbe67e2e47bebeb6dc73d3f17,
     type: 3}
-  cellsize_2ano: {x: 180, y: 80}
-  cellsizeDrag_2ano: {x: 130, y: 60}
+  cellsize_2ano: {x: 200, y: 84}
+  cellsizeDrag_2ano: {x: 200, y: 84}
   cardGroup3Ano: {fileID: 11400000, guid: 76049843e829af0498a436cd30e0341c, type: 2}
   dragCardPrefab3Ano: {fileID: 1766697251717243524, guid: c70566f5ed7b4bd439fa73fb8037aa60,
     type: 3}
-  dropCardPrefab3Ano: {fileID: 8763469588357880406, guid: c478b1ddbe67e2e47bebeb6dc73d3f17,
+  dropCardPrefab3Ano: {fileID: 8565001121094152247, guid: f47458562d957e2468b2932ebc3fca02,
     type: 3}
-  cellsize_3ano: {x: 220, y: 60}
-  cellsizeDrag_3ano: {x: 180, y: 60}
+  cellsize_3ano: {x: 250, y: 80}
+  cellsizeDrag_3ano: {x: 250, y: 80}
   anoLetivo: 3
 --- !u!95 &599420760
 Animator:

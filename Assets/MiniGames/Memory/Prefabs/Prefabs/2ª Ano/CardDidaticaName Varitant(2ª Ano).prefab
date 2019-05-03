@@ -156,7 +156,7 @@ PrefabInstance:
     - target: {fileID: 665670191635107391, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
       propertyPath: m_fontSize
-      value: 40
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 665670191635107391, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
@@ -166,12 +166,12 @@ PrefabInstance:
     - target: {fileID: 665670191635107391, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
       propertyPath: m_text
-      value: Peteca
+      value: Mel
       objectReference: {fileID: 0}
     - target: {fileID: 665670191635107391, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 665670191635107391, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
@@ -191,7 +191,7 @@ PrefabInstance:
     - target: {fileID: 665670191635107391, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 40
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 665670191635107391, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
@@ -221,7 +221,7 @@ PrefabInstance:
     - target: {fileID: 665670191635107391, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
       propertyPath: m_firstOverflowCharacterIndex
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 665670191635107391, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
@@ -248,10 +248,15 @@ PrefabInstance:
       propertyPath: m_enableVertexGradient
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 665670191635107391, guid: 568a35632dbec3a44b8e713caa59f58f,
+        type: 3}
+      propertyPath: m_textInfo.textComponent
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6396154997805589524, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
       propertyPath: m_text
-      value: Peteca
+      value: Mel
       objectReference: {fileID: 0}
     - target: {fileID: 6396154997805589524, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
@@ -271,12 +276,12 @@ PrefabInstance:
     - target: {fileID: 6396154997805589524, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
       propertyPath: m_fontSize
-      value: 40
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 6396154997805589524, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 40
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 6396154997805589524, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
@@ -296,7 +301,7 @@ PrefabInstance:
     - target: {fileID: 6396154997805589524, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
       propertyPath: m_firstOverflowCharacterIndex
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6396154997805589524, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
@@ -326,7 +331,7 @@ PrefabInstance:
     - target: {fileID: 6396154997805589524, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6396154997805589524, guid: 568a35632dbec3a44b8e713caa59f58f,
         type: 3}
@@ -355,5 +360,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -9021471707135948466, guid: c0ea9ab5fa7b77a41a578ae641aca896,
         type: 2}
+    - target: {fileID: 6396154997805589524, guid: 568a35632dbec3a44b8e713caa59f58f,
+        type: 3}
+      propertyPath: m_textInfo.textComponent
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 568a35632dbec3a44b8e713caa59f58f, type: 3}
