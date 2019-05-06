@@ -25,7 +25,7 @@ public class StoreManager : MonoBehaviour {
     private bool storeHasLoaded = false;
     [Header("Info Box Window")]
     public GameObject infoBoxWindow;
-    public Text infoBoxItemName;
+    public TextMeshProUGUI infoBoxItemName;
     public RawImage infoBoxIconItem;
     public GameObject itemBoxPrefab;
     public Transform parentListTransform;

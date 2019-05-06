@@ -298,6 +298,12 @@ public class DataService {
 		    return resultList;
 	    }
 
+        public List<DBOTURMA> GetClassList (int YearID, int schoolID){
+            IEnumerable<DBOTURMA> result = _AsyncConnection.Table<DBOTURMA>().Where(x => x.idAnoLetivo == YearID && x.idEscola == schoolID).ToListAsync().Result;
+            List<DBOTURMA> resultList = result.ToList();
+            return resultList;
+        }
+
 
 	    /// <summary>
 	    /// Gets the class.

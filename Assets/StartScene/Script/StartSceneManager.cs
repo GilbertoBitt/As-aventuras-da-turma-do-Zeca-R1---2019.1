@@ -139,6 +139,7 @@ public class StartSceneManager : MonoBehaviour {
     [Header("Start Fix")]
     public GameObject[] activeAll;
     public Text buildVersionTextComp;
+    public GameObject logoShow;
     
     [ContextMenu("Update ComponentList")]
     public void UpdateAllChilds() {
@@ -436,7 +437,7 @@ public class StartSceneManager : MonoBehaviour {
     }*/
 
     void ShowPlayButtons() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < ButtonsImage.Length; i++) {
             Color tempColorImage = ButtonsImage[i].color;
             tempColorImage.a = 0f;
             ButtonsImage[i].color = tempColorImage;
@@ -448,6 +449,7 @@ public class StartSceneManager : MonoBehaviour {
             ButtonsImage[i].DOFade(1f, durationTransition);
             ButtonsText[i].DOFade(1f, durationTransition);
         }
+        logoShow.SetActive(true);
     }
 
     void HidePlayButtons() {
@@ -460,6 +462,7 @@ public class StartSceneManager : MonoBehaviour {
             ButtonsText[i].DOFade(0f, durationTransition);
 
         }
+        logoShow.SetActive(false);
     }
 
     public void OpenChooseData() {
@@ -520,7 +523,7 @@ public class StartSceneManager : MonoBehaviour {
     void LoadClassOfYears() {
         List<string> optionYears = new List<string>();
         classList.Clear();
-        classList = openedDB().GetClassList(currentSelectedAnoLetivo.idAnoLetivo);
+        classList = openedDB().GetClassList(currentSelectedAnoLetivo.idAnoLetivo, currentSelectedEscola.idEscola);
         int countTemp = classList.Count;
         optionYears.Add("-");
         for (int i = 0; i < countTemp; i++) {
@@ -545,11 +548,9 @@ public class StartSceneManager : MonoBehaviour {
         userDropDown.RefreshShownValue();
     }
 
-    DataService openedDB() {
-        if (db == null) {
-            db = config.openDB();
-        }
-        return db;
+    DataService openedDB()
+    {
+        return db ?? (db = config.openDB());
     }
 
     public void OnValidateSchoolDropDown() {

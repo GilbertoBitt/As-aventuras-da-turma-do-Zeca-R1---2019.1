@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using MEC;
 using Sirenix.OdinInspector;
 using TMPro;
+using UniRx;
+using UnityEditor;
 using UnityEngine.Serialization;
 
 public class Manager_1_1B : MonoBehaviour
@@ -42,7 +44,16 @@ public class Manager_1_1B : MonoBehaviour
 	[LabelText("Cell Size Drag 1ª Ano")]
 	[TabGroup("1ª Ano")] 
 	public Vector2 cellsizeDrag_1ano;
-	
+	[LabelText("Texto Acerto")]
+	[TabGroup("1ª Ano")]
+	public TextMeshProUGUI textRight1;
+	[LabelText("Texto Erro")]
+	[TabGroup("1ª Ano")]
+	public TextMeshProUGUI textWrong1;
+
+	[LabelText("Pontuação por acerto")] [TabGroup("1ª Ano")]
+	public int scorePerRight1;
+	[LabelText("Habilidade")][TabGroup("1ª Ano")] public HabilidadeBNCCInfo Habilidade1;
 	public DragCard_1_1B[] dragCards = new DragCard_1_1B[5];
 	public CanvasGroup[] dragCardsCanvasGroup = new CanvasGroup[5];
 	[TabGroup("Geral")] 
@@ -132,6 +143,15 @@ public class Manager_1_1B : MonoBehaviour
 	[LabelText("Cell Size Drag 2ª Ano")]
 	[TabGroup("2ª Ano")] 
 	public Vector2 cellsizeDrag_2ano;
+	[LabelText("Texto Acerto")]
+	[TabGroup("2ª Ano")]
+	public TextMeshProUGUI textRight2;
+	[LabelText("Texto Erro")]
+	[TabGroup("2ª Ano")]
+	public TextMeshProUGUI textWrong2;
+	[LabelText("Pontuação por acerto")] [TabGroup("2ª Ano")]
+	public int scorePerRight2;
+	[LabelText("Habilidade")][TabGroup("2ª Ano")] public HabilidadeBNCCInfo Habilidade2;
 	
 	[TabGroup("3ª Ano")]
 	[LabelText("Card Group 3ª Ano")]
@@ -151,16 +171,55 @@ public class Manager_1_1B : MonoBehaviour
 	[LabelText("Cell Size Drag 3ª Ano")]
 	[TabGroup("3ª Ano")] 
 	public Vector2 cellsizeDrag_3ano;
+	[LabelText("Texto Acerto")]
+	[TabGroup("3ª Ano")]
+	public TextMeshProUGUI textRight3;
+	[LabelText("Texto Erro")]
+	[TabGroup("3ª Ano")]
+	public TextMeshProUGUI textWrong3;
+	[LabelText("Pontuação por acerto")] [TabGroup("3ª Ano")]
+	public int scorePerRight3;
+
+	[LabelText("Habilidade")][TabGroup("3ª Ano")] public HabilidadeBNCCInfo Habilidade3;
 
 	[TabGroup("Geral")] public int anoLetivo;
+	[TabGroup("Geral")] public Vector3 personPosition;
+	[TabGroup("Geral")] public Vector3 personScale;
+	[TabGroup("Geral")] public Transform personTransform;
+	[TabGroup("Geral")] public RectTransform referenceDinamicPosition;
+	[TabGroup("Geral")] public InfoSkillWindow infoSkillInfo;
+	[TabGroup("Geral")] public Button infoButtonSkill;
 
 	private GridLayoutGroup _mMiddleCanvasGroup;
 
 	private static readonly int NextCanbeStarted = Animator.StringToHash("nextCanbeStarted");
 
+
 	// Use this for initialization
-	void Start () {
-        Resources.UnloadUnusedAssets();
+	void Start ()
+	{
+		if (infoSkillInfo == null)
+		{
+			infoSkillInfo = FindObjectOfType<InfoSkillWindow>();
+		}
+
+		infoButtonSkill.onClick.AsObservable().Subscribe(unit =>
+		{
+			switch (anoLetivo)
+			{
+				case 1:
+					infoSkillInfo.ShowWindowInfo(Habilidade1);
+					break;
+				case 2:
+					infoSkillInfo.ShowWindowInfo(Habilidade2);
+					break;
+				case 3:
+				default:
+					infoSkillInfo.ShowWindowInfo(Habilidade3);
+					break;
+			}
+		});
+		Resources.UnloadUnusedAssets();
         parentMiddleGridLayout = parentMiddle.GetComponent<GridLayoutGroup>();
 		parentDropAnimator = parentDrop.GetComponent<Animator>();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
@@ -176,6 +235,8 @@ public class Manager_1_1B : MonoBehaviour
 			if (_mMiddleCanvasGroup != null) _mMiddleCanvasGroup.cellSize = cellsize_1ano;
 			InstantiateDragCards(5, bottomCardsPrefab1);
 			InstantiateDropCards(5, topCardsPrefab1);
+			textRight = textRight1;
+			textWrong = textWrong1;
 		} else if (anoLetivo == 2)
 		{
 			groupLayout.cellSize = cellsizeDrag_2ano;
@@ -185,6 +246,8 @@ public class Manager_1_1B : MonoBehaviour
 			cardGroup2Ano.GroupItemList.Suffle();
 			InstantiateDragCards(5, dragCardPrefab2Ano);
 			InstantiateDropCards(5, dropCardPrefab2Ano);
+			textRight = textRight2;
+			textWrong = textWrong2;
 		}
 		else
 		{
@@ -194,6 +257,8 @@ public class Manager_1_1B : MonoBehaviour
 			cardGroup3Ano.ShuffleLists();
 			InstantiateDragCards(4, dragCardPrefab3Ano);
 			InstantiateDropCards(4, dropCardPrefab3Ano);
+			textRight = textRight3;
+			textWrong = textWrong3;
 		}
 		
 		
@@ -283,9 +348,24 @@ public class Manager_1_1B : MonoBehaviour
         yield return Yielders.Get(0.2f);
 		//parentDropAnimator.SetBool("nextCanbeStarted", false);
         parentDropAnimator.enabled=false;
-		int score = scoreMade * 10;
+
+        //TODO score based on ano letivo.
+		int score = scoreMade;
+		switch (anoLetivo)
+		{
+			case 1:
+				score *= scorePerRight1;
+				break;
+			case 2:
+				score *= scorePerRight2;
+				break;
+			case 3:
+			default:
+				score *= scorePerRight3;
+				break;
+		}
 		int dropCardsLength = dropCards.Length;
-		scoreTextAnimComponent.text = $"Parabéns, você acertou: +{score}";
+		textRight.text = $"Parabéns, você acertou: +{score}";
         LOG.AddPontosPedagogica(score);
 
         for (int i = 0; i < dropCardsLength; i++){
@@ -305,7 +385,7 @@ public class Manager_1_1B : MonoBehaviour
 			dropCards[i].thisoutline.enabled = true;
 		}
 
-		
+
 
 		List<Transform> WrongCards = new List<Transform>();
 		List<DropCard_1_1B> WrongCardComponent = new List<DropCard_1_1B>();
@@ -316,7 +396,7 @@ public class Manager_1_1B : MonoBehaviour
 		}
 
 		int wrongs = 0;
-		for (int i = 0; i < dropCardsLength; i++){			
+		for (int i = 0; i < dropCardsLength; i++){
 			if(dropCards[i] != null && dropCards[i].characterSprite.idItem != dropCards[i].cardDraged.characterSprite.idItem){
 				wrongs++;
 				WrongCards.Add(dropCards[i].transform);
@@ -397,22 +477,12 @@ public class Manager_1_1B : MonoBehaviour
 		}*/
 
 		//textHere
-		if(wrongs > 0){
-			textWrong.gameObject.SetActive(true);
-            //sound.startSoundFX(fxsClips[1]);
-        } else {
-			textWrong.gameObject.SetActive(false);
-            //sound.startSoundFX(fxsClips[0]);
-        }
+		textWrong.gameObject.SetActive(wrongs > 0);
 
-		if(wrongs < 5){
-			textRight.gameObject.SetActive(true);
-		} else {
-			textRight.gameObject.SetActive(false);
-            //sound.startSoundFX(fxsClips[2]);
-        }
+		textRight.gameObject.SetActive(wrongs < 5);
 
-        //Debug.Log("Wrongs Amount" + wrongs.ToString(), this);
+
+		//Debug.Log("Wrongs Amount" + wrongs.ToString(), this);
 		
         if(scoreMade <= 0) {
             //acertar todos os nomes.
@@ -488,7 +558,11 @@ public class Manager_1_1B : MonoBehaviour
        
     }
 	
-	public IEnumerator Begin11B(){
+	public IEnumerator Begin11B()
+	{
+		personPosition = referenceDinamicPosition.position;
+		personTransform.position = personPosition;
+		personTransform.localScale = personScale;
 
 		int dragCardsLength = dragCards.Length;
 		
@@ -712,9 +786,10 @@ parentDropAnimator.SetBool("nextCanbeStarted", false);
         managerMemory.checkdidatica = true;
         var cardsPos = new List<Vector3>();
 
-        for (int i = 0; i < dropCards.Length; i++){
-			cardsPos.Add(dropCards[i].transform.position);
-		}
+        foreach (var t in dropCards)
+        {
+	        cardsPos.Add(t.transform.position);
+        }
 		
 		float times = 0.0f;
 		while (times < makeDeckDuration)
@@ -773,6 +848,4 @@ parentDropAnimator.SetBool("nextCanbeStarted", false);
         partCards2.SetActive(false);      
 
     }
-    
-    //TODO embaralhar ordem das cartas. no segundo e terceiro ano.
 }
