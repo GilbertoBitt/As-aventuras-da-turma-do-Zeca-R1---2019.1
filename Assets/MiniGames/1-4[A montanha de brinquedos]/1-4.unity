@@ -30473,9 +30473,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 97abaadea681560498137ebd7a295403, type: 3}
+    m_Font: {fileID: 12800000, guid: 281bdfd4b4279b74a838c22f1441b21d, type: 3}
     m_FontSize: 40
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 4
     m_MaxSize: 210
@@ -31880,7 +31880,7 @@ MonoBehaviour:
   - {fileID: 426979830}
   - {fileID: 1283077546}
   - {fileID: 1328756874}
-  config: {fileID: 11400000, guid: 8a44dcc961734d549bdf44791a1678c8, type: 2}
+  config: {fileID: 0}
   sound: {fileID: 1473950099}
   load: {fileID: 1249752886}
   pausePanel: {fileID: 1243875295}
@@ -47398,7 +47398,7 @@ MonoBehaviour:
   - {fileID: 1047695308}
   - {fileID: 50865151}
   - {fileID: 936220347}
-  config: {fileID: 11400000, guid: 8a44dcc961734d549bdf44791a1678c8, type: 2}
+  config: {fileID: 0}
   sound: {fileID: 1473950099}
   load: {fileID: 1249752886}
   pausePanel: {fileID: 249249722}
@@ -57358,7 +57358,7 @@ MonoBehaviour:
   layerItemHandler:
     serializedVersion: 2
     m_Bits: 32
-  config: {fileID: 11400000, guid: 8a44dcc961734d549bdf44791a1678c8, type: 2}
+  config: {fileID: 0}
   minigame:
     name: 
     highscore: 0
@@ -57705,7 +57705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46732778cfe893d4296724484306175a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: 8a44dcc961734d549bdf44791a1678c8, type: 2}
+  config: {fileID: 0}
   idMinigame: 5
   idHabilidade: 5
   idDificuldade: 1
@@ -73751,7 +73751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e427ca9e5542646459bb4eb6fe2889ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameConfig: {fileID: 11400000, guid: 8a44dcc961734d549bdf44791a1678c8, type: 2}
+  gameConfig: {fileID: 0}
   scoreText: {fileID: 1333423100}
   scoreAmount: 0
   bropsText: {fileID: 1615236473}
@@ -74630,7 +74630,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 76
+    m_MaxSize: 277
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1

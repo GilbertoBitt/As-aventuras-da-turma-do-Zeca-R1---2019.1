@@ -392,7 +392,7 @@ public class SoundManager : OverridableMonoBehaviour {
     }
 
     public AudioSource startVoiceFXReturn(AudioClip VoiceSound) {
-        if (gameConfig.isAudioVoiceOn) {
+        if (gameConfig.isAudioVoiceOn && gameConfig.isAudioVoiceOn!=null) {
             AudioSource voic = VoiceEffectSource(VoiceSound);
             VoiceOverHandler();
             voic.volume = 1f;
