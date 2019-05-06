@@ -124,7 +124,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.2.351
+  bundleVersion: 2.2.352
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -167,9 +167,9 @@ PlayerSettings:
   applicationIdentifier:
     Android: br.com.eduqbrinq.asaventurasdaturmadozeca
   buildNumber:
-    Standalone: 351
-    iPhone: 351
-  AndroidBundleVersionCode: 22351
+    Standalone: 352
+    iPhone: 352
+  AndroidBundleVersionCode: 22352
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
