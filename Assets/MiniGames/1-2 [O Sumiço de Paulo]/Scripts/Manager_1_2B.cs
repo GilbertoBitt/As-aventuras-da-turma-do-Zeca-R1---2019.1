@@ -9,7 +9,6 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor.Drawers;
 using Random = UnityEngine.Random;
 
 public class Manager_1_2B : OverridableMonoBehaviour
