@@ -292,7 +292,6 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
 		canBePlayed = true;
 
-
         _string.Clear();
         _string.Append("Encontre ").Append(needFind).Append(" ").Append(returnName(formList[dificult]));
         comandText.text = _string.ToString();
