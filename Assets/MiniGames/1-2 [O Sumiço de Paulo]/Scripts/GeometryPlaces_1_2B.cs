@@ -13,13 +13,12 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 	public bool canbeFound = false;
 
 	public void OnPointerClick(PointerEventData eventData){
-		if(canbeFound == true && manager.canBePlayed == true){
-			manager.AddUserPick(this);		
-			manager.hasFound++;
-			imageComponent.color = Color.clear;
-			canbeFound = false;
-			manager.soundManager.startVoiceFX(manager.clipsAudio[0]);
-		}
+		if (canbeFound != true || manager.canBePlayed != true) return;
+		manager.AddUserPick(this);
+		manager.hasFound++;
+		imageComponent.color = Color.clear;
+		canbeFound = false;
+		manager.soundManager.startVoiceFX(manager.clipsAudio[0]);
 	}
 
 	public void updateImage(Sprite spriteItem){

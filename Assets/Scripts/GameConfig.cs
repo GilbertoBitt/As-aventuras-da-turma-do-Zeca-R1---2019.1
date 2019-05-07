@@ -455,6 +455,8 @@ public class GameConfig : ScriptableObject {
 		return currentUser?.idUsuario ?? -1;
 	}
 
+    public DBOUSUARIOS GetCurrentUser() => currentUser ?? openDB().GetUser(playerID);
+
     [ContextMenu("Encrypt")]
     public void EncryptText() {
 

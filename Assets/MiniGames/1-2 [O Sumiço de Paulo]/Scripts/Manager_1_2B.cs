@@ -6,9 +6,12 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
-public class Manager_1_2B : OverridableMonoBehaviour {
-
+public class Manager_1_2B : OverridableMonoBehaviour
+{
+	[TabGroup("Geral")] public GameConfig config;
+	[TabGroup("Geral")] public int anoLetivo;
 	[HeaderAttribute("References")]
 	public Manager_1_2A manager;
 	public List<CirclesOnPanel_1_2B> panelCircles = new List<CirclesOnPanel_1_2B>();
@@ -114,7 +117,10 @@ public class Manager_1_2B : OverridableMonoBehaviour {
     public Vector2 LimitSlider;
     public Image fundoProf;
     public Sprite ImageFundo;
-    void Start(){
+    void Start()
+    {
+		config.UpdateCurrent(config.GetCurrentUser());
+	    anoLetivo = config.currentYear.idAnoLetivo;
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
 	}
 
@@ -123,20 +129,20 @@ public class Manager_1_2B : OverridableMonoBehaviour {
 		soundManager.hasAmbientFX=false;
 		checkpanelDes=false;
 		fadeImage.gameObject.SetActive(true);
-		float times = 0.0f;
-		if(fadeImage.color == Color.black){			
-			while (times < fadeInDuration)
-			{
-				times += Time.deltaTime;
-				float s = times / fadeInDuration;
-
-				fadeImage.color = Color.Lerp (new Color (1f, 1f, 1f, 0f), Color.black, fadeInCurve.Evaluate (s));
-
-				yield return Timing.WaitForOneFrame;
-
-			}
-		}
-
+		fadeImage.DOFade(1f, fadeInDuration).SetEase(fadeInCurve);
+//		float times = 0.0f;
+//		if(fadeImage.color == Color.black){
+//			while (times < fadeInDuration)
+//			{
+//				times += Time.deltaTime;
+//				float s = times / fadeInDuration;
+//
+//				fadeImage.color = Color.Lerp (new Color (1f, 1f, 1f, 0f), Color.black, fadeInCurve.Evaluate (s));
+//
+//				yield return Timing.WaitForOneFrame;
+//
+//			}
+//		}
 
 		int temp = Random.Range(minRandom,maxRandom);
 
@@ -154,6 +160,7 @@ public class Manager_1_2B : OverridableMonoBehaviour {
 
 		panelCircles.Clear();
 		circleInstances.Clear();
+
 		for (int i = 0; i < needFind; i++){
 			GameObject circlePanel = Instantiate(circlePrefab,circleParent);
 			circlePanel.transform.localScale = new Vector3(1,1,1);
@@ -171,7 +178,6 @@ public class Manager_1_2B : OverridableMonoBehaviour {
 		for (int i = 0; i < panelCircles.Count; i++){
 			panelCircles[i].outlineImage.effectColor = Color.black;
 			panelCircles[i].correctCompImage.color = Color.clear;
-
 		}
 
 		userPicks.Clear();
@@ -179,9 +185,10 @@ public class Manager_1_2B : OverridableMonoBehaviour {
 
 		updateCircles();
 
-		for (int i = 0; i < AllPlaces.Count; i++){
-			AllPlaces[i].resetConfig();
-			AllPlaces[i].form = geometryForm.none;
+		foreach (var places in AllPlaces)
+		{
+			places.resetConfig();
+			places.form = geometryForm.none;
 		}
 
 		
@@ -223,18 +230,19 @@ public class Manager_1_2B : OverridableMonoBehaviour {
         _string.Append("Encontre ").Append(needFind).Append(" ").Append(returnName(formList[dificult]));
         comandText.text = _string.ToString();
         iconFromText.sprite = returnIcon(formList[dificult]);
-
-		times = 0.0f;
-		while (times < fadeOutDuration)
-		{
-			times += Time.deltaTime;
-			float s = times / fadeOutDuration;
-
-			fadeImage.color = Color.Lerp (Color.black,new Color (1f, 1f, 1f, 0f), fadeOutCurve.Evaluate (s));
-
-			yield return 0f;
-		}
+        fadeImage.DOFade(0f, fadeOutDuration).SetEase(fadeOutCurve);
+//		float times = 0.0f;
+//		while (times < fadeOutDuration)
+//		{
+//			times += Time.deltaTime;
+//			float s = times / fadeOutDuration;
+//
+//			fadeImage.color = Color.Lerp (Color.black,new Color (1f, 1f, 1f, 0f), fadeOutCurve.Evaluate (s));
+//
+//			yield return 0f;
+//		}
 		fadeImage.gameObject.SetActive(false);
+		yield return Timing.WaitForOneFrame;
 	}
 
     // Update is called once per frame
