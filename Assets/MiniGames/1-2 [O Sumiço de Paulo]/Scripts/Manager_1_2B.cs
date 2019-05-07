@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MEC;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,11 +9,17 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor.Drawers;
+using Random = UnityEngine.Random;
 
 public class Manager_1_2B : OverridableMonoBehaviour
 {
 	[TabGroup("Geral")] public GameConfig config;
 	[TabGroup("Geral")] public int anoLetivo;
+	[TabGroup("2ª Ano")]
+	public Dictionary<SpacialForms, List<Sprite>> spatialFormsSprites = new Dictionary<SpacialForms, List<Sprite>>();
+
+	[TabGroup("2ª Ano")] public SpacialForms selectedForm = SpacialForms.None;
 	[HeaderAttribute("References")]
 	public Manager_1_2A manager;
 	public List<CirclesOnPanel_1_2B> panelCircles = new List<CirclesOnPanel_1_2B>();
@@ -189,38 +197,98 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		{
 			places.resetConfig();
 			places.form = geometryForm.none;
+			places.spacialForm = SpacialForms.None;
 		}
 
 		
 		AllPlaces.Suffle();
 
+		switch (anoLetivo)
+		{
+			case 2:
+				selectedForm = EnumExtensions.RandomEnumValue<SpacialForms>();
+				foreach (var item in spatialFormsSprites)
+				{
+					item.Value.Suffle();
+				}
+				break;
+			case 3:
+				break;
+		}
+
 		for (int i = 0; i < temp; i++){
-			AllPlaces[i].form = formList[dificult];
-			AllPlaces[i].updateImage(returnList(formList[dificult])[i]);
+			switch (anoLetivo)
+			{
+				case 1:
+					AllPlaces[i].form = formList[dificult];
+					AllPlaces[i].updateImage(returnList(formList[dificult])[i]);
+					break;
+				case 2:
+					do
+					{
+						AllPlaces[i].spacialForm = selectedForm;
+					} while (AllPlaces[i].spacialForm == SpacialForms.None);
+					AllPlaces[i].updateImage(spatialFormsSprites[selectedForm][i]);
+					break;
+				case 3:
+					break;
+			}
+
 			choosenPlaces.Remove(AllPlaces[i]);
 		}
 
 		choosenPlaces.Suffle();
 
 		List<Sprite> otherSprites = new List<Sprite>();
+		var tupleList = new Dictionary<Sprite, SpacialForms>();
 
-
-        for (int i = 1; i < 4; i++){
-			for (int j = 0; j < returnList(formList[i]).Count; j++){
-				if(formList[i] != formList[dificult]){
-					otherSprites.Add(returnList(formList[i])[j]);
-                }
-			}
+		switch (anoLetivo)
+		{
+			case 1:
+				for (int i = 1; i < 4; i++){
+					for (int j = 0; j < returnList(formList[i]).Count; j++){
+						if(formList[i] != formList[dificult]){
+							otherSprites.Add(returnList(formList[i])[j]);
+						}
+					}
+				}
+				break;
+			case 2:
+				foreach (var item in spatialFormsSprites)
+				{
+					if (item.Key == selectedForm) continue;
+					foreach (var sprite in item.Value)
+					{
+						tupleList.Add(sprite, item.Key);
+					}
+				}
+				break;
+			case 3:
+				break;
 		}
 
+
 		otherSprites.Suffle();
+
 
 		int randomize = Random.Range(minOtherSprites,maxOtherSprites);
        
 
 		for (int i = 0; i < randomize; i++){
-			choosenPlaces[i].updateImage(otherSprites[i]);
-            choosenPlaces[i].form = VerifyImageForm(otherSprites[i]);
+			switch (anoLetivo)
+			{
+				case 1:
+					choosenPlaces[i].updateImage(otherSprites[i]);
+					choosenPlaces[i].form = VerifyImageForm(otherSprites[i]);
+					break;
+				case 2:
+					choosenPlaces[i].updateImage(otherSprites[i]);
+//					choosenPlaces[i].spacialForm =
+					break;
+				case 3:
+					break;
+			}
+
         }
 
 		canBePlayed = true;
@@ -244,6 +312,10 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		fadeImage.gameObject.SetActive(false);
 		yield return Timing.WaitForOneFrame;
 	}
+
+
+
+
 
     // Update is called once per frame
 

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
-public class OverridableMonoBehaviour : MonoBehaviour
+public class OverridableMonoBehaviour : SerializedMonoBehaviour
 {
 
 	protected virtual void Awake()

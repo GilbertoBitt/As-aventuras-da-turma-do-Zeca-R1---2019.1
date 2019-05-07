@@ -10,6 +10,7 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 	public Image imageComponent;
 	public Manager_1_2B manager;
 	public Manager_1_2B.geometryForm form;
+	public SpacialForms spacialForm;
 	public bool canbeFound = false;
 
 	public void OnPointerClick(PointerEventData eventData){
@@ -30,9 +31,23 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 
 	public void resetConfig(){
 		form = Manager_1_2B.geometryForm.none;
+		spacialForm = SpacialForms.None;
 		canbeFound = false;
 		imageComponent.sprite = null;
 		imageComponent.color = Color.clear;
 	}
 	
 }
+
+public enum SpacialForms
+{
+	None,
+	Cube,
+	Retangular,
+	Pyramid,
+	Cone,
+	Cylinder,
+	Sphere
+}
+
+
