@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using MEC;
 using UnityEngine;
 using UnityEngine.Events;
@@ -239,7 +238,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		choosenPlaces.Suffle();
 
 		List<Sprite> otherSprites = new List<Sprite>();
-		var tupleList = new Dictionary<Sprite, SpacialForms>();
+		var otherSpatialForms = new List<(Sprite sprite, SpacialForms spacialForms)>();
 
 		switch (anoLetivo)
 		{
@@ -258,7 +257,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					if (item.Key == selectedForm) continue;
 					foreach (var sprite in item.Value)
 					{
-						tupleList.Add(sprite, item.Key);
+						otherSpatialForms.Add((sprite, item.Key));
 					}
 				}
 				break;
@@ -268,6 +267,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
 
 		otherSprites.Suffle();
+		otherSpatialForms.Suffle();
 
 
 		int randomize = Random.Range(minOtherSprites,maxOtherSprites);
@@ -281,8 +281,8 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					choosenPlaces[i].form = VerifyImageForm(otherSprites[i]);
 					break;
 				case 2:
-					choosenPlaces[i].updateImage(otherSprites[i]);
-//					choosenPlaces[i].spacialForm =
+					choosenPlaces[i].updateImage(otherSpatialForms[i].sprite);
+					choosenPlaces[i].spacialForm = otherSpatialForms[i].spacialForms;
 					break;
 				case 3:
 					break;
