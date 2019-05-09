@@ -290,24 +290,31 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
         }
 
+
+
 		canBePlayed = true;
 
-        _string.Clear();
-        _string.Append("Encontre ").Append(needFind).Append(" ").Append(returnName(formList[dificult]));
-        comandText.text = _string.ToString();
-        iconFromText.sprite = returnIcon(formList[dificult]);
+		switch (anoLetivo)
+        {
+        	case 1:
+	            _string.Clear();
+	            _string.Append("Encontre ").Append(needFind).Append(" ").Append(returnName(formList[dificult]));
+	            comandText.text = _string.ToString();
+	            iconFromText.sprite = returnIcon(formList[dificult]);
+        		break;
+        	case 2:
+	            _string.Clear();
+	            _string.Append("Encontre ").Append(needFind).Append(" ").Append(GetSpacialFormName(selectedForm));
+	            comandText.text = _string.ToString();
+//	            iconFromText.sprite = returnIcon(formList[dificult]);
+	            iconFromText.enabled = false;
+        		break;
+        	case 3:
+        		break;
+        }
+
         fadeImage.DOFade(0f, fadeOutDuration).SetEase(fadeOutCurve);
-//		float times = 0.0f;
-//		while (times < fadeOutDuration)
-//		{
-//			times += Time.deltaTime;
-//			float s = times / fadeOutDuration;
-//
-//			fadeImage.color = Color.Lerp (Color.black,new Color (1f, 1f, 1f, 0f), fadeOutCurve.Evaluate (s));
-//
-//			yield return 0f;
-//		}
-		fadeImage.gameObject.SetActive(false);
+        fadeImage.gameObject.SetActive(false);
 		yield return Timing.WaitForOneFrame;
 	}
 
@@ -318,36 +325,34 @@ public class Manager_1_2B : OverridableMonoBehaviour
     // Update is called once per frame
 
     public override void UpdateMe() {
-
-		if(canBePlayed == true && manager.canBeStarted == true){
-			if (isRight && (rectImage.offsetMin.x > -LimitSlider.y)) {
-				isLeft = false;
-				rectImage.transform.position -= Vector3.right * speedMovingImage * Time.deltaTime;
-			}
-
-			if((rectImage.offsetMin.x <= -LimitSlider.y) && rightBT.interactable == true){
-				rightBT.interactable = false;
-			} else if (rightBT.interactable == false && (rectImage.offsetMin.x > -LimitSlider.y)){
-				rightBT.interactable = true;
-			}
-
-			if (isLeft && (rectImage.offsetMin.x < LimitSlider.x)) {
-				isRight = false;
-				rectImage.transform.position += Vector3.right * speedMovingImage * Time.deltaTime;
-			}
-
-			if(rectImage.offsetMin.x >= LimitSlider.x && leftBT.interactable == true){
-				leftBT.interactable = false;
-			} else if (leftBT.interactable == false && rectImage.offsetMin.x < LimitSlider.x) {
-				leftBT.interactable = true;
-			}
-
-			if(hasFound >= needFind ){
-				Timing.RunCoroutine(startCorrection());
-			}
+	    if (!canBePlayed || !manager.canBeStarted) return;
+	    if (isRight && rectImage.offsetMin.x > -LimitSlider.y) {
+			isLeft = false;
+			rectImage.transform.position -= speedMovingImage * Time.deltaTime * Vector3.right;
 		}
 
-	}
+		if(rectImage.offsetMin.x <= -LimitSlider.y && rightBT.interactable){
+			rightBT.interactable = false;
+		} else if (rightBT.interactable == false && rectImage.offsetMin.x > -LimitSlider.y){
+			rightBT.interactable = true;
+		}
+
+		if (isLeft && rectImage.offsetMin.x < LimitSlider.x) {
+			isRight = false;
+			rectImage.transform.position += speedMovingImage * Time.deltaTime * Vector3.right;
+		}
+
+		if(rectImage.offsetMin.x >= LimitSlider.x && leftBT.interactable){
+			leftBT.interactable = false;
+		} else if (leftBT.interactable == false && rectImage.offsetMin.x < LimitSlider.x) {
+			leftBT.interactable = true;
+		}
+
+		if(hasFound >= needFind ){
+			Timing.RunCoroutine(startCorrection());
+		}
+
+    }
 
 	public void StartThis(){
 		//panelDidatica.SetActive(true);
@@ -374,10 +379,26 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
     }
 
-    public void ShowObjectFormAnimation(geometryForm form) {
-        Timing.KillCoroutines("TextFormAnimation");
-        Timing.RunCoroutine(ShowObjectForm(form), "TextFormAnimation");
+    public void ShowObjectFormAnimation(object form)
+    {
+	    switch (form)
+	    {
+		  case geometryForm planeForm:
+			  _string.Clear();
+			  _string.Append("Isto tem forma de ").Append(returnNameSingular(planeForm)).Append("!");
+			  textForm.text = _string.ToString();
+			  textForm.DOFade(1f, textFormCurveDuration);
+			  break;
+		  case SpacialForms spacialForm:
+			  _string.Clear();
+			  _string.Append("Isto tem forma de ").Append(GetSpacialFormName(spacialForm, true)).Append("!");
+			  textForm.text = _string.ToString();
+			  textForm.DOFade(1f, textFormCurveDuration);
+			  break;
+	    }
     }
+
+
 
     public IEnumerator<float> ShowObjectForm(geometryForm form) {
         float times = 0.0f;
@@ -387,8 +408,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
         Color endColor = textForm.color;
         endColor.a = 1f;
 
-        _string.Clear();
-        _string.Append("Isto tem forma de ").Append(returnNameSingular(form)).Append("!");
+
         textForm.text = _string.ToString();
 
         while (times < textFormCurveDuration) {
@@ -543,6 +563,36 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		}
 	}
 
+	public string GetSpacialFormName(SpacialForms form, bool isSingular = false)
+	{
+		switch (form)
+		{
+			case SpacialForms.None:
+				throw new ArgumentOutOfRangeException(nameof(form), form, null);
+				break;
+			case SpacialForms.Cube:
+				return isSingular ? "Cubo" : "Cubos";
+				break;
+			case SpacialForms.Retangular:
+				return isSingular ? "Forma Retantular" : "Formas Retangulares";
+				break;
+			case SpacialForms.Pyramid:
+				return isSingular ? "Pirâmide" : "Pirâmides";
+				break;
+			case SpacialForms.Cone:
+				return isSingular ? "Cone" : "Cones";
+				break;
+			case SpacialForms.Cylinder:
+				return isSingular ? "Cilindro" : "Cilindros";
+				break;
+			case SpacialForms.Sphere:
+				return isSingular ? "Esfera" : "Esferas";
+				break;
+			default:
+				throw new ArgumentOutOfRangeException(nameof(form), form, null);
+		}
+	}
+
     public string returnNameSingular(geometryForm form) {
         switch (form) {
             case geometryForm.square:
@@ -618,11 +668,13 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		updateCircles();
 	}
 
-	public void updateCircles(){
-		for (int i = 0; i < panelCircles.Count; i++){
-			panelCircles[i].updateImage();
-            //panelCircles[i].hideCloseButtton();
-        }
+	public void updateCircles()
+	{
+		foreach (var circles in panelCircles)
+		{
+			circles.updateImage();
+			//panelCircles[i].hideCloseButtton();
+		}
 
 		for (int i = 0; i < userPicks.Count; i++){
 			panelCircles[i].updateImage(userPicks[i]);
@@ -640,18 +692,30 @@ public class Manager_1_2B : OverridableMonoBehaviour
 	}
     
     public void CorrectForm(CirclesOnPanel_1_2B panelCircle) {
-        if(panelCircle.placeOfItem.form == formList[dificult]) {
-            panelCircle.outlineImage.effectColor = rightColor;
-            panelCircle.correctCompImage.sprite = rightCheckSprite;
-            panelCircle.correctCompImage.color = Color.white;
-        } else {
-            panelCircle.outlineImage.effectColor =  wrongColor;
-            panelCircle.correctCompImage.sprite = wrongCheckSprite;
-            panelCircle.correctCompImage.color = Color.white;
-        }
+
+	    switch (anoLetivo)
+	    {
+		    case 1:
+			    CorrectCircle(panelCircle, panelCircle.placeOfItem.form == formList[dificult]);
+			    break;
+		    case 2:
+			    CorrectCircle(panelCircle, panelCircle.placeOfItem.spacialForm == selectedForm);
+			    break;
+		    case 3:
+			    break;
+	    }
+
+
     }
 
-	public IEnumerator<float> startCorrection(){
+    private void CorrectCircle(CirclesOnPanel_1_2B panelCircle, bool isRight = true)
+    {
+	    panelCircle.outlineImage.effectColor = isRight ? rightColor : wrongColor;
+	    panelCircle.correctCompImage.sprite = isRight ? rightCheckSprite : wrongCheckSprite;
+	    panelCircle.correctCompImage.color = Color.white;
+    }
+
+    public IEnumerator<float> startCorrection(){
 		canBePlayed = false;
 		hideAllCloseButtons();
 
@@ -662,24 +726,37 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		yield return Timing.WaitForSeconds(1f);
 
 		for (int i = 0; i < needFind; i++){
-			if(panelCircles[i].placeOfItem.form == formList[dificult]){
-				//panelCircles[i].outlineImage.effectColor = rightColor;
-				//panelCircles[i].correctCompImage.sprite = rightCheckSprite;
-				//panelCircles[i].correctCompImage.color = Color.white;
-				//scoreAmount += 10;
-				scoreTemp += 10;
-				tempCorrects++;
-				log.SaveEstatistica (2, 1, true);
-				//Debug.Log("Certo!!");
-			} else {
-				//panelCircles[i].outlineImage.effectColor =  wrongColor;
-				//panelCircles[i].correctCompImage.sprite = wrongCheckSprite;
-				//panelCircles[i].correctCompImage.color = Color.white;
-				log.SaveEstatistica (2, 1, false);
-				//Debug.Log("Errado!!");
+			switch (anoLetivo)
+			{
+				case 1:
+					if(panelCircles[i].placeOfItem.form == formList[dificult]){
+						//panelCircles[i].outlineImage.effectColor = rightColor;
+						//panelCircles[i].correctCompImage.sprite = rightCheckSprite;
+						//panelCircles[i].correctCompImage.color = Color.white;
+						//scoreAmount += 10;
+						scoreTemp += 10;
+						tempCorrects++;
+						log.SaveEstatistica (2, 1, true);
+						//Debug.Log("Certo!!");
+					} else {
+						//panelCircles[i].outlineImage.effectColor =  wrongColor;
+						//panelCircles[i].correctCompImage.sprite = wrongCheckSprite;
+						//panelCircles[i].correctCompImage.color = Color.white;
+						log.SaveEstatistica (2, 1, false);
+						//Debug.Log("Errado!!");
+					}
+					break;
+				case 2:
+					if (panelCircles[i].placeOfItem.spacialForm == selectedForm)
+					{
+						scoreTemp += 10;
+						tempCorrects++;
+					}
+					log.SaveEstatistica (2, 1, panelCircles[i].placeOfItem.spacialForm == selectedForm);
+					break;
+				case 3:
+					break;
 			}
-
-			//yield return Timing.WaitForSeconds(waitTimeCorrection);
 		}
 
 		log.AddPontosPedagogica (scoreTemp);
@@ -726,12 +803,8 @@ public class Manager_1_2B : OverridableMonoBehaviour
 			
 				panelDesafioController.scoreAmount = scoreAmount;
 				panelDesafioController.starAmount = manager.starsAmount;
-				//panelDesafio.SetActive(true);
 				
 			panelDesafio.SetActive(true);
-//			panelDesafioAnimator.SetInteger("panelDesafioNumber",1);
-			//panelDesafioAnimator.SetBool("checkFimAnim",true);
-		//	endGameCall();
 		}
 	}
 

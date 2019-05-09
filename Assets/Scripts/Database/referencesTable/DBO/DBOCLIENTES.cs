@@ -1,4 +1,4 @@
-﻿using SQLite;
+﻿using SQLite4Unity3d;
 public class DBOCLIENTES {
 	[PrimaryKey, Unique]
 	public int idCliente {get; set;}

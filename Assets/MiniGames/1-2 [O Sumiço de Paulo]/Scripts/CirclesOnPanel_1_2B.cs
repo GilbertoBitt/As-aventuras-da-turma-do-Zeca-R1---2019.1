@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,8 +13,6 @@ public class CirclesOnPanel_1_2B : MonoBehaviour, IPointerClickHandler{
 	public GeometryPlaces_1_2B placeOfItem;
 	public Outline outlineImage;
 	public Manager_1_2B manager;
-
-
 
 	public void OnPointerClick(PointerEventData eventData){
 		if(placeOfItem != null && manager.canBePlayed == true){			
@@ -31,8 +31,20 @@ public class CirclesOnPanel_1_2B : MonoBehaviour, IPointerClickHandler{
 
 	public void updateImage(GeometryPlaces_1_2B place){
 		manager = place.manager;
-		imageComp.sprite = place.imageComponent.sprite;
-		imageComp.preserveAspect = true;
+		switch (manager.anoLetivo)
+		{
+			case 1:
+				imageComp.sprite = place.imageComponent.sprite;
+				imageComp.preserveAspect = true;
+				break;
+			case 2:
+				imageComp.sprite = place.imageComponent.sprite;
+				imageComp.preserveAspect = true;
+				break;
+			case 3:
+				break;
+		}
+
 		placeOfItem = place;
 	}
 

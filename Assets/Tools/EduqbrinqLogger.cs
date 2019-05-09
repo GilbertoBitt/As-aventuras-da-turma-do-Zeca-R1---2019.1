@@ -14,8 +14,11 @@ public class EduqbrinqLogger : MonoBehaviour
     private static GameConfig _config;
     private static string UserToken => _config.netHelper.token;
     private static int UserId => _config.GetCurrentUserID();
-    private static (string token, int id) UserInfo => (UserToken, UserId);
-    
+    private static int ClientId => _config.clientID;
+    private static int GameId => _config.gameID;
+//    private static (string token, int id) UserInfo => (UserToken, UserId);
+    private static (string token, int id, int gameId, int clientId) UserInfo => (UserToken, UserId, ClientId, GameId);
+
     private Queue<EduqbringLogGameInfo> _gameInfos;
 
     private static EduqbrinqLogger _instance;
@@ -55,6 +58,69 @@ public class EduqbrinqLogger : MonoBehaviour
         _gameInfos?.Enqueue(info);
     }
 
+    public void UpdateDatabase(DBORANKING updatedRank)
+    {
+        var task = SaveDatabase(updatedRank).GetAwaiter();
+        task.OnCompleted(() => Log.d($"Rank Updated! Info: {JsonWriter.GetWriter().Write(updatedRank)}"));
+    }
+
+    async UniTask SaveDatabase(DBORANKING rankUpdated)
+    {
+        if (IsOnline)
+        {
+            await SendRequest(
+                UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setRanking",
+                    rankUpdated.ToForm(UserInfo)), rankUpdated);
+        }
+        else
+        {
+            rankUpdated.online = IsOnlineInt;
+            await _config.openDB().UpdateRanking(rankUpdated);
+        }
+    }
+
+    async UniTask SendRequest(UnityWebRequest req, DBORANKING rank)
+    {
+        var op = await req.SendWebRequest();
+        if (IsValidRequest(op))
+        {
+            rank.online = 0;
+            _config.openDB().UpdateRanking(rank);
+        }
+//        Log.d($"Sended or Saved Sucess of [DBOMINIGAMES_LOGS]: {JsonWriter.GetWriter().Write(log)}");
+    }
+
+    public void UpdateDatabase(DBOPONTUACAO updatedScore)
+    {
+        var task = SaveDatabase(updatedScore).GetAwaiter();
+        task.OnCompleted(() => Log.d($"Score Updated! Info: {JsonWriter.GetWriter().Write(updatedScore)}"));
+    }
+
+    async UniTask SaveDatabase(DBOPONTUACAO score)
+    {
+        if (IsOnline)
+        {
+            await SendRequest(
+                UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setPontuacao",
+                    score.ToForm(UserInfo)), score);
+        }
+        else
+        {
+            score.online = IsOnlineInt;
+            _config.openDB().UpdateScore(score);
+        }
+    }
+
+    async UniTask SendRequest(UnityWebRequest req, DBOPONTUACAO score)
+    {
+        var op = await req.SendWebRequest();
+        if (IsValidRequest(op))
+        {
+            score.online = 0;
+            _config.openDB().UpdateScore(score);
+        }
+    }
+
     public EduqbringLogGameInfo GenerateGameInfo(DBOMINIGAMES_LOGS log, List<DBOESTATISTICA_DIDATICA> estatisticas)
     {
         return new EduqbringLogGameInfo{ GameLog = log, Estatisticas = estatisticas};
@@ -85,7 +151,7 @@ public class EduqbrinqLogger : MonoBehaviour
         if (IsValidRequest(op))
         {
             log.online = 0;
-            await _config.openDB().InsertLogAsync(log);
+            _config.openDB().InsertLogAsync(log);
         }    
 //        Log.d($"Sended or Saved Sucess of [DBOMINIGAMES_LOGS]: {JsonWriter.GetWriter().Write(log)}");
     }
@@ -96,7 +162,7 @@ public class EduqbrinqLogger : MonoBehaviour
         if (IsValidRequest(op))
         {
             estatistica.online = 0;
-            await _config.openDB().InsertLogAsync(estatistica);
+            _config.openDB().InsertLogAsync(estatistica);
         }  
 //        Log.d($"Sended or Saved Sucess of [DBOESTATISTICA_DIDATICA]: {JsonWriter.GetWriter().Write(estatistica)}");
     }
@@ -107,7 +173,9 @@ public class EduqbrinqLogger : MonoBehaviour
         var toSend = new List<UniTask>();
         foreach (var estatistica in estatisticas)
         {
-            toSend.Add(GameLog(UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setEstatisticaDidatica", estatistica.ToForm(UserInfo)), estatistica));
+            toSend.Add(GameLog(
+                UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setEstatisticaDidatica",
+                    estatistica.ToForm(UserInfo)), estatistica));
         }
         await UniTask.WhenAll(toSend);
     }

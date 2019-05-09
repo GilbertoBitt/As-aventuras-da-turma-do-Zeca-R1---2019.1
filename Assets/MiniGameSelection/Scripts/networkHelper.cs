@@ -800,8 +800,6 @@ public class networkHelper {
     IEnumerator<float> setPontuacao(DBOPONTUACAO score) {
         isDoingOperation = true;
         WWWForm form = new WWWForm();
-
-
         form.AddField("token", token);
         form.AddField("idUsuario", score.idUsuario);
         form.AddField("deviceBrops", score.BropsDevice);
@@ -1442,27 +1440,30 @@ public class networkHelper {
 
             size = usuarios.Count;
 
-            if (size >= 1) {
-
+            if (size >= 1)
+            {
+                var listUsers = new List<DBOUSUARIOS>();
                 startScene.MessageStatus("Atualizando Lista de Usuários");
                 for (int i = 0; i < size; i++) {
-                    DBOUSUARIOS userTemp = new DBOUSUARIOS() {
+                    DBOUSUARIOS userTemp = new DBOUSUARIOS
+                    {
                         idUsuario = usuarios[i]["idUsuario"].AsInt,
                         idCliente = _idCliente,
-                        tipoUsuario = (usuarios[i]["tipoUsuario"] == null) ? 0 : usuarios[i]["tipoUsuario"].AsInt,
+                        tipoUsuario = usuarios[i]["tipoUsuario"] == null ? 0 : usuarios[i]["tipoUsuario"].AsInt,
                         idTurma = usuarios[i]["idTurma"].AsInt,
                         nomeJogador = usuarios[i]["nomeJogador"],
                         login = usuarios[i]["login"],
                         senha = usuarios[i]["senha"],
                         dataUpdate = usuarios[i]["dataUpdate"],
-                        ativo = (usuarios[i]["ativo"].AsBool) ? 1 : 0
+                        ativo = usuarios[i]["ativo"].AsBool ? 1 : 0
                     };
-
-                    db.InsertUser(userTemp);
+                    listUsers.Add(userTemp);
+                    yield return Timing.WaitForOneFrame;
 
                 }
-
+                yield return Timing.WaitForOneFrame;
                 dbo.usuarios = currentSyncDB.usuarios;
+                db.AddAllUser(listUsers);
 
             }
 

@@ -331,99 +331,49 @@ public class GameConfig : ScriptableObject {
      }
 
 	public void Rank(int _idMinigame, int score, int _starsAmount) {
+
+        var eduqbrinqLog = EduqbrinqLogger.Instance;
     
-		DBORANKING rank = openDB().GetRanking (_idMinigame, GetCurrentUserID());
+		DBORANKING rank = openDB().GetRanking (_idMinigame, GetCurrentUserID()) ?? new DBORANKING();
 
-		if (rank != null) {
-            bool hasUpdated = false;
+        bool hasUpdated = false;
 
-			if (rank.highscore < score) {
-                rank.highscore = score;
-                rank.dataUpdate = ReturnCurrentDate();
-                rank.idMinigame = _idMinigame;
-                rank.idUsuario = playerID;
-                hasUpdated = true;
-                Log.d("Highscore Atualizado");
-            }
-
-            if(rank.estrelas < _starsAmount) {
-                rank.estrelas = _starsAmount;
-                rank.idMinigame = _idMinigame;
-                rank.idUsuario = playerID;
-                rank.dataUpdate = ReturnCurrentDate();
-                hasUpdated = true;
-                Log.d("Estrelas Atualizadas");
-            }
-
-            if (hasUpdated) {
-               
-                if (isOnline) {
-                    rank.online = 1;
-                    netHelper.RunSetRanking(rank, netHelper.token);
-                    openDB().UpdateRanking(rank);
-                } else {
-                    rank.online = 0;
-                    openDB().UpdateRanking(rank);
-                }
-            }
-        } else {
-            rank = new DBORANKING() {
-                highscore = score,
-                idMinigame = _idMinigame,
-                estrelas = _starsAmount,
-                idUsuario = playerID,
-                dataInsert = ReturnCurrentDate(),
-                dataUpdate = ReturnCurrentDate()
-            };
-            
-            if (isOnline) {
-                rank.online = 1;
-                netHelper.RunSetRanking(rank, netHelper.token);
-                openDB().InserRanking2(rank);
-            } else {
-                rank.online = 0;
-                openDB().InserRanking2(rank);
-            }
+		if (rank.highscore < score) {
+            rank.highscore = score;
+            hasUpdated = true;
+            Log.d("Highscore Atualizado");
         }
 
-        
+        if(rank.estrelas < _starsAmount) {
+            rank.estrelas = _starsAmount;
+            hasUpdated = true;
+            Log.d("Estrelas Atualizadas");
+        }
+
+        rank.dataUpdate = ReturnCurrentDate();
+        rank.idMinigame = _idMinigame;
+        rank.idUsuario = playerID;
+
+        if (!hasUpdated) return;
+        eduqbrinqLog.UpdateDatabase(rank);
     }
 
-    public void UpdateScore(int _scoreBrops, int PontuacaoTOtal) {
+    //TODO Updated Score
 
-        DBOPONTUACAO scores = openDB().GetScore(playerID);
+    public void UpdateScore(int scoreBrops, int pontuacaoTotal) {
 
-        if (scores != null) {
-            scores.idUsuario = playerID;
-            scores.brops = _scoreBrops;
-            scores.pontuacaoTotal = PontuacaoTOtal;
-            scores.BropsDevice = BropsDeviceAmount;
-            scores.PontuacaoTotalDevice = TotalPointsDevice;
-            Debug.Log("scores.brops " + scores.brops);
-            Debug.Log("scores.pontuacaoTotal " + scores.pontuacaoTotal);
-            scores.dataUpdate = ReturnCurrentDate();
-            openDB().UpdateScore(scores);
-        } else {
-            scores = new DBOPONTUACAO() {
-                idUsuario = playerID
-            };
-            scores.brops = _scoreBrops;
-            scores.pontuacaoTotal = PontuacaoTOtal;
-            scores.BropsDevice = BropsDeviceAmount;
-            scores.PontuacaoTotalDevice = TotalPointsDevice;
-            Debug.Log("scores.brops " + scores.brops);
-            Debug.Log("scores.pontuacaoTotal " + scores.pontuacaoTotal);
-            scores.dataUpdate = ReturnCurrentDate();
-            openDB().InsertScores(scores);
-        }
+        DBOPONTUACAO scores = openDB().GetScore(playerID) ?? new DBOPONTUACAO();
 
-        if (isOnline) {
-            netHelper.RunsetPontuacao(scores, netHelper.token);
-        } else {
-            scores.online = 0;
-            openDB().InsertOrReplateScore(scores);
-           // queueLog.Add(() => netHelper.RunsetPontuacao(scores, netHelper.token));
-        }
+        scores.idUsuario = playerID;
+        scores.brops = scoreBrops;
+        scores.pontuacaoTotal = pontuacaoTotal;
+        scores.BropsDevice = BropsDeviceAmount;
+        scores.PontuacaoTotalDevice = TotalPointsDevice;
+        Debug.Log("scores.brops " + scores.brops);
+        Debug.Log("scores.pontuacaoTotal " + scores.pontuacaoTotal);
+        scores.dataUpdate = ReturnCurrentDate();
+
+        EduqbrinqLogger.Instance.UpdateDatabase(scores);
     }
 
 	public void SaveStatistic(List<DBOESTATISTICA_DIDATICA> statisticTemp){

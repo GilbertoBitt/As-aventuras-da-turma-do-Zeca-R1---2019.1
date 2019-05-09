@@ -1271,7 +1271,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
             }
 
             // = textProfS[0];
-            config.Rank(log.idMinigame, pointsAmount, starsAmount);
+//            config.Rank(log.idMinigame, pointsAmount, starsAmount);
             //nextCanbeStarted = true;
                 //  numTutor = 1;
                 //managerNext.cardMao.enabled=true;	

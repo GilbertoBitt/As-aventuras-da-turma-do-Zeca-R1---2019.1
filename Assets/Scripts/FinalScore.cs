@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using com.csutil;
 using DG.Tweening;
 using MEC;
+using UniRx.Async;
 using UnityEngine.SceneManagement;
 
 public class FinalScore : MonoBehaviour {
@@ -52,43 +53,26 @@ public class FinalScore : MonoBehaviour {
 	public void startTransfer(){
 		OnTransferStart.Invoke ();
 		Log.d($"ID Minigame: {idMinigame} \n Pontuação: {scoreAmount} \n Estrelas: {starsAmount}");
-		Timing.RunCoroutine(PointsStart());
-
+		PointsStart();
 	}
 
-	public IEnumerator<float> PointsStart(){
+	public void PointsStart()
+	{
         Debug.Log("rankSaved");
-        gameConfig.Rank(idMinigame, scoreAmount, starsAmount);
         int bropsTarget = bropsAmount + scoreAmount;
         gameConfig.BropsAmount = bropsTarget;
         gameConfig.BropsDeviceAmount += scoreAmount;
         int scoreT = totalPointsAmount + scoreAmount;
         gameConfig.TotalPointsDevice += scoreAmount;
         gameConfig.TotalPoints = scoreT;
+        gameConfig.Rank(idMinigame, scoreAmount, starsAmount);
         gameConfig.UpdateScore(gameConfig.BropsAmount, gameConfig.TotalPoints);
 
-        Debug.Log(" currentUser  --- " + gameConfig.currentUser.ToString());
+        Debug.Log(" currentUser  --- " + gameConfig.currentUser);
         Debug.Log(" playerID  --- " + gameConfig.playerID);
         Debug.Log(" scoreAmount  --- " + scoreAmount);
         Debug.Log(" bropsTarget  --- " + scoreAmount);
         scoreText.DOTextInt(0, scoreAmount, transferDurationTime).SetEase(transferCurve);
-        yield return Timing.WaitForOneFrame;
-
-//        float times = 0.0f;
-//		int scoreTarget = scoreAmount;
-//		//int bropsTarget = bropsAmount + scoreAmount;
-//		//int scoreT = totalPointsAmount + scoreAmount;
-//		while (times < transferDurationTime)
-//		{
-//			times += Time.deltaTime;
-//			float s = times / transferDurationTime;
-//
-//			int score = (int)Mathf.Lerp (0, scoreTarget, transferCurve.Evaluate (s));
-//			scoreText.text = score.ToString ();
-//
-//			//bucketTextComponent.color = Color.Lerp (startColor, colors, transferCurve.Evaluate (s));
-//			yield return Yielders.EndOfFrame;
-//		}        
 	}
 
 	public IEnumerator StartBrops()

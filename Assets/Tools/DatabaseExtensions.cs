@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class DatabaseExtensions
 {
-    public static WWWForm ToForm(this DBOESTATISTICA_DIDATICA log, (string token, int id) UserInfo)
+    public static WWWForm ToForm(this DBOESTATISTICA_DIDATICA log, (string token, int id, int gameId, int clientId) UserInfo)
     {
         var form = new WWWForm();
         form.AddField("token", UserInfo.token);
@@ -20,7 +20,7 @@ public static class DatabaseExtensions
         return form;
     }
     
-    public static WWWForm ToForm(this DBOMINIGAMES_LOGS log, (string token, int id) UserInfo)
+    public static WWWForm ToForm(this DBOMINIGAMES_LOGS log, (string token, int id, int gameId, int clientId) UserInfo)
     {
         var form = new WWWForm();
         form.AddField("token", UserInfo.token);
@@ -36,6 +36,32 @@ public static class DatabaseExtensions
         form.AddField("faseLudica", log.faseLudica);
         form.AddField("deviceID", log.deviceID);
         form.AddField("online", log.online);
+        form.AddField("idUsuarioOnline", UserInfo.id);
+        return form;
+    }
+
+    public static WWWForm ToForm(this DBORANKING ranking, (string token, int id, int gameId, int clientId) UserInfo)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("token", UserInfo.token);
+        form.AddField("idMinigame", ranking.idMinigame);
+        form.AddField("idUsuario", ranking.idUsuario);
+        form.AddField("highscore", ranking.highscore);
+        form.AddField("idGame", UserInfo.gameId);
+        form.AddField("idCliente", UserInfo.clientId);
+        form.AddField("idUsuarioOnline", UserInfo.id);
+        form.AddField("estrelas", ranking.estrelas);
+        return form;
+    }
+
+    public static WWWForm ToForm(this DBOPONTUACAO ranking, (string token, int id, int gameId, int clientId) UserInfo)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("token", UserInfo.token);
+        form.AddField("idUsuario", ranking.idUsuario);
+        form.AddField("deviceBrops", ranking.BropsDevice);
+        form.AddField("devicePoints", ranking.PontuacaoTotalDevice);
+        form.AddField("deviceId", SystemInfo.deviceUniqueIdentifier);
         form.AddField("idUsuarioOnline", UserInfo.id);
         return form;
     }

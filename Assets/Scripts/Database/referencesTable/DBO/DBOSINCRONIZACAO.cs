@@ -1,7 +1,7 @@
 ﻿using SimpleJSON;
 using System;
 using System.Globalization;
-using SQLite;
+using SQLite4Unity3d;
 public class DBOSINCRONIZACAO {
 
 	[PrimaryKey, Unique]
