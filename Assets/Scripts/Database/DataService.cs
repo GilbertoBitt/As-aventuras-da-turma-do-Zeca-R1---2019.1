@@ -878,7 +878,7 @@ public class DataService {
 
     public List<DBORANKFILTER> GetAllRankingsOfSchool(int escolaUserIdEscola, int tempIdMInigame)
     {
-        var dboranking = AsyncConnection.Table<DBORANKFILTER>().Where(x => x.idMinigame == tempIdMInigame && x.idEscola == escolaUserIdEscola).OrderBy(x => x.highscore).Take(10);
+        var dboranking = AsyncConnection.Table<DBORANKFILTER>().Where(x => x.idMinigame == tempIdMInigame && x.idEscola == escolaUserIdEscola).OrderByDescending(x => x.highscore).Take(10);
         return dboranking.ToList();
     }
 }
