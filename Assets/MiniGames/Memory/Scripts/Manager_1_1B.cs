@@ -226,7 +226,7 @@ public class Manager_1_1B : MonoBehaviour
 		managerMemory = GetComponent<MemoryGameManager>();
 		managerMemory.config.UpdateCurrent(managerMemory.config.currentUser);
 		//TODO variação do texto do erro e acerto.
-		anoLetivo = managerMemory.config.currentYear.idAnoLetivo;
+//		anoLetivo = managerMemory.config.currentYear.idAnoLetivo;
 		_mMiddleCanvasGroup = parentMiddle.GetComponent(typeof(GridLayoutGroup)) as GridLayoutGroup;
 		if (anoLetivo == 1)
 		{
@@ -365,7 +365,11 @@ public class Manager_1_1B : MonoBehaviour
 				break;
 		}
 		int dropCardsLength = dropCards.Length;
-		textRight.text = $"Parabéns, você acertou: +{score}";
+		if (scoreMade > 0)
+		{
+			textRight.text = $"Parabéns, você acertou: +{score}";
+		}
+
         LOG.AddPontosPedagogica(score);
 
         for (int i = 0; i < dropCardsLength; i++){
@@ -479,8 +483,10 @@ public class Manager_1_1B : MonoBehaviour
 		//textHere
 		textWrong.gameObject.SetActive(wrongs > 0);
 
-		textRight.gameObject.SetActive(wrongs < 5);
-
+		if (scoreMade > 0)
+		{
+			textRight.gameObject.SetActive(wrongs < 5);
+		}
 
 		//Debug.Log("Wrongs Amount" + wrongs.ToString(), this);
 		
