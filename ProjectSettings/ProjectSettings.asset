@@ -124,7 +124,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.2.358
+  bundleVersion: 2.2.360
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -167,9 +167,9 @@ PlayerSettings:
   applicationIdentifier:
     Android: br.com.eduqbrinq.asaventurasdaturmadozeca
   buildNumber:
-    Standalone: 358
-    iPhone: 358
-  AndroidBundleVersionCode: 22358
+    Standalone: 360
+    iPhone: 360
+  AndroidBundleVersionCode: 22360
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -265,7 +265,7 @@ PlayerSettings:
   AndroidKeystoreName: C:/Users/Administrador.WIN-2I1P2GRMKPH/Documents/user.keystore
   AndroidKeyaliasName: mentor
   AndroidBuildApkPerCpuArchitecture: 0
-  AndroidTVCompatibility: 1
+  AndroidTVCompatibility: 0
   AndroidIsGame: 1
   AndroidEnableTango: 0
   androidEnableBanner: 1
