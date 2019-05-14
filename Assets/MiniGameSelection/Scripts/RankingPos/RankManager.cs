@@ -95,7 +95,7 @@ public class RankManager : MonoBehaviour {
             rankInstances[i].dboUserSchool = escolaUser;
             rankInstances[i].ranking = rankUsers[i];
             rankInstances[i].UpdateUserRank();
-            rankInstances[i].UpdateColors(defaultColorHighlight, defaultColorName);
+            rankInstances[i].DefaulColor();
             if (rankings[i].idUsuario == config.playerID) {
                 rankingUser = new DBORANKING() {
                     idUsuario = rankings[i].idUsuario,
@@ -160,7 +160,6 @@ public class RankManager : MonoBehaviour {
         for (int i = 0; i < 10; i++) {
             rankInstances[i].UpdateEmptyRank();
         }
-       
 
         int countTemp = rankingResult.Count;
         for (int i = 0; i < countTemp; i++) {

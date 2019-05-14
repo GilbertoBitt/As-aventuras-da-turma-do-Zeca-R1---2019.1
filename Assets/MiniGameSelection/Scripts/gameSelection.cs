@@ -12,6 +12,7 @@ using UnityEditor;
 #endif
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.Playables;
 using Segment = MEC.Segment;
 
 public class gameSelection : MonoBehaviour {
@@ -62,10 +63,15 @@ public class gameSelection : MonoBehaviour {
     public GameObject[] textNomeGame;
 	public Text textComponentBuildVersion;
     public Text textComponentCliente;
+    public PlayableDirector director;
+    public double currentTime;
 
     public void Awake() {
         Timing.RunCoroutine(LoadStoreData());
     }
+
+
+
 
     public void TrocaUsu() {
         gameConfigs.UpdateCurrent(gameConfigs.currentUser);

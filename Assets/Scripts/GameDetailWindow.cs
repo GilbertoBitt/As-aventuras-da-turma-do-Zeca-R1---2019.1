@@ -236,7 +236,7 @@ public class GameDetailWindow : MonoBehaviour {
         Transition.AppendCallback(() => ChangeCanvasStatus(prevCanvas, false));
         Transition.AppendCallback(() => ChangeCanvasStatus(currentCanvas, true));
         Transition.Append(currentCanvasGroup.DOFade(1f, 0.2f));
-        Transition.AppendCallback(() => ChangeGroupCanvasStatus(prevCanvasGroup, true));
+        Transition.AppendCallback(() => ChangeGroupCanvasStatus(currentCanvasGroup, true));
         Transition.AppendCallback(() => Debug.Log("Change Canvas", this.gameObject));
         Transition.AppendCallback(() => UpdatePrevious(toGroup, toCanvas));
 
