@@ -292,25 +292,30 @@ public class networkHelper {
         DataService ds = config.openDB();
 
         List<DBOMINIGAMES_LOGS> _logToSend = ds.GetAllMinigamesLog();
-        yield return Timing.WaitForSeconds(0.1f);
-        if (_logToSend.Count >= 1) {
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetJogosLogs(_logToSend)));
-        }
+//        yield return Timing.WaitForSeconds(0.1f);
+//        if (_logToSend.Count >= 1) {
+//            yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetJogosLogs(_logToSend)));
+//        }
+
+        var eduqbrinq = EduqbrinqLogger.Instance;
+        eduqbrinq.SendRequest(_logToSend).GetAwaiter();
+
         
         
         int countTemp = 0;
         List<DBORANKING> _rankToSend = ds.GetAllOfflineRanks();
-        yield return Timing.WaitForSeconds(0.1f);
-        countTemp = _rankToSend.Count;
-        if (countTemp >= 1 && config.isOnline) {
-            startScene.MessageStatus("Sincronizando Ranking");
-            do {
-
-                yield return Timing.WaitUntilDone(Timing.RunCoroutine(setRanking(_rankToSend[0], _rankToSend)));
-                yield return Timing.WaitForSeconds(0.1f);
-
-            } while (_rankToSend.Count >= 1 && config.isOnline);
-        }
+//        yield return Timing.WaitForSeconds(0.1f);
+//        countTemp = _rankToSend.Count;
+//        if (countTemp >= 1 && config.isOnline) {
+//            startScene.MessageStatus("Sincronizando Ranking");
+//            do {
+//
+//                yield return Timing.WaitUntilDone(Timing.RunCoroutine(setRanking(_rankToSend[0], _rankToSend)));
+//                yield return Timing.WaitForSeconds(0.1f);
+//
+//            } while (_rankToSend.Count >= 1 && config.isOnline);
+//        }
+        eduqbrinq.SendRequest(_rankToSend).GetAwaiter();
 
 
         List<DBOESTATISTICA_DIDATICA> _statisticaToSend = ds.GetAllStatisticDidatica();

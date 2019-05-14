@@ -58,6 +58,28 @@ public class EduqbrinqLogger : MonoBehaviour
         _gameInfos?.Enqueue(info);
     }
 
+    public async UniTask SendRequest(List<DBORANKING> logs)
+    {
+        var toSend = new List<UniTask>();
+        foreach (var log in logs)
+        {
+            toSend.Add(SendRequestSync(
+                UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setRanking",
+                    log.ToForm(UserInfo)), log));
+        }
+        await UniTask.WhenAll(toSend);
+    }
+
+    async UniTask SendRequestSync(UnityWebRequest req, DBORANKING rank)
+    {
+        var op = await req.SendWebRequest();
+        if (!IsValidRequest(op))
+        {
+            rank.online = 1;
+            _config.openDB().UpdateRanking(rank);
+        }
+    }
+
     public void UpdateDatabase(DBORANKING updatedRank)
     {
         var task = SaveDatabase(updatedRank).GetAwaiter();
@@ -78,6 +100,8 @@ public class EduqbrinqLogger : MonoBehaviour
             await _config.openDB().UpdateRanking(rankUpdated);
         }
     }
+
+
 
     async UniTask SendRequest(UnityWebRequest req, DBORANKING rank)
     {
@@ -142,7 +166,28 @@ public class EduqbrinqLogger : MonoBehaviour
             GameLog(
                 UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setJogosLogs", info.GameLog.ToForm(UserInfo)), info.GameLog));
     }
-    
+
+    public async UniTask SendRequest(List<DBOMINIGAMES_LOGS> logs)
+    {
+        var toSend = new List<UniTask>();
+        foreach (var log in logs)
+        {
+            toSend.Add(GameLogSync(
+                UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setJogosLogs",
+                    log.ToForm(UserInfo)), log));
+        }
+        await UniTask.WhenAll(toSend);
+    }
+
+    async UniTask GameLogSync(UnityWebRequest req, DBOMINIGAMES_LOGS log)
+    {
+        var op = await req.SendWebRequest();
+        if (!IsValidRequest(op))
+        {
+            _config.openDB().DeleteMinigamesLog(log);
+        }
+//        Log.d($"Sended or Saved Sucess of [DBOMINIGAMES_LOGS]: {JsonWriter.GetWriter().Write(log)}");
+    }
     
     
     async UniTask GameLog(UnityWebRequest req, DBOMINIGAMES_LOGS log)
