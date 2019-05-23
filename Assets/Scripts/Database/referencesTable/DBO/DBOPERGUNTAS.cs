@@ -1,4 +1,4 @@
-﻿using SQLite4Unity3d;
+﻿using SQLite;
 
 public class DBOPERGUNTAS {
 

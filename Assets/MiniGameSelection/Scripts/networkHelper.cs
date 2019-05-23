@@ -236,7 +236,7 @@ public class networkHelper {
                 //sceneStart.OnlineAcessFailed();
                 //Timing.KillCoroutines();
 
-                DBOUSUARIOS user = config.openDB().GetUser(login);                
+                DBOUSUARIOS user = config.OpenDb().GetUser(login);
                 if (user != null) {
                     config.currentUser = user;
                     UpdatePlayer(user);
@@ -254,6 +254,7 @@ public class networkHelper {
 
             }
         }
+
         isDoingOperation = false;
     }
 
@@ -289,8 +290,8 @@ public class networkHelper {
         LoginFailedEvent = failed;
         startScene.MessageStatus("Sincronizando Game");
 
-        DataService ds = config.openDB();
-
+        DataService ds = GameConfig.Instance.OpenDb();
+        config = GameConfig.Instance;
         List<DBOMINIGAMES_LOGS> _logToSend = ds.GetAllMinigamesLog();
 //        yield return Timing.WaitForSeconds(0.1f);
 //        if (_logToSend.Count >= 1) {
@@ -339,16 +340,9 @@ public class networkHelper {
 
         List<DBOPONTUACAO> userScoreUpdates = ds.GetallScoresOffline();
         yield return Timing.WaitForSeconds(0.1f);
-        
-        countTemp = userScoreUpdates.Count;
 
-        if (countTemp >= 1 && config.isOnline) {
-            startScene.MessageStatus("Sincronizando Pontuações");
-            do {
-                yield return Timing.WaitUntilDone(Timing.RunCoroutine(setPontuacao(userScoreUpdates[0], userScoreUpdates)));
-                yield return Timing.WaitForSeconds(0.1f);
-            } while (userScoreUpdates.Count >= 1 && config.isOnline);
-        }
+        startScene.MessageStatus("Sincronizando Pontuação");
+        eduqbrinq.SendRequest(userScoreUpdates).GetAwaiter();
 
         List<DBOINVENTARIO> userInventoryUdpdate = ds.GetAllInventory();
         yield return Timing.WaitForSeconds(0.1f);
@@ -357,7 +351,7 @@ public class networkHelper {
         if (countTemp >= 1 && config.isOnline) {
             startScene.MessageStatus("Sincronizando Inventário");
             do {
-                DBOITENS item = config.openDB().GetItemStore((userInventoryUdpdate[0].idItem));
+                DBOITENS item = config.OpenDb().GetItemStore((userInventoryUdpdate[0].idItem));
                 yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetInventario(userInventoryUdpdate[0], userInventoryUdpdate, item.valor)));
                 yield return Timing.WaitForSeconds(0.1f);
             } while (userInventoryUdpdate.Count >= 1 && config.isOnline);
@@ -395,7 +389,7 @@ public class networkHelper {
         if (request.isNetworkError || request.isHttpError) {                   
             //config.isOnline = false;
             logTemp.online = 0;
-            config.openDB().InsertJogosLog(logTemp);
+            config.OpenDb().InsertJogosLog(logTemp);
         } else {
             
         }
@@ -439,7 +433,7 @@ public class networkHelper {
                 //LoginFailedEvent(true, config.currentUser.login, config.currentUser.senha);
             } else {
                 _list.RemoveAt(0);
-                config.openDB().DeleteMinigamesLog(jogosTemp);
+                config.OpenDb().DeleteMinigamesLog(jogosTemp);
             }
 
             isDoingOperation = false;
@@ -474,7 +468,7 @@ public class networkHelper {
                 }
             } else {
                 //TODO deletar todos os logs offline recentemente enviados.
-                config.openDB().DeleteMinigamesLogs(ListOfLogs);
+                config.OpenDb().DeleteMinigamesLogs(ListOfLogs);
             }
 
             isDoingOperation = false;
@@ -545,7 +539,7 @@ public class networkHelper {
             config.isOnline = false;
         } else {
             _list.RemoveAt(0);
-            config.openDB().DeleteEstatistica(_statistic);
+            config.OpenDb().DeleteEstatistica(_statistic);
         }
 
         isDoingOperation = false;
@@ -580,7 +574,7 @@ public class networkHelper {
                 config.isOnline = false;
             }
         } else {
-            config.openDB().DeleteEstatisticas(@logs);
+            GameConfig.Instance.OpenDb().DeleteEstatisticas(@logs);
         }
 
         isDoingOperation = false;
@@ -611,7 +605,7 @@ public class networkHelper {
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
             config.isOnline = false;
             _statistic.online = 0;
-            config.openDB().InsertStatistic2(_statistic);
+            config.OpenDb().InsertStatistic2(_statistic);
         } else {
             Debug.Log("StatisticSave" + response);
         }
@@ -645,7 +639,7 @@ public class networkHelper {
             }
         } else {
             _list.RemoveAt(0);
-            config.openDB().DeleteGamesLog(_log);
+            config.OpenDb().DeleteGamesLog(_log);
         }
 
         isDoingOperation = false;
@@ -674,7 +668,7 @@ public class networkHelper {
                 config.isOnline = false;
             }
         } else {
-            config.openDB().DeleteGamesLogs(logs);
+            config.OpenDb().DeleteGamesLogs(logs);
         }
         request.Dispose();
         isDoingOperation = false;
@@ -711,7 +705,7 @@ public class networkHelper {
               } else {
                 config.isOnline = false;
                 ranking.online = 0;
-                config.openDB().InsertRanking(ranking);
+                config.OpenDb().InsertRanking(ranking);
                 Log.d("Ranking offline Atualizado");
             }
         } else {
@@ -757,7 +751,7 @@ public class networkHelper {
 
             _list.RemoveAt(0);
             rankLog.online = 1;
-            config.openDB().InsertRanking(rankLog);
+            config.OpenDb().InsertRanking(rankLog);
         }
 
         isDoingOperation = false;
@@ -795,7 +789,7 @@ public class networkHelper {
                 score.online = 1;
                 score.PontuacaoTotalDevice = 0;
                 score.BropsDevice = 0;
-                config.openDB().UpdateToOnlineScore(score);
+                config.OpenDb().UpdateToOnlineScore(score);
             }            
         }
 
@@ -822,7 +816,7 @@ public class networkHelper {
             if (request.isNetworkError || request.isHttpError) {
                 config.isOnline = false;
                 score.online = 0;
-                config.openDB().InsertOrReplateScore(score);
+                config.OpenDb().InsertOrReplateScore(score);
             }
         } else {
             config.BropsDeviceAmount = 0;
@@ -868,11 +862,11 @@ public class networkHelper {
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
             config.isOnline = false;
             _inv.online = 0;
-            config.openDB().UpdateOrReplateInventory(_inv);
+            config.OpenDb().UpdateOrReplateInventory(_inv);
         } else {
             _inv.online = 1;
             _inv.deviceQuantity = 0;
-            config.openDB().UpdateOrReplateInventory(_inv);
+            config.OpenDb().UpdateOrReplateInventory(_inv);
         }
 
         isDoingOperation = false;
@@ -906,7 +900,7 @@ public class networkHelper {
             _list.RemoveAt(0);
             inv.online = 1;
             inv.deviceQuantity = 0;
-            config.openDB().UpdateItem(inv);
+            config.OpenDb().UpdateItem(inv);
         }
 
         isDoingOperation = false;
@@ -916,20 +910,18 @@ public class networkHelper {
 
     #region SyncBeforeLogin
     public IEnumerator<float> GettingDBOSBeforeLogin(int idCliente, DataService db, string URI, int idGame) {
-
+        config = GameConfig.Instance;
         isDoingOperation = true;
 
         List<string> tables = new List<string>();
 
-        //config.sincModeItens = currentSyncDB.sincModeItens;
-        //config.sincModePerguntas = currentSyncDB.sincModePerguntas;
         config.sincModeItens = 1;
         config.sincModePerguntas = 1;
 
         yield return Timing.WaitForSeconds(1f);
 
-        DBOSINCRONIZACAO dboI = db.GetSync(idCliente);
-        DBOSINCRONIZACAO dboG = db.GetSync(1);
+        DBOSINCRONIZACAO dboI = GameConfig.Instance.OpenDb().GetSync(idCliente);
+        DBOSINCRONIZACAO dboG = GameConfig.Instance.OpenDb().GetSync();
 
         bool hasTables = false;
 
@@ -1027,7 +1019,7 @@ public class networkHelper {
 
             int size;
 
-            DataService data = config.openDB();
+            DataService data = config.OpenDb();
 
             size = itensJson.Count;
 
@@ -1070,8 +1062,8 @@ public class networkHelper {
                      if (currentSyncDB.sincModeItens == 1 || currentSyncDB.sincModeItens == 2) {
                          dboI.itens = currentSyncDB.itensE;
                      }
-                 }
-             }
+                }
+            }
 
             //Baixar imagem de itens previamente não baixado por motivos de erro de conexão ou afins.
             List<DBOITENS> itensPreviousNotDownloaded = data.NotDownloadedItens();
@@ -1093,76 +1085,76 @@ public class networkHelper {
                 yield return Timing.WaitForOneFrame;
                 //Termino do download de imagens de itens previamente não baixados.
             }
-                size = itens_categoriasJson.Count;
+            size = itens_categoriasJson.Count;
 
-                if (size >= 1) {
+            if (size >= 1) {
 
-                    List<DBOITENS_CATEGORIAS> itensCategoryDB = new List<DBOITENS_CATEGORIAS>();
-                    startScene.MessageStatus("Atualizando Categorias");
-                    for (int i = 0; i < size; i++) {
-                        itensCategoryDB.Add(new DBOITENS_CATEGORIAS() {
-                            idCategoriaItem = itens_categoriasJson[i]["idCategoriaItem"].AsInt,
-                            nomeCategoria = itens_categoriasJson[i]["nomeCategoria"],
-                            infoCategoria = itens_categoriasJson[i]["infoCategoria"],
-                            ativo = itens_categoriasJson[i]["ativo"].AsBool ? 1 : 0,
-                            colecionaveis = itens_categoriasJson[i]["colecionaveis"].AsBool ? 1 : 0
-                        });
+                List<DBOITENS_CATEGORIAS> itensCategoryDB = new List<DBOITENS_CATEGORIAS>();
+                startScene.MessageStatus("Atualizando Categorias");
+                for (int i = 0; i < size; i++) {
+                    itensCategoryDB.Add(new DBOITENS_CATEGORIAS() {
+                        idCategoriaItem = itens_categoriasJson[i]["idCategoriaItem"].AsInt,
+                        nomeCategoria = itens_categoriasJson[i]["nomeCategoria"],
+                        infoCategoria = itens_categoriasJson[i]["infoCategoria"],
+                        ativo = itens_categoriasJson[i]["ativo"].AsBool ? 1 : 0,
+                        colecionaveis = itens_categoriasJson[i]["colecionaveis"].AsBool ? 1 : 0
+                    });
 
-                    }
+                }
                     
 
-                    data.AddItensCategory(itensCategoryDB);
-                    yield return Timing.WaitForOneFrame;
-                    dboG.itens_categorias = currentSyncDB.itens_categorias;
+                data.AddItensCategory(itensCategoryDB);
+                yield return Timing.WaitForOneFrame;
+                dboG.itens_categorias = currentSyncDB.itens_categorias;
+
+            }
+
+            size = perguntas.Count;
+
+            if (size >= 1) {
+
+                List<DBOPERGUNTAS> perguntasDB = new List<DBOPERGUNTAS>();
+                startScene.MessageStatus("Atualizando Perguntas");
+                for (int i = 0; i < size; i++) {
+
+                    perguntasDB.Add(new DBOPERGUNTAS() {
+                        idCliente = perguntas[i]["idCliente"].AsInt,
+                        idPergunta = perguntas[i]["idPergunta"].AsInt,
+                        idHabilidade = perguntas[i]["idHabilidade"].AsInt,
+                        idLivro = perguntas[i]["idLivro"].AsInt,
+                        idDificuldade = perguntas[i]["idDificuldade"].AsInt,
+                        textoPergunta = perguntas[i]["textoPergunta"],
+                        ativo = perguntas[i]["ativo"].AsBool ? 1 : 0,
+                        audio = perguntas[i]["audio"].AsBool ? 1 : 0,
+                        downloaded = 0
+                    });
 
                 }
 
-                size = perguntas.Count;
 
-                if (size >= 1) {
-
-                    List<DBOPERGUNTAS> perguntasDB = new List<DBOPERGUNTAS>();
-                    startScene.MessageStatus("Atualizando Perguntas");
-                    for (int i = 0; i < size; i++) {
-
-                        perguntasDB.Add(new DBOPERGUNTAS() {
-                            idCliente = perguntas[i]["idCliente"].AsInt,
-                            idPergunta = perguntas[i]["idPergunta"].AsInt,
-                            idHabilidade = perguntas[i]["idHabilidade"].AsInt,
-                            idLivro = perguntas[i]["idLivro"].AsInt,
-                            idDificuldade = perguntas[i]["idDificuldade"].AsInt,
-                            textoPergunta = perguntas[i]["textoPergunta"],
-                            ativo = perguntas[i]["ativo"].AsBool ? 1 : 0,
-                            audio = perguntas[i]["audio"].AsBool ? 1 : 0,
-                            downloaded = 0
-                        });
-
+                for (int i = 0; i < size; i++) {
+                    if (perguntasDB[i].ativo == 1 && config.isOnline && perguntasDB[i].audio == 1) {
+                        startScene.MessageStatus("Atualizando Perguntas " + i + "/" + size);
+                        stringfast.Clear();
+                        stringfast.Append(config.fullAudioClipDestinationQuestions).Append(perguntasDB[i].idPergunta).Append(".ogg");
+                        bool downloaded = false;
+                        yield return Timing.WaitUntilDone(Timing.RunCoroutine(LoadQuestionSound(MyResult => downloaded = MyResult, perguntasDB[i].idPergunta)));
+                        perguntasDB[i].downloaded = downloaded ? 1 : 0;
                     }
-
-
-                    for (int i = 0; i < size; i++) {
-                        if (perguntasDB[i].ativo == 1 && config.isOnline && perguntasDB[i].audio == 1) {
-                            startScene.MessageStatus("Atualizando Perguntas " + i + "/" + size);
-                            stringfast.Clear();
-                            stringfast.Append(config.fullAudioClipDestinationQuestions).Append(perguntasDB[i].idPergunta).Append(".ogg");
-                            bool downloaded = false;
-                            yield return Timing.WaitUntilDone(Timing.RunCoroutine(LoadQuestionSound(MyResult => downloaded = MyResult, perguntasDB[i].idPergunta)));
-                            perguntasDB[i].downloaded = downloaded ? 1 : 0;
-                        } 
-                    }
-
-
-                    data.AddAllPerguntas(perguntasDB);
-                    yield return Timing.WaitForOneFrame;
-
-                    if (currentSyncDB.sincModePerguntas == 1 || currentSyncDB.sincModePerguntas == 3) {
-                        dboG.perguntas = currentSyncDB.perguntasG;
-                    }
-                    if (currentSyncDB.sincModePerguntas == 1 || currentSyncDB.sincModePerguntas == 2) {
-                        dboI.perguntas = currentSyncDB.perguntasE;
-                    }
-
                 }
+
+
+                data.AddAllPerguntas(perguntasDB);
+                yield return Timing.WaitForOneFrame;
+
+                if (currentSyncDB.sincModePerguntas == 1 || currentSyncDB.sincModePerguntas == 3) {
+                    dboG.perguntas = currentSyncDB.perguntasG;
+                }
+                if (currentSyncDB.sincModePerguntas == 1 || currentSyncDB.sincModePerguntas == 2) {
+                    dboI.perguntas = currentSyncDB.perguntasE;
+                }
+
+            }
 
             // Rotina de download de perguntas previamente não baixadas ou por erro ou por falta de conexão com a internet.
             List<DBOPERGUNTAS> notDownloadedPerguntas = data.PerguntasToDownload();
@@ -1463,10 +1455,8 @@ public class networkHelper {
                         ativo = usuarios[i]["ativo"].AsBool ? 1 : 0
                     };
                     listUsers.Add(userTemp);
-                    yield return Timing.WaitForOneFrame;
 
                 }
-                yield return Timing.WaitForOneFrame;
                 dbo.usuarios = currentSyncDB.usuarios;
                 db.AddAllUser(listUsers);
 
@@ -1486,13 +1476,12 @@ public class networkHelper {
                         idUsuario = ranking[i]["idUsuario"].AsInt,
                         highscore = ranking[i]["highScore"].AsInt,
                         posicao = -1,
-                        online = 1,
+                        online = 1
                     });
                 }
-
 //                db.ClearRanking();
                 db.InsertRanking(rankingDB);
-
+//                EduqbrinqLogger.Instance.SendRequest(rankingDB).GetAwaiter();
                 dbo.ranking = currentSyncDB.ranking;
 
             }
@@ -1520,8 +1509,8 @@ public class networkHelper {
 
                     rankingDB.Add(temp);
                 }
-
-                db.UpdateRankings(rankingDB);
+//                EduqbrinqLogger.Instance.SendRequest(rankingDB).GetAwaiter();
+                db.InsertRanking(rankingDB);
 
             }
 
@@ -1811,19 +1800,20 @@ public class networkHelper {
 
     #region DelPergunta e Resposta
 
-    public IEnumerator<float> DelsSync(int idCliente) {
+    public IEnumerator<float> DelsSync(int clientID) {
         isDoingOperation = true;
-        idCliente = 1;
-        DataService db = config.openDB();
+        clientID = 1;
+        config = GameConfig.Instance;
+        DataService db = GameConfig.Instance.OpenDb();
         startScene.MessageStatus("Verificando Remoção de Perguntas");
-        DBOSINCRONIZACAO dbo = db.GetSync(idCliente);
+        DBOSINCRONIZACAO dbo = GameConfig.Instance.OpenDb().GetSync(clientID);
 
         WWWForm form = new WWWForm();
 
-        form.AddField("idCliente", idCliente);
+        form.AddField("idCliente", clientID);
         form.AddField("idPerguntaDel", dbo.idDelPergunta);
         form.AddField("idRespostaDel", dbo.idDelResposta);
-        form.AddField("gameKey", config.returnDecryptKey());
+        form.AddField("gameKey", GameConfig.Instance.returnDecryptKey());
 
         using (UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/GetPRRemovidas", form)) {
             request.timeout = 10;
@@ -1912,7 +1902,7 @@ public class networkHelper {
                 ID = 0,
             };
 
-            config.openDB().InserGamesLOG(temp);
+            config.OpenDb().InserGamesLOG(temp);
         }
     }
 

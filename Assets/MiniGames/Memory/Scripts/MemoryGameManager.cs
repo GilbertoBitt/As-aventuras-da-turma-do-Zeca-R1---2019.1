@@ -565,7 +565,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 			yield return Timing.WaitForOneFrame;
         }
 
-       // UpdateStars(scoreT);
+		// UpdateStars(scoreT);
 
 
     }

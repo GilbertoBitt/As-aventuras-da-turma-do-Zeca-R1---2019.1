@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using com.csutil;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -244,6 +245,12 @@ public class StartSceneManager : MonoBehaviour {
         }*/
     }
 
+
+    private void Start()
+    {
+        config = GameConfig.Instance;
+    }
+
     /*public void Start() {
         Invoke("StartDelayed", 1f);
     }*/
@@ -311,15 +318,17 @@ public class StartSceneManager : MonoBehaviour {
 
     IEnumerator IsDeviceConnectAsync() {
 
+
+
         MessageStatus("Verificando Conexão");
 
         isPreloadRotating = true;
-        netHelper = new networkHelper() {
+        netHelper = new networkHelper {
             startScene = this
         };
-        netHelper.NetworkVeryfier(config);
+        netHelper.NetworkVeryfier(GameConfig.Instance);
         config.netHelper = netHelper;
-        netHelper.config = config;
+        netHelper.config = GameConfig.Instance;
 
 
         //config.ShowDestinationItemImage();
@@ -327,7 +336,7 @@ public class StartSceneManager : MonoBehaviour {
         statusOnNOfComp.SetActive(true);
         if (config.isOnline == false) {
             string lastLogin = PlayerPrefs.GetString("PlayerLastLogin", string.Empty);
-            DBOUSUARIOS user = openedDB().GetUser(lastLogin);
+            DBOUSUARIOS user = GameConfig.Instance.OpenDb().GetUser(lastLogin);
 
             if (lastLogin != string.Empty && user != null && !config.isOnline) {
                 isPreloadRotating = true;
@@ -354,6 +363,7 @@ public class StartSceneManager : MonoBehaviour {
 
     IEnumerator<float> BeforeLogin() {
         yield return Timing.WaitForSeconds(0.5f);
+        config = GameConfig.Instance;
 
         if (config.isOnline) {
 
@@ -362,20 +372,19 @@ public class StartSceneManager : MonoBehaviour {
         yield return Timing.WaitForSeconds(0.5f);
         if (config.isOnline) {
 
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.GettingDBOSBeforeLogin(config.clientID, openedDB(), syncDB2, config.gameID)));
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.GettingDBOSBeforeLogin(config.clientID, GameConfig.Instance.OpenDb(), syncDB2, config.gameID)));
         }
         yield return Timing.WaitForSeconds(0.1f);
         if (config.isOnline) {
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.DelsSync(config.clientID)));
         }
-
         AutoLogin();
 
     }
 
     public void AutoLogin() {
         string lastLogin = PlayerPrefs.GetString("PlayerLastLogin", string.Empty);
-        DBOUSUARIOS user = openedDB().GetUser(lastLogin);
+        DBOUSUARIOS user = GameConfig.Instance.OpenDb().GetUser(lastLogin);
         MessageStatus("Acessando com Usuário da Última Sessão");
         if (config.usageCounter < config.usageLimit) {
             if (!String.IsNullOrEmpty(lastLogin) && user != null && config.isOnline) {
@@ -481,13 +490,13 @@ public class StartSceneManager : MonoBehaviour {
     public void ToggleText(TextMeshProUGUI textComp, bool set) { textComp.enabled = set; }
 
     void LoadClientName() {
-        clientTextName.text = openedDB().GetClientName(config.clientID);
+        clientTextName.text = GameConfig.Instance.OpenDb().GetClientName(config.clientID);
     }
 
     void LoadSchollOfClient() {
         List<string> optionSchool = new List<string>();
         escolasList.Clear();
-        escolasList = openedDB().GetSchoolList(config.clientID);
+        escolasList = GameConfig.Instance.OpenDb().GetSchoolList(config.clientID);
         int countTemp = escolasList.Count;
         optionSchool.Add("-");
         for (int i = 0; i < countTemp; i++) {
@@ -501,7 +510,7 @@ public class StartSceneManager : MonoBehaviour {
     void LoadYearsOfSchool() {
         List<string> optionYears = new List<string>();
         anoLetivoList.Clear();
-        var anoLetivoListRaw = openedDB().GetYearsList();
+        var anoLetivoListRaw = GameConfig.Instance.OpenDb().GetYearsList();
         var avaibleAnoLetivo = GetAvaibleAnoLetivo();
         foreach (var dboanoletivo in anoLetivoListRaw)
         {
@@ -523,7 +532,7 @@ public class StartSceneManager : MonoBehaviour {
     void LoadClassOfYears() {
         List<string> optionYears = new List<string>();
         classList.Clear();
-        classList = openedDB().GetClassList(currentSelectedAnoLetivo.idAnoLetivo, currentSelectedEscola.idEscola);
+        classList = GameConfig.Instance.OpenDb().GetClassList(currentSelectedAnoLetivo.idAnoLetivo, currentSelectedEscola.idEscola);
         int countTemp = classList.Count;
         optionYears.Add("-");
         for (int i = 0; i < countTemp; i++) {
@@ -537,7 +546,7 @@ public class StartSceneManager : MonoBehaviour {
     void LoadUserFromClass() {
         List<string> optionYears = new List<string>();
         userList.Clear();
-        userList = openedDB().GetUserList(currentSelectedTurma.idTurma);
+        userList = GameConfig.Instance.OpenDb().GetUserList(currentSelectedTurma.idTurma);
         int countTemp = userList.Count;
         optionYears.Add("-");
         for (int i = 0; i < countTemp; i++) {
@@ -546,11 +555,6 @@ public class StartSceneManager : MonoBehaviour {
         userDropDown.ClearOptions();
         userDropDown.AddOptions(optionYears);
         userDropDown.RefreshShownValue();
-    }
-
-    DataService openedDB()
-    {
-        return db ?? (db = config.openDB());
     }
 
     public void OnValidateSchoolDropDown() {
@@ -571,7 +575,7 @@ public class StartSceneManager : MonoBehaviour {
 
     public List<int> GetAvaibleAnoLetivo()
     {
-        var turmas = openedDB().GetClassBySchoolID(currentSelectedEscola.idEscola);
+        var turmas = GameConfig.Instance.OpenDb().GetClassBySchoolID(currentSelectedEscola.idEscola);
         var anosLetivo = new List<int>();
         foreach (var turma in turmas)
         {
@@ -756,7 +760,7 @@ public class StartSceneManager : MonoBehaviour {
         //yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.QueueSend(LoginFailedEvent, config.jogosLog, config.rankLogs, config.statisticLog, config.gamesLogs, config.usersIDScoreToUpdate, config.usersIDInventoryUpdate)));
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.SyncInfo(LoginFailedEvent)));
         yield return Timing.WaitForSeconds(0.5f);
-        yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.SyncAfterLogin(config.clientID, config.openDB(), "https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/getMetodo4", netHelper.token, this)));
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.SyncAfterLogin(config.clientID, config.OpenDb(), "https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/getMetodo4", netHelper.token, this)));
         //Timing.RunCoroutine(LoadStoreData());
 
     }
@@ -774,14 +778,14 @@ public class StartSceneManager : MonoBehaviour {
         //yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.QueueSend(LoginFailedEvent,config.jogosLog, config.rankLogs, config.statisticLog, config.gamesLogs, config.usersIDScoreToUpdate, config.usersIDInventoryUpdate)));
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.SyncInfo(LoginFailedEvent)));
         yield return Timing.WaitForSeconds(0.5f);
-        yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.SyncAfterLogin(config.clientID, openedDB(), "https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/getMetodo4", netHelper.token, this)));
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.SyncAfterLogin(config.clientID, GameConfig.Instance.OpenDb(), "https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/getMetodo4", netHelper.token, this)));
 
         //Timing.RunCoroutine(LoadStoreData());
     }
 
     public void OnlineAcessSucess() {
         Timing.RunCoroutine(LoadStoreData());
-        DBOUSUARIOS user = openedDB().GetUser(loginInputField.text) ?? new DBOUSUARIOS();
+        DBOUSUARIOS user = GameConfig.Instance.OpenDb().GetUser(loginInputField.text) ?? new DBOUSUARIOS();
         user.idUsuario = netHelper.userID;
         user.login = loginInputField.text;
         string md5pass = Md5Sum(passwordInputField.text);
@@ -824,7 +828,7 @@ public class StartSceneManager : MonoBehaviour {
         Timing.RunCoroutine(LoadStoreData());
         MessageStatus("Logado com sucesso");
         Timing.RunCoroutine(LoadStoreData());
-        DBOUSUARIOS user = openedDB().GetUser(username);
+        DBOUSUARIOS user = GameConfig.Instance.OpenDb().GetUser(username);
         if (user == null) {
             user = new DBOUSUARIOS() {
                 idUsuario = netHelper.userID,
@@ -873,11 +877,11 @@ public class StartSceneManager : MonoBehaviour {
     public void OfflineAcess(bool hasCredentials) {
         MessageStatus("Autenticando usuário");
         Timing.RunCoroutine(LoadStoreData());
-        DBOUSUARIOS userTemp = openedDB().GetUser(loginInputField.text);
-        DBOPONTUACAO userScore = openedDB().GetScore(userTemp.idUsuario);
+        DBOUSUARIOS userTemp = GameConfig.Instance.OpenDb().GetUser(loginInputField.text);
+        DBOPONTUACAO userScore = GameConfig.Instance.OpenDb().GetScore(userTemp.idUsuario);
         string md5pass = Md5Sum(passwordInputField.text);
         MessageStatus("Autenticando usuário");
-        if (userTemp != null && userTemp.login == loginInputField.text && userTemp.senha == md5pass) {
+        if (userTemp.login == loginInputField.text && userTemp.senha == md5pass) {
             config.UpdateCurrent(userTemp);
             config.hasCredentials = true;
             config.netHelper.token = string.Empty;
@@ -901,16 +905,15 @@ public class StartSceneManager : MonoBehaviour {
             config.usageCounter++;
             loadManager.LoadAsync("selectionMinigames");
         } else {
-            if (userTemp == null || userTemp.login != loginInputField.text || userTemp.senha != md5pass) {
-                //Login ou senha errado.
-                textWrong.enabled = true;
-                textWrong.DOFade(1f, 0.3f);
-                loginOutlineField.effectColor = WrongColorOutline;
-                passwordOutlineField.effectColor = WrongColorOutline;
-                PlayerPrefs.SetString("PlayerLastLogin", string.Empty);
-                passwordInputField.text = string.Empty;
-                MessageStatus(string.Empty);
-            }
+            if (userTemp.login == loginInputField.text && userTemp.senha == md5pass) return;
+            //Login ou senha errado.
+            textWrong.enabled = true;
+            textWrong.DOFade(1f, 0.3f);
+            loginOutlineField.effectColor = WrongColorOutline;
+            passwordOutlineField.effectColor = WrongColorOutline;
+            PlayerPrefs.SetString("PlayerLastLogin", string.Empty);
+            passwordInputField.text = string.Empty;
+            MessageStatus(string.Empty);
         }
     }
 
@@ -918,8 +921,8 @@ public class StartSceneManager : MonoBehaviour {
         MessageStatus("Autenticando usuário");
         isPreloadRotating = true;
         Timing.RunCoroutine(LoadStoreData());
-        DBOUSUARIOS userTemp = openedDB().GetUser(username);
-        DBOPONTUACAO userScore = openedDB().GetScore(userTemp.idUsuario);
+        DBOUSUARIOS userTemp = GameConfig.Instance.OpenDb().GetUser(username);
+        DBOPONTUACAO userScore = GameConfig.Instance.OpenDb().GetScore(userTemp.idUsuario);
         //Debug.Log(md5pass);        
         if (userTemp != null && userTemp.login == username && userTemp.senha == password) {
             config.UpdateCurrent(userTemp);
@@ -959,7 +962,7 @@ public class StartSceneManager : MonoBehaviour {
 
     public IEnumerator<float> LoadInventoryData() {
         storeData.buyedItens.Clear();
-        DBOINVENTARIO[] _inventory = openedDB().GetInventory(config.GetCurrentUserID());
+        DBOINVENTARIO[] _inventory = GameConfig.Instance.OpenDb().GetInventory(config.GetCurrentUserID());
         yield return Timing.WaitForSeconds(0.2f);
         int tempCount = _inventory.Length;
         for (int i = 0; i < tempCount; i++) {
@@ -971,8 +974,8 @@ public class StartSceneManager : MonoBehaviour {
 
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(LoadInventoryData()));
         Debug.Log("Loading Store Data.");
-        storeData.SetDataService(openedDB());
-        List<DBOITENS> _itensOnStore = openedDB().GetItensStoreList();
+        storeData.SetDataService(GameConfig.Instance.OpenDb());
+        List<DBOITENS> _itensOnStore = GameConfig.Instance.OpenDb().GetItensStoreList();
         //yield return Timing.WaitForSeconds(0.2f);
         int tempCount = _itensOnStore.Count;
         Debug.Log(string.Format("Itens To Load On Store:{0}", tempCount));
@@ -1053,7 +1056,7 @@ public class StartSceneManager : MonoBehaviour {
     }
 
     public void LoadStoreCategoryItem() {
-        storeData.itensCategory = openedDB().GetCategoryItem();
+        storeData.itensCategory = GameConfig.Instance.OpenDb().GetCategoryItem();
     }
 
 
@@ -1197,7 +1200,7 @@ public class StartSceneManager : MonoBehaviour {
         //yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.QueueSend(LoginFailedEvent, config.jogosLog, config.rankLogs, config.statisticLog, config.gamesLogs, config.usersIDScoreToUpdate, config.usersIDInventoryUpdate)));
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.SyncInfo(LoginFailedEvent)));
         yield return Timing.WaitForSeconds(0.5f);
-        yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.SyncAfterLogin2(config.clientID, config.openDB(), "https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/getMetodo4", netHelper.token, this)));
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.SyncAfterLogin2(config.clientID, config.OpenDb(), "https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/getMetodo4", netHelper.token, this)));
         //Timing.RunCoroutine(LoadStoreData()); netHelper.token, this)));
         config.usageCounter++;
     }
@@ -1242,7 +1245,7 @@ public class StartSceneManager : MonoBehaviour {
                 idGameDidatico = Random.Range(0,5)
             });
         }
-        config.openDB().AddStatisticasDidaticaMock(mockList);
+        config.OpenDb().AddStatisticasDidaticaMock(mockList);
     }
     
     
@@ -1266,7 +1269,7 @@ public class StartSceneManager : MonoBehaviour {
                 pontosPedagogica = Random.Range(0,20000)
             });
         }
-        config.openDB().AddMinigamesLogs(mockList);
+        config.OpenDb().AddMinigamesLogs(mockList);
         Debug.Log("Done");
     }
 }

@@ -47,3 +47,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/RA/SceneRa/AR.Vacina.unity
     guid: d3f9b584d5d672d4ea7a282ad30499d1
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 913c563c66710af47a85004e3976a0e3,
+      type: 2}

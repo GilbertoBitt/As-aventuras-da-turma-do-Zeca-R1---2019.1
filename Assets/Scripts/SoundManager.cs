@@ -104,6 +104,7 @@ public class SoundManager : OverridableMonoBehaviour {
 			effectSound.transform.SetParent (this.transform.GetChild (0));
 			effectSound.AddComponent<AudioSource> ();
 			AudioSource d = effectSound.GetComponent<AudioSource>();
+
 			d.playOnAwake = false;
 			d.clip = _clip;
 			openWith.Add(_clip, d);
@@ -333,6 +334,34 @@ public class SoundManager : OverridableMonoBehaviour {
         }
 		fixSound();
 	}
+
+    public void startSoundFXDelay(AudioClip effectSong){
+	    if (gameConfig.isAudioFXOn) {
+		    //AudioSource voic =
+		    var source = returnRightSource(effectSong);
+		    source.clip = effectSong;
+		    source.PlayDelayed(.3f);
+		    StopVoiceEffects();
+		    //voiceFxs.Add(voic);
+		    //oic.PlayOneShot(effectSong);
+		    //StartCoroutine (playAndDelete (effectSound));
+	    }
+	    fixSound();
+    }
+
+    public void startSoundFXDelay(AudioClip effectSong, float delay){
+	    if (gameConfig.isAudioFXOn) {
+		    //AudioSource voic =
+		    var source = returnRightSource(effectSong);
+		    source.clip = effectSong;
+		    source.PlayDelayed(delay);
+		    StopVoiceEffects();
+		    //voiceFxs.Add(voic);
+		    //oic.PlayOneShot(effectSong);
+		    //StartCoroutine (playAndDelete (effectSound));
+	    }
+	    fixSound();
+    }
 
 	public AudioSource startSoundFXWithReturn(AudioClip effectSong){
 		if (gameConfig.isAudioFXOn) {

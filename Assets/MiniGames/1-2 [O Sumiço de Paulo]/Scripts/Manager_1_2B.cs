@@ -8,16 +8,20 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using Sirenix.OdinInspector;
+using UniRx;
 using Random = UnityEngine.Random;
 
 public class Manager_1_2B : OverridableMonoBehaviour
 {
 	[TabGroup("Geral")] public GameConfig config;
 	[TabGroup("Geral")] public int anoLetivo;
-	[TabGroup("2ª Ano")]
-	public Dictionary<SpacialForms, List<Sprite>> spatialFormsSprites = new Dictionary<SpacialForms, List<Sprite>>();
+	[TabGroup("1ª Ano")] public HabilidadeBNCCInfo Habilidade1;
+	[TabGroup("1ª Ano")] public HabilidadeBNCCInfo Habilidade1_2;
+	[TabGroup("2ª Ano")] public Dictionary<SpacialForms, List<Sprite>> spatialFormsSprites = new Dictionary<SpacialForms, List<Sprite>>();
 
 	[TabGroup("2ª Ano")] public SpacialForms selectedForm = SpacialForms.None;
+	[TabGroup("2ª Ano")] public HabilidadeBNCCInfo Habilidade2;
+	[TabGroup("3ª Ano")] public HabilidadeBNCCInfo Habilidade3;
 	[HeaderAttribute("References")]
 	public Manager_1_2A manager;
 	public List<CirclesOnPanel_1_2B> panelCircles = new List<CirclesOnPanel_1_2B>();
@@ -123,11 +127,37 @@ public class Manager_1_2B : OverridableMonoBehaviour
     public Vector2 LimitSlider;
     public Image fundoProf;
     public Sprite ImageFundo;
+    private InfoSkillWindow _infoSkillInfo;
+    [TabGroup("Geral")]
+    public Button infoSkillButton;
+
     void Start()
     {
-		config.UpdateCurrent(config.GetCurrentUser());
-	    anoLetivo = config.currentYear.idAnoLetivo;
+	    config = GameConfig.Instance;
+	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
+
+		if (_infoSkillInfo == null)
+		{
+			_infoSkillInfo = FindObjectOfType<InfoSkillWindow>();
+		}
+
+		infoSkillButton.onClick.AsObservable().Subscribe(unit =>
+		{
+			switch (anoLetivo)
+			{
+				case 1:
+					_infoSkillInfo.ShowWindowInfo(Habilidade1, Habilidade1_2);
+					break;
+				case 2:
+					_infoSkillInfo.ShowWindowInfo(Habilidade2);
+					break;
+				case 3:
+				default:
+					_infoSkillInfo.ShowWindowInfo(Habilidade3);
+					break;
+			}
+		});
 	}
 
 	// Use this for initialization

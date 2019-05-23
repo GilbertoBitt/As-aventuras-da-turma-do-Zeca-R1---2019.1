@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using com.csutil;
 using MEC;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,7 +43,8 @@ public class PlacesToHide_1_2A : MonoBehaviour, IPointerClickHandler {
 	}
 
 	public void OnPointerClick(PointerEventData eventData){
-		if(Input.touchCount <= 1 && manager.isChoosingFound == false && manager.isGameRunning == true && manager.pauseManager.isOnPause == false){
+		Log.d($"Event Clicked { eventData.pointerPress }");
+		if(eventData.clickCount <= 1 && manager.isChoosingFound == false && manager.isGameRunning && manager.pauseManager.isOnPause == false){
 			if (Image == manager.pauloSprite) {
 				if (manager.foundPaulo) {
 					clicked ();
@@ -58,29 +60,27 @@ public class PlacesToHide_1_2A : MonoBehaviour, IPointerClickHandler {
 			}
 		}
 
-		
+
 	}
 
 	public void clicked(){
-
-		if (isDone == false) {
-			if (Image != null) {
-				//Debug.Log (Image.name);
-				//manager.amountsFinded++;
-				if(manager.foundPaulo){
-					manager.FoundedPaulo (Image, calculatePosition(),this.GetComponent<RectTransform>());
-				} else {
-					manager.Founded (Image, calculatePosition(),this.GetComponent<RectTransform>());
-				}
-				imagePanel.material = null;
-				imageComponent.color = Color.clear;
-				isDone = true;
+		if (isDone) return;
+		if (Image != null) {
+			//Debug.Log (Image.name);
+			//manager.amountsFinded++;
+			if(manager.foundPaulo){
+				manager.FoundedPaulo (Image, calculatePosition(),this.GetComponent<RectTransform>());
 			} else {
-				manager.NothingFinded ();
-				//Debug.Log ("Achou nada!");
-				manager.actualCombo = 1;
-				TouchHandler();
+				manager.Founded (Image, calculatePosition(),this.GetComponent<RectTransform>());
 			}
+			imagePanel.material = null;
+			imageComponent.color = Color.clear;
+			isDone = true;
+		} else {
+			manager.NothingFinded ();
+			//Debug.Log ("Achou nada!");
+			manager.actualCombo = 1;
+			TouchHandler();
 		}
 	}
 

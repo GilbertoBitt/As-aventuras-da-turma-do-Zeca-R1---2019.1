@@ -121,7 +121,7 @@ public class gameSelection : MonoBehaviour {
 
         //gameConfigs.AddOrReplateMinigame
         List<DBOMINIGAMES> dboMinigames = new List<DBOMINIGAMES>();
-        dboMinigames = gameConfigs.openDB().GetAllMinigames();
+        dboMinigames = gameConfigs.OpenDb().GetAllMinigames();
 
         int tempCount = dboMinigames.Count;
         for (int i = 0; i < tempCount; i++) {
@@ -143,7 +143,7 @@ public class gameSelection : MonoBehaviour {
     // Use this for initialization
     public void StartLate () {
         TrocaUsu();
-        gameConfigs.currentScore = gameConfigs.openDB().GetScore(gameConfigs.currentUser.idUsuario);
+        gameConfigs.currentScore = gameConfigs.OpenDb().GetScore(gameConfigs.currentUser.idUsuario);
         
 
 		Timing.RunCoroutine(waitToStart(), Segment.SlowUpdate);
@@ -445,7 +445,7 @@ public class gameSelection : MonoBehaviour {
     }
 
     public void LoadMyOwnRank() {
-        List<DBORANKING> myRanks = gameConfigs.openDB().GetAllUserRanks(gameConfigs.currentUser.idUsuario);
+        List<DBORANKING> myRanks = gameConfigs.OpenDb().GetAllUserRanks(gameConfigs.currentUser.idUsuario);
 
         for (int i = 0; i < myRanks.Count; i++) {
             gameConfigs.allMinigames[i].highscore = myRanks[i].highscore;
@@ -455,7 +455,7 @@ public class gameSelection : MonoBehaviour {
 
     public IEnumerator<float> LoadInventoryData() {
         storeData.buyedItens.Clear();
-        DBOINVENTARIO[] _inventory = gameConfigs.openDB().GetInventory(gameConfigs.GetCurrentUserID());
+        DBOINVENTARIO[] _inventory = gameConfigs.OpenDb().GetInventory(gameConfigs.GetCurrentUserID());
         yield return Timing.WaitForSeconds(0.2f);
         int tempCount = _inventory.Length;
         for (int i = 0; i < tempCount; i++) {
@@ -467,8 +467,8 @@ public class gameSelection : MonoBehaviour {
 
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(LoadInventoryData()));
         Debug.Log("Loading Store Data.");
-        storeData.SetDataService(gameConfigs.openDB());
-        List<DBOITENS> _itensOnStore = gameConfigs.openDB().GetItensStoreList();
+        storeData.SetDataService(gameConfigs.OpenDb());
+        List<DBOITENS> _itensOnStore = gameConfigs.OpenDb().GetItensStoreList();
         //yield return Timing.WaitForSeconds(0.2f);
         int tempCount = _itensOnStore.Count;
         Debug.Log("Itens To Load On Store:" + tempCount);
@@ -550,7 +550,7 @@ public class gameSelection : MonoBehaviour {
     }
 
     public void LoadStoreCategoryItem() {
-        storeData.itensCategory = gameConfigs.openDB().GetCategoryItem();
+        storeData.itensCategory = gameConfigs.OpenDb().GetCategoryItem();
     }
 
 }

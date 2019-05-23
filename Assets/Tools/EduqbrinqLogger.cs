@@ -41,10 +41,7 @@ public class EduqbrinqLogger : MonoBehaviour
             _instance = instanceHome.GetComponent<EduqbrinqLogger>() ?? instanceHome.AddComponent<EduqbrinqLogger>();
             IoC.inject.SetSingleton(_instance);
             IoC.inject.GetOrAddSingleton<EduqbrinqLogger>(_instance);
-            _config =  ResourcesV2.LoadScriptableObjectInstance<GameConfig>("GameConfig.asset");
-            IoC.inject.SetSingleton(_config);
-            
-
+            _config =  GameConfig.Instance;
             return _instance;
         }
 //        set => _instance = value;
@@ -73,11 +70,11 @@ public class EduqbrinqLogger : MonoBehaviour
     async UniTask SendRequestSync(UnityWebRequest req, DBORANKING rank)
     {
         var op = await req.SendWebRequest();
-        if (!IsValidRequest(op))
+        if (IsValidRequest(op))
         {
             rank.online = 1;
-            _config.openDB().UpdateRanking(rank);
         }
+        _config.OpenDb().UpdateRanking(rank).ToCoroutine();
     }
 
     public void UpdateDatabase(DBORANKING updatedRank)
@@ -97,22 +94,45 @@ public class EduqbrinqLogger : MonoBehaviour
         else
         {
             rankUpdated.online = IsOnlineInt;
-            await _config.openDB().UpdateRanking(rankUpdated);
+            _config.OpenDb().UpdateRanking(rankUpdated).ToCoroutine();
         }
     }
 
+    public async UniTask SendRequest(List<DBOPONTUACAO> logs)
+    {
+        var toSend = new List<UniTask>();
+        foreach (var log in logs)
+        {
+            toSend.Add(SendRequestSync(
+                UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setRanking",
+                    log.ToForm(UserInfo)), log));
+        }
+        await UniTask.WhenAll(toSend);
+    }
+
+    async UniTask SendRequestSync(UnityWebRequest req, DBOPONTUACAO score)
+    {
+        var op = await req.SendWebRequest();
+        if (IsValidRequest(op))
+        {
+            score.online = 1;
+        }
+        _config.OpenDb().UpdateScore(score);
+    }
 
 
     async UniTask SendRequest(UnityWebRequest req, DBORANKING rank)
     {
         var op = await req.SendWebRequest();
-        if (IsValidRequest(op))
+        if (!IsValidRequest(op))
         {
             rank.online = 0;
-            _config.openDB().UpdateRanking(rank);
         }
+        _config.OpenDb().UpdateRanking(rank).ToCoroutine();
 //        Log.d($"Sended or Saved Sucess of [DBOMINIGAMES_LOGS]: {JsonWriter.GetWriter().Write(log)}");
     }
+
+
 
     public void UpdateDatabase(DBOPONTUACAO updatedScore)
     {
@@ -131,18 +151,19 @@ public class EduqbrinqLogger : MonoBehaviour
         else
         {
             score.online = IsOnlineInt;
-            _config.openDB().UpdateScore(score);
+            _config.OpenDb().UpdateScore(score);
         }
     }
 
     async UniTask SendRequest(UnityWebRequest req, DBOPONTUACAO score)
     {
         var op = await req.SendWebRequest();
-        if (IsValidRequest(op))
+        if (!IsValidRequest(op))
         {
             score.online = 0;
-            _config.openDB().UpdateScore(score);
+
         }
+        _config.OpenDb().UpdateScore(score);
     }
 
     public EduqbringLogGameInfo GenerateGameInfo(DBOMINIGAMES_LOGS log, List<DBOESTATISTICA_DIDATICA> estatisticas)
@@ -182,10 +203,11 @@ public class EduqbrinqLogger : MonoBehaviour
     async UniTask GameLogSync(UnityWebRequest req, DBOMINIGAMES_LOGS log)
     {
         var op = await req.SendWebRequest();
-        if (!IsValidRequest(op))
+        if (IsValidRequest(op))
         {
-            _config.openDB().DeleteMinigamesLog(log);
+            _config.OpenDb().DeleteMinigamesLog(log);
         }
+
 //        Log.d($"Sended or Saved Sucess of [DBOMINIGAMES_LOGS]: {JsonWriter.GetWriter().Write(log)}");
     }
     
@@ -193,11 +215,12 @@ public class EduqbrinqLogger : MonoBehaviour
     async UniTask GameLog(UnityWebRequest req, DBOMINIGAMES_LOGS log)
     {
         var op = await req.SendWebRequest();
-        if (IsValidRequest(op))
+        if (!IsValidRequest(op))
         {
             log.online = 0;
-            _config.openDB().InsertLogAsync(log);
-        }    
+
+        }
+        _config.OpenDb().InsertLogAsync(log);
 //        Log.d($"Sended or Saved Sucess of [DBOMINIGAMES_LOGS]: {JsonWriter.GetWriter().Write(log)}");
     }
 
@@ -206,9 +229,9 @@ public class EduqbrinqLogger : MonoBehaviour
         var op = await req.SendWebRequest();
         if (IsValidRequest(op))
         {
-            estatistica.online = 0;
-            _config.openDB().InsertLogAsync(estatistica);
-        }  
+            estatistica.online = 1;
+        }
+        _config.OpenDb().InsertLogAsync(estatistica).ToCoroutine();
 //        Log.d($"Sended or Saved Sucess of [DBOESTATISTICA_DIDATICA]: {JsonWriter.GetWriter().Write(estatistica)}");
     }
     
@@ -225,7 +248,7 @@ public class EduqbrinqLogger : MonoBehaviour
         await UniTask.WhenAll(toSend);
     }
 
-    private static bool IsValidRequest(UnityWebRequest req) => req.isHttpError || req.isNetworkError || req.downloadHandler.text.Contains("erro");
+    private static bool IsValidRequest(UnityWebRequest req) => !req.isHttpError  &&  !req.isNetworkError && !req.downloadHandler.text.Contains("erro");
 
     public static bool IsOnline => Application.internetReachability != NetworkReachability.NotReachable;
     public int IsOnlineInt => IsOnline ? 1 : 0;

@@ -9,10 +9,24 @@ using System.IO;
 using System.Text;
 using System.Runtime.CompilerServices;
 using com.csutil;
+using UnityEditor;
 
-public class GameConfig : ScriptableObject {
+public class GameConfig : ScriptableObject
+{
 
-
+    private static GameConfig _config;
+    public static GameConfig Instance
+    {
+        get
+        {
+            if (_config == null)
+            {
+                _config = ResourcesV2.LoadScriptableObjectInstance<GameConfig>("GameConfig.asset");
+                IoC.inject.SetSingleton(_config);
+            }
+            return _config;
+        }
+    }
 	#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
 	[SeparatorAttribute("Principal")]
 	#endif
@@ -132,6 +146,12 @@ public class GameConfig : ScriptableObject {
 
        // BropsAmount = PlayerPrefs.GetInt("BropsAmount");
     }
+    public int GetAnoLetivo()
+    {
+        UpdateCurrent(GetCurrentUser());
+        var r = currentYear ?? new DBOANOLETIVO{idAnoLetivo = 1};
+        return r.idAnoLetivo;
+    }
 
     public void SavePrefs(){
         //Salvar Audio em PlayerPrefs.
@@ -162,7 +182,7 @@ public class GameConfig : ScriptableObject {
     }*/
 
 
-    public DataService openDB() => db ?? (db = new DataService(dbName));
+    public DataService OpenDb() => db ?? (db = new DataService(dbName));
 
     public void OnUpgrade(DBOVERSION dbv) {
         for (int i = dbv.version; i < sqliteVersion; i++) {            
@@ -199,7 +219,7 @@ public class GameConfig : ScriptableObject {
 		currentYear = year;
 		currentUser = user;
 		currentClass = classe;
-		currentScore = openDB ().GetScore (currentUser.idUsuario);
+		currentScore = OpenDb ().GetScore (currentUser.idUsuario);
         playerID = currentUser.idUsuario;
         nickname = currentUser.login;
         namefull = currentUser.nomeJogador;
@@ -212,13 +232,13 @@ public class GameConfig : ScriptableObject {
 	public void UpdateCurrent(DBOUSUARIOS user){
 		currentUser = user;
         if (currentUser == null) return;
-        var getTurmaTask = openDB().GetClass(currentUser.idTurma);
+        var getTurmaTask = OpenDb().GetClass(currentUser.idTurma);
         currentClass = getTurmaTask;
         if (currentClass == null) return;
         
-        var getCurrentClassTask = openDB().GetYears(currentClass.idAnoLetivo);
+        var getCurrentClassTask = OpenDb().GetYears(currentClass.idAnoLetivo);
         currentYear = getCurrentClassTask;
-        currentSchool = openDB().GetSchool(currentClass.idEscola);
+        currentSchool = OpenDb().GetSchool(currentClass.idEscola);
 //        if (currentYear == null) return;
 //        var getCurrentSchoolTask = openDB().GetClient(currentSchool.idCliente);
 //        currentClient = getCurrentSchoolTask;
@@ -241,7 +261,7 @@ public class GameConfig : ScriptableObject {
     }  
 
 	public void UpdateMinigames(){
-		var LocalDB = openDB();
+		var LocalDB = OpenDb();
 		int countTemp = allMinigames.Count;
 		for (int i = 0; i < countTemp; i++) {
 			int id = i + 1;
@@ -270,7 +290,7 @@ public class GameConfig : ScriptableObject {
         if (currentUser != null) {
             int userID = currentUser.idUsuario;
 
-            DBORANKING rank = openDB().GetRanking(minigameID, userID) ?? new DBORANKING() {
+            DBORANKING rank = OpenDb().GetRanking(minigameID, userID) ?? new DBORANKING() {
                 highscore = 0,
                 idMinigame = minigameID,
                 idUsuario = userID
@@ -309,7 +329,7 @@ public class GameConfig : ScriptableObject {
 	}
 
 	public void SaveLOG(){
-		openDB().InsertJogosLog(LOG);
+		OpenDb().InsertJogosLog(LOG);
 	}
 
 	public void SaveLOG(DBOMINIGAMES_LOGS _log){		
@@ -321,7 +341,7 @@ public class GameConfig : ScriptableObject {
             netHelper.SetJogosLogM(_log);
         } else {
             _log.online = 0;
-            openDB().InsertJogosLog(_log);
+            OpenDb().InsertJogosLog(_log);
         };
         /*JogosLogSerializeble glog = new JogosLogSerializeble();
         glog.token = netHelper.token;
@@ -334,7 +354,7 @@ public class GameConfig : ScriptableObject {
 
         var eduqbrinqLog = EduqbrinqLogger.Instance;
     
-		DBORANKING rank = openDB().GetRanking (_idMinigame, GetCurrentUserID()) ?? new DBORANKING();
+		DBORANKING rank = OpenDb().GetRanking (_idMinigame, GetCurrentUserID()) ?? new DBORANKING();
 
         bool hasUpdated = false;
 
@@ -362,7 +382,7 @@ public class GameConfig : ScriptableObject {
 
     public void UpdateScore(int scoreBrops, int pontuacaoTotal) {
 
-        DBOPONTUACAO scores = openDB().GetScore(playerID) ?? new DBOPONTUACAO();
+        DBOPONTUACAO scores = OpenDb().GetScore(playerID) ?? new DBOPONTUACAO();
 
         scores.idUsuario = playerID;
         scores.brops = scoreBrops;
@@ -377,7 +397,7 @@ public class GameConfig : ScriptableObject {
     }
 
 	public void SaveStatistic(List<DBOESTATISTICA_DIDATICA> statisticTemp){
-		openDB().InsertAllStatistic(statisticTemp);
+		OpenDb().InsertAllStatistic(statisticTemp);
 	}
 
     public void SaveAllStatistic(List<DBOESTATISTICA_DIDATICA> statisticsTemp) {
@@ -385,7 +405,7 @@ public class GameConfig : ScriptableObject {
         if (isOnline) {
             netHelper.RunStatistics(statisticsTemp);            
         } else {
-            openDB().InsertAllStatistic(statisticsTemp);
+            OpenDb().InsertAllStatistic(statisticsTemp);
         }
     }
 
@@ -405,7 +425,7 @@ public class GameConfig : ScriptableObject {
 		return currentUser?.idUsuario ?? -1;
 	}
 
-    public DBOUSUARIOS GetCurrentUser() => currentUser ?? openDB().GetUser(playerID);
+    public DBOUSUARIOS GetCurrentUser() => currentUser ?? OpenDb().GetDefaultUser();
 
     [ContextMenu("Encrypt")]
     public void EncryptText() {
@@ -586,13 +606,13 @@ public class GameConfig : ScriptableObject {
 
     public void UpdateAll(int _idUser) {
         if (currentUser != null) return;
-        var taskUser = openDB().GetUser(_idUser);
+        var taskUser = OpenDb().GetUser(_idUser);
         currentUser = taskUser;
         if (currentClass != null) return;
-        var taskClass = openDB().GetClass(currentUser.idTurma);
+        var taskClass = OpenDb().GetClass(currentUser.idTurma);
         currentClass = taskClass;
         if (currentSchool != null) return;
-        var taskSchool = openDB().GetSchool(currentClass.idEscola);
+        var taskSchool = OpenDb().GetSchool(currentClass.idEscola);
         currentSchool = taskSchool;
     }
 

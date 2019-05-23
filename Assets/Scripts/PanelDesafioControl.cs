@@ -428,7 +428,7 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
 
 	public void LoadQuestion(){
 
-		DataService data = config.openDB();
+		DataService data = config.OpenDb();
 
         List<DBOPERGUNTAS> questions = new List<DBOPERGUNTAS>();
 

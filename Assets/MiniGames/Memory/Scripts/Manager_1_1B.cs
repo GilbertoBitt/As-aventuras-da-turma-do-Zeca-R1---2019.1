@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using com.csutil;
 using MiniGames.Memory.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -198,35 +199,16 @@ public class Manager_1_1B : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		if (infoSkillInfo == null)
-		{
-			infoSkillInfo = FindObjectOfType<InfoSkillWindow>();
-		}
 
-		infoButtonSkill.onClick.AsObservable().Subscribe(unit =>
-		{
-			switch (anoLetivo)
-			{
-				case 1:
-					infoSkillInfo.ShowWindowInfo(Habilidade1);
-					break;
-				case 2:
-					infoSkillInfo.ShowWindowInfo(Habilidade2);
-					break;
-				case 3:
-				default:
-					infoSkillInfo.ShowWindowInfo(Habilidade3);
-					break;
-			}
-		});
 		Resources.UnloadUnusedAssets();
         parentMiddleGridLayout = parentMiddle.GetComponent<GridLayoutGroup>();
 		parentDropAnimator = parentDrop.GetComponent<Animator>();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
 		managerMemory = GetComponent<MemoryGameManager>();
-		managerMemory.config.UpdateCurrent(managerMemory.config.currentUser);
+		managerMemory.config = GameConfig.Instance;
 		//TODO variação do texto do erro e acerto.
-//		anoLetivo = managerMemory.config.currentYear.idAnoLetivo;
+		Log.d($"Ano letivo Information {JsonWriter.GetWriter().Write(GameConfig.Instance.currentYear)}");
+		anoLetivo = GameConfig.Instance.GetAnoLetivo();
 		_mMiddleCanvasGroup = parentMiddle.GetComponent(typeof(GridLayoutGroup)) as GridLayoutGroup;
 		if (anoLetivo == 1)
 		{
@@ -260,6 +242,28 @@ public class Manager_1_1B : MonoBehaviour
 			textRight = textRight3;
 			textWrong = textWrong3;
 		}
+
+		if (infoSkillInfo == null)
+		{
+			infoSkillInfo = FindObjectOfType<InfoSkillWindow>();
+		}
+
+		infoButtonSkill.onClick.AsObservable().Subscribe(unit =>
+		{
+			switch (anoLetivo)
+			{
+				case 1:
+					infoSkillInfo.ShowWindowInfo(Habilidade1);
+					break;
+				case 2:
+					infoSkillInfo.ShowWindowInfo(Habilidade2);
+					break;
+				case 3:
+				default:
+					infoSkillInfo.ShowWindowInfo(Habilidade3);
+					break;
+			}
+		});
 		
 		
 		zecaCard = managerMemory.personReation;
@@ -408,10 +412,7 @@ public class Manager_1_1B : MonoBehaviour
 
 			}
 			//zecaCard.ControlAnimCorpo.SetInteger ("posCorpoZeca",5);
-
 		}
-
-
 
 		parentMiddleGridLayout.enabled = false;
 		

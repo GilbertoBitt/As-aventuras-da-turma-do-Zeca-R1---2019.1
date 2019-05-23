@@ -86,3 +86,6 @@ TagManager:
   - name: Personagem Efeitos
     uniqueID: 3597305281
     locked: 0
+  - name: Overlay
+    uniqueID: 2214020203
+    locked: 0

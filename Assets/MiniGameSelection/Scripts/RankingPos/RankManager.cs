@@ -55,15 +55,15 @@ public class RankManager : MonoBehaviour {
         buttonGlobal.colors = colorNormal;
         buttonEscolar.colors = colorBlockHighlight;
 
-        DataService ds = config.openDB();
+        DataService ds = config.OpenDb();
         Debug.Log("Ranking Escola.");
         bool userIsOnTop = false;
 
-        DBOUSUARIOS users = config.openDB().GetUser(config.currentUser.idUsuario);
+        DBOUSUARIOS users = config.OpenDb().GetUser(config.currentUser.idUsuario);
         yield return Timing.WaitForOneFrame;
-        DBOTURMA turmaUser = config.openDB().GetClass(users.idTurma);
+        DBOTURMA turmaUser = config.OpenDb().GetClass(users.idTurma);
         yield return Timing.WaitForOneFrame;
-        DBOESCOLA escolaUser = config.openDB().GetSchool(turmaUser.idEscola);
+        DBOESCOLA escolaUser = config.OpenDb().GetSchool(turmaUser.idEscola);
 
         yield return Timing.WaitForOneFrame;
 
@@ -75,6 +75,7 @@ public class RankManager : MonoBehaviour {
 
         for (int i = 0; i < 10; i++) {
             rankInstances[i].UpdateEmptyRank();
+            rankInstances[i].DefaulColor();
         }
 
 
@@ -109,11 +110,11 @@ public class RankManager : MonoBehaviour {
 
         if (userIsOnTop == false) {
             //DBOUSUARIOS users = config.openDB().GetUser(config.currentUser.idUsuario);
-            DBORANKING usersRank = config.openDB().GetRanking(tempIdMInigame, config.currentUser.idUsuario);
+            DBORANKING usersRank = config.OpenDb().GetRanking(tempIdMInigame, config.currentUser.idUsuario);
 
             if (config.currentSchool == null) {
-                DBOTURMA turmaUser2 = config.openDB().GetClass(config.currentUser.idTurma);
-                DBOESCOLA escolaUser2 = config.openDB().GetSchool(turmaUser.idEscola);
+                DBOTURMA turmaUser2 = config.OpenDb().GetClass(config.currentUser.idTurma);
+                DBOESCOLA escolaUser2 = config.OpenDb().GetSchool(turmaUser.idEscola);
                 config.currentSchool = escolaUser2;
             }
             yield return Timing.WaitForSeconds(0.1f);
@@ -130,6 +131,11 @@ public class RankManager : MonoBehaviour {
                 LastRankComponent.SetActive(true);
                 LastRank.UpdateColors(selfColorName, selfColorPos);
             }
+        }
+
+        if (userIsOnTop && LastRankComponent.activeInHierarchy)
+        {
+            LastRankComponent.SetActive(false);
         }
 
         //DetailCanvas.enabled = false;
@@ -149,7 +155,7 @@ public class RankManager : MonoBehaviour {
         buttonEscolar.colors = colorNormal;
 
 
-        DataService ds = config.openDB();
+        DataService ds = config.OpenDb();
 
         bool userIsOnTop = false;
 
@@ -165,9 +171,9 @@ public class RankManager : MonoBehaviour {
         for (int i = 0; i < countTemp; i++) {
 //            Debug.Log("rankingResult.Count " + countTemp.ToString());
 //            Debug.Log(rankingResult[i].ToString());
-            DBOUSUARIOS users = config.openDB().GetUser(rankingResult[i].idUsuario);
-            DBOTURMA turmaUser = config.openDB().GetClass(users.idTurma);
-            DBOESCOLA escolaUser = config.openDB().GetSchool(turmaUser.idEscola);
+            DBOUSUARIOS users = config.OpenDb().GetUser(rankingResult[i].idUsuario);
+            DBOTURMA turmaUser = config.OpenDb().GetClass(users.idTurma);
+            DBOESCOLA escolaUser = config.OpenDb().GetSchool(turmaUser.idEscola);
             yield return Timing.WaitForSeconds(0.1f);
             rankUsers.Add(new RankUser() {
                 nameUser = users.nomeJogador,                
@@ -188,11 +194,11 @@ public class RankManager : MonoBehaviour {
 
         if(userIsOnTop == false ) {
             //DBOUSUARIOS users = config.openDB().GetUser(config.currentUser.idUsuario);
-            var usersRank = config.openDB().GetRanking(tempIdMInigame, config.currentUser.idUsuario);
+            var usersRank = config.OpenDb().GetRanking(tempIdMInigame, config.currentUser.idUsuario);
            
             if (config.currentSchool == null) {
-                DBOTURMA turmaUser = config.openDB().GetClass(config.currentUser.idTurma);
-                DBOESCOLA escolaUser = config.openDB().GetSchool(turmaUser.idEscola);
+                DBOTURMA turmaUser = config.OpenDb().GetClass(config.currentUser.idTurma);
+                DBOESCOLA escolaUser = config.OpenDb().GetSchool(turmaUser.idEscola);
                 config.currentSchool = escolaUser;
             }
             yield return Timing.WaitForSeconds(0.1f);

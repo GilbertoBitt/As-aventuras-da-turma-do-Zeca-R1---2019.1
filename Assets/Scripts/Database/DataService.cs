@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using com.csutil;
 using JetBrains.Annotations;
-using SQLite4Unity3d;
+using SQLite;
 using UniRx.Async;
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
 using UnityEditor;
@@ -17,19 +17,20 @@ public class DataService {
 
     public bool removeLinq = false;
 
-	private SQLiteConnection _connection;
+//	private SQLiteConnection _connection;
     private SQLiteConnection _asyncConnection;
     [CanBeNull] private string _filepath;
 
-    private SQLiteConnection AsyncConnection => _asyncConnection ?? (_asyncConnection = new SQLiteConnection(_filepath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create));
+    private SQLiteConnection AsyncConnection => _asyncConnection ?? (_asyncConnection = new SQLiteConnection(_filepath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.FullMutex));
 
 
     public DataService(string DatabaseName){
+
         // check if file exists in Application.persistentDataPath
 		var filepath = $"{Application.persistentDataPath}/{DatabaseName}";
 		if (File.Exists(filepath)){
-        	_connection = new SQLiteConnection(filepath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
             _filepath = filepath;
+            _asyncConnection = new SQLiteConnection(_filepath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.FullMutex);
             //Debug.Log("<color=#ffffff>Final PATH:</color> <color=#33bfea>" + filepath + "</color>"); 
         } else {
     #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_STANDALONE
@@ -60,9 +61,9 @@ public class DataService {
             File.WriteAllBytes(filepathTo, bytesTOLoad);
             filepath = filepathTo;
 #endif
-            _connection = new SQLiteConnection(filepath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
             _filepath = filepath;
-            //Debug.Log("<color=#ffffff>Final PATH:</color> <color=#33bfea>" + filepath + "</color>"); 
+            _asyncConnection = new SQLiteConnection(_filepath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.FullMutex);
+            //Debug.Log("<color=#ffffff>Final PATH:</color> <color=#33bfea>" + filepath + "</color>");
 		}       
 
 	}
@@ -94,6 +95,11 @@ public class DataService {
             var result = query.ToList();
             return result;
 	    }
+
+        public DBOUSUARIOS GetDefaultUser ()
+        {
+            return AsyncConnection.Table<DBOUSUARIOS>().First();
+        }
 
        
         /// <summary>
@@ -492,7 +498,7 @@ public class DataService {
         }
 
         public List<DBOPERGUNTAS> GetQuestionList(int idBook, int _idCliente) {
-            IEnumerable<DBOPERGUNTAS> result = _connection.Table<DBOPERGUNTAS>().Where(x => x.idLivro == idBook && (x.idCliente == 1 || x.idCliente == _idCliente));
+            IEnumerable<DBOPERGUNTAS> result = AsyncConnection.Table<DBOPERGUNTAS>().Where(x => x.idLivro == idBook && (x.idCliente == 1 || x.idCliente == _idCliente));
             List<DBOPERGUNTAS> resultList = result.ToList();
             return resultList;
         }
@@ -515,7 +521,7 @@ public class DataService {
 	    /// <returns>The answers list.</returns>
 	    /// <param name="idPergunta">Identifier pergunta.</param>
 	    public List<DBORESPOSTAS> GetAnswersList (int idPergunta){
-		    IEnumerable<DBORESPOSTAS> result = _connection.Table<DBORESPOSTAS>().Where(x => x.idPergunta == idPergunta);
+		    IEnumerable<DBORESPOSTAS> result = AsyncConnection.Table<DBORESPOSTAS>().Where(x => x.idPergunta == idPergunta);
 		    List<DBORESPOSTAS> resultList = result.ToList();
 		    return resultList;
 	    }
@@ -641,7 +647,11 @@ public class DataService {
     
     public void DeleteEstatisticas(List<DBOESTATISTICA_DIDATICA> @logs)
     {
-        AsyncConnection.Delete<DBOESTATISTICA_DIDATICA>(@logs);
+        foreach (var item in @logs)
+        {
+            AsyncConnection.Delete(item);
+        }
+
     }
 
 
@@ -650,10 +660,10 @@ public class DataService {
 
     #region DBOSINCRONIZACAO
 
-    public DBOSINCRONIZACAO GetSync(int idCliente) {
-        DBOSINCRONIZACAO sinc = AsyncConnection.Table<DBOSINCRONIZACAO>().FirstOrDefault(x => x.idCliente == idCliente) ??
-                                new DBOSINCRONIZACAO();
-        return sinc;
+    public DBOSINCRONIZACAO GetSync(int clientID = 1)
+    {
+        var r = AsyncConnection.Table<DBOSINCRONIZACAO>().ToList();
+        return r.FirstOrDefault(x => x.idCliente == clientID);
     }
 
     public void UpdateSync(DBOSINCRONIZACAO syncTemp) {
@@ -696,7 +706,7 @@ public class DataService {
 
         public List<DBOPERGUNTAS> PerguntasToDownload() {
 
-            return _connection.Query<DBOPERGUNTAS>("SELECT * FROM DBOPERGUNTAS WHERE downloaded == 0 AND ativo = 1 AND audio = 1", new object[0]);
+            return AsyncConnection.Query<DBOPERGUNTAS>("SELECT * FROM DBOPERGUNTAS WHERE downloaded == 0 AND ativo = 1 AND audio = 1", new object[0]);
 
         }
     #endregion
@@ -718,19 +728,19 @@ public class DataService {
     }
 
     public List<DBORESPOSTAS> RespostaNotDownloaded() {
-        return _connection.Query<DBORESPOSTAS>("SELECT * FROM DBORESPOSTAS WHERE downloaded == 0 AND ativo = 1 AND audio = 1", new object[0]);
+        return AsyncConnection.Query<DBORESPOSTAS>("SELECT * FROM DBORESPOSTAS WHERE downloaded == 0 AND ativo = 1 AND audio = 1", new object[0]);
     }
 
     #endregion
     #region category_item
 
     public DBOITENS_CATEGORIAS[] GetCategoryItem() {
-    IEnumerable<DBOITENS_CATEGORIAS> categorys = _connection.Table<DBOITENS_CATEGORIAS>();
+    IEnumerable<DBOITENS_CATEGORIAS> categorys = AsyncConnection.Table<DBOITENS_CATEGORIAS>();
     return categorys.ToArray();
     }
 
     public DBOITENS_CATEGORIAS[] GetCategoryItem(int _idGame) {
-    IEnumerable<DBOITENS_CATEGORIAS> categorys = _connection.Table<DBOITENS_CATEGORIAS>().Where(x => x.idGame == _idGame);
+    IEnumerable<DBOITENS_CATEGORIAS> categorys = AsyncConnection.Table<DBOITENS_CATEGORIAS>().Where(x => x.idGame == _idGame);
     return categorys.ToArray();
     }
 
@@ -837,14 +847,14 @@ public class DataService {
     public void RunQuery(string query) {
         object[] argsss = new object[1];
         //var cmd = _connection.CreateCommand(query, argsss);
-        _connection.Execute(query, argsss);
+        AsyncConnection.Execute(query, argsss);
         //_connection.Query(query, argsss);
     }
 
     public void ExecuteSQLITECommmand(string sqliteQuery, object[] variables) {
         //object[] argsss = new object[1];
         //var cmd = _connection.CreateCommand(query, argsss);
-        _connection.Execute(sqliteQuery, variables);
+        AsyncConnection.Execute(sqliteQuery, variables);
         //_connection.Query(query, argsss);
     }
 
@@ -865,7 +875,7 @@ public class DataService {
 
         string command01 = "REPLACE INTO DBORECENTITEM VALUES(?,?);";
 
-        _connection.Execute(command01, argss);
+        AsyncConnection.Execute(command01, argss);
     }
 
     public List<DBORECENTITEM> GerAllRecentOfUser(int userID)

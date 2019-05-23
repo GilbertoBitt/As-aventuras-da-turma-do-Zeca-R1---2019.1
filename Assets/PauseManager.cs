@@ -27,26 +27,36 @@ public class PauseManager : MonoBehaviour {
     }
 
     public void PauseGame(){
-       SomBT();
+        SomBT();
 
-        isOnPause = true;
-		OnPauseMenuOpen.Invoke();
-		Time.timeScale = 0f;
-		OpenConfig ();
+        Pause();
+        OpenConfig ();
 		pausePanel.SetActive (true);
 	}
 
-	public void UnpauseGame(){
+    public void Pause()
+    {
+	    isOnPause = true;
+	    OnPauseMenuOpen.Invoke();
+	    Time.timeScale = 0f;
+    }
+
+    public void UnpauseGame(){
         SomBT();
         btPause.SetActive (true);
-		isOnPause = false;
-		Time.timeScale = 1f;
-		OnPauseMenuClose.Invoke();
+		Unpause();
 		pausePanel.SetActive (false);
 		config.SavePrefs ();
 	}
 
-	public void OpenConfig(){
+    public void Unpause()
+    {
+	    isOnPause = false;
+	    Time.timeScale = 1f;
+	    OnPauseMenuClose.Invoke();
+    }
+
+    public void OpenConfig(){
 
         SomBT();
         if (config.isAudioOn) {

@@ -4,41 +4,60 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
+[RequireComponent(typeof(Canvas))]
+[RequireComponent(typeof(GraphicRaycaster))]
 public class InfoSkillWindow : MonoBehaviour
 {
-
     private CanvasGroup _canvasGroup;
+    private Canvas _canvas;
+    private GraphicRaycaster _graphicRaycaster;
     public TextMeshProUGUI textInfoDescription;
+    public PauseManager pauseManager;
 
     private void Start()
     {
         _canvasGroup = GetComponent(typeof(CanvasGroup)) as CanvasGroup;
+        pauseManager = FindObjectOfType<PauseManager>();
+        _canvas = GetComponent(typeof(Canvas)) as Canvas;
+        _graphicRaycaster = GetComponent(typeof(GraphicRaycaster)) as GraphicRaycaster;
     }
 
     public void ShowWindowInfo(HabilidadeBNCCInfo targetInfo)
     {
-        textInfoDescription.text = targetInfo.description;
+        textInfoDescription.text = $"Habilidade: [{targetInfo.codigo}]: {targetInfo.description}";
+        _graphicRaycaster.enabled = true;
+        _canvas.enabled = true;
         _canvasGroup.interactable = true;
         _canvasGroup.blocksRaycasts = true;
-        _canvasGroup.DOFade(1f, 0.3f);
+        _canvasGroup.DOFade(1f, 0.3f).OnComplete(() => { pauseManager.Pause(); });
+    }
+
+    public void ShowWindowInfo(HabilidadeBNCCInfo targetInfo, HabilidadeBNCCInfo targetInfo2)
+    {
+        textInfoDescription.text = $"Habilidade: <link=\"google.com.br\">[{targetInfo.codigo}]<link>: {targetInfo.description} \n\nHabilidade: [{targetInfo2.codigo}]: {targetInfo2.description}";
+        _graphicRaycaster.enabled = true;
+        _canvas.enabled = true;
+        _canvasGroup.interactable = true;
+        _canvasGroup.blocksRaycasts = true;
+        _canvasGroup.DOFade(1f, 0.3f).OnComplete(() => { pauseManager.Pause(); });
     }
 
     public void HideWindowsInfo()
     {
+
         _canvasGroup.interactable = false;
         _canvasGroup.blocksRaycasts = false;
-        _canvasGroup.DOFade(0f, 0.3f);
+        pauseManager.Unpause();
+        _canvasGroup.DOFade(0f, 0.3f).OnComplete(() =>
+        {
+            _canvas.enabled = false;
+            _graphicRaycaster.enabled = false;
+        });
     }
 
 }
 
-[CreateAssetMenu(menuName = "Eduqbrinq/BNCC/Habilidade Info", fileName = "Habilidade")]
-public class HabilidadeBNCCInfo : ScriptableObject
-{
-    public string codigo;
-    public int id;
-    [TextArea(3,50)]
-    public string description;
-}
+
