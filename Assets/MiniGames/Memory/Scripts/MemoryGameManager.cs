@@ -728,9 +728,9 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 
 			for (int i = 0; i < cardInstance.Count; i++){
 				if(cardInstance[i] != null)
-				cardInstance[i].transform.localScale = new Vector3(scale, scale,scale);
+					cardInstance[i].transform.localScale = new Vector3(scale, scale,scale);
 				if(cardInstance[i] != null)
-				cardInstanceMemoryComp[i].imageComponent.color = colorLerp;
+					cardInstanceMemoryComp[i].imageComponent.color = colorLerp;
 			}
 
 			yield return Timing.WaitForOneFrame;
@@ -740,7 +740,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		Timing.WaitForSeconds(0.3f);
 		
 		if(startTimerIsRunning == false)
-		Timing.RunCoroutine(timeToStart());
+			Timing.RunCoroutine(timeToStart());
 	}
 
 	int comboMultiplier(){
@@ -1205,7 +1205,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 				
 				TutorBTavancar.SetActive(true);
 				pauseButton.interactable = false;
-				}
+			}
 
 			else if(tutorMemor_1==1){
          
@@ -1252,30 +1252,15 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 					}
 					//	managerNext.cardMao.enabled=true;
 					btTextProfPular.SetActive(true);
-					if (levelDificult == 0 && correctsAmount == 0) {
-						textProf.text = "Que pena! Vamos tente melhor na proxima vez.";
-					} else if (levelDificult >= 0 && correctsAmount >= 0 && correctsAmount <= 8 && levelDificult <= 6) {
-						textProf.text = "Muito bem! Você tem uma boa memória.";
-					} else if (levelDificult == 6 && correctsAmount == 9) {
-						textProf.text = "Excelente! Você acertou todas as cartas.";
-					}
-            }
-            btTextProfPular.SetActive(true);
+				}
+				btTextProfPular.SetActive(true);
 
-            if(levelDificult == 0 && correctsAmount == 0) {
-                textProf.text = "Que pena! Vamos tente melhor na proxima vez.";
-            } else if (levelDificult >= 0 && correctsAmount >= 0 && correctsAmount <= 8 && levelDificult <= 6) {
-                textProf.text = "Muito bem! Você tem uma boa memória.";
-            } else if (levelDificult == 6 && correctsAmount == 9) {
-                textProf.text = "Excelente! Você acertou todas as cartas.";
-            }
-
-            // = textProfS[0];
+				// = textProfS[0];
 //            config.Rank(log.idMinigame, pointsAmount, starsAmount);
-            //nextCanbeStarted = true;
-                //  numTutor = 1;
-                //managerNext.cardMao.enabled=true;	
-                canFlipped = true;
+				//nextCanbeStarted = true;
+				//  numTutor = 1;
+				//managerNext.cardMao.enabled=true;
+				canFlipped = true;
 				//personReation.ControlAnimCorpo.SetInteger (posCorpoZeca,5);
 				//yield return Yielders.Get(1f);
 				///personReation.ControlAnimCorpo.SetInteger (posCorpoZeca,5);
@@ -1288,15 +1273,30 @@ public class MemoryGameManager : OverridableMonoBehaviour {
         }
 
 
-       // checkAudio = true;
+			// checkAudio = true;
 
         //personReation.ControlAnimCorpo.SetInteger (posCorpoZeca,5);
         //cardsAnimation.SetBool("nextCanbeStarted", true);
         Invoke("TutorTex2", 6f);
 	}
-    public void TutorTex2() {
+
+
+
+	public void TutorTex2() {
         btTextProfPular.SetActive(false);
-        textProf.text = textProfS[1];
+        switch (GameConfig.Instance.GetAnoLetivo())
+        {
+	        case 1:
+		        textProf.text = textProfS[1];
+		        break;
+	        case 2:
+		        textProf.text = textProfS[2];
+		        break;
+	        case 3:
+		        textProf.text = textProfS[3];
+		        break;
+        }
+
     }
 
     public void timeCheat(){

@@ -7943,7 +7943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 1
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -8846,7 +8846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 1
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -24449,7 +24449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 1
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -25086,7 +25086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 1
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -25396,6 +25396,8 @@ MonoBehaviour:
   textProfS:
   - Terminou as cartas!
   - "Agora, clique e arraste os nomes dos personagens ligando-os \xE0s suas figuras."
+  - Agora, clique e arraste as palavras escritas na forma cursiva para a forma imprensa.
+  - "Agora, clique e arraste as palavras para o n\xFAmero de s\xEDlabas que elas cont\xEAm."
   textProf: {fileID: 346070955}
   textAvancar: {fileID: 1755175793}
   btInicar: {fileID: 2059570535}
@@ -25775,7 +25777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 1
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -26543,7 +26545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 1
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -37387,7 +37389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 1
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -70869,7 +70871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 1
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -97139,7 +97141,7 @@ PrefabInstance:
     - target: {fileID: 1762107083961576059, guid: 501ab84d002e88f41bb7b2cbdd34a1b1,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.87649995
+      value: 0.86196387
       objectReference: {fileID: 0}
     - target: {fileID: 1762107083961576059, guid: 501ab84d002e88f41bb7b2cbdd34a1b1,
         type: 3}
@@ -97149,7 +97151,7 @@ PrefabInstance:
     - target: {fileID: 1762107083961576059, guid: 501ab84d002e88f41bb7b2cbdd34a1b1,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.9295
+      value: 0.9149639
       objectReference: {fileID: 0}
     - target: {fileID: 1762107083961576059, guid: 501ab84d002e88f41bb7b2cbdd34a1b1,
         type: 3}

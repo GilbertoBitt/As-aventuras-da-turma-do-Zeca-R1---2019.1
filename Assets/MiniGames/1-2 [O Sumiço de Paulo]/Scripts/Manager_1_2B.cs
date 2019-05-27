@@ -21,6 +21,9 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
 	[TabGroup("2ª Ano")] public SpacialForms selectedForm = SpacialForms.None;
 	[TabGroup("2ª Ano")] public HabilidadeBNCCInfo Habilidade2;
+	[TabGroup("3ª Ano")] public PlaneFigures selectedPlaneFigure = PlaneFigures.None;
+	[TabGroup("3ª Ano")] public List<Color> Colors;
+	[TabGroup("3ª Ano")] public Dictionary<PlaneFigures, List<Sprite>> planeFiguresSprites = new Dictionary<PlaneFigures, List<Sprite>>();
 	[TabGroup("3ª Ano")] public HabilidadeBNCCInfo Habilidade3;
 	[HeaderAttribute("References")]
 	public Manager_1_2A manager;
@@ -134,7 +137,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
     void Start()
     {
 	    config = GameConfig.Instance;
-	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
+//	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
 
 		if (_infoSkillInfo == null)
@@ -226,6 +229,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 			places.resetConfig();
 			places.form = geometryForm.none;
 			places.spacialForm = SpacialForms.None;
+			places.planeFigures = PlaneFigures.None;
 		}
 
 		
@@ -234,13 +238,22 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		switch (anoLetivo)
 		{
 			case 2:
-				selectedForm = EnumExtensions.RandomEnumValue<SpacialForms>();
+				do
+				{
+					selectedForm = EnumExtensions.RandomEnumValue<SpacialForms>();
+				} while (selectedForm == SpacialForms.None);
+
 				foreach (var item in spatialFormsSprites)
 				{
 					item.Value.Suffle();
 				}
 				break;
 			case 3:
+				do
+				{
+					selectedPlaneFigure = EnumExtensions.RandomEnumValue<PlaneFigures>();
+				} while (selectedPlaneFigure == PlaneFigures.None);
+
 				break;
 		}
 
@@ -259,6 +272,18 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					AllPlaces[i].updateImage(spatialFormsSprites[selectedForm][i]);
 					break;
 				case 3:
+					do {
+						AllPlaces[i].planeFigures = selectedPlaneFigure;
+					} while (AllPlaces[i].planeFigures == PlaneFigures.None);
+
+					var alreadySelected = new List<(Sprite, Color)>();
+					(Sprite, Color) result;
+					do
+					{
+						result = (planeFiguresSprites[selectedPlaneFigure].GetRandomValue(), Colors.GetRandomValue());
+					} while (alreadySelected.Contains(result));
+					alreadySelected.Add(result);
+					AllPlaces[i].updateImage(result.Item1, result.Item2);
 					break;
 			}
 
@@ -269,6 +294,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
 		List<Sprite> otherSprites = new List<Sprite>();
 		var otherSpatialForms = new List<(Sprite sprite, SpacialForms spacialForms)>();
+		var otherFacialPlanes = new List<(Sprite sprite, PlaneFigures facialFigures)>();
 
 		switch (anoLetivo)
 		{
@@ -292,12 +318,21 @@ public class Manager_1_2B : OverridableMonoBehaviour
 				}
 				break;
 			case 3:
+				foreach (var item in planeFiguresSprites)
+				{
+					if (item.Key == selectedPlaneFigure) continue;
+					foreach (var sprite in item.Value)
+					{
+						otherFacialPlanes.Add((sprite, item.Key));
+					}
+				}
 				break;
 		}
 
 
 		otherSprites.Suffle();
 		otherSpatialForms.Suffle();
+		otherFacialPlanes.Suffle();
 
 
 		int randomize = Random.Range(minOtherSprites,maxOtherSprites);
@@ -315,6 +350,8 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					choosenPlaces[i].spacialForm = otherSpatialForms[i].spacialForms;
 					break;
 				case 3:
+					choosenPlaces[i].updateImage(otherFacialPlanes[i].sprite, Color.white);
+					choosenPlaces[i].planeFigures = otherFacialPlanes[i].facialFigures;
 					break;
 			}
 
@@ -340,6 +377,11 @@ public class Manager_1_2B : OverridableMonoBehaviour
 	            iconFromText.enabled = false;
         		break;
         	case 3:
+	            _string.Clear();
+	            _string.Append("Encontre ").Append(needFind).Append(" ").Append(GetSpacialFormName(selectedPlaneFigure));
+	            comandText.text = _string.ToString();
+//	            iconFromText.sprite = returnIcon(formList[dificult]);
+	            iconFromText.enabled = false;
         		break;
         }
 
@@ -425,6 +467,12 @@ public class Manager_1_2B : OverridableMonoBehaviour
 			  textForm.text = _string.ToString();
 			  textForm.DOFade(1f, textFormCurveDuration);
 			  break;
+		  case PlaneFigures planeFigures:
+			  _string.Clear();
+			  _string.Append("Isto tem forma de ").Append(GetSpacialFormName(planeFigures, true)).Append("!");
+			  textForm.text = _string.ToString();
+			  textForm.DOFade(1f, textFormCurveDuration);
+			  break;
 	    }
     }
 
@@ -451,12 +499,12 @@ public class Manager_1_2B : OverridableMonoBehaviour
         }
     }
 
-    public IEnumerator lateStart(){
+    public IEnumerator<float> lateStart(){
         //yield return new WaitUntil(() => manager.canBeStarted == true);
      //  Debug.Log("Inicio da Didatica 1", this);
 		OnGameStart.Invoke();
-       
-		yield return Yielders.Get(0.2f);
+
+		yield return Timing.WaitForSeconds(0.3f);
 
 		float times = 0.0f;
 		fadeImage.gameObject.SetActive(true);
@@ -494,7 +542,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
         fadeImage.DOFade(1f, fadeInDuration);
         manager.textFinalMessage.DOFade(1f, .3f);
 
-        yield return new WaitForSeconds(4f);
+        yield return Timing.WaitForSeconds(fadeInDuration);
 
         TutorialCheking();
 
@@ -623,6 +671,33 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		}
 	}
 
+	public string GetSpacialFormName(PlaneFigures form, bool isSingular = false)
+	{
+		switch (form)
+		{
+			case PlaneFigures.None:
+				throw new ArgumentOutOfRangeException(nameof(form), form, null);
+				break;
+			case PlaneFigures.Square:
+				return isSingular ? "Quadrado" : "Quadrados";
+				break;
+			case PlaneFigures.Rectangle:
+				return isSingular ? "Retângulo" : "Retângulos";
+				break;
+			case PlaneFigures.Triangle:
+				return isSingular ? "Triângulo" : "Triângulos";
+				break;
+			case PlaneFigures.Trapeze:
+				return isSingular ? "Trapézio" : "Trapézios";
+				break;
+			case PlaneFigures.Parallelogram:
+				return isSingular ? "Paralelogramo" : "Paralelogramos";
+				break;
+			default:
+				throw new ArgumentOutOfRangeException(nameof(form), form, null);
+		}
+	}
+
     public string returnNameSingular(geometryForm form) {
         switch (form) {
             case geometryForm.square:
@@ -732,6 +807,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 			    CorrectCircle(panelCircle, panelCircle.placeOfItem.spacialForm == selectedForm);
 			    break;
 		    case 3:
+			    CorrectCircle(panelCircle, panelCircle.placeOfItem.planeFigures == selectedPlaneFigure);
 			    break;
 	    }
 
@@ -785,6 +861,12 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					log.SaveEstatistica (2, 1, panelCircles[i].placeOfItem.spacialForm == selectedForm);
 					break;
 				case 3:
+					if (panelCircles[i].placeOfItem.planeFigures == selectedPlaneFigure)
+					{
+						scoreTemp += 10;
+						tempCorrects++;
+					}
+					log.SaveEstatistica (2, 1, panelCircles[i].placeOfItem.planeFigures == selectedPlaneFigure);
 					break;
 			}
 		}

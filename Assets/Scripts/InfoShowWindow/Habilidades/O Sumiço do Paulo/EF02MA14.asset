@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 48ad70697346a7a41bd33256d83d4f32, type: 3}
   m_Name: EF02MA14
   m_EditorClassIdentifier: Assembly-CSharp::HabilidadeBNCCInfo
   codigo: EF02MA14
   id: 0
   description: "Reconhecer, nomear e comparar figuras geom\xE9tricas espaciais (cubo,
     bloco retangular, pir\xE2mide, cone, cilindro e esfera), relacionando-as com objetos
-    do mundo f\xEDsico\r\n"
+    do mundo f\xEDsico."

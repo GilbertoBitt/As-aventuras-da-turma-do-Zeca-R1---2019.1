@@ -9,4 +9,6 @@ public static class EnumExtensions
         var v = Enum.GetValues (typeof (T));
         return (T) v.GetValue (new Random ().Next(v.Length));
     }
+
+
 }

@@ -835,7 +835,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
         canBeStarted = true;
         Debug.Log("Starting Didatica.");
         tutorPanel.GetComponent<Image>().enabled = false;
-        nextManager.StartCoroutine(nextManager.lateStart());
+        Timing.RunCoroutine(nextManager.lateStart());
         //TutorialCheking();
         //Timing.RunCoroutine(FinalMessageEffectTransition());		
         //Debug.Log("Inicio da Didatica 2", this);

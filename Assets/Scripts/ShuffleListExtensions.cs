@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Random = System.Random;
 
 public static class ShuffleListExtensions {
 
@@ -35,6 +36,12 @@ public static class ShuffleListExtensions {
 		reserveList.Reverse ();
 
 		return reserveList;
+	}
+
+	public static T GetRandomValue<T>(this List<T> targetList)
+	{
+		int index = new Random().Next(targetList.Count);
+		return targetList[index];
 	}
 
 
