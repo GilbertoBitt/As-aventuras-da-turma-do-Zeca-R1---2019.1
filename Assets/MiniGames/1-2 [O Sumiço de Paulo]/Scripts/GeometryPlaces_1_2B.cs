@@ -38,7 +38,7 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 		if (canbeFound != true || manager.canBePlayed != true) return;
 		manager.AddUserPick(this);
 		manager.hasFound++;
-		imageComponent.color = Color.clear;
+		imageComponent.enabled = false;
 		canbeFound = false;
 		manager.soundManager.startVoiceFX(manager.clipsAudio[0]);
 	}
@@ -52,7 +52,7 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 
 	public void updateImage(Sprite spriteItem, Color Outline){
 		imageComponent.sprite = spriteItem;
-		imageComponent.color = Color.white;
+		imageComponent.color = Outline;
 		imageComponent.preserveAspect = true;
 		canbeFound = true;
 		if (_outline == null)
@@ -60,6 +60,7 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 			Start();
 		}
 		_outline.enabled = true;
+		_outline.effectColor = Outline;
 	}
 
 	public void resetConfig(){

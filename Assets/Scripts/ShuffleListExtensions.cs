@@ -40,7 +40,7 @@ public static class ShuffleListExtensions {
 
 	public static T GetRandomValue<T>(this List<T> targetList)
 	{
-		int index = new Random().Next(targetList.Count);
+		int index = UnityEngine.Random.Range(0, targetList.Count);
 		return targetList[index];
 	}
 

@@ -262,7 +262,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 7
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/Administrador.WIN-2I1P2GRMKPH/Documents/user.keystore
+  AndroidKeystoreName: C:/Users/gilbe/Documents/user.keystore
   AndroidKeyaliasName: mentor
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
@@ -687,7 +687,7 @@ PlayerSettings:
   scriptingBackend:
     Android: 1
   il2cppCompilerConfiguration:
-    Android: 1
+    Android: 2
   managedStrippingLevel:
     Android: 1
   incrementalIl2cppBuild: {}

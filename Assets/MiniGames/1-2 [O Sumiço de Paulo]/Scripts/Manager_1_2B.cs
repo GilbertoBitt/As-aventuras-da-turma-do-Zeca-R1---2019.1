@@ -137,6 +137,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
     void Start()
     {
 	    config = GameConfig.Instance;
+	    
 //	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
 
@@ -350,7 +351,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					choosenPlaces[i].spacialForm = otherSpatialForms[i].spacialForms;
 					break;
 				case 3:
-					choosenPlaces[i].updateImage(otherFacialPlanes[i].sprite, Color.white);
+					choosenPlaces[i].updateImage(otherFacialPlanes[i].sprite, Colors.GetRandomValue());
 					choosenPlaces[i].planeFigures = otherFacialPlanes[i].facialFigures;
 					break;
 			}
@@ -458,22 +459,21 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		  case geometryForm planeForm:
 			  _string.Clear();
 			  _string.Append("Isto tem forma de ").Append(returnNameSingular(planeForm)).Append("!");
-			  textForm.text = _string.ToString();
-			  textForm.DOFade(1f, textFormCurveDuration);
 			  break;
 		  case SpacialForms spacialForm:
 			  _string.Clear();
-			  _string.Append("Isto tem forma de ").Append(GetSpacialFormName(spacialForm, true)).Append("!");
-			  textForm.text = _string.ToString();
-			  textForm.DOFade(1f, textFormCurveDuration);
+			  _string.Append("Isto tem forma ").Append(GetSpacialFormName(spacialForm, true)).Append("!");
 			  break;
 		  case PlaneFigures planeFigures:
 			  _string.Clear();
-			  _string.Append("Isto tem forma de ").Append(GetSpacialFormName(planeFigures, true)).Append("!");
-			  textForm.text = _string.ToString();
-			  textForm.DOFade(1f, textFormCurveDuration);
+			  _string.Append("Isto tem forma ").Append(GetSpacialFormName(planeFigures, true)).Append("!");
 			  break;
 	    }
+	    textForm.text = _string.ToString();
+	    textForm.DOFade(1f, textFormCurveDuration).OnComplete(() =>
+	    {
+		    textForm.DOFade(0f, textFormCurveDuration);
+	    });
     }
 
 

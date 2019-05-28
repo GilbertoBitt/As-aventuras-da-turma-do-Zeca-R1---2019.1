@@ -223,7 +223,19 @@ public class MemoryGameManager : OverridableMonoBehaviour {
     }
 
     public void SomTutorMemoria() {
-        sound.startVoiceFX(audiosTutorial[numTutor]);
+        
+        switch (GameConfig.Instance.GetAnoLetivo())
+        {
+            case 1:
+	            sound.startVoiceFX(audiosTutorial[numTutor]);
+                break;
+            case 2:
+	            sound.startVoiceFX(numTutor == 0 ? audiosTutorial[numTutor] : audiosTutorial[2]);
+	            break;
+            case 3:
+	            sound.startVoiceFX(numTutor == 0 ? audiosTutorial[numTutor] : audiosTutorial[3]);
+                break;
+        }
     }
 
     private bool started = false;

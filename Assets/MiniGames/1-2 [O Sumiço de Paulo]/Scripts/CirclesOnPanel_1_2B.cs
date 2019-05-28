@@ -5,6 +5,7 @@ using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
 public class CirclesOnPanel_1_2B : MonoBehaviour, IPointerClickHandler{
 	public Image imageComp;
@@ -13,6 +14,8 @@ public class CirclesOnPanel_1_2B : MonoBehaviour, IPointerClickHandler{
 	public GeometryPlaces_1_2B placeOfItem;
 	public Outline outlineImage;
 	public Manager_1_2B manager;
+
+	
 
 	public void OnPointerClick(PointerEventData eventData){
 		if(placeOfItem != null && manager.canBePlayed == true){			
@@ -26,7 +29,18 @@ public class CirclesOnPanel_1_2B : MonoBehaviour, IPointerClickHandler{
         //manager.RemoveUserPick(placeOfItem);
         //manager.hasFound--;
         //manager.soundManager.startSoundFX(manager.clipsAudio[1]);
-        manager.ShowObjectFormAnimation(placeOfItem.form);
+        switch (manager.anoLetivo)
+        {
+	        case 1:
+		        manager.ShowObjectFormAnimation(placeOfItem.form);
+		        break;
+	        case 2:
+		        manager.ShowObjectFormAnimation(placeOfItem.spacialForm);
+		        break;
+	        case 3:
+		        manager.ShowObjectFormAnimation(placeOfItem.planeFigures);
+		        break;
+        }
 	}
 
 	public void updateImage(GeometryPlaces_1_2B place){
@@ -42,6 +56,9 @@ public class CirclesOnPanel_1_2B : MonoBehaviour, IPointerClickHandler{
 				imageComp.preserveAspect = true;
 				break;
 			case 3:
+				imageComp.sprite = place.imageComponent.sprite;
+				imageComp.color = place.imageComponent.color;
+				imageComp.preserveAspect = true;
 				break;
 		}
 
