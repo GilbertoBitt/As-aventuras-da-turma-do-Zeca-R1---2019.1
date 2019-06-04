@@ -38,7 +38,7 @@ public class CirclesOnPanel_1_2B : MonoBehaviour, IPointerClickHandler{
 		        manager.ShowObjectFormAnimation(placeOfItem.spacialForm);
 		        break;
 	        case 3:
-		        manager.ShowObjectFormAnimation(placeOfItem.planeFigures);
+		        manager.ShowObjectFormAnimation(placeOfItem.planeObject);
 		        break;
         }
 	}
@@ -56,6 +56,7 @@ public class CirclesOnPanel_1_2B : MonoBehaviour, IPointerClickHandler{
 				imageComp.preserveAspect = true;
 				break;
 			case 3:
+				imageComp.transform.rotation = place.transform.rotation;
 				imageComp.sprite = place.imageComponent.sprite;
 				imageComp.color = place.imageComponent.color;
 				imageComp.preserveAspect = true;

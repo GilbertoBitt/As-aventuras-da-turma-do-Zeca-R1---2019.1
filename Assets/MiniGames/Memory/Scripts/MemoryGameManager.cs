@@ -171,6 +171,8 @@ public class MemoryGameManager : OverridableMonoBehaviour {
     [TextArea()]
     public string[] textos;
 
+    public AudioClip[] finalFrase;
+
     void Start () {
         checkAudio = true;
         timeM = Time.realtimeSinceStartup;
@@ -1202,10 +1204,13 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 
 				if (levelDificult == 0 && correctsAmount == 0) {
 					textProf.text = textos[0];
+					sound.startVoiceFX(finalFrase[0]);
 				} else if (levelDificult >= 0 && correctsAmount >= 0 && correctsAmount <= 8 && levelDificult <= 6) {
 					textProf.text = textos[1];
+					sound.startVoiceFX(finalFrase[1]);
 				} else if (levelDificult == 6 && correctsAmount == 9) {
 					textProf.text = textos[2];
+					sound.startVoiceFX(finalFrase[2]);
 				}
 
 				gTutorMemory.SetActive(true);
@@ -1289,7 +1294,14 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 
         //personReation.ControlAnimCorpo.SetInteger (posCorpoZeca,5);
         //cardsAnimation.SetBool("nextCanbeStarted", true);
-        Invoke("TutorTex2", 6f);
+        if (levelDificult == 0 && correctsAmount == 0) {
+	        Invoke("TutorTex2", finalFrase[0].length + 1f);
+        } else if (levelDificult >= 0 && correctsAmount >= 0 && correctsAmount <= 8 && levelDificult <= 6) {
+	        Invoke("TutorTex2", finalFrase[1].length + 1f);
+        } else if (levelDificult == 6 && correctsAmount == 9) {
+	        Invoke("TutorTex2", finalFrase[2].length + 1f);
+        }
+
 	}
 
 
@@ -1300,15 +1312,17 @@ public class MemoryGameManager : OverridableMonoBehaviour {
         {
 	        case 1:
 		        textProf.text = textProfS[1];
+		        sound.startVoiceFX(audiosTutorial[numTutor]);
 		        break;
 	        case 2:
 		        textProf.text = textProfS[2];
+		        sound.startVoiceFX(numTutor == 0 ? audiosTutorial[numTutor] : audiosTutorial[2]);
 		        break;
 	        case 3:
 		        textProf.text = textProfS[3];
+		        sound.startVoiceFX(numTutor == 0 ? audiosTutorial[numTutor] : audiosTutorial[3]);
 		        break;
         }
-
     }
 
     public void timeCheat(){

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MEC;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using MiniGames.Scripts;
 using Sirenix.OdinInspector;
 using UniRx;
 using Random = UnityEngine.Random;
@@ -16,15 +18,28 @@ public class Manager_1_2B : OverridableMonoBehaviour
 	[TabGroup("Geral")] public GameConfig config;
 	[TabGroup("Geral")] public int anoLetivo;
 	[TabGroup("1ª Ano")] public HabilidadeBNCCInfo Habilidade1;
+
 	[TabGroup("1ª Ano")] public HabilidadeBNCCInfo Habilidade1_2;
+	[TabGroup("1ª Ano")] public int minRandom1;
+	[TabGroup("1ª Ano")] public int maxRandom1;
+	[TabGroup("1ª Ano")] public int scoreAmount1;
 	[TabGroup("2ª Ano")] public Dictionary<SpacialForms, List<Sprite>> spatialFormsSprites = new Dictionary<SpacialForms, List<Sprite>>();
 
 	[TabGroup("2ª Ano")] public SpacialForms selectedForm = SpacialForms.None;
 	[TabGroup("2ª Ano")] public HabilidadeBNCCInfo Habilidade2;
-	[TabGroup("3ª Ano")] public PlaneFigures selectedPlaneFigure = PlaneFigures.None;
+	[TabGroup("2ª Ano")] public int minRandom2;
+	[TabGroup("2ª Ano")] public int maxRandom2;
+	[TabGroup("2ª Ano")] public int scoreAmount2;
+
 	[TabGroup("3ª Ano")] public List<Color> Colors;
-	[TabGroup("3ª Ano")] public Dictionary<PlaneFigures, List<Sprite>> planeFiguresSprites = new Dictionary<PlaneFigures, List<Sprite>>();
 	[TabGroup("3ª Ano")] public HabilidadeBNCCInfo Habilidade3;
+	[TabGroup("3ª Ano")] public int minRandom3;
+	[TabGroup("3ª Ano")] public int maxRandom3;
+	[TabGroup("3ª Ano")] public int scoreAmount3;
+	private int numberOfSides;
+	private int numberOfVertices;
+
+
 	[HeaderAttribute("References")]
 	public Manager_1_2A manager;
 	public List<CirclesOnPanel_1_2B> panelCircles = new List<CirclesOnPanel_1_2B>();
@@ -133,9 +148,44 @@ public class Manager_1_2B : OverridableMonoBehaviour
     private InfoSkillWindow _infoSkillInfo;
     [TabGroup("Geral")]
     public Button infoSkillButton;
+    [TabGroup("3ª Ano")] [ListDrawerSettings(Expanded = false)] public List<RandomizationSession> sessionsConfig = new List<RandomizationSession>();
+//    public List<RandomizationSession> randomizationItems = new List<RandomizationSession>();
+
+	[Button("Populate Sessions")]
+	public void Populate()
+	{
+		foreach (var session in sessionsConfig)
+		{
+			if (session.objectsOfSession == null)
+			{
+				session.objectsOfSession = new List<RandomizationItem>();
+			}
+
+			session.objectsOfSession.Clear();
+			
+			foreach (var item in session.items)
+			{
+				foreach (var colorItem in Colors)
+				{
+					GeometricPlaneObject itemObject = Instantiate(item);
+					itemObject.ItemColor = colorItem;
+					session.objectsOfSession.Add(new RandomizationItem
+					{
+						Random = true,
+						itemObjectPlane = itemObject
+					});
+				}
+			}
+
+			session.isPopulated = true;
+		}
+
+	}
+
 
     void Start()
     {
+	    Populate();
 	    config = GameConfig.Instance;
 	    
 //	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
@@ -183,8 +233,64 @@ public class Manager_1_2B : OverridableMonoBehaviour
 //
 //			}
 //		}
+		int temp = 0;
+		var session = sessionsConfig[dificult];
+		if (anoLetivo == 3)
+		{
+			session = sessionsConfig[dificult];
+			switch (session.randomizationType)
+			{
+				case RandomizationType.Sides:
+					numberOfSides = Random.Range(session.minSides,session.maxSides);
+//					maxRandom = session.objectsOfSession.Count(x =>
+//						x.Random && x.itemObjectPlane.numberOfSides == numberOfSides);
+					minRandom = minRandom3;
+					maxRandom = maxRandom3;
+					temp = Random.Range(minRandom,maxRandom);
+					break;
+				case RandomizationType.Vertices:
+					numberOfVertices = Random.Range(session.minVertices,session.maxVertices);
+//					maxRandom = session.objectsOfSession.Count(x =>
+//						x.Random && x.itemObjectPlane.numberOfVertices == numberOfVertices);
+					maxRandom = maxRandom3;
+					minRandom = minRandom3;
+					temp = Random.Range(minRandom,maxRandom);
+					break;
+				case RandomizationType.SidesDiferentSize:
+//					maxRandom = session.objectsOfSession.Count(x =>
+//						x.Random && x.itemObjectPlane.allSidesDiferentSizes);
+					maxRandom = maxRandom3;
+					minRandom = minRandom3;
+					temp = Random.Range(minRandom,maxRandom);
+					break;
+				case RandomizationType.SidesSameSize:
+//					maxRandom = session.objectsOfSession.Count(x =>
+//						x.Random && x.itemObjectPlane.allSidesSameSizes);
+					maxRandom = maxRandom3;
+					minRandom = minRandom3;
+					temp = Random.Range(minRandom,maxRandom);
+					break;
+				default:
+					maxRandom = maxRandom3;
+					temp = Random.Range(minRandom,maxRandom);
+					break;
+			}
+		}
+		else
+		{
+			if (anoLetivo == 1)
+			{
+				minRandom = minRandom1;
+				maxRandom = maxRandom1;
+			}
+			else
+			{
+				minRandom = minRandom2;
+				maxRandom = maxRandom2;
+			}
+			temp = Random.Range(minRandom,maxRandom);
+		}
 
-		int temp = Random.Range(minRandom,maxRandom);
 
 		nextButtonRef.SetActive(false);
 		canBePlayed = false;
@@ -209,15 +315,17 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		}
 
 
-		for (int i = 0; i < AllPlaces.Count; i++){
-			choosenPlaces.Add(AllPlaces[i]);
+		foreach (var t in AllPlaces)
+		{
+			choosenPlaces.Add(t);
 		}
 
 
 
-		for (int i = 0; i < panelCircles.Count; i++){
-			panelCircles[i].outlineImage.effectColor = Color.black;
-			panelCircles[i].correctCompImage.color = Color.clear;
+		foreach (var t in panelCircles)
+		{
+			t.outlineImage.effectColor = Color.black;
+			t.correctCompImage.color = Color.clear;
 		}
 
 		userPicks.Clear();
@@ -231,6 +339,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 			places.form = geometryForm.none;
 			places.spacialForm = SpacialForms.None;
 			places.planeFigures = PlaneFigures.None;
+			places.planeObject = null;
 		}
 
 		
@@ -249,16 +358,36 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					item.Value.Suffle();
 				}
 				break;
-			case 3:
-				do
-				{
-					selectedPlaneFigure = EnumExtensions.RandomEnumValue<PlaneFigures>();
-				} while (selectedPlaneFigure == PlaneFigures.None);
-
-				break;
 		}
 
-		for (int i = 0; i < temp; i++){
+		RandomizationItem[] randomList = null;
+
+		if (anoLetivo == 3)
+		{
+			sessionsConfig[dificult].objectsOfSession.Suffle();
+			switch (session.randomizationType)
+			{
+				case RandomizationType.Sides:
+					randomList = sessionsConfig[dificult].objectsOfSession.Where(x => x.Random && x.itemObjectPlane.numberOfSides == numberOfSides).Take(needFind).ToArray();
+					break;
+				case RandomizationType.Vertices:
+					randomList = sessionsConfig[dificult].objectsOfSession.Where(x => x.Random && x.itemObjectPlane.numberOfVertices == numberOfVertices).Take(needFind).ToArray();
+					break;
+				case RandomizationType.SidesDiferentSize:
+					randomList = sessionsConfig[dificult].objectsOfSession.Where(x => x.Random && x.itemObjectPlane.allSidesDiferentSizes).Take(needFind).ToArray();
+					break;
+				case RandomizationType.SidesSameSize:
+					randomList = sessionsConfig[dificult].objectsOfSession.Where(x => x.Random && x.itemObjectPlane.allSidesSameSizes).Take(needFind).ToArray();
+					break;
+			}
+
+			randomList?.Suffle();
+		}
+
+
+
+
+		for (int i = 0; i < needFind; i++){
 			switch (anoLetivo)
 			{
 				case 1:
@@ -273,18 +402,9 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					AllPlaces[i].updateImage(spatialFormsSprites[selectedForm][i]);
 					break;
 				case 3:
-					do {
-						AllPlaces[i].planeFigures = selectedPlaneFigure;
-					} while (AllPlaces[i].planeFigures == PlaneFigures.None);
-
-					var alreadySelected = new List<(Sprite, Color)>();
-					(Sprite, Color) result;
-					do
-					{
-						result = (planeFiguresSprites[selectedPlaneFigure].GetRandomValue(), Colors.GetRandomValue());
-					} while (alreadySelected.Contains(result));
-					alreadySelected.Add(result);
-					AllPlaces[i].updateImage(result.Item1, result.Item2);
+					AllPlaces[i].planeObject = randomList[i].itemObjectPlane;
+					AllPlaces[i].updateImage(randomList[i].itemObjectPlane.objectImage, randomList[i].itemObjectPlane.ItemColor);
+					AllPlaces[i].transform.rotation = Quaternion.Euler(0f,0f,Random.Range(0f,360f));
 					break;
 			}
 
@@ -295,7 +415,9 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
 		List<Sprite> otherSprites = new List<Sprite>();
 		var otherSpatialForms = new List<(Sprite sprite, SpacialForms spacialForms)>();
-		var otherFacialPlanes = new List<(Sprite sprite, PlaneFigures facialFigures)>();
+//		var otherFacialPlanes = new List<(Sprite sprite, PlaneFigures facialFigures)>();
+
+		var otherObjects = new List<RandomizationItem>();
 
 		switch (anoLetivo)
 		{
@@ -319,13 +441,24 @@ public class Manager_1_2B : OverridableMonoBehaviour
 				}
 				break;
 			case 3:
-				foreach (var item in planeFiguresSprites)
+				session = sessionsConfig[dificult];
+				temp = Random.Range(maxOtherSprites,minOtherSprites);
+
+				switch (session.randomizationType)
 				{
-					if (item.Key == selectedPlaneFigure) continue;
-					foreach (var sprite in item.Value)
-					{
-						otherFacialPlanes.Add((sprite, item.Key));
-					}
+					case RandomizationType.Sides:
+
+						otherObjects = session.objectsOfSession.Where(x => randomList != null && x.itemObjectPlane.numberOfSides != numberOfSides && !randomList.Contains(x)).ToList();
+						break;
+					case RandomizationType.Vertices:
+						otherObjects = sessionsConfig[dificult].objectsOfSession.Where(x => randomList != null && x.itemObjectPlane.numberOfVertices != numberOfVertices  && !randomList.Contains(x)).ToList();
+						break;
+					case RandomizationType.SidesDiferentSize:
+						otherObjects = sessionsConfig[dificult].objectsOfSession.Where(x => randomList != null && !x.itemObjectPlane.allSidesDiferentSizes  && !randomList.Contains(x)).ToList();
+						break;
+					case RandomizationType.SidesSameSize:
+						otherObjects = sessionsConfig[dificult].objectsOfSession.Where(x => randomList != null && !x.itemObjectPlane.allSidesSameSizes  && !randomList.Contains(x)).ToList();
+						break;
 				}
 				break;
 		}
@@ -333,7 +466,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
 		otherSprites.Suffle();
 		otherSpatialForms.Suffle();
-		otherFacialPlanes.Suffle();
+		otherObjects.Suffle();
 
 
 		int randomize = Random.Range(minOtherSprites,maxOtherSprites);
@@ -351,8 +484,10 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					choosenPlaces[i].spacialForm = otherSpatialForms[i].spacialForms;
 					break;
 				case 3:
-					choosenPlaces[i].updateImage(otherFacialPlanes[i].sprite, Colors.GetRandomValue());
-					choosenPlaces[i].planeFigures = otherFacialPlanes[i].facialFigures;
+					//TODO refazer sistema de escolha das outras formas selecionadas.
+					choosenPlaces[i].updateImage(otherObjects[i].itemObjectPlane.objectImage, otherObjects[i].itemObjectPlane.ItemColor);
+					choosenPlaces[i].planeObject = otherObjects[i].itemObjectPlane;
+					choosenPlaces[i].transform.rotation = Quaternion.Euler(0f,0f,Random.Range(0f,360f));
 					break;
 			}
 
@@ -379,7 +514,25 @@ public class Manager_1_2B : OverridableMonoBehaviour
         		break;
         	case 3:
 	            _string.Clear();
-	            _string.Append("Encontre ").Append(needFind).Append(" ").Append(GetSpacialFormName(selectedPlaneFigure));
+//	            _string.Append("Encontre ").Append(needFind).Append(" ").Append(GetSpacialFormName(selectedPlaneFigure));
+	            switch (session.randomizationType)
+	            {
+		            case RandomizationType.Sides:
+			            _string.Append("Encontre ").Append(needFind).Append(" figuras com ").Append(numberOfSides).Append(" lados.");
+			            break;
+		            case RandomizationType.Vertices:
+			            _string.Append("Encontre ").Append(needFind).Append(" figuras com ").Append(numberOfVertices).Append(" lados.");
+			            break;
+		            case RandomizationType.SidesDiferentSize:
+			            _string.Append("Encontre ").Append(needFind).Append(" figuras com todos os lados de tamanhos diferentes.");
+			            break;
+		            case RandomizationType.SidesSameSize:
+			            _string.Append("Encontre ").Append(needFind).Append(" figuras com todos os lados do mesmo tamanho.");
+			            break;
+		            default:
+			            _string.Append("Encontre ").Append(needFind).Append(" figuras com ").Append(numberOfVertices).Append(" lados.");
+			            break;
+	            }
 	            comandText.text = _string.ToString();
 //	            iconFromText.sprite = returnIcon(formList[dificult]);
 	            iconFromText.enabled = false;
@@ -464,10 +617,34 @@ public class Manager_1_2B : OverridableMonoBehaviour
 			  _string.Clear();
 			  _string.Append("Isto tem forma ").Append(GetSpacialFormName(spacialForm, true)).Append("!");
 			  break;
-		  case PlaneFigures planeFigures:
+		  case GeometricPlaneObject planeObject:
 			  _string.Clear();
-			  _string.Append("Isto tem forma ").Append(GetSpacialFormName(planeFigures, true)).Append("!");
+			  var session = sessionsConfig[dificult];
+			  switch (session.randomizationType)
+			  {
+				  case RandomizationType.Sides:
+					  _string.Append("Esta figure tem ").Append(planeObject.numberOfSides).Append(" lados. ");
+					  break;
+				  case RandomizationType.Vertices:
+					  _string.Append("Esta figure tem ").Append(planeObject.numberOfVertices).Append(" vertices. ");
+					  break;
+				  case RandomizationType.SidesSameSize:
+				  case RandomizationType.SidesDiferentSize:
+
+					  if (planeObject.allSidesDiferentSizes)
+					  {
+						  _string.Append("Tem todos os lados diferentes ");
+					  }
+					  else if (planeObject.allSidesSameSizes)
+					  {
+						  _string.Append("Tem todos os lados iguais ");
+					  }
+
+					  break;
+			  }
+
 			  break;
+
 	    }
 	    textForm.text = _string.ToString();
 	    textForm.DOFade(1f, textFormCurveDuration).OnComplete(() =>
@@ -807,7 +984,22 @@ public class Manager_1_2B : OverridableMonoBehaviour
 			    CorrectCircle(panelCircle, panelCircle.placeOfItem.spacialForm == selectedForm);
 			    break;
 		    case 3:
-			    CorrectCircle(panelCircle, panelCircle.placeOfItem.planeFigures == selectedPlaneFigure);
+			    var session = sessionsConfig[dificult];
+			    switch (session.randomizationType)
+			    {
+				    case RandomizationType.Sides:
+					    CorrectCircle(panelCircle, panelCircle.placeOfItem.planeObject.numberOfSides == numberOfSides);
+					    break;
+				    case RandomizationType.Vertices:
+					    CorrectCircle(panelCircle, panelCircle.placeOfItem.planeObject.numberOfVertices == numberOfVertices);
+					    break;
+				    case RandomizationType.SidesDiferentSize:
+					    CorrectCircle(panelCircle, panelCircle.placeOfItem.planeObject.allSidesDiferentSizes);
+					    break;
+				    case RandomizationType.SidesSameSize:
+					    CorrectCircle(panelCircle, panelCircle.placeOfItem.planeObject.allSidesSameSizes);
+					    break;
+			    }
 			    break;
 	    }
 
@@ -840,7 +1032,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 						//panelCircles[i].correctCompImage.sprite = rightCheckSprite;
 						//panelCircles[i].correctCompImage.color = Color.white;
 						//scoreAmount += 10;
-						scoreTemp += 10;
+						scoreTemp += scoreAmount1;
 						tempCorrects++;
 						log.SaveEstatistica (2, 1, true);
 						//Debug.Log("Certo!!");
@@ -855,18 +1047,53 @@ public class Manager_1_2B : OverridableMonoBehaviour
 				case 2:
 					if (panelCircles[i].placeOfItem.spacialForm == selectedForm)
 					{
-						scoreTemp += 10;
+						scoreTemp += scoreAmount2;
 						tempCorrects++;
 					}
 					log.SaveEstatistica (2, 1, panelCircles[i].placeOfItem.spacialForm == selectedForm);
 					break;
 				case 3:
-					if (panelCircles[i].placeOfItem.planeFigures == selectedPlaneFigure)
+					var session = sessionsConfig[dificult];
+					bool isRighted;
+					switch (session.randomizationType)
 					{
-						scoreTemp += 10;
-						tempCorrects++;
+						case RandomizationType.Sides:
+							isRighted = panelCircles[i].placeOfItem.planeObject.numberOfSides == numberOfSides;
+							if (isRighted)
+							{
+								scoreTemp += scoreAmount3;
+								tempCorrects++;
+							}
+							log.SaveEstatistica (2, 1, isRighted);
+							break;
+						case RandomizationType.Vertices:
+							isRighted = panelCircles[i].placeOfItem.planeObject.numberOfVertices == numberOfVertices;
+							if (isRighted)
+							{
+								scoreTemp += scoreAmount3;
+								tempCorrects++;
+							}
+							log.SaveEstatistica (2, 1, isRighted);
+							break;
+						case RandomizationType.SidesDiferentSize:
+							isRighted = panelCircles[i].placeOfItem.planeObject.allSidesDiferentSizes;
+							if (isRighted)
+							{
+								scoreTemp += scoreAmount3;
+								tempCorrects++;
+							}
+							log.SaveEstatistica (2, 1, isRighted);
+							break;
+						case RandomizationType.SidesSameSize:
+							isRighted = panelCircles[i].placeOfItem.planeObject.allSidesSameSizes;
+							if (isRighted)
+							{
+								scoreTemp += scoreAmount3;
+								tempCorrects++;
+							}
+							log.SaveEstatistica (2, 1, isRighted);
+							break;
 					}
-					log.SaveEstatistica (2, 1, panelCircles[i].placeOfItem.planeFigures == selectedPlaneFigure);
 					break;
 			}
 		}
@@ -881,7 +1108,6 @@ public class Manager_1_2B : OverridableMonoBehaviour
 			if(tempCorrects > 1){
                 _string.Clear();
                 _string.Append("Você acertou ").Append(tempCorrects).Append(" itens! \n +").Append(scoreTemp).Append(" pontos.");
-
                  congratsPanel.startCerto(_string.ToString());
 				 soundManager.startSoundFX(clipsAudio[2]);
 			} else {
@@ -908,8 +1134,9 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		nextButtonRef.SetActive(false);
 		if(dificult < 3){
 			Timing.RunCoroutine(StartGame());
-			scoreText.transform.position = textScoreOriginalPos;
-			scoreText.transform.localScale = Vector3.zero;
+			var transform1 = scoreText.transform;
+			transform1.position = textScoreOriginalPos;
+			transform1.localScale = Vector3.zero;
 			scoreText.color =  new Color(originalColor.r,originalColor.g,originalColor.b,0f);
 		} else {		
 			

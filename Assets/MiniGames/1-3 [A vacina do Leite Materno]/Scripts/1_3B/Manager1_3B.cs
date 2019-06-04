@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Linq;
 using MEC;
 using DG.Tweening;
+using MiniGames.Scripts;
 
 public class Manager1_3B : OverridableMonoBehaviour {
 

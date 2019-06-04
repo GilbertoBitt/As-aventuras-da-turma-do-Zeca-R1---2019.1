@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using MEC;
+using MiniGames.Scripts;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -139,6 +141,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
     public Text textFinalMessage;
     private IEnumerator timeToPointsRoutine;
 
+
     [TextArea()]
     public string[] textos;
     void Start () {
@@ -182,15 +185,16 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 		
 		}
 
-			for (int i = 0; i < Levels.Count; i++){
-				placesToHide = Levels [i].hidenPlaces;
+		foreach (var t in Levels)
+		{
+			placesToHide = t.hidenPlaces;
 
-				for (int j = 0; j <  placesToHide.Count; j++){
-						placesToHide[j].imageComponent.color = Color.clear;
-				}
+			for (int j = 0; j <  placesToHide.Count; j++){
+				placesToHide[j].imageComponent.color = Color.clear;
 			}
-
 		}
+
+	}
 
     
 
@@ -206,8 +210,8 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 		public void StartGameOn  () {
 
 		if (tutorIni_0 == 1 && tutorIni_0 == 0) {
-		Timing.RunCoroutine (startGame ());
-		slideColorStart = fillImageSlider.color;			
+			Timing.RunCoroutine (startGame ());
+			slideColorStart = fillImageSlider.color;
 		//Debug.Log("1");
 		}
 		else if(tutorIni_0 == 1 && tutorIni_1 ==0){
@@ -219,7 +223,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 	   // Debug.Log("2");
 		}
 		else{
-		//Debug.Log("3");
+			//Debug.Log("3");
 			//nextManager.StartCoroutine(nextManager.lateStart());
 			Timing.RunCoroutine (startGame ());
 		}

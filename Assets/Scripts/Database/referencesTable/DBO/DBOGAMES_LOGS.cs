@@ -2,7 +2,7 @@
 
 [System.Serializable]
 public class DBOGAMES_LOGS {
-    [PrimaryKey]
+    [PrimaryKey][AutoIncrement]
     public int ID { get; set; }
     public int idUsuario { get; set; }
     public int idGame { get; set; }

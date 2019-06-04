@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using MiniGames.Scripts;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 	public PlaneFigures planeFigures;
 	public bool canbeFound = false;
 	private NicerOutline _outline;
+	public GeometricPlaneObject planeObject;
 
 	private void Start()
 	{
@@ -67,9 +69,11 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 		form = Manager_1_2B.geometryForm.none;
 		spacialForm = SpacialForms.None;
 		planeFigures = PlaneFigures.None;
+		planeObject = null;
 		canbeFound = false;
 		imageComponent.sprite = null;
 		imageComponent.color = Color.clear;
+		transform.rotation = Quaternion.Euler(0f,0f,0f);
 		if (_outline == null)
 		{
 			Start();
@@ -90,14 +94,6 @@ public enum SpacialForms
 	Sphere
 }
 
-public enum PlaneFigures
-{
-	None,
-	Triangle,
-	Square,
-	Rectangle,
-	Trapeze,
-	Parallelogram,
-}
+
 
 

@@ -16,24 +16,27 @@ MonoBehaviour:
   deleteDllAfterBuilds: 1
   AutomateForAllAOTPlatforms: 1
   automateForPlatforms: 0900000014000000
-  lastScan: 636945808768156158
+  lastScan: 636951804883638395
   supportSerializedTypes:
-  - TypeName: BlankSpace1_4B, Assembly-CSharp
-    IsCustom: 0
-    Emit: 1
   - TypeName: BulletManager1_3B, Assembly-CSharp
     IsCustom: 0
     Emit: 1
-  - TypeName: System.Collections.Generic.Dictionary`2[[PlaneFigures, Assembly-CSharp],[System.Collections.Generic.List`1[[UnityEngine.Sprite,
-      UnityEngine.CoreModule]], mscorlib]], mscorlib
+  - TypeName: UnityEngine.ParticleSystem, UnityEngine.ParticleSystemModule
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Queue`1[[BulletManager1_3B, Assembly-CSharp]],
+      System
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Queue`1[[UnityEngine.ParticleSystem, UnityEngine.ParticleSystemModule]],
+      System
+    IsCustom: 0
+    Emit: 1
+  - TypeName: BlankSpace1_4B, Assembly-CSharp
     IsCustom: 0
     Emit: 1
   - TypeName: System.Collections.Generic.Dictionary`2[[SpacialForms, Assembly-CSharp],[System.Collections.Generic.List`1[[UnityEngine.Sprite,
       UnityEngine.CoreModule]], mscorlib]], mscorlib
-    IsCustom: 0
-    Emit: 1
-  - TypeName: System.Collections.Generic.EnumEqualityComparer`1[[PlaneFigures, Assembly-CSharp]],
-      mscorlib
     IsCustom: 0
     Emit: 1
   - TypeName: System.Collections.Generic.EnumEqualityComparer`1[[SpacialForms, Assembly-CSharp]],
@@ -44,21 +47,7 @@ MonoBehaviour:
       mscorlib
     IsCustom: 0
     Emit: 1
-  - TypeName: UnityEngine.ParticleSystem, UnityEngine.ParticleSystemModule
-    IsCustom: 0
-    Emit: 1
-  - TypeName: PlaneFigures, Assembly-CSharp
-    IsCustom: 0
-    Emit: 1
   - TypeName: System.Collections.Generic.Queue`1[[BlankSpace1_4B, Assembly-CSharp]],
-      System
-    IsCustom: 0
-    Emit: 1
-  - TypeName: System.Collections.Generic.Queue`1[[BulletManager1_3B, Assembly-CSharp]],
-      System
-    IsCustom: 0
-    Emit: 1
-  - TypeName: System.Collections.Generic.Queue`1[[UnityEngine.ParticleSystem, UnityEngine.ParticleSystemModule]],
       System
     IsCustom: 0
     Emit: 1

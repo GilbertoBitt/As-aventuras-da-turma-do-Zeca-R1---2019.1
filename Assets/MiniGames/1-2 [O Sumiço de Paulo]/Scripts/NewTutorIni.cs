@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MiniGames.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 

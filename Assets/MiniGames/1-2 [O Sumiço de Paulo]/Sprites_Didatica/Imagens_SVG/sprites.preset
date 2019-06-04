@@ -39,11 +39,11 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SvgPixelsPerUnit
-    value: 100
+    value: 200
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_GradientResolution
-    value: 128
+    value: 256
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Alignment
@@ -127,11 +127,11 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_FilterMode
-    value: 1
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SampleCount
-    value: 4
+    value: 8
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SpriteData.TessellationDetail
@@ -139,7 +139,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SpriteData.SpriteRect.m_Name
-    value: 
+    value: "Trap\xE9zio EscalenoSprite"
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SpriteData.SpriteRect.m_OriginalName
@@ -147,11 +147,11 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SpriteData.SpriteRect.m_Pivot.x
-    value: 0
+    value: 0.50001913
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SpriteData.SpriteRect.m_Pivot.y
-    value: 0
+    value: 0.4996742
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SpriteData.SpriteRect.m_Alignment
@@ -183,11 +183,11 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SpriteData.SpriteRect.m_Rect.width
-    value: 0
+    value: 100
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SpriteData.SpriteRect.m_Rect.height
-    value: 0
+    value: 50
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SpriteData.SpriteRect.m_SpriteID

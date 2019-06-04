@@ -21,13 +21,13 @@ namespace com.csutil {
 
         private void Awake() {
             UnityEngine.Debug.Log("MainThread_" + this.GetHashCode() + ".Awake while Application.isPlaying=" + Application.isPlaying, gameObject);
-            if (mainThreadRef != null) { throw Log.e("There is already a MainThread"); }
+            if (mainThreadRef != null) return;
             mainThreadRef = Thread.CurrentThread;
         }
 
         private void OnEnable() {
             UnityEngine.Debug.Log("MainThread_" + this.GetHashCode() + ".OnEnable while Application.isPlaying=" + Application.isPlaying, gameObject);
-            if (mainThreadRef != Thread.CurrentThread) { mainThreadRef = Thread.CurrentThread; }
+            if (mainThreadRef != null && mainThreadRef != Thread.CurrentThread) { mainThreadRef = Thread.CurrentThread; }
             stopWatch = Stopwatch.StartNew();
         }
 
@@ -37,18 +37,17 @@ namespace com.csutil {
         }
 
         private void Update() {
-            if (!actionsForMainThread.IsEmpty) {
-                stopWatch.Restart();
-                while (!actionsForMainThread.IsEmpty) {
-                    // if the tasks take too long do the rest of the waiting tasks in the next frame:
-                    if (stopWatch.ElapsedMilliseconds > maxAllowedTaskDurationInMsPerFrame) {
-                        Log.w("Will wait until next frame to run the remaining " + actionsForMainThread.Count + " tasks");
-                        break;
-                    }
-                    Action a; if (actionsForMainThread.TryDequeue(out a)) {
-                        try { a.Invoke(); } catch (Exception e) { Log.e(e); }
-                    }
+            if (actionsForMainThread.IsEmpty) return;
+            stopWatch.Restart();
+            while (!actionsForMainThread.IsEmpty) {
+                // if the tasks take too long do the rest of the waiting tasks in the next frame:
+                if (stopWatch.ElapsedMilliseconds > maxAllowedTaskDurationInMsPerFrame) {
+                    Log.w("Will wait until next frame to run the remaining " + actionsForMainThread.Count + " tasks");
+                    break;
                 }
+                Action a;
+                if (!actionsForMainThread.TryDequeue(out a)) continue;
+                try { a.Invoke(); } catch (Exception e) { Log.e(e); }
             }
         }
 

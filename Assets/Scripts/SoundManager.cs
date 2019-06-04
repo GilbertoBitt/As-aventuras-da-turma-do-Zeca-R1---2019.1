@@ -249,7 +249,7 @@ public class SoundManager : OverridableMonoBehaviour {
             }
 
             if (hasAmbientFX) {
-                if (AmbientSFXComp.isPlaying == true && gameConfig.isAudioFXOn == false) {
+                if (AmbientSFXComp.isPlaying && gameConfig.isAudioFXOn == false) {
                     AmbientSFXComp.Stop();
                 } else if (AmbientSFXComp.isPlaying == false && gameConfig.isAudioFXOn == true) {
                     AmbientSFXComp.Play();

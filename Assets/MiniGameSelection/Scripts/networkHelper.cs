@@ -563,7 +563,7 @@ public class networkHelper {
         objects[3] = hashValue;
         Log.d("WWWForm details", objects);
 
-        UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setEstatisticaDidatica2", form);
+        var request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setEstatisticaDidatica2", form);
 
 
         yield return Timing.WaitUntilDone(startScene.StartProgressWebRequest(request));
@@ -576,7 +576,7 @@ public class networkHelper {
         } else {
             GameConfig.Instance.OpenDb().DeleteEstatisticas(@logs);
         }
-
+        request.Dispose();
         isDoingOperation = false;
     }
 
@@ -596,7 +596,7 @@ public class networkHelper {
         form.AddField("online", 1);
         form.AddField("idUsuarioOnline", config.currentUser.idUsuario);
 
-        UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setEstatisticaDidatica", form);
+        var request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setEstatisticaDidatica", form);
 
         yield return Timing.WaitUntilDone(request.SendWebRequest());
         
@@ -609,7 +609,7 @@ public class networkHelper {
         } else {
             Debug.Log("StatisticSave" + response);
         }
-
+        request.Dispose();
         isDoingOperation = false;
     }
 
@@ -626,7 +626,7 @@ public class networkHelper {
         form.AddField("idUsuarioOnline", config.currentUser.idUsuario);
 
         //TODO GamesLOG API LINK
-        UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setGamesLogs", form);
+        var request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setGamesLogs", form);
 
         yield return Timing.WaitUntilDone(startScene.StartProgressWebRequest(request));
 
@@ -641,7 +641,7 @@ public class networkHelper {
             _list.RemoveAt(0);
             config.OpenDb().DeleteGamesLog(_log);
         }
-
+        request.Dispose();
         isDoingOperation = false;
     }
     
@@ -702,7 +702,7 @@ public class networkHelper {
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
             if (request.isNetworkError || request.isHttpError) {
                 config.isOnline = false;
-              } else {
+            } else {
                 config.isOnline = false;
                 ranking.online = 0;
                 config.OpenDb().InsertRanking(ranking);
@@ -729,7 +729,7 @@ public class networkHelper {
         form.AddField("idUsuarioOnline", config.currentUser.idUsuario);
         form.AddField("estrelas", rankLog.estrelas);
 
-        UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setRanking", form);
+        var request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setRanking", form);
 
 
         yield return Timing.WaitUntilDone(startScene.StartProgressWebRequest(request));
@@ -753,7 +753,7 @@ public class networkHelper {
             rankLog.online = 1;
             config.OpenDb().InsertRanking(rankLog);
         }
-
+        request.Dispose();
         isDoingOperation = false;
     }
     
@@ -806,7 +806,7 @@ public class networkHelper {
         form.AddField("deviceId", SystemInfo.deviceUniqueIdentifier);
         form.AddField("idUsuarioOnline", config.currentUser.idUsuario);
 
-        UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setPontuacao", form);
+        var request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setPontuacao", form);
 
 
         yield return Timing.WaitUntilDone(request.SendWebRequest());
@@ -822,7 +822,7 @@ public class networkHelper {
             config.BropsDeviceAmount = 0;
             config.TotalPointsDevice = 0;
         }
-
+        request.Dispose();
         isDoingOperation = false;
     }
 
@@ -854,7 +854,7 @@ public class networkHelper {
         form.AddField("idUsuarioOnline", config.currentUser.idUsuario);
 
         //TODO adicionar link da API SetInventario.
-        UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ2/setInventario", form);
+        var request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ2/setInventario", form);
 
         yield return Timing.WaitUntilDone(request.SendWebRequest());
         string response = request.downloadHandler.text;
@@ -868,7 +868,7 @@ public class networkHelper {
             _inv.deviceQuantity = 0;
             config.OpenDb().UpdateOrReplateInventory(_inv);
         }
-
+        request.Dispose();
         isDoingOperation = false;
     }
 
@@ -886,7 +886,7 @@ public class networkHelper {
         form.AddField("idUsuarioOnline", config.currentUser.idUsuario);
 
         //TODO adicionar link da API SetInventario.
-        UnityWebRequest request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ2/setInventario", form);
+        var request = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ2/setInventario", form);
 
         yield return Timing.WaitUntilDone(startScene.StartProgressWebRequest(request));
 
@@ -902,7 +902,7 @@ public class networkHelper {
             inv.deviceQuantity = 0;
             config.OpenDb().UpdateItem(inv);
         }
-
+        request.Dispose();
         isDoingOperation = false;
     }
 
@@ -998,7 +998,7 @@ public class networkHelper {
         form.AddField("itens_categorias", dboG.itens_categorias);
         form.AddField("itensE", dboI.itens);
 
-        UnityWebRequest requestData = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/getTabsSincronizacao", form);
+        var requestData = UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/getTabsSincronizacao", form);
         requestData.timeout = 10;
         requestData.redirectLimit = 2;
 
@@ -1236,56 +1236,56 @@ public class networkHelper {
 
 
 
-                size = minigamesJson.Count;
+            size = minigamesJson.Count;
 
-                if (size >= 1) {
+            if (size >= 1) {
 
-                    //Criar List de Minigames
-                    //List<MinigameStruct> minigamesDB = new List<MinigameStruct>();
-                    List<DBOMINIGAMES> minigamesDB = new List<DBOMINIGAMES>();
-                    startScene.MessageStatus("Atualizando informações do Jogo");
+                //Criar List de Minigames
+                //List<MinigameStruct> minigamesDB = new List<MinigameStruct>();
+                List<DBOMINIGAMES> minigamesDB = new List<DBOMINIGAMES>();
+                startScene.MessageStatus("Atualizando informações do Jogo");
 
-                    for (int i = 0; i < size; i++) {
-                        minigamesDB.Add(new DBOMINIGAMES() {
-                            ativo = minigamesJson[i]["ativo"].AsBool ? 1 : 0,
-                            idMinigames = minigamesJson[i]["idMiniGame"].AsInt,
-                            idLivro = minigamesJson[i]["idLivro"].AsInt,
-                            nomeMinigame = minigamesJson[i]["nomeMiniGame"],
-                            infoMinigame = minigamesJson[i]["infoMiniGame"]
-                        });
-                    }
-
-                    data.UpdateMinigames(minigamesDB);
-
-                    yield return Timing.WaitForOneFrame;
-
-                    if (currentSyncDB.sincModePerguntas == 1 || currentSyncDB.sincModePerguntas == 3) {
-                        dboG.minigames = currentSyncDB.minigames;
-                    }
-
-                    if (currentSyncDB.sincModePerguntas == 1 || currentSyncDB.sincModePerguntas == 2) {
-                        dboI.minigames = currentSyncDB.minigames;
-                    }
-
-
+                for (int i = 0; i < size; i++) {
+                    minigamesDB.Add(new DBOMINIGAMES() {
+                        ativo = minigamesJson[i]["ativo"].AsBool ? 1 : 0,
+                        idMinigames = minigamesJson[i]["idMiniGame"].AsInt,
+                        idLivro = minigamesJson[i]["idLivro"].AsInt,
+                        nomeMinigame = minigamesJson[i]["nomeMiniGame"],
+                        infoMinigame = minigamesJson[i]["infoMiniGame"]
+                    });
                 }
 
+                data.UpdateMinigames(minigamesDB);
+
+                yield return Timing.WaitForOneFrame;
+
+                if (currentSyncDB.sincModePerguntas == 1 || currentSyncDB.sincModePerguntas == 3) {
+                    dboG.minigames = currentSyncDB.minigames;
+                }
+
+                if (currentSyncDB.sincModePerguntas == 1 || currentSyncDB.sincModePerguntas == 2) {
+                    dboI.minigames = currentSyncDB.minigames;
+                }
+
+
             }
 
-
-
-            if (currentSyncDB.sincModePerguntas == 1 || currentSyncDB.sincModePerguntas == 3) {
-                db.UpdateSync(dboG);
-            }
-
-            if (currentSyncDB.sincModePerguntas == 1 || currentSyncDB.sincModePerguntas == 2) {
-                db.UpdateSync(dboI);
-            }
+        }
 
 
 
-            isDoingOperation = false;
-            requestData.Dispose();
+        if (currentSyncDB.sincModePerguntas == 1 || currentSyncDB.sincModePerguntas == 3) {
+            db.UpdateSync(dboG);
+        }
+
+        if (currentSyncDB.sincModePerguntas == 1 || currentSyncDB.sincModePerguntas == 2) {
+            db.UpdateSync(dboI);
+        }
+
+
+
+        isDoingOperation = false;
+        requestData.Dispose();
        }
 
 
@@ -1341,7 +1341,7 @@ public class networkHelper {
             form.AddField(temp, tables[i]);
         }
 
-        UnityWebRequest request = UnityWebRequest.Post(URI, form);
+        var request = UnityWebRequest.Post(URI, form);
         request.timeout = 20;
         request.redirectLimit = 2;
         yield return Timing.WaitUntilDone(startScene.StartProgressWebRequest(request));
@@ -1364,7 +1364,6 @@ public class networkHelper {
             var score = tablesJSON["pontuacao"];
             var escolas = tablesJSON["escola"];
             var turmas = tablesJSON["turma"];
-            Log.d($"Turma Json: {turmas}");
             var usuarios = tablesJSON["usuarios"];
             var ranking = tablesJSON["ranking"];
             var ranking2 = tablesJSON["rankingusuario"];
@@ -1593,7 +1592,7 @@ public class networkHelper {
             form.AddField(temp, tables[i]);
         }
 
-        UnityWebRequest request = UnityWebRequest.Post(URI, form);
+        var request = UnityWebRequest.Post(URI, form);
 
         yield return Timing.WaitUntilDone(request.SendWebRequest());
 
@@ -1791,7 +1790,7 @@ public class networkHelper {
             db.UpdateSync(dbo);
 
             _startScene.OnlineAcessSucess2();
-
+            request.Dispose();
         }
 
     }
@@ -1873,18 +1872,18 @@ public class networkHelper {
     }
 
     public string Md5Sum(string strToEncrypt) {
-        System.Text.UTF8Encoding ue = new System.Text.UTF8Encoding();
+        UTF8Encoding ue = new UTF8Encoding();
         byte[] bytes = ue.GetBytes(strToEncrypt);
 
         // encrypt bytes
-        System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+        MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
         byte[] hashBytes = md5.ComputeHash(bytes);
 
         // Convert the encrypted bytes back to a string (base 16)
         string hashString = "";
 
         for (int i = 0; i < hashBytes.Length; i++) {
-            hashString += System.Convert.ToString(hashBytes[i], 16).PadLeft(2, '0');
+            hashString += Convert.ToString(hashBytes[i], 16).PadLeft(2, '0');
         }
 
         return hashString.PadLeft(32, '0');
@@ -1908,6 +1907,8 @@ public class networkHelper {
 
     public void LoadImageItemIcon(int itemID) {
         //Timing.RunCoroutine(LoadImageItem(itemID));
+
+
     }
 
 
@@ -1935,7 +1936,7 @@ public class networkHelper {
 
     IEnumerator<float> LoadQuestionSound(Action<bool> MyResult, int QuestionID)
     {
-        UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("https://api.eduqbrinq.com.br/midias/perguntas/" + QuestionID + ".ogg", AudioType.OGGVORBIS);
+        var www = UnityWebRequestMultimedia.GetAudioClip("https://api.eduqbrinq.com.br/midias/perguntas/" + QuestionID + ".ogg", AudioType.OGGVORBIS);
         www.timeout = 20;
         www.redirectLimit = 2;
         yield return Timing.WaitUntilDone(www.SendWebRequest());

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MEC;
 using System.IO;
+using MiniGames.Scripts;
 
 public class TutorItem : MonoBehaviour {
 

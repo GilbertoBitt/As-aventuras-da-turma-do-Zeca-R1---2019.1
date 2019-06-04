@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Destroyer1_3 : MonoBehaviour {
     public PresetPlataforms1_3 PresetPlataforms1_3R;
      void Start() {

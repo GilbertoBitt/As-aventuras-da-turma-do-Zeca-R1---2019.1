@@ -32,7 +32,11 @@ public class InfoSkillWindow : MonoBehaviour
         _canvas.enabled = true;
         _canvasGroup.interactable = true;
         _canvasGroup.blocksRaycasts = true;
-        _canvasGroup.DOFade(1f, 0.3f).OnComplete(() => { pauseManager.Pause(); });
+        _canvasGroup.DOFade(1f, 0.3f).OnComplete(() =>
+        {
+            pauseManager.Pause();
+            pauseManager.soundManager.musicBack.Play();
+        });
     }
 
     public void ShowWindowInfo(HabilidadeBNCCInfo targetInfo, HabilidadeBNCCInfo targetInfo2)
