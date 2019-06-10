@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MiniGames.Scripts._1_3A;
 using UnityEngine;
 
 
@@ -67,10 +68,10 @@ public class ControlCaixa : OverridableMonoBehaviour {
 
     public override void UpdateMe()
     {
-        if (manager.nurseManager.hasCollide == true && NurseFollow1_3A2.endGameP == true)
+        if (manager.nurseManager.hasCollide == true && manager.nurseManager.endGameP == true)
         {
             if(this.colliderBox != null)
-            this.colliderBox.enabled = false;
+              this.colliderBox.enabled = false;
             // Manager1_3AR.checkPiscar = true;
             // StopCoroutine(TimerVolta());
 

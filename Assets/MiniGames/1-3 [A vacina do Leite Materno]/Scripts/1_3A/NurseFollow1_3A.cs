@@ -5,6 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using MEC;
+using MiniGames.Scripts._1_3A;
 
 public class NurseFollow1_3A : OverridableMonoBehaviour {
 

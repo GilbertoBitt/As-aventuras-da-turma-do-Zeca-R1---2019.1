@@ -244,7 +244,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
     public string[] textos;
     // Use this for initialization
     void Start() {
-        minigame = config.allMinigames[4];
+//        minigame = config.allMinigames[4];
 
         StartCoroutine(beginGame());
         startTowerPos = towerParent.position;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731194, g: 0.38074005, b: 0.3587271, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1534,7 +1534,7 @@ Animator:
 --- !u!199 &89530072
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 199430745270526244, guid: 92cde6f1210203948a16cd1142167eaf,
     type: 2}
   m_PrefabInstance: {fileID: 0}
@@ -6692,7 +6692,7 @@ CanvasRenderer:
 --- !u!199 &151761761
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 199068471551251690, guid: 7bd18dde7feeb4847b3257066198fcd9,
     type: 3}
   m_PrefabInstance: {fileID: 0}
@@ -12401,7 +12401,7 @@ Transform:
 --- !u!199 &253667520
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 199481952432099798, guid: 92cde6f1210203948a16cd1142167eaf,
     type: 2}
   m_PrefabInstance: {fileID: 0}
@@ -20549,7 +20549,7 @@ Animator:
 --- !u!199 &527092308
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 199335330101017610, guid: 92cde6f1210203948a16cd1142167eaf,
     type: 2}
   m_PrefabInstance: {fileID: 0}
@@ -32384,7 +32384,7 @@ CanvasRenderer:
 --- !u!199 &981677523
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 199095440297233324, guid: 7900d0ccb3826aa4c86c0e48ef3e06df,
     type: 3}
   m_PrefabInstance: {fileID: 0}
@@ -40818,7 +40818,7 @@ GameObject:
 --- !u!199 &1197242749
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 199347964757750510, guid: 92cde6f1210203948a16cd1142167eaf,
     type: 2}
   m_PrefabInstance: {fileID: 0}
@@ -46737,26 +46737,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 670bb3f3c759d2445b4ae29b01ce222d,
         type: 3}
-    - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 72851054}
-    - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -2135078457
-      objectReference: {fileID: 0}
     - target: {fileID: 224000010024376192, guid: 40482f5722b28114b80056e27c2f17a3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -46846,6 +46826,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 72851054}
+    - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -2135078457
       objectReference: {fileID: 0}
     - target: {fileID: 114000011561432778, guid: 40482f5722b28114b80056e27c2f17a3,
         type: 3}
@@ -47643,7 +47643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manager: {fileID: 1464486879}
   chestGroup: 4
-  imageComp: {fileID: 0}
+  imageComp: {fileID: 1282490248}
   imageTamp: {fileID: 41172951}
   imageBau: {fileID: 1268988913}
   textComp: {fileID: 296315760}
@@ -47984,7 +47984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manager: {fileID: 1464486879}
   chestGroup: 3
-  imageComp: {fileID: 0}
+  imageComp: {fileID: 1286952191}
   imageTamp: {fileID: 892642491}
   imageBau: {fileID: 293095440}
   textComp: {fileID: 379432799}
@@ -50505,7 +50505,7 @@ Transform:
 --- !u!199 &1361242254
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 199998656001436392, guid: 92cde6f1210203948a16cd1142167eaf,
     type: 2}
   m_PrefabInstance: {fileID: 0}
@@ -56931,6 +56931,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183b4737918f75444b201f92bd2f1000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 1
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: InJhbmRvbWNoZXN0IjogbnVsbA==
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   Grids:
   - {fileID: 315835873}
   - {fileID: 619237035}
@@ -57388,6 +57397,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c871f01e0cc2c40a45b87a450c3a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 1
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: ImJsdWVCb3hQb29sIjogew0KICAgICIkaWQiOiAwLA0KICAgICIkdHlwZSI6ICIwfFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLlF1ZXVlYDFbW1N5bGxhYmxlSGFuZGxlcjFfNEIsIEFzc2VtYmx5LUNTaGFycF1dLCBTeXN0ZW0iLA0KICAgICIkcmxlbmd0aCI6IDAsDQogICAgIiRyY29udGVudCI6IFsNCiAgICBdDQp9LA0KImVtcHR5Qm94UG9vbCI6IHsNCiAgICAiJGlkIjogMSwNCiAgICAiJHR5cGUiOiAiMXxTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5RdWV1ZWAxW1tCbGFua1NwYWNlMV80QiwgQXNzZW1ibHktQ1NoYXJwXV0sIFN5c3RlbSIsDQogICAgIiRybGVuZ3RoIjogMCwNCiAgICAiJHJjb250ZW50IjogWw0KICAgIF0NCn0=
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   previousManager: {fileID: 1464486879}
   panelInteragindo: {fileID: 1322178502}
   oldPanelDisable: {fileID: 1124840774}
@@ -57705,6 +57723,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46732778cfe893d4296724484306175a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 1
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   config: {fileID: 0}
   idMinigame: 5
   idHabilidade: 5
@@ -58577,7 +58604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manager: {fileID: 1464486879}
   chestGroup: 1
-  imageComp: {fileID: 0}
+  imageComp: {fileID: 1538700940}
   imageTamp: {fileID: 1513150955}
   imageBau: {fileID: 363557602}
   textComp: {fileID: 542919284}
@@ -59809,7 +59836,7 @@ Transform:
 --- !u!199 &1613044522
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 199948815671105850, guid: 92cde6f1210203948a16cd1142167eaf,
     type: 2}
   m_PrefabInstance: {fileID: 0}
@@ -65657,7 +65684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manager: {fileID: 1464486879}
   chestGroup: 2
-  imageComp: {fileID: 0}
+  imageComp: {fileID: 1658851389}
   imageTamp: {fileID: 159240184}
   imageBau: {fileID: 1394572346}
   textComp: {fileID: 427602702}
@@ -67303,7 +67330,7 @@ Transform:
 --- !u!199 &1772526714
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 199931949151838790, guid: 92cde6f1210203948a16cd1142167eaf,
     type: 2}
   m_PrefabInstance: {fileID: 0}
@@ -74941,7 +74968,7 @@ Animator:
 --- !u!199 &1962874360
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 199504220855518528, guid: 92cde6f1210203948a16cd1142167eaf,
     type: 2}
   m_PrefabInstance: {fileID: 0}

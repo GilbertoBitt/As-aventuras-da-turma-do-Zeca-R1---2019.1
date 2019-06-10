@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MEC;
+using MiniGames.Scripts._1_3A;
 
 public class PresetPlataforms1_3 : MonoBehaviour {
 

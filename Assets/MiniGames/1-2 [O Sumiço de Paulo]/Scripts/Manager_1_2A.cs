@@ -886,7 +886,8 @@ public class Manager_1_2A : OverridableMonoBehaviour {
         if (tutorIni_1 == 0) {
           //  tutorIni_1 = PlayerPrefs.GetInt("TutorSP_1", 1);
             Timing.KillCoroutines();
-            tutorTex.text = tutorTexC;
+            tutorTex.text = GameConfig.Instance.GetAnoLetivo() == 3 ? "Vamos brincar com figuras geométricas planas! Encontre tudo que for pedido" : tutorTexC;
+
 			CancelInvoke ();
             StartCoroutine(GoForEducationTime());
             Debug.Log("tutorIni_1", this);

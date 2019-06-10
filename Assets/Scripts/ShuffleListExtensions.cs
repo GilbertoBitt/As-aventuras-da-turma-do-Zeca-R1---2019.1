@@ -45,4 +45,10 @@ public static class ShuffleListExtensions {
 	}
 
 
+	public static T GetRandomValue<T>(this T[] targetList)
+	{
+		int index = UnityEngine.Random.Range(0, targetList.Length);
+		return targetList[index];
+	}
+
 }

@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityStandardAssets.CrossPlatformInput;
 using MEC;
+using MiniGames.Scripts._1_3A;
 
 public class ControlLeiteMaterno : MonoBehaviour {
 

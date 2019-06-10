@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using MEC;
 using DG.Tweening;
+using MiniGames.Scripts._1_3B;
 
 public class BubbleFood1_3B : MonoBehaviour {
 
 	public SpriteRenderer spriteRenderer;
 	public FoodItem1_3B food;
+	public ItemWord1_3b word;
 	public AnimationCurve fadeInCurve = AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f);
 	public Vector3 originalPos;
 	public Manager1_3B manager;
@@ -30,12 +32,18 @@ public class BubbleFood1_3B : MonoBehaviour {
 		originalPos = this.transform.position;
 	}
 
+    public void UpdateFood(ItemWord1_3b wordTemp){
+	    word = wordTemp;
+	    bubbleSpriteRender.color = Color.white;
+	    iconSpriteRender.sprite = wordTemp.itemSprite;
+	    originalPos = this.transform.position;
+    }
+
 	void Update(){
-		if (manager.isPlaying && isLooping) {
-			Vector3 pos = this.transform.position;
-			pos.x = originalPos.x + (Mathf.PingPong(Time.time,2.0f) - 1f);
-			this.transform.position = pos;
-		}
+		if (!manager.isPlaying || !isLooping) return;
+		Vector3 pos = this.transform.position;
+		pos.x = originalPos.x + (Mathf.PingPong(Time.time,2.0f) - 1f);
+		this.transform.position = pos;
 	}
 
 	public void StartFadeIn(float delay){
@@ -152,8 +160,10 @@ public class BubbleFood1_3B : MonoBehaviour {
         bubbleSpriteRender.color = tempColor;
         _particle.Play();
         //GameObject explo = Instantiate(partExploBolha, transform.position, transform.rotation) as GameObject;
-        partExploBolha.transform.SetParent(this.bolha.transform);
-        partExploBolha.transform.localScale = new Vector3(partExploBolha.transform.localScale.x, partExploBolha.transform.localScale.y, partExploBolha.transform.localScale.z);
-    }
+        partExploBolha.transform.SetParent(bolha.transform);
+        var localScale = partExploBolha.transform.localScale;
+        localScale = new Vector3(localScale.x, localScale.y, localScale.z);
+        partExploBolha.transform.localScale = localScale;
+	}
 
 }

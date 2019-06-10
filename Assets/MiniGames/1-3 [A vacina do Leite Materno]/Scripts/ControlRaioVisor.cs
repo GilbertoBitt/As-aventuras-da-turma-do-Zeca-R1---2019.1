@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MiniGames.Scripts._1_3A;
 using UnityEngine;
 
 public class ControlRaioVisor : MonoBehaviour {

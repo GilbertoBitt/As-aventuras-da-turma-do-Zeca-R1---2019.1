@@ -7,7 +7,7 @@ using UnityEngine.Profiling;
 
 // /////////////////////////////////////////////////////////////////////////////////////////
 //                              More Effective Coroutines
-//                                        v3.06.3
+//                                        v3.07.0
 // 
 // This is an improved implementation of coroutines that boasts zero per-frame memory allocations,
 // runs about twice as fast as Unity's built in coroutines and has a range of extra features.
@@ -1888,6 +1888,25 @@ namespace MEC
             SetPause(lastIndex, tmpB);
             tmpB = SetHeld(firstIndex, CoindexIsHeld(lastIndex));
             SetHeld(lastIndex, tmpB);
+
+            if (_waitingTriggers.ContainsKey(lastHandle))
+            {
+                var trigsEnum = _waitingTriggers[lastHandle].GetEnumerator();
+                while (trigsEnum.MoveNext())
+                    SwapToLast(lastHandle, trigsEnum.Current);
+            }
+
+            if (_allWaiting.Contains(firstHandle))
+            {
+                var keyEnum = _waitingTriggers.GetEnumerator();
+                while (keyEnum.MoveNext())
+                {
+                    var valueEnum = keyEnum.Current.Value.GetEnumerator();
+                    while (valueEnum.MoveNext())
+                        if (valueEnum.Current == firstHandle)
+                            SwapToLast(keyEnum.Current.Key, firstHandle);
+                }
+            }
         }
 
         private void CloseWaitingProcess(CoroutineHandle handle)

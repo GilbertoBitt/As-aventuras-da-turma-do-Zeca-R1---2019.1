@@ -50,7 +50,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 	public List<GameObject> deactiveThis = new List<GameObject>();
 	public GameObject nextButtonRef;
 	public Image fadeImage;
-	public Text comandText;
+	public TextMeshProUGUI comandText;
 	public Image iconFromText;
 	public FinalScore scoreEnd;
 	public Canvas scoreEndCanvas;
@@ -188,7 +188,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 	    Populate();
 	    config = GameConfig.Instance;
 	    
-//	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
+	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
 
 		if (_infoSkillInfo == null)
@@ -501,9 +501,10 @@ public class Manager_1_2B : OverridableMonoBehaviour
         {
         	case 1:
 	            _string.Clear();
-	            _string.Append("Encontre ").Append(needFind).Append(" ").Append(returnName(formList[dificult]));
+	            _string.Append("Encontre ").Append(needFind).Append(" ").Append(returnName(formList[dificult]))
+		            .Append("<sprite name=\"").Append(returnIcon(formList[dificult]).name).Append("\">");
 	            comandText.text = _string.ToString();
-	            iconFromText.sprite = returnIcon(formList[dificult]);
+//	            iconFromText.sprite = returnIcon(formList[dificult]).name;
         		break;
         	case 2:
 	            _string.Clear();

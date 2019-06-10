@@ -7,7 +7,6 @@ public class LogSystem : OverridableMonoBehaviour {
 	#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
 	[SeparatorAttribute("Principal")]
 	#endif
-	public GameConfig config;
 	public int idMinigame;
 	public int idHabilidade;
 	public int idDificuldade;
@@ -76,16 +75,16 @@ public class LogSystem : OverridableMonoBehaviour {
 		{
 			deviceID = SystemInfo.deviceUniqueIdentifier,
 			faseLudica = faseLudica,
-			tempoLudica = config.TimeToIntMilliseconds(tempoLudica),
-			tempoDidatica = config.TimeToIntMilliseconds(tempoDidatica),
+			tempoLudica = GameConfig.Instance.TimeToIntMilliseconds(tempoLudica),
+			tempoDidatica = GameConfig.Instance.TimeToIntMilliseconds(tempoDidatica),
 			pontosLudica = pontosLudica,
 			pontosPedagogica = pontosPedagogica,
 			pontosInteragindo = pontosInteragindo,
 			idMinigame = idMinigame,
-			personagem = config.GetCharName(PlayerPrefs.GetInt("characterSelected", 0)),
+			personagem = GameConfig.Instance.GetCharName(PlayerPrefs.GetInt("characterSelected", 0)),
 			online = EduqbrinqLogger.Instance.IsOnlineInt,
-			idUsuario = config.playerID,
-			dataAcesso = config.ReturnCurrentDate()
+			idUsuario = GameConfig.Instance.playerID,
+			dataAcesso = GameConfig.Instance.ReturnCurrentDate()
 		};
 		var info = EduqbrinqLogger.Instance.GenerateGameInfo(log, statistics);
 		EduqbrinqLogger.Instance.AddGameInfo(info);
@@ -151,17 +150,17 @@ public class LogSystem : OverridableMonoBehaviour {
 
 	private IEnumerator<float> SaveStatisticaCoroutine(int _idGameDidatico, int _idDificuldade, bool isRight)
 	{
-		var statisticTemp = new DBOESTATISTICA_DIDATICA() {
+		var statisticTemp = new DBOESTATISTICA_DIDATICA{
 			acertou = (isRight) ? 1 : 0,
 			idDificuldade = _idDificuldade,
 			idGameDidatico = _idGameDidatico,
 			idHabilidade = -1,
 			idMinigame = idMinigame,
 			online = EduqbrinqLogger.Instance.IsOnlineInt,
-			dataInsert = config.ReturnCurrentDate()
+			dataInsert = GameConfig.Instance.ReturnCurrentDate()
 		};
-		if (config.currentUser != null) {
-			statisticTemp.idUsuario = config.currentUser.idUsuario;
+		if (GameConfig.Instance.currentUser != null) {
+			statisticTemp.idUsuario = GameConfig.Instance.currentUser.idUsuario;
 		}
 		statistics.Add(statisticTemp);
 		yield return Timing.WaitForOneFrame;
@@ -175,17 +174,17 @@ public class LogSystem : OverridableMonoBehaviour {
 	private IEnumerator<float> SaveOnStatistica(DBOESTATISTICA_DIDATICA temp)
 	{
 		DBOESTATISTICA_DIDATICA statisticTemp = temp;        
-                statisticTemp.dataInsert = config.ReturnCurrentDate();
-                if (config.currentUser != null) {
-                    statisticTemp.idUsuario = config.currentUser.idUsuario;
+                statisticTemp.dataInsert = GameConfig.Instance.ReturnCurrentDate();
+                if (GameConfig.Instance.currentUser != null) {
+                    statisticTemp.idUsuario = GameConfig.Instance.currentUser.idUsuario;
                 }
                 statistics.Add(statisticTemp);
                 yield return Timing.WaitForOneFrame;
 	}
 
 	public void SaveHighscore(int score, int idUser) {
-        if(config.currentScore == null) {
-            config.currentScore = new DBOPONTUACAO();
+        if(GameConfig.Instance.currentScore == null) {
+	        GameConfig.Instance.currentScore = new DBOPONTUACAO();
         }       
     }
 

@@ -6,12 +6,19 @@ using System.Linq;
 using MEC;
 using DG.Tweening;
 using MiniGames.Scripts;
+using MiniGames.Scripts._1_3A;
+using MiniGames.Scripts._1_3B;
+using Sirenix.OdinInspector;
+using TMPro;
 
 public class Manager1_3B : OverridableMonoBehaviour {
 
 	#region Vars
+	[FoldoutGroup("1ª Ano")] public List<ItemWord1_3b> allWordsOfList;
+	[FoldoutGroup("1ª Ano")] public List<ItemWord1_3b> choosenWords;
+
 	private Camera mainCamera;
-	
+	public int anoLetivo = 1;
     public LogSystem _log;
 	#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
 	[SeparatorAttribute("Controles")]
@@ -78,7 +85,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 	#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
 	[SeparatorAttribute("UI")]
 	#endif
-	public Text textFoodName;
+	public TextMeshProUGUI textFoodName;
 	public float textFoodFadeInDelay;
 	public float textFoodFadeOuDelay;
     public Image fadeInOutImg;
@@ -123,6 +130,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
     public GameObject canudo;
 
     public bool didadMovel;
+    public Image tutorialImageComponent;
 
     #endregion
 
@@ -130,10 +138,11 @@ public class Manager1_3B : OverridableMonoBehaviour {
      void Start() {
         canudo = cannonManager.gameObject;
         ControlSomTutor2 = GetComponent<ControlSomTutor>();
+        _log = GetComponent<LogSystem>();
+     }
 
-    }
     void StartGame () {
-        // topLevelG = topLevel.offsetMax;
+        // topLevelG = topLevel.offsetMax;Timing.RunCoroutine(StartDidatica());
         // tutorVacine2 = tutorG.GetComponent<TutorVacine>();
         topLevel.offsetMax = new Vector2(topLevel.offsetMax.x, 1633.984f);
         luz.SetActive(false);
@@ -148,69 +157,103 @@ public class Manager1_3B : OverridableMonoBehaviour {
     }
 
 	public void OnCannonPressed(){
-		if (canShoot && !didadMovel) {
-			Vector3 mousePos = mainCamera.ScreenToWorldPoint (Input.mousePosition);
-			Vector3 newPos = canonTransform.position;
-			newPos.x = mousePos.x;
-			if (newPos.x >= -8f && newPos.x <= 8f) {
-				canonTransform.position = newPos;
-			}
+		if (!canShoot || didadMovel) return;
+		var mousePos = mainCamera.ScreenToWorldPoint (Input.mousePosition);
+		var newPos = canonTransform.position;
+		newPos.x = mousePos.x;
+		if (newPos.x >= -8f && newPos.x <= 8f) {
+			canonTransform.position = newPos;
 		}
 	}
 
 
 
 	public void OnCannonReleased(){
-		if (canShoot && poolOfBullet.Count >= 1){
-			BulletManager1_3B thisBullet = poolOfBullet.Dequeue();
-			Vector3 dir = canonShootPosition.position - canonTransform.position;
-			thisBullet.ShootBulletOnDirection(dir.normalized);
-		}
+		if (!canShoot || poolOfBullet.Count < 1) return;
+		BulletManager1_3B thisBullet = poolOfBullet.Dequeue();
+		Vector3 dir = canonShootPosition.position - canonTransform.position;
+		thisBullet.ShootBulletOnDirection(dir.normalized);
 	}
 
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_STANDALONE
-    public override void UpdateMe() {
-        //Debug.Log("Updating", this);
-        if (canShoot && checkTutorteclado==false) {
-            //Debug.Log("Controle Override.", this);
-            if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) {
-                //Debug.Log("Indo para a Direita.", this);
-                Vector3 newPos = canonTransform.position;
-                if (newPos.x >= -8f) {
-                    newPos.x -= .2f;
-                }
-                canonTransform.position = newPos;                
-            } else if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) {
-              //  Debug.Log("Indo para a Esquerda.", this);
-                Vector3 newPos = canonTransform.position;
-                if (newPos.x <= 8f) {
-                    newPos.x += .2f;
-                }
-                canonTransform.position = newPos;
-            } else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) {
-                cannonManager.DownKey();
-            } else if (Input.GetKeyUp (KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.Space)) {
-                cannonManager.UpKey();
-            }
+    public override void UpdateMe()
+    {
+	    //Debug.Log("Updating", this);
+	    if (!canShoot || checkTutorteclado != false) return;
+	    //Debug.Log("Controle Override.", this);
+        if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) {
+	        //Debug.Log("Indo para a Direita.", this);
+	        Vector3 newPos = canonTransform.position;
+	        if (newPos.x >= -8f) {
+		        newPos.x -= .2f;
+	        }
+	        canonTransform.position = newPos;
+        } else if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) {
+	        //  Debug.Log("Indo para a Esquerda.", this);
+	        Vector3 newPos = canonTransform.position;
+	        if (newPos.x <= 8f) {
+		        newPos.x += .2f;
+	        }
+	        canonTransform.position = newPos;
+        } else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) {
+	        cannonManager.DownKey();
+        } else if (Input.GetKeyUp (KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.Space)) {
+	        cannonManager.UpKey();
+        }
 
-        }       
-        
     }
 #endif
+
+	public bool ContainsLetter(ref List<ItemWord1_3b> listRef, ItemWord1_3b wordSelected)
+	{
+		foreach (var item in listRef)
+		{
+			if (item.startLetter == wordSelected.startLetter)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
 
     public void StartFoodQuiz(){
 		startPosCannon = canonTransform.position;
 		LoadBulletPool ();
-		questionFood.Clear ();
-		questionFood = randomQuestionFoods ();
-		foodQuestionTodo = questionFood.Count;
-		foodQuestionMade = 0;
+		allWordsOfList.Suffle();
+		switch (anoLetivo)
+		{
+			case 1:
+				var temp = new List<ItemWord1_3b>();
+				for (int i = 0; i < 4; i++)
+				{
+					ItemWord1_3b itemSelected = null;
+					do
+					{
+						itemSelected = allWordsOfList.GetRandomValue();
+					} while (ContainsLetter(ref temp, itemSelected));
+					temp.Add(itemSelected);
+				}
+				choosenWords = temp;
+				UpdateWords();
+				break;
+			case 2:
+				questionFood.Clear ();
+				questionFood = randomQuestionFoods ();
+				//foodQuestionTodo = questionFood.Count;
+				foodQuestionMade = 0;
+				UpdateFoods ();
+				break;
+			case 3:
+				break;
+		}
 
-		UpdateFoods ();
 
-		Timing.RunCoroutine (FadeInText ());
+
+		textFoodName.DOFade(1f, textFoodFadeInDelay);
+		textFoodName.transform.DOScale(Vector3.one, textFoodFadeInDelay);
         if(!didadMovel)
-		canShoot = true;
+	        canShoot = true;
 
 	}
 
@@ -227,6 +270,24 @@ public class Manager1_3B : OverridableMonoBehaviour {
 		}
 	}
 
+	public void UpdateWords(){
+		rightIndexFood = Random.Range (0, 4);
+
+		textFoodName.text = $"Qual objeto começa com a letra {choosenWords[foodQuestionMade].startLetter}";
+
+		var tempList = allWordsOfList.Where(x => x.startLetter != choosenWords[foodQuestionMade].startLetter).Take(3).ToList();
+		tempList.Add(choosenWords[foodQuestionMade]);
+		tempList.Suffle();
+
+
+		for (int i = 0; i < 4; i++) {
+			bubbleSprites [i].UpdateFood (tempList[i]);
+			bubbleSprites [i].StartFadeIn(delayFadeIn);
+		}
+
+		rightBubbleFood = bubbleSprites.First(x => x.word == choosenWords[foodQuestionMade]);
+	}
+
 	public void NextFoodsQuestion(){
 		foodQuestionMade++;
         if (foodQuestionMade >= foodQuestionTodo) {
@@ -237,17 +298,29 @@ public class Manager1_3B : OverridableMonoBehaviour {
             for (int i = 0; i < tempCount; i++) {
                 activeGameObjects[i].SetActive(false);
             }
-            this.enabled = false;
+            enabled = false;
         } else {
-            UpdateFoods();
-            Timing.RunCoroutine(FadeInText());
+	        switch (anoLetivo)
+	        {
+		        case 1:
+					UpdateWords();
+			        break;
+		        case 2:
+			        UpdateFoods();
+			        break;
+		        case 3:
+			        break;
+	        }
+
+	        textFoodName.DOFade(1f, textFoodFadeInDelay);
+	        textFoodName.transform.DOScale(Vector3.one, textFoodFadeInDelay);
             canShoot = true;
         }
 	}
 
 	public void LoadBulletPool(){
 		for (int i = 0; i < poolBulletSize; i++) {
-			GameObject bullet = Instantiate(bulletPrefab,canonShootPosition.position * 1000f,Quaternion.identity,this.transform) as GameObject;
+			GameObject bullet = Instantiate(bulletPrefab,canonShootPosition.position * 1000f,Quaternion.identity,transform);
 			BulletManager1_3B temp = bullet.GetComponent<BulletManager1_3B> ();
 			temp.thisManager = this;
             temp.isOnPool = true;
@@ -365,11 +438,10 @@ public class Manager1_3B : OverridableMonoBehaviour {
 		StopLooping ();
         animLevel.SetActive(true);
         anim_animLevel.enabled = true;
-        //topLevel.offsetMax = topLevelG;
-        //topLevel.offsetMax = new Vector2(topLevel.offsetMax.x, 1633.984f);
-        // Debug.Log(topLevel.offsetMax.y);
+
+
+
         if (userChoiseFood.food == rightFoodItem) {
-			//Debug.Log ("Correta");
             int rand = Random.Range(0, 1);
             Invoke("CorrectionSucess", 0.6f);
             _log.SaveEstatistica(3, 1, true);
@@ -377,16 +449,12 @@ public class Manager1_3B : OverridableMonoBehaviour {
 			Timing.KillCoroutines ("IncreaseEffectScore");
 			Timing.RunCoroutine (scoreIncrease (scoreAmountPerRight), "IncreaseEffectScore");
             _log.AddPontosPedagogica(scoreAmountPerRight);
-           /// soundM.startSoundFX(soundFXs[1]);
 
         } else {
-            //Debug.Log ("Errada");
             Invoke("CorrectionFail", 0.6f);
             _log.SaveEstatistica(3, 1, false);
-            //changeLevel2.startErrado("Você errou o certo era");
             rightBubbleFood.StartCorrectcenter (gotoCenterDelay);
 			userChoiseFood.MakeItRed ();
-            //soundM.startSoundFX(soundFXs[2]);
         }
 
 		Timing.RunCoroutine (EndQuestion());
@@ -420,28 +488,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
         }
     }
 
-	IEnumerator<float> FadeInText(){
-		float times = 0.0f;
 
-		Vector3 scaleEnd = new Vector3 (1f, 1f, 1f);
-		Vector3 scaleStart = textFoodName.transform.localScale;
-
-		Color colorEnd = textFoodName.color;
-		colorEnd.a = 1f;
-		Color startColor = textFoodName.color;
-		startColor.a = 0f;
-
-		while (times < textFoodFadeInDelay)
-		{
-			times += Time.deltaTime;
-			float s = times / textFoodFadeInDelay;
-
-			textFoodName.transform.localScale = Vector3.Lerp (scaleStart, scaleEnd, fadeInCurveText.Evaluate (s));
-			textFoodName.color = Color.Lerp (startColor, colorEnd, fadeInCurveText.Evaluate (s));
-
-			yield return Timing.WaitForOneFrame;
-        }
-	}
 
 	IEnumerator<float> FadeOuText(){
 		float times = 0.0f;
@@ -449,9 +496,10 @@ public class Manager1_3B : OverridableMonoBehaviour {
 		Vector3 scaleStart = new Vector3 (1f, 1f, 1f);
 		Vector3 scaleEnd = textFoodName.transform.localScale;
 
-		Color startColor = textFoodName.color;
+		var color = textFoodName.color;
+		Color startColor = color;
 		startColor.a = 1f;
-		Color colorEnd = textFoodName.color;
+		Color colorEnd = color;
 		colorEnd.a = 0f;
 
 		while (times < textFoodFadeOuDelay)
@@ -490,56 +538,61 @@ public class Manager1_3B : OverridableMonoBehaviour {
          ControlSomTutor2.numTutor = 6;
        // ControlSomTutor2.numTutor = 1;
         checkDitadita2 = true;
+
+        checkDitadita2 = false;
+        _log.StartTimerLudica(false);
+        SequenceToChangeDidatica(false);
      
-        if (PlayerPrefs.HasKey("TutorV_IniD") == false || PlayerPrefs.HasKey("TutorV_IniD") == true) {
-            /*
-            if (Application.platform == RuntimePlatform.WindowsPlayer == true && (PlayerPrefs.HasKey("TutorV_IniD") == false)) {
-
-                checkTutorteclado = true;
-                PlayerPrefs.SetInt("TutorV_IniD", 1);
-                ControlTecladoTutor2.didatica = true;
-                for (int i = 0; i < bolhasDid.Length; i++) {
-                    bolhasDid[i].enabled = false;
-                }
-               
-            } 
-            */
-             if (Application.platform == RuntimePlatform.WindowsPlayer == false && (PlayerPrefs.HasKey("TutorV_IniD") == false)) {
-                oldManager.panelTeclado.SetActive(true);
-                // checkTutorteclado = true;
-                didadMovel = true;
-                PlayerPrefs.SetInt("TutorV_IniD", 1);
-
-                for (int i = 0; i < ControlTecladoTutor2.tecla.Length; i++) {
-                    ControlTecladoTutor2.tecla[i].gameObject.SetActive(false);
-                   
-                }
-
-            }
-            tutorVacine2.btTelao.SetActive(false);
-            tutorVacine2.pularTex.SetActive(false);
-            //PlayerPrefs.SetInt("TutorV_IniD", 1);
-            tutorG.SetActive(true);
-            tutorVacine2.textTutor.text = "Agora, veja o nome do alimento e atire com o canudo na imagem correta.";
-            //SomTutor(1);
-            tutorVacine2.Som1();
-            tutorVacine2.Onprof();
-            tutorVacine2.iniciarG1.SetActive(true);
-            tutorVacine2.iniciarG2.SetActive(false);
-            _log.StartTimerLudica(false);
-            Timing.RunCoroutine(StartDidatica());
-			SequenceToChangeDidatica(true);
-            checkDitadita = true;
-
-        } else {
-           
-            checkDitadita2 = false;
-            _log.StartTimerLudica(false);
-            SequenceToChangeDidatica(false);
-            //Timing.RunCoroutine(StartDidatica());
-           
-
-        }
+//        if (PlayerPrefs.HasKey("TutorV_IniD") == false || PlayerPrefs.HasKey("TutorV_IniD") == true) {
+//            /*
+//            if (Application.platform == RuntimePlatform.WindowsPlayer == true && (PlayerPrefs.HasKey("TutorV_IniD") == false)) {
+//
+//                checkTutorteclado = true;
+//                PlayerPrefs.SetInt("TutorV_IniD", 1);
+//                ControlTecladoTutor2.didatica = true;
+//                for (int i = 0; i < bolhasDid.Length; i++) {
+//                    bolhasDid[i].enabled = false;
+//                }
+//
+//            }
+//            */
+//             if (Application.platform == RuntimePlatform.WindowsPlayer == false && (PlayerPrefs.HasKey("TutorV_IniD") == false)) {
+//                oldManager.panelTeclado.SetActive(true);
+//                // checkTutorteclado = true;
+//                didadMovel = true;
+//                PlayerPrefs.SetInt("TutorV_IniD", 1);
+//
+//                foreach (var t in ControlTecladoTutor2.tecla)
+//                {
+//	                t.gameObject.SetActive(false);
+//                }
+//
+//            }
+//            tutorVacine2.btTelao.SetActive(false);
+//            tutorVacine2.pularTex.SetActive(false);
+//            //PlayerPrefs.SetInt("TutorV_IniD", 1);
+//            tutorG.SetActive(true);
+//            tutorVacine2.textTutor.text = "Agora, veja o nome do alimento e atire com o canudo na imagem correta.";
+//            //SomTutor(1);
+//            tutorVacine2.Som1();
+//            tutorVacine2.Onprof();
+//            tutorialImageComponent.enabled = true;
+//            tutorVacine2.iniciarG1.SetActive(true);
+//            tutorVacine2.iniciarG2.SetActive(false);
+//            _log.StartTimerLudica(false);
+//            Timing.RunCoroutine(StartDidatica());
+//			SequenceToChangeDidatica(true);
+//            checkDitadita = true;
+//
+//        } else {
+//
+//            checkDitadita2 = false;
+//            _log.StartTimerLudica(false);
+//            SequenceToChangeDidatica(false);
+//            //Timing.RunCoroutine(StartDidatica());
+//
+//
+//        }
 
       
     }
@@ -556,19 +609,19 @@ public class Manager1_3B : OverridableMonoBehaviour {
         if (ControlTecladoTutor2.didatica == true) {
             painelTeclado2.SetActive(true);
         }
-        if (didadMovel == true) {
-            canudo.SetActive(true);
-            ControlTecladoTutor2.textTutor.SetActive(true);
-            canudo.GetComponent<Animator>().enabled = true;
-            canudo.GetComponent<Animator>().SetBool("Tutor", true);
-        }
+
+        if (didadMovel != true) return;
+        canudo.SetActive(true);
+        ControlTecladoTutor2.textTutor.SetActive(true);
+        canudo.GetComponent<Animator>().enabled = true;
+        canudo.GetComponent<Animator>().SetBool("Tutor", true);
 
     }
 
     public void iniDid() {
         checkDitadita2 = false;
         if (checkDitadita) {
-            
+
             Timing.RunCoroutine(StartDidatica());
 
         }
@@ -576,24 +629,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
     }
 
     public void ChangeToDidatica() {
-        int tempCount = desactiveObjects.Length;
-
-        for (int i = 0; i < tempCount; i++) {
-            desactiveObjects[i].SetActive(false);
-        }
-
-        tempCount = activeGameObjects.Length;
-
-        for (int i = 0; i < tempCount; i++) {
-            activeGameObjects[i].SetActive(true);
-        }
-
-        oldManager.enabled = false;
-
-        scoreAmount = oldManager.ScoreAmount;
-        scoreText.text = scoreAmount.ToString();
-
-        pausemanager.btPause = buttonPause.gameObject;
+	    Timing.RunCoroutine(StartDidatica());
     }
 
     public void EndChangeDidatica() {
@@ -618,24 +654,23 @@ public class Manager1_3B : OverridableMonoBehaviour {
         if (tutorial == false) {
             startDidaticaS.Append(fadeInOutImg.DOFade(1f, fadeInDuration));
         }*/
-        startDidaticaS.AppendCallback(ChangeToDidatica);
+        startDidaticaS.AppendCallback(() => this.ChangeToDidatica());
         startDidaticaS.Append(fadeInOutImg.DOFade(0f, fadeInDuration));
-        startDidaticaS.AppendCallback(EndChangeDidatica);
-        DOTween.Play(startDidaticaS);
+        startDidaticaS.AppendCallback(() => this.EndChangeDidatica());
+        startDidaticaS.Play();
     }
 
-   IEnumerator<float> StartDidatica() {
-        int tempCount = desactiveObjects.Length;
-        for (int i = 0; i < tempCount; i++) {
-            desactiveObjects[i].SetActive(false);
+    private IEnumerator<float> StartDidatica() {
+        foreach (var t in desactiveObjects)
+        {
+	        t.SetActive(false);
         }
 
-        tempCount = activeGameObjects.Length;
-
-        for (int i = 0; i < tempCount; i++) {
-            activeGameObjects[i].SetActive(true);
+        foreach (var t in activeGameObjects)
+        {
+	        t.SetActive(true);
         }
-
+        tutorialImageComponent.enabled = true;
         oldManager.enabled = false;
         //
 

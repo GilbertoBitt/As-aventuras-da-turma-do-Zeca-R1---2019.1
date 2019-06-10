@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MEC;
+using MiniGames.Scripts._1_3A;
 
 public class ControlTecladoTutor :MonoBehaviour {
 
