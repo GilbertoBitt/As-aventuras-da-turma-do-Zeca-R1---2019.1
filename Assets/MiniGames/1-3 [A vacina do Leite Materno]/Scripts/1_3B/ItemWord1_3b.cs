@@ -18,7 +18,7 @@ namespace MiniGames.Scripts._1_3B
         private void OnValidate()
         {
             if(string.IsNullOrEmpty(itemWord) || string.IsNullOrWhiteSpace(itemWord)) return;
-            startLetter = RemoverAcentos(itemWord)[0];
+            startLetter = RemoverAcentos(itemWord).ToUpper(CultureInfo.InvariantCulture)[0];
         }
 
         private string RemoverAcentos(string texto)

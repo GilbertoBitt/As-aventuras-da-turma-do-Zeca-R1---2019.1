@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d28b26a550fc8418fadee67b91726c, type: 3}
+  m_Name: A fruta que Bia comeu foi __
+  m_EditorClassIdentifier: 
+  question: A fruta que Bia comeu foi __
+  correctAlternatives:
+  - {fileID: 11400000, guid: 1ba31e076f290ff40b967fc3598df003, type: 2}
+  - {fileID: 11400000, guid: 3dfafb01154feb74b9764232573ee56a, type: 2}
+  - {fileID: 11400000, guid: 5a0ecf727f13c944a8ba953260db4ca2, type: 2}
+  - {fileID: 11400000, guid: 13a3891dde7d1294ebd9ea659e618c27, type: 2}
+  - {fileID: 11400000, guid: f2dce0cd026b6104bb6121bbde734f98, type: 2}
+  - {fileID: 11400000, guid: 1f6430b7dd7deeb4b892611ca38e3c2f, type: 2}
+  - {fileID: 11400000, guid: 80a93781e421a7740b48e9007b0f1170, type: 2}
+  - {fileID: 11400000, guid: 02263c2f047f83c4d982fa2b35de9424, type: 2}
+  - {fileID: 11400000, guid: f429f7c9c80501042ba3d47c1dfe38b9, type: 2}
+  - {fileID: 11400000, guid: 034f1d5371dbb8e4695e0d3ec5c5acb5, type: 2}
+  wrongAlternatives:
+  - {fileID: 11400000, guid: 6c817036150dc844ba0c5e9979837e42, type: 2}
+  - {fileID: 11400000, guid: 35d538d3609820343ac8879a5066d7ac, type: 2}
+  - {fileID: 11400000, guid: be761ca167b3f6549b12baf9a5b59b31, type: 2}
+  - {fileID: 11400000, guid: b9c336f2248f60d4c8d14d88f6dc34a5, type: 2}
+  - {fileID: 11400000, guid: 5036498676a46304fb4a39b99854ba15, type: 2}
+  - {fileID: 11400000, guid: d6eb5e1f6effad34c9fa93c5ca5b4435, type: 2}
+  - {fileID: 11400000, guid: 65a9a1e8be9d9c34eb296405d116c68f, type: 2}
+  - {fileID: 11400000, guid: bf8d562ece26276498e24e7aa0f29f3f, type: 2}
+  - {fileID: 11400000, guid: 2f5569edf9b28ff429e3405f504e7bdb, type: 2}
+  - {fileID: 11400000, guid: bf0ebdeca4efb0f4caad987ec659eb0f, type: 2}
+  - {fileID: 11400000, guid: 4275e33e9a783184494843f8e37813a4, type: 2}
+  - {fileID: 11400000, guid: ef842c2431951f242bda39de88ef9e3f, type: 2}
+  - {fileID: 11400000, guid: a4f8eac347e4aa64ebbdc496712a507f, type: 2}
+  - {fileID: 11400000, guid: 86a09c00d1a2ef646b0b8722018ded49, type: 2}
+  - {fileID: 11400000, guid: 4bba666bad75daf4bb7244f8adf5784a, type: 2}

@@ -15,7 +15,16 @@ public class Manager1_3B : OverridableMonoBehaviour {
 
 	#region Vars
 	[FoldoutGroup("1ª Ano")] public List<ItemWord1_3b> allWordsOfList;
+
 	[FoldoutGroup("1ª Ano")] public List<ItemWord1_3b> choosenWords;
+	[LabelText("Frases")]
+	[FoldoutGroup("3ª Ano")]
+	[AssetList(Path = "MiniGames/1-3 [A vacina do Leite Materno]/SO/3ª Ano/")]
+
+	public List<ItemPhrase13B> phrase13Bs;
+	[LabelText("Frases Selecionadas")]
+	[FoldoutGroup("3ª Ano")]
+	public List<ItemPhrase13B> choosenPhrase13Bs;
 
 	private Camera mainCamera;
 	public int anoLetivo = 1;
@@ -245,6 +254,9 @@ public class Manager1_3B : OverridableMonoBehaviour {
 				UpdateFoods ();
 				break;
 			case 3:
+				phrase13Bs.Suffle();
+				choosenPhrase13Bs = phrase13Bs.Take(foodQuestionTodo).ToList();
+				UpdatePhrase();
 				break;
 		}
 
@@ -256,6 +268,25 @@ public class Manager1_3B : OverridableMonoBehaviour {
 	        canShoot = true;
 
 	}
+
+    public void UpdatePhrase(){
+	    rightIndexFood = Random.Range (0, 4);
+
+	    textFoodName.text = $"{choosenPhrase13Bs[foodQuestionMade].question}";
+	    choosenPhrase13Bs[foodQuestionMade].wrongAlternatives.Suffle();
+	    choosenPhrase13Bs[foodQuestionMade].correctAlternatives.Suffle();
+	    var tempList = choosenPhrase13Bs[foodQuestionMade].wrongAlternatives.Take(3).ToList();
+	    tempList.Add(choosenPhrase13Bs[foodQuestionMade].correctAlternatives.First());
+	    tempList.Suffle();
+
+	    for (int i = 0; i < 4; i++) {
+		    bubbleSprites [i].UpdateFood (tempList[i]);
+		    bubbleSprites [i].StartFadeIn(delayFadeIn);
+	    }
+
+	    rightBubbleFood = bubbleSprites.First(x => x.word == choosenPhrase13Bs[foodQuestionMade].correctAlternatives.First());
+
+    }
 
 	public void UpdateFoods(){
 		rightIndexFood = Random.Range (0, 4);
@@ -273,7 +304,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 	public void UpdateWords(){
 		rightIndexFood = Random.Range (0, 4);
 
-		textFoodName.text = $"Qual objeto começa com a letra {choosenWords[foodQuestionMade].startLetter}";
+		textFoodName.text = $"Atire no alimento que começa com a letra {choosenWords[foodQuestionMade].startLetter}";
 
 		var tempList = allWordsOfList.Where(x => x.startLetter != choosenWords[foodQuestionMade].startLetter).Take(3).ToList();
 		tempList.Add(choosenWords[foodQuestionMade]);
@@ -286,6 +317,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 		}
 
 		rightBubbleFood = bubbleSprites.First(x => x.word == choosenWords[foodQuestionMade]);
+
 	}
 
 	public void NextFoodsQuestion(){
@@ -309,6 +341,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 			        UpdateFoods();
 			        break;
 		        case 3:
+			        UpdatePhrase();
 			        break;
 	        }
 
@@ -457,7 +490,16 @@ public class Manager1_3B : OverridableMonoBehaviour {
 			userChoiseFood.MakeItRed ();
         }
 
-		Timing.RunCoroutine (EndQuestion());
+        if (anoLetivo != 2)
+        {
+	        rightBubbleFood.textItem.DOFade(1f, .3f).SetDelay(gotoCenterDelay).OnComplete(() => Timing.RunCoroutine(EndQuestion()));
+        }
+        else
+        {
+	        Timing.RunCoroutine (EndQuestion());
+        }
+
+//		Timing.RunCoroutine (EndQuestion());
 	}
 
     public void CorrectionSucess() {

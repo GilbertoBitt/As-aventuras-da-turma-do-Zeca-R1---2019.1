@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using MEC;
 using DG.Tweening;
 using MiniGames.Scripts._1_3B;
+using TMPro;
 
 public class BubbleFood1_3B : MonoBehaviour {
 
@@ -21,6 +22,7 @@ public class BubbleFood1_3B : MonoBehaviour {
     public GameObject partExploBolha;
     public Transform bolha;
     private ParticleSystem _particle;
+    public TextMeshPro textItem;
     public void Awake() {
         _particle = partExploBolha.GetComponent<ParticleSystem>();
     }
@@ -37,6 +39,7 @@ public class BubbleFood1_3B : MonoBehaviour {
 	    bubbleSpriteRender.color = Color.white;
 	    iconSpriteRender.sprite = wordTemp.itemSprite;
 	    originalPos = this.transform.position;
+	    textItem.SetText(word.itemWord.ToUpperInvariant());
     }
 
 	void Update(){
@@ -61,6 +64,10 @@ public class BubbleFood1_3B : MonoBehaviour {
         iconSpriteRender.DOFade(0f, _delay);
         bubbleSpriteRender.DOFade(0f, _delay);
         this.transform.DOScale(Vector3.zero, _delay).OnComplete(returnToOrigin);
+        if (textItem.color.a >= 0.3f)
+        {
+	        textItem.DOFade(0f, .3f);
+        }
         //Timing.RunCoroutine (FadeOut (_delay));
 	}
 
@@ -119,7 +126,7 @@ public class BubbleFood1_3B : MonoBehaviour {
         Vector3 worldCenterPosition = manager.positionCenter.position;
         worldCenterPosition.z = this.transform.position.z;
         this.transform.DOMove(worldCenterPosition, delay);
-		Timing.RunCoroutine (GoToCenter (delay));
+//		Timing.RunCoroutine (GoToCenter (delay));
 	}
 
 	IEnumerator<float> GoToCenter(float delay){
