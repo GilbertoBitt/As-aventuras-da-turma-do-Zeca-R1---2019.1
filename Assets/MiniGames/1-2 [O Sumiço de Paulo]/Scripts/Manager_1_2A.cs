@@ -409,8 +409,8 @@ public class Manager_1_2A : OverridableMonoBehaviour {
             }
 		}
 
-		itemsToHide.Suffle ();
-		placesToHide.Suffle ();		
+		itemsToHide.Shuffle ();
+		placesToHide.Shuffle ();		
 
 
 		for (int i = 0; i < 5; i++) {
@@ -446,7 +446,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 			placesChoosen.Add (placesToHide [i]);
 		}
 
-		level.hidenTreePlaces.Suffle ();
+		level.hidenTreePlaces.Shuffle ();
 
         countTemp = level.hidenTreePlaces.Count;
         for (int i = 0; i < countTemp; i++) {
@@ -563,8 +563,8 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 		}
 		}
 
-		itemsToHide.Suffle ();
-		placesToHide.Suffle ();		
+		itemsToHide.Shuffle ();
+		placesToHide.Shuffle ();		
 
 
 		for (int i = 0; i < 5; i++) {
@@ -598,7 +598,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 			placesChoosen.Add (placesToHide [i]);
 		}
 
-		level.hidenTreePlaces.Suffle ();
+		level.hidenTreePlaces.Shuffle ();
 
 		for (int i = 0; i < level.hidenTreePlaces.Count; i++) {
 			if (level.hidenTreePlaces [i].Image == null) {

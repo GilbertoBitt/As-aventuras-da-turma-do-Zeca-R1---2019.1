@@ -6,7 +6,7 @@ using Random = System.Random;
 
 public static class ShuffleListExtensions {
 
-	public static IList<T> Suffle<T>(this IList<T> array){
+	public static IList<T> Shuffle<T>(this IList<T> array){
 
 		for (int i = 0; i < array.Count; i++) {
 

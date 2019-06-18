@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d28b26a550fc8418fadee67b91726c, type: 3}
+  m_Name: No jantar, Paulo prefere comer comida ___
+  m_EditorClassIdentifier: 
+  question: No jantar, Paulo prefere comer comida ___
+  correctAlternatives:
+  - {fileID: 11400000, guid: 791acaa883d1d554fb33fd6e42d91ba2, type: 2}
+  - {fileID: 11400000, guid: 90e45e6016925ba48806c0ca68928c63, type: 2}
+  - {fileID: 11400000, guid: 2f5569edf9b28ff429e3405f504e7bdb, type: 2}
+  - {fileID: 11400000, guid: 52189e6513736fa4baa6aced5516507d, type: 2}
+  - {fileID: 11400000, guid: 55ba7b3eebed0b24c8796a0b7604962c, type: 2}
+  wrongAlternatives:
+  - {fileID: 11400000, guid: d7b82281c83a886419df1ced38a8d09f, type: 2}
+  - {fileID: 11400000, guid: 35d538d3609820343ac8879a5066d7ac, type: 2}
+  - {fileID: 11400000, guid: 65a9a1e8be9d9c34eb296405d116c68f, type: 2}
+  - {fileID: 11400000, guid: e1c51a92761a6b74cb06322fb0036af4, type: 2}
+  - {fileID: 11400000, guid: b9c336f2248f60d4c8d14d88f6dc34a5, type: 2}
+  - {fileID: 11400000, guid: cb01e6f7c2ca0a143bdb8a2026621fad, type: 2}
+  - {fileID: 11400000, guid: afa3ac9b24a365747b48b8af5b8db116, type: 2}
+  - {fileID: 11400000, guid: 86a09c00d1a2ef646b0b8722018ded49, type: 2}

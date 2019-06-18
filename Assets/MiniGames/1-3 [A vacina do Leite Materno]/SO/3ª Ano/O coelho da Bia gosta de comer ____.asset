@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d28b26a550fc8418fadee67b91726c, type: 3}
+  m_Name: O coelho da Bia gosta de comer ____
+  m_EditorClassIdentifier: 
+  question: O coelho da Bia gosta de comer ____
+  correctAlternatives:
+  - {fileID: 11400000, guid: d6eb5e1f6effad34c9fa93c5ca5b4435, type: 2}
+  wrongAlternatives:
+  - {fileID: 11400000, guid: 9bbe826b7d9b2b746b768b158d210121, type: 2}
+  - {fileID: 11400000, guid: 7e0e8e1a3dbbfda4aaedb8809d02182d, type: 2}
+  - {fileID: 11400000, guid: 3b03782f701c55849b0ed98e54cefbc2, type: 2}
+  - {fileID: 11400000, guid: 0196f5db024e6d44d8d704cfcdec6514, type: 2}
+  - {fileID: 11400000, guid: 637bd6b79b782354e846c063dd3ceec4, type: 2}
+  - {fileID: 11400000, guid: 23fcaa08833f2e94692c3371ecfd25b5, type: 2}
+  - {fileID: 11400000, guid: 9aeaa2e1ce08980409efd69a53846beb, type: 2}
+  - {fileID: 11400000, guid: 0d21e61b3109e0f44b73322dee928b1f, type: 2}
+  - {fileID: 11400000, guid: c922aa0c61bdcac4681269669150ad5a, type: 2}
+  - {fileID: 11400000, guid: 934eff5c098840741aeb123dfe52b993, type: 2}
+  - {fileID: 11400000, guid: fb98077ae7c96304b9bcfc7269356aa6, type: 2}
+  - {fileID: 11400000, guid: 41e81d1f7ff60b04484dffcecff92c17, type: 2}
+  - {fileID: 11400000, guid: 9198b9857082e7446888c24356174d11, type: 2}
+  - {fileID: 11400000, guid: 589fa1fc282404747a100e87e3b9b16c, type: 2}
+  - {fileID: 11400000, guid: 36e6c8037c104e546830b2d2a326ca6a, type: 2}
+  - {fileID: 11400000, guid: 5eb71a5278c89e348ad09729415f9130, type: 2}
+  - {fileID: 11400000, guid: 44e766a0f58990145b777e924035ba92, type: 2}
+  - {fileID: 11400000, guid: aa2e6ee60fbfdd648857c1448aab7753, type: 2}
+  - {fileID: 11400000, guid: e88ba15ac2d69df40a57004b07a8db39, type: 2}

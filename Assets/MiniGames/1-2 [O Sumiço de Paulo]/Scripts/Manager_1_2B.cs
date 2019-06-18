@@ -343,7 +343,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		}
 
 		
-		AllPlaces.Suffle();
+		AllPlaces.Shuffle();
 
 		switch (anoLetivo)
 		{
@@ -355,7 +355,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
 				foreach (var item in spatialFormsSprites)
 				{
-					item.Value.Suffle();
+					item.Value.Shuffle();
 				}
 				break;
 		}
@@ -364,7 +364,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
 		if (anoLetivo == 3)
 		{
-			sessionsConfig[dificult].objectsOfSession.Suffle();
+			sessionsConfig[dificult].objectsOfSession.Shuffle();
 			switch (session.randomizationType)
 			{
 				case RandomizationType.Sides:
@@ -381,7 +381,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					break;
 			}
 
-			randomList?.Suffle();
+			randomList?.Shuffle();
 		}
 
 
@@ -411,7 +411,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 			choosenPlaces.Remove(AllPlaces[i]);
 		}
 
-		choosenPlaces.Suffle();
+		choosenPlaces.Shuffle();
 
 		List<Sprite> otherSprites = new List<Sprite>();
 		var otherSpatialForms = new List<(Sprite sprite, SpacialForms spacialForms)>();
@@ -464,9 +464,9 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		}
 
 
-		otherSprites.Suffle();
-		otherSpatialForms.Suffle();
-		otherObjects.Suffle();
+		otherSprites.Shuffle();
+		otherSpatialForms.Shuffle();
+		otherObjects.Shuffle();
 
 
 		int randomize = Random.Range(minOtherSprites,maxOtherSprites);
@@ -725,7 +725,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
         TutorialCheking();
 
         fadeImage.color = Color.clear;
-		formList.Suffle();
+		formList.Shuffle();
 		deactiveThis[0].SetActive(false);
 		dificult = 0;
 		panel02.SetActive(true);

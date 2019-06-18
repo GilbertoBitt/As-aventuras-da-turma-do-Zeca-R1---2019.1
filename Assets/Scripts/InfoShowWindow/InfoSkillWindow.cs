@@ -20,14 +20,17 @@ public class InfoSkillWindow : MonoBehaviour
     private void Start()
     {
         _canvasGroup = GetComponent(typeof(CanvasGroup)) as CanvasGroup;
-        pauseManager = FindObjectOfType<PauseManager>();
+        if (pauseManager == null)
+        {
+            pauseManager = FindObjectOfType<PauseManager>();
+        }
         _canvas = GetComponent(typeof(Canvas)) as Canvas;
         _graphicRaycaster = GetComponent(typeof(GraphicRaycaster)) as GraphicRaycaster;
     }
 
     public void ShowWindowInfo(HabilidadeBNCCInfo targetInfo)
     {
-        textInfoDescription.text = $"Habilidade: [{targetInfo.codigo}]: {targetInfo.description}";
+        textInfoDescription.text = $"Habilidade: ({targetInfo.codigo}) {targetInfo.description}";
         _graphicRaycaster.enabled = true;
         _canvas.enabled = true;
         _canvasGroup.interactable = true;
@@ -41,7 +44,7 @@ public class InfoSkillWindow : MonoBehaviour
 
     public void ShowWindowInfo(HabilidadeBNCCInfo targetInfo, HabilidadeBNCCInfo targetInfo2)
     {
-        textInfoDescription.text = $"Habilidade: <link=\"google.com.br\">[{targetInfo.codigo}]<link>: {targetInfo.description} \n\nHabilidade: [{targetInfo2.codigo}]: {targetInfo2.description}";
+        textInfoDescription.text = $"Habilidade: <link=\"google.com.br\">({targetInfo.codigo})<link> {targetInfo.description} \n\nHabilidade: ({targetInfo2.codigo}) {targetInfo2.description}";
         _graphicRaycaster.enabled = true;
         _canvas.enabled = true;
         _canvasGroup.interactable = true;

@@ -368,7 +368,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
             ItemHandlerList.Add(itemHandler);
             for (int j = 0; j < dificult.sizeOfLayers; j++) {
                 GameObject imageItem = Instantiate(imagesOfItem, circlesOnScene[i].transform) as GameObject;
-                itemsOfTower.Suffle();
+                itemsOfTower.Shuffle();
                 imagesLayerOnScene.Add(imageItem);
                 imageItem.transform.localScale = new Vector3(1f, 1f, 1f);
                 itemHandler.itemsOnSlot.Add(imageItem);
@@ -1109,7 +1109,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
 		
 	//	yield return new WaitForSeconds(1f);
 		if(isPlaying){
-			chestsParent.Suffle();
+			chestsParent.Shuffle();
 			Vector3 _anchoredPosition = chests[0].GetComponent<RectTransform>().anchoredPosition;
 			Vector2 _sizeDelta = chests[0].GetComponent<RectTransform>().sizeDelta;
 			int chestsCount = chests.Count;
@@ -1303,7 +1303,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
                 }
 
                 chests2 = chests.ToList();
-				chests2.Suffle();               
+				chests2.Shuffle();               
 
                 if (!chests2[0].isChestClose) {
                     chestBonus = chests2[0];

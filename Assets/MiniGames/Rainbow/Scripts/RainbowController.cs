@@ -1075,7 +1075,7 @@ else if (checkFim==true && checkfim2==true){
 		int howMany = Random.Range (1, currentLevel.amountOfInstance+1);
 
 		IList<GameObject> positionsSpawn = spawnPositions;	
-		ShuffleListExtensions.Suffle<GameObject> (positionsSpawn);
+		ShuffleListExtensions.Shuffle<GameObject> (positionsSpawn);
 
 		//int randomSpawn = Random.Range (0, spawnPositions.Count);
 		//GameObject spawnPosition = spawnPositions [randomSpawn];

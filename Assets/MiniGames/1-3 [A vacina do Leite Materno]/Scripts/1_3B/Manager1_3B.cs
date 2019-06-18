@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using com.csutil;
 using MEC;
 using DG.Tweening;
 using MiniGames.Scripts;
@@ -14,9 +15,13 @@ using TMPro;
 public class Manager1_3B : OverridableMonoBehaviour {
 
 	#region Vars
+
+	public Button habilidadeInfoButton;
 	[FoldoutGroup("1ª Ano")] public List<ItemWord1_3b> allWordsOfList;
 
 	[FoldoutGroup("1ª Ano")] public List<ItemWord1_3b> choosenWords;
+	[FoldoutGroup("1ª Ano")] public HabilidadeBNCCInfo habilidade1;
+	[FoldoutGroup("2ª Ano")] public HabilidadeBNCCInfo habilidade2;
 	[LabelText("Frases")]
 	[FoldoutGroup("3ª Ano")]
 	[AssetList(Path = "MiniGames/1-3 [A vacina do Leite Materno]/SO/3ª Ano/")]
@@ -25,6 +30,8 @@ public class Manager1_3B : OverridableMonoBehaviour {
 	[LabelText("Frases Selecionadas")]
 	[FoldoutGroup("3ª Ano")]
 	public List<ItemPhrase13B> choosenPhrase13Bs;
+
+	[FoldoutGroup("3ª Ano")] public HabilidadeBNCCInfo habilidade3;
 
 	private Camera mainCamera;
 	public int anoLetivo = 1;
@@ -140,7 +147,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 
     public bool didadMovel;
     public Image tutorialImageComponent;
-
+    [ReadOnly] public InfoSkillWindow infoSkillWindow;
     #endregion
 
     // Use this for initialization
@@ -148,6 +155,22 @@ public class Manager1_3B : OverridableMonoBehaviour {
         canudo = cannonManager.gameObject;
         ControlSomTutor2 = GetComponent<ControlSomTutor>();
         _log = GetComponent<LogSystem>();
+        infoSkillWindow = FindObjectOfType<InfoSkillWindow>();
+        habilidadeInfoButton.AddOnClickAction(x =>
+        {
+	        switch (anoLetivo)
+	        {
+		        case 1:
+			        infoSkillWindow.ShowWindowInfo(habilidade1);
+			        break;
+		        case 2:
+			        infoSkillWindow.ShowWindowInfo(habilidade2);
+			        break;
+		        case 3:
+			        infoSkillWindow.ShowWindowInfo(habilidade3);
+			        break;
+	        }
+        });
      }
 
     void StartGame () {
@@ -227,9 +250,10 @@ public class Manager1_3B : OverridableMonoBehaviour {
 	}
 
     public void StartFoodQuiz(){
+	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
 		startPosCannon = canonTransform.position;
 		LoadBulletPool ();
-		allWordsOfList.Suffle();
+		allWordsOfList.Shuffle();
 		switch (anoLetivo)
 		{
 			case 1:
@@ -254,7 +278,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 				UpdateFoods ();
 				break;
 			case 3:
-				phrase13Bs.Suffle();
+				phrase13Bs.Shuffle();
 				choosenPhrase13Bs = phrase13Bs.Take(foodQuestionTodo).ToList();
 				UpdatePhrase();
 				break;
@@ -273,11 +297,11 @@ public class Manager1_3B : OverridableMonoBehaviour {
 	    rightIndexFood = Random.Range (0, 4);
 
 	    textFoodName.text = $"{choosenPhrase13Bs[foodQuestionMade].question}";
-	    choosenPhrase13Bs[foodQuestionMade].wrongAlternatives.Suffle();
-	    choosenPhrase13Bs[foodQuestionMade].correctAlternatives.Suffle();
+	    choosenPhrase13Bs[foodQuestionMade].wrongAlternatives.Shuffle();
+	    choosenPhrase13Bs[foodQuestionMade].correctAlternatives.Shuffle();
 	    var tempList = choosenPhrase13Bs[foodQuestionMade].wrongAlternatives.Take(3).ToList();
 	    tempList.Add(choosenPhrase13Bs[foodQuestionMade].correctAlternatives.First());
-	    tempList.Suffle();
+	    tempList.Shuffle();
 
 	    for (int i = 0; i < 4; i++) {
 		    bubbleSprites [i].UpdateFood (tempList[i]);
@@ -308,7 +332,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 
 		var tempList = allWordsOfList.Where(x => x.startLetter != choosenWords[foodQuestionMade].startLetter).Take(3).ToList();
 		tempList.Add(choosenWords[foodQuestionMade]);
-		tempList.Suffle();
+		tempList.Shuffle();
 
 
 		for (int i = 0; i < 4; i++) {
@@ -393,7 +417,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 			resultList.Add (qFood);
 		}
 
-		resultList.Suffle ();
+		resultList.Shuffle ();
 		return resultList;
 	
 	}
@@ -411,7 +435,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 		} else if (foodType == FoodGroup.Bebidas) {
 			result = randomFood (bebidasList);
 		}
-		result.Suffle ();
+		result.Shuffle ();
 		return result;
 	}
 

@@ -94,11 +94,11 @@ namespace MiniGames.Memory.Scripts
 
         public void ShuffleLists()
         {
-            monosillabas.Suffle();
-            dissilabo.Suffle();
-            trissilabo.Suffle();
-            polissilabo.Suffle();
-            GroupItemListt.Suffle();
+            monosillabas.Shuffle();
+            dissilabo.Shuffle();
+            trissilabo.Shuffle();
+            polissilabo.Shuffle();
+            GroupItemListt.Shuffle();
         }
 
         public (CardItemAlternative monosillaba, CardItemAlternative dissilabo, CardItemAlternative trissilabo, CardItemAlternative polissilabo) GetByIndex(int index) => (monosillabas[index], dissilabo[index], trissilabo[index], polissilabo[index]);

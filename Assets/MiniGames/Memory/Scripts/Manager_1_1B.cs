@@ -225,7 +225,7 @@ public class Manager_1_1B : MonoBehaviour
 			groupLayoutDrop.cellSize = cellsize_2ano;
 			if (_mMiddleCanvasGroup != null) _mMiddleCanvasGroup.cellSize = cellsize_2ano;
 
-			cardGroup2Ano.GroupItemList.Suffle();
+			cardGroup2Ano.GroupItemList.Shuffle();
 			InstantiateDragCards(5, dragCardPrefab2Ano);
 			InstantiateDropCards(5, dropCardPrefab2Ano);
 			textRight = textRight2;
@@ -615,7 +615,7 @@ public class Manager_1_1B : MonoBehaviour
 					break;
 			}
 
-			spritesChoosen.Suffle();
+			spritesChoosen.Shuffle();
 		}
 		else if (anoLetivo == 2)
 		{
@@ -623,7 +623,7 @@ public class Manager_1_1B : MonoBehaviour
 			for (int j = level * 5; j < (level*5)+5; j++)
 			{
 				spritesChoosen.Add(cardGroup2Ano.GroupItemList[j]);
-				spritesChoosen.Suffle();
+				spritesChoosen.Shuffle();
 			}
 		}
 		else
@@ -634,11 +634,11 @@ public class Manager_1_1B : MonoBehaviour
 			spritesChoosen.Add(result.dissilabo);
 			spritesChoosen.Add(result.trissilabo);
 			spritesChoosen.Add(result.polissilabo);
-			spritesChoosen.Suffle();
+			spritesChoosen.Shuffle();
 		}
-		spritesChoosen.Suffle();
+		spritesChoosen.Shuffle();
 		var tempList = spritesChoosen;
-		tempList.Suffle();
+		tempList.Shuffle();
 		for (int i = 0; i < dragCards.Length; i++)
 		{
 			
@@ -652,10 +652,10 @@ public class Manager_1_1B : MonoBehaviour
 
 		if (anoLetivo == 1)
 		{
-			spritesChoosen.Suffle();
+			spritesChoosen.Shuffle();
 		}
 
-		spritesChoosen.Suffle();
+		spritesChoosen.Shuffle();
 		for (int i = 0; i < dropCards.Length; i++){
 			dropCards[i].transform.SetParent(parentDrop);
 			if (anoLetivo == 1)
@@ -745,7 +745,7 @@ public class Manager_1_1B : MonoBehaviour
       
 
 	
-        cardGroup.GroupItemList.Suffle();
+        cardGroup.GroupItemList.Shuffle();
 		int deactiveThisPanelsLength = deactiveThisPanels.Length;
 		for (int i = 0; i < deactiveThisPanelsLength; i++){
 			deactiveThisPanels[i].SetActive(false);

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d28b26a550fc8418fadee67b91726c, type: 3}
+  m_Name: Juca toma suco de ____
+  m_EditorClassIdentifier: 
+  question: Juca toma suco de ____
+  correctAlternatives:
+  - {fileID: 11400000, guid: 5a0ecf727f13c944a8ba953260db4ca2, type: 2}
+  wrongAlternatives:
+  - {fileID: 11400000, guid: 65a9a1e8be9d9c34eb296405d116c68f, type: 2}
+  - {fileID: 11400000, guid: cfc6a95e34b20d54b868bc3b6f7175b0, type: 2}
+  - {fileID: 11400000, guid: 5207681ab88be4e46be7bef22fc2ef73, type: 2}
+  - {fileID: 11400000, guid: be761ca167b3f6549b12baf9a5b59b31, type: 2}
+  - {fileID: 11400000, guid: bf8d562ece26276498e24e7aa0f29f3f, type: 2}
+  - {fileID: 11400000, guid: 52189e6513736fa4baa6aced5516507d, type: 2}
+  - {fileID: 11400000, guid: 90e45e6016925ba48806c0ca68928c63, type: 2}
+  - {fileID: 11400000, guid: ef842c2431951f242bda39de88ef9e3f, type: 2}
+  - {fileID: 11400000, guid: 55ba7b3eebed0b24c8796a0b7604962c, type: 2}

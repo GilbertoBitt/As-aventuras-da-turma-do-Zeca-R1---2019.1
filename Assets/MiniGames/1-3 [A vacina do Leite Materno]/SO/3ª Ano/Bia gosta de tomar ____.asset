@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d28b26a550fc8418fadee67b91726c, type: 3}
+  m_Name: Bia gosta de tomar ____
+  m_EditorClassIdentifier: 
+  question: Bia gosta de tomar ____
+  correctAlternatives:
+  - {fileID: 11400000, guid: a908bfbfd7c0b1f4e95a9f98c43d6d72, type: 2}
+  - {fileID: 11400000, guid: 93890f3e033fe494fa76a6993bd2899a, type: 2}
+  - {fileID: 11400000, guid: 4c0ae88113ff40e4a830dcb235363947, type: 2}
+  - {fileID: 11400000, guid: f185d79370833fc44aa5532a97a9b614, type: 2}
+  wrongAlternatives:
+  - {fileID: 11400000, guid: 1ba31e076f290ff40b967fc3598df003, type: 2}
+  - {fileID: 11400000, guid: 35d538d3609820343ac8879a5066d7ac, type: 2}
+  - {fileID: 11400000, guid: 65a9a1e8be9d9c34eb296405d116c68f, type: 2}
+  - {fileID: 11400000, guid: be761ca167b3f6549b12baf9a5b59b31, type: 2}
+  - {fileID: 11400000, guid: 791acaa883d1d554fb33fd6e42d91ba2, type: 2}
+  - {fileID: 11400000, guid: 52189e6513736fa4baa6aced5516507d, type: 2}
+  - {fileID: 11400000, guid: 90e45e6016925ba48806c0ca68928c63, type: 2}
+  - {fileID: 11400000, guid: 2f5569edf9b28ff429e3405f504e7bdb, type: 2}
+  - {fileID: 11400000, guid: 13a3891dde7d1294ebd9ea659e618c27, type: 2}
+  - {fileID: 11400000, guid: ef842c2431951f242bda39de88ef9e3f, type: 2}
+  - {fileID: 11400000, guid: 4275e33e9a783184494843f8e37813a4, type: 2}
+  - {fileID: 11400000, guid: 55ba7b3eebed0b24c8796a0b7604962c, type: 2}
+  - {fileID: 11400000, guid: a4f8eac347e4aa64ebbdc496712a507f, type: 2}

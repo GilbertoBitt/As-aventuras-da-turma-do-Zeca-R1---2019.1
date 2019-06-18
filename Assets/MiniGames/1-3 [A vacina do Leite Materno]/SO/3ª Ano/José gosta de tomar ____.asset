@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d28b26a550fc8418fadee67b91726c, type: 3}
+  m_Name: "Jos\xE9 gosta de tomar ____"
+  m_EditorClassIdentifier: 
+  question: "Jos\xE9 gosta de tomar ____"
+  correctAlternatives:
+  - {fileID: 11400000, guid: e8b1845fcab45c146bff33ac7f2b87d1, type: 2}
+  wrongAlternatives:
+  - {fileID: 11400000, guid: d7b82281c83a886419df1ced38a8d09f, type: 2}
+  - {fileID: 11400000, guid: 3dfafb01154feb74b9764232573ee56a, type: 2}
+  - {fileID: 11400000, guid: 65a9a1e8be9d9c34eb296405d116c68f, type: 2}
+  - {fileID: 11400000, guid: 791acaa883d1d554fb33fd6e42d91ba2, type: 2}
+  - {fileID: 11400000, guid: 2f5569edf9b28ff429e3405f504e7bdb, type: 2}
+  - {fileID: 11400000, guid: 90e45e6016925ba48806c0ca68928c63, type: 2}
+  - {fileID: 11400000, guid: 55ba7b3eebed0b24c8796a0b7604962c, type: 2}
+  - {fileID: 11400000, guid: a4f8eac347e4aa64ebbdc496712a507f, type: 2}
+  - {fileID: 11400000, guid: 4275e33e9a783184494843f8e37813a4, type: 2}

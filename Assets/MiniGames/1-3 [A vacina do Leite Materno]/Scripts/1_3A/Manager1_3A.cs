@@ -292,7 +292,7 @@ namespace MiniGames.Scripts._1_3A
             imgPersonAnimP = imgPersonAnimG[SelPersons2.PersonSel];
             // imgPersonAnimP.enabled = false;
             lifePersonIm.sprite = lifePerson[SelPersons2.PersonSel];
-            plataforms.Suffle();
+            plataforms.Shuffle();
             LoadQueueParticle();
             if (Application.platform == RuntimePlatform.WindowsPlayer) {
                 jumpObj.SetActive(false);

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d28b26a550fc8418fadee67b91726c, type: 3}
+  m_Name: Tati gosta de beber ____
+  m_EditorClassIdentifier: 
+  question: Tati gosta de beber ____
+  correctAlternatives:
+  - {fileID: 11400000, guid: 7a43b436e968df744ad9a9d55b002dbd, type: 2}
+  wrongAlternatives:
+  - {fileID: 11400000, guid: 1ba31e076f290ff40b967fc3598df003, type: 2}
+  - {fileID: 11400000, guid: 1f6430b7dd7deeb4b892611ca38e3c2f, type: 2}
+  - {fileID: 11400000, guid: 3dfafb01154feb74b9764232573ee56a, type: 2}
+  - {fileID: 11400000, guid: 5207681ab88be4e46be7bef22fc2ef73, type: 2}
+  - {fileID: 11400000, guid: a3825296d92350341a87b1b8803f6bbc, type: 2}
+  - {fileID: 11400000, guid: 35d538d3609820343ac8879a5066d7ac, type: 2}
+  - {fileID: 11400000, guid: 5036498676a46304fb4a39b99854ba15, type: 2}
+  - {fileID: 11400000, guid: 65a9a1e8be9d9c34eb296405d116c68f, type: 2}
+  - {fileID: 11400000, guid: 791acaa883d1d554fb33fd6e42d91ba2, type: 2}
+  - {fileID: 11400000, guid: b1ebba8b650f97d4d985afa6d462a2d7, type: 2}
+  - {fileID: 11400000, guid: 52189e6513736fa4baa6aced5516507d, type: 2}
+  - {fileID: 11400000, guid: f2dce0cd026b6104bb6121bbde734f98, type: 2}
+  - {fileID: 11400000, guid: 13a3891dde7d1294ebd9ea659e618c27, type: 2}
+  - {fileID: 11400000, guid: f429f7c9c80501042ba3d47c1dfe38b9, type: 2}
+  - {fileID: 11400000, guid: 02263c2f047f83c4d982fa2b35de9424, type: 2}
+  - {fileID: 11400000, guid: a4f8eac347e4aa64ebbdc496712a507f, type: 2}
+  - {fileID: 11400000, guid: bf0ebdeca4efb0f4caad987ec659eb0f, type: 2}
+  - {fileID: 11400000, guid: 4275e33e9a783184494843f8e37813a4, type: 2}
+  - {fileID: 11400000, guid: cb01e6f7c2ca0a143bdb8a2026621fad, type: 2}
+  - {fileID: 11400000, guid: 55ba7b3eebed0b24c8796a0b7604962c, type: 2}

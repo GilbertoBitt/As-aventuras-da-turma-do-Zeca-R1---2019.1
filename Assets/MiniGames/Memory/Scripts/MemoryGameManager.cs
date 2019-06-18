@@ -691,7 +691,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
             StopAllCoroutines();
         }
        // Debug.Log("cardsAmount: " + cardsAmount.ToString());
-		spriteCards.GroupItemList.Suffle();
+		spriteCards.GroupItemList.Shuffle();
 		for (int i = 0; i < cardsAmount; i++){
 			//MemoryCard card = new MemoryCard(spriteCards[i], this);
 			cardList.Add(spriteCards.GroupItemList[i].SpriteItem);
@@ -706,7 +706,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 			personReation.ControlAnimCorpo.SetInteger (posCorpoZeca,4);
 		}
 	
-		cardList.Suffle();
+		cardList.Shuffle();
 
 		int countCard = cardList.Count;
         //Debug.Log("cardList: " + cardList.Count);

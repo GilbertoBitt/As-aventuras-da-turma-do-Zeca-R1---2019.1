@@ -224,13 +224,13 @@ public class Manager1_4B : OverridableMonoBehaviour {
         routineOneList = new Word1_4B[amountWords];
         System.Array.Copy(monosyllable, routineOneList, monosyllable.Length);
         System.Array.Copy(Dissyllable, 0, routineOneList, monosyllable.Length, Dissyllable.Length);
-        routineOneList.Suffle();
+        routineOneList.Shuffle();
 
         amountWords = Trisyllable.Length + Dissyllable.Length;
         routineTwoList = new Word1_4B[amountWords];
         System.Array.Copy(Trisyllable, routineTwoList, Trisyllable.Length);
         System.Array.Copy(Dissyllable, 0, routineTwoList, Trisyllable.Length, Dissyllable.Length);
-        routineTwoList.Suffle();
+        routineTwoList.Shuffle();
     }
 
     public void SetupPools() {
@@ -287,7 +287,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
                 currentWord = routineOneList[currentRound];
                 blueBoxInstances = new SyllableHandler1_4B[currentWord.numberOfChars];
                 emptyBoxInstances = new BlankSpace1_4B[currentWord.numberOfChars];
-                currentWord.characters.Suffle();
+                currentWord.characters.Shuffle();
                 for (int i = 0; i < currentWord.numberOfChars; i++) {
                     blueBoxInstances[i] = blueBoxPool.Dequeue();
                     blueBoxInstances[i].syllable = currentWord.characters[i].ToUpper();
@@ -318,7 +318,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
                 currentWord = routineTwoList[currentRound];
                 blueBoxInstances = new SyllableHandler1_4B[currentWord.syllablesCount];
                 emptyBoxInstances = new BlankSpace1_4B[currentWord.syllablesCount];
-                currentWord.syllables.Suffle();
+                currentWord.syllables.Shuffle();
                 for (int i = 0; i < currentWord.syllablesCount; i++) {
                     blueBoxInstances[i] = blueBoxPool.Dequeue();
                     blueBoxInstances[i].syllable = currentWord.syllables[i].ToUpper();
@@ -501,7 +501,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
         currentWord = words[wordsDone];
 
         List<string> syllablesTemp = currentWord.syllables.ToList();
-        syllablesTemp.Suffle();
+        syllablesTemp.Shuffle();
 
         entireWordTextcomp.text = currentWord.completeWord.ToUpper();
 

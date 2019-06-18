@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d28b26a550fc8418fadee67b91726c, type: 3}
+  m_Name: "Manu vai comer no almo\xE7o arroz com ____"
+  m_EditorClassIdentifier: 
+  question: "Manu vai comer no almo\xE7o arroz com ____"
+  correctAlternatives:
+  - {fileID: 11400000, guid: bf8d562ece26276498e24e7aa0f29f3f, type: 2}
+  - {fileID: 11400000, guid: d6eb5e1f6effad34c9fa93c5ca5b4435, type: 2}
+  - {fileID: 11400000, guid: 5207681ab88be4e46be7bef22fc2ef73, type: 2}
+  - {fileID: 11400000, guid: 2f5569edf9b28ff429e3405f504e7bdb, type: 2}
+  - {fileID: 11400000, guid: bf0ebdeca4efb0f4caad987ec659eb0f, type: 2}
+  - {fileID: 11400000, guid: 4bba666bad75daf4bb7244f8adf5784a, type: 2}
+  - {fileID: 11400000, guid: 55ba7b3eebed0b24c8796a0b7604962c, type: 2}
+  wrongAlternatives:
+  - {fileID: 11400000, guid: 65a9a1e8be9d9c34eb296405d116c68f, type: 2}
+  - {fileID: 11400000, guid: 5a0ecf727f13c944a8ba953260db4ca2, type: 2}
+  - {fileID: 11400000, guid: 3dfafb01154feb74b9764232573ee56a, type: 2}
+  - {fileID: 11400000, guid: b1ebba8b650f97d4d985afa6d462a2d7, type: 2}
+  - {fileID: 11400000, guid: 13a3891dde7d1294ebd9ea659e618c27, type: 2}
+  - {fileID: 11400000, guid: f2dce0cd026b6104bb6121bbde734f98, type: 2}
+  - {fileID: 11400000, guid: cb01e6f7c2ca0a143bdb8a2026621fad, type: 2}
+  - {fileID: 11400000, guid: 86a09c00d1a2ef646b0b8722018ded49, type: 2}
+  - {fileID: 11400000, guid: ef842c2431951f242bda39de88ef9e3f, type: 2}

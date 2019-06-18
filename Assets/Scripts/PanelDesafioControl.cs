@@ -440,7 +440,7 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
             questions = data.GetQuestionListE(bookID, 1);
         }		
 
-		questions.Suffle();
+		questions.Shuffle();
 
 		List<DBOPERGUNTAS> choosenQuestion = new List<DBOPERGUNTAS>();
 
@@ -458,7 +458,7 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
             };
             DBOPERGUNTAS pTemp = choosenQuestion[i];
 			List<DBORESPOSTAS> rTempList = data.GetAnswersList(pTemp.idPergunta);
-            rTempList.Suffle();
+            rTempList.Shuffle();
             for (int j = 0; j < rTempList.Count; j++) {
 				questionTemp.alternatives.Add(DBORespostaToAlternatives(rTempList[j]));
 				if (rTempList[j].correta == 1) {
@@ -466,7 +466,7 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
 					questionTemp.rightAlternativeInt = j;
 				}
 			}
-			questionTemp.alternatives.Suffle();
+			questionTemp.alternatives.Shuffle();
 			questionsToAsk.Add(questionTemp);
 		}
 //        Timing.RunCoroutine(LoadAudioData());

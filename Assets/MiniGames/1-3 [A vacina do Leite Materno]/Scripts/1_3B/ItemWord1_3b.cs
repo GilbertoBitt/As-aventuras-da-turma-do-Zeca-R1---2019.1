@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Text;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 namespace MiniGames.Scripts._1_3B
 {
     [CreateAssetMenu(menuName = "ADTZ/Vacina do Leite Materno/Palavra")]
+    [Serializable]
     public class ItemWord1_3b : ScriptableObject
     {
         [InlineEditor(InlineEditorModes.SmallPreview)]
