@@ -125,8 +125,12 @@ public class managerAddRainbow : MonoBehaviour
 
 
     // Use this for initialization
-    public void StartGame () {
-		Timing.RunCoroutine(StartGameLate(), Segment.SlowUpdate);
+    public void StartGame ()
+    {
+
+	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
+
+		Timing.RunCoroutine(StartGameLate());
 
 	}
 
@@ -256,16 +260,14 @@ public class managerAddRainbow : MonoBehaviour
 				rainbowItems.Shuffle();
 				rainbowItemsSelected = rainbowItems.Take(4).ToArray();
 				equationContents = new EquationContent[4];
+				var tempList = new List<int>() {2, 3, 4, 5, 10};
+				tempList.Shuffle();
 				for (var index = 0; index < equationContents.Length; index++)
 				{
 					equationContents[index] = new EquationContent();
 					var equationContent = equationContents[index];
 					equationContent.equationType = EquationType.Multiplication;
-					do
-					{
-						equationContent.firstValue = new List<int>() {2, 3, 4, 5, 10}.GetRandomValue();
-					} while (equationContents.Any(x => x.firstValue == equationContent.firstValue));
-
+					equationContent.firstValue = tempList[index];
 					equationContent.secondValue = Random.Range(1, 11);
 				}
 
@@ -562,20 +564,14 @@ public class managerAddRainbow : MonoBehaviour
 					SetButtonAlternatives(equationContent);
 					break;
 				case 3:
-
+					enumciadoTextComponent.text = "Clique no número com a resposta certa.";
 					var tempRandom = Random.Range(0, 3);
 
 					var equationMultiply = equationContents[timesAsk];
-//					multiplyInAdditionComponent.equationContent.Value = equationMultiply;
-
-					var resultText = tempRandom == 0 ? $"= {equationMultiply.ResultValue()}" : "?";
-
-//					resultOfAdditionTextComponent.text = resultText;
-//					resultOfMultiplyTextComponent.text = resultText;
-
-					var firstValueText = tempRandom == 1 ? equationMultiply.firstValue.ToString() : "?";
-					var secondValueText = tempRandom == 2 ? equationMultiply.secondValue.ToString() : "?";
-//					multiplyEquationText.text = $"{firstValueText} x {secondValueText}";
+//
+					var resultText = tempRandom != 0 ? $"= {equationMultiply.ResultValue()}" : "?";
+					var firstValueText = tempRandom != 1 ? equationMultiply.firstValue.ToString() : "?";
+					var secondValueText = tempRandom != 2 ? equationMultiply.secondValue.ToString() : "?";
 
 					multiplyInAdditionComponent.OnEquationChanged(equationMultiply,
 						new TextMeshProUGUI[]{resultOfAdditionTextComponent, resultOfMultiplyTextComponent, multiplyEquationText},
@@ -585,6 +581,8 @@ public class managerAddRainbow : MonoBehaviour
 							resultOfMultiplyTextComponent.text = resultText;
 							multiplyEquationText.text = $"{firstValueText} x {secondValueText}";
 						});
+
+					SetButtonAlternatives(equationMultiply, tempRandom);
 					break;
 			}
 

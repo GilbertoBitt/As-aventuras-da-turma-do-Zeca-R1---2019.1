@@ -28,7 +28,6 @@ public class PauseManager : MonoBehaviour {
 
     public void PauseGame(){
         SomBT();
-
         Pause();
         OpenConfig ();
 		pausePanel.SetActive (true);
@@ -59,54 +58,28 @@ public class PauseManager : MonoBehaviour {
     public void OpenConfig(){
 
         SomBT();
-        if (config.isAudioOn) {
-			Toggles [0].isOn = false;
-		} else {
-			Toggles [0].isOn = true;
-		}
-
-		if (config.isAudioFXOn) {
-			Toggles [1].isOn = false;
-		} else {
-			Toggles [1].isOn = true;
-		}
-
-		if (config.isAudioVoiceOn) {
-			Toggles [2].isOn = false;
-		} else {
-			Toggles [2].isOn = true;
-		}
+        Toggles [0].isOn = !config.isAudioOn;
+		Toggles [1].isOn = !config.isAudioFXOn;
+		Toggles [2].isOn = !config.isAudioVoiceOn;
 
 	}
 
-	public void backgroundMusicValidate(){
-        SomBT();
-        if (Toggles [0].isOn) {
-			config.isAudioOn = false;
-		} else {
-			config.isAudioOn = true;
-		}
-
+	public void backgroundMusicValidate()
+	{
+		SomBT();
+		config.isAudioOn = !Toggles [0].isOn;
 	}
 
-	public void soundFXValidate(){
-        SomBT();
-        if (Toggles [1].isOn) {
-			config.isAudioFXOn = false;
-		} else {
-			config.isAudioFXOn = true;
-		}
-
+	public void soundFXValidate()
+	{
+		SomBT();
+		config.isAudioFXOn = !Toggles [1].isOn;
 	}
 
-	public void VoicesValidate(){
-        SomBT();
-        if (Toggles [2].isOn) {
-			config.isAudioVoiceOn = false;
-		} else {
-			config.isAudioVoiceOn = true;
-		}
-
+	public void VoicesValidate()
+	{
+		SomBT();
+		config.isAudioVoiceOn = !Toggles [2].isOn;
 	}
 
 	public void backToMenu(){

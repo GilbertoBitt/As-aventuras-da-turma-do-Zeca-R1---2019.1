@@ -48,6 +48,7 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 	public void updateImage(Sprite spriteItem){
 		imageComponent.sprite = spriteItem;
 		imageComponent.color = Color.white;
+		imageComponent.enabled = true;
 		imageComponent.preserveAspect = true;
 		canbeFound = true;
 	}

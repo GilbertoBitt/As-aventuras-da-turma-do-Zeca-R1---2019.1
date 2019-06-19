@@ -67,10 +67,19 @@ namespace MiniGames.Rainbow.Scripts
                 textInstance.text = IsEven(index) ? equation.secondValue.ToString() : "+";
                 if (index == 0)
                 {
+                    textInstance.gameObject.SetActive(true);
                     updatedItensSequence.Append(textInstance.DOColor(Color.white, .3f));
                 }
 
                 updatedItensSequence.Join(textInstance.DOColor(Color.white, .3f));
+            }
+
+            if (textInstances.Count - textsNeeded>= 1)
+            {
+                for (int i = textsNeeded; i < textInstances.Count; i++)
+                {
+                    textInstances[i].gameObject.SetActive(false);
+                }
             }
 
             foreach (var textEffect in textEffects)
