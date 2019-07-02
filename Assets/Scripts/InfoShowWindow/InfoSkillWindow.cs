@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using com.csutil;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class InfoSkillWindow : MonoBehaviour
     public TextMeshProUGUI textInfoDescription;
     public PauseManager pauseManager;
 
+
     private void Start()
     {
         _canvasGroup = GetComponent(typeof(CanvasGroup)) as CanvasGroup;
@@ -26,6 +28,8 @@ public class InfoSkillWindow : MonoBehaviour
         }
         _canvas = GetComponent(typeof(Canvas)) as Canvas;
         _graphicRaycaster = GetComponent(typeof(GraphicRaycaster)) as GraphicRaycaster;
+
+        IoC.inject.SetSingleton(this);
     }
 
     public void ShowWindowInfo(HabilidadeBNCCInfo targetInfo)

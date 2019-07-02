@@ -14,10 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogSettings: {fileID: 11400000, guid: dda8c0251a791324fa5a91e813a15c8e, type: 2}
   speeches:
-  - speechText: 
+  - speechText: Agora vamos encontrar os objetos que lembram algumas das formas geometricas.
     speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: beed180f13ee58243a06e4ac43a5ca72, type: 3}
+    speechSpriteAsset:
       enabled: 0
-      audioClip: {fileID: 0}
+      spriteAsset: {fileID: 0}
+  - speechText: teste 1222312312
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: 171b8ba91e684014f8a62de16c2e35b3, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+  - speechText: alguma coisa vai aparecer aqui
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: 644f1b2050246b243bee93d38b0e9f2b, type: 3}
     speechSpriteAsset:
       enabled: 0
       spriteAsset: {fileID: 0}

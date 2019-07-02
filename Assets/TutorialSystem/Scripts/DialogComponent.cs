@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using com.csutil;
+using DG.DeAudio;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using TMPro;
+using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TutorialSystem.Scripts
 {
@@ -14,15 +18,22 @@ namespace TutorialSystem.Scripts
         public DoTextDuration doTextDuration;
         public bool autoStart;
         public DialogInfo currentDialogInfo;
+        public int currentIndex;
+        public int indexEnd;
         public string subscribeEventName = "tutorialLudica";
         public string stopEventName => $"{subscribeEventName}Stopped";
         public string startEventName => $"{subscribeEventName}Started";
         public TextMeshProUGUI textMeshComponent;
         [ReadOnly]
         public Sequence dialogSequenceAnimation;
-
-        [ReadOnly] public SoundManager soundManager;
         [ReadOnly] public EventBus eventBus;
+        public Button previousDialogButton;
+        public Button nextDialogButton;
+        public Button replayDialogButton;
+        [ReadOnly]
+        public List<DialogWindowComponent> SubscribedDialogWindowComponents = new List<DialogWindowComponent>();
+
+
         public void Start()
         {
 
@@ -34,45 +45,102 @@ namespace TutorialSystem.Scripts
                 IoC.inject.SetSingleton(dialogSetting);
             }
 
-            if (soundManager == null)
-            {
-                soundManager = FindObjectOfType<SoundManager>();
-            }
+            previousDialogButton.OnClickAsObservable().Subscribe(unit => { PreviousDialog(); });
+            nextDialogButton.OnClickAsObservable().Subscribe(unit => { NextDialog(); });
+            replayDialogButton.OnClickAsObservable().Subscribe(unit => { ReplayVoiceTutorial(); });
 
-            if (autoStart && currentDialogInfo != null)
-            {
-                //TODO iniciar automaticamente no start
-                eventBus.Publish(startEventName);
-            }
+
+            if (!autoStart || currentDialogInfo == null) return;
+            //TODO iniciar automaticamente no start
+            eventBus.Publish(startEventName);
+            DOTween.Kill("tutorialSystem");
+            StartDialog();
         }
 
+
+
+
+        [ButtonGroup("DialogControl")]
+        public void PreviousDialog()
+        {
+            var temp = currentIndex--;
+            if (temp < 0) return;
+            DOTween.Kill("tutorialSystem");
+            StartDialog(currentDialogInfo, currentIndex--);
+
+        }
+
+        [ButtonGroup("DialogControl")]
         public void StartDialog()
         {
             if (currentDialogInfo == null) return;
-
+            eventBus.Publish(stopEventName);
+            DOTween.Kill("tutorialSystem");
             StartDialog(currentDialogInfo);
         }
 
-        public void StartDialog(DialogInfo dialogInfo)
+        [ButtonGroup("DialogControl")]
+        public void NextDialog()
         {
+            var temp = currentIndex++;
+            if (temp >= currentDialogInfo.speeches.Count) return;
+            DOTween.Kill("tutorialSystem");
+            StartDialog(currentDialogInfo, currentIndex++);
+        }
 
+        [ButtonGroup("DialogControl")]
+        public void ReplayVoiceTutorial()
+        {
+            DOTween.Kill("tutorialSystem");
+            StartDialog(currentDialogInfo, currentIndex);
+        }
+
+        private void StartDialog(DialogInfo dialogInfo, int currentDialogIndex = 0)
+        {
+            indexEnd = dialogInfo.speeches.Count;
+            currentIndex = currentDialogIndex;
             //TODO adicionar animação do personagem piscando e falando.    
             dialogSequenceAnimation = DOTween.Sequence();
             dialogSequenceAnimation.SetId("tutorialSystem");
             dialogSequenceAnimation.AppendInterval(.3f);
-            foreach (var speech in currentDialogInfo.speeches)
+            DeAudioManager.Stop(DeAudioGroupId.Dialogue);
+
+            for (var index = currentDialogIndex; index < currentDialogInfo.speeches.Count; index++)
             {
+                dialogSequenceAnimation.AppendCallback(() =>
+                {
+                    previousDialogButton.gameObject.SetActive(currentIndex != 0);
+                    nextDialogButton.gameObject.SetActive(currentIndex != indexEnd-1);
+                });
+
+                var speech = currentDialogInfo.speeches[index];
                 if (speech.speechAudioClip.enabled && speech.speechAudioClip != null)
                 {
                     dialogSequenceAnimation.AppendCallback(() =>
-                        soundManager.startVoiceFX(speech.speechAudioClip.audioClip));
+                        DeAudioManager.Play(DeAudioGroupId.Dialogue, speech.speechAudioClip.audioClip));
+                    dialogSequenceAnimation.AppendInterval(speech.speechAudioClip.audioClip.length);
+                    dialogSequenceAnimation.Join(textMeshComponent.DOText(speech.speechText,
+                        doTextDuration.enabled ? doTextDuration.timeBetweenSpeechs : dialogSetting.doTextDuration));
+                }
+                else
+                {
+                    dialogSequenceAnimation.Append(textMeshComponent.DOText(speech.speechText,
+                        doTextDuration.enabled ? doTextDuration.timeBetweenSpeechs : dialogSetting.doTextDuration));
                 }
 
-                dialogSequenceAnimation.Append(textMeshComponent.DOText(speech.speechText,
-                    doTextDuration.enabled ? doTextDuration.timeBetweenSpeechs : dialogSetting.doTextDuration));
-
                 dialogSequenceAnimation.AppendInterval(dialogSetting.timeBetweenSpeechs);
+
+                dialogSequenceAnimation.AppendCallback(() => { currentIndex++; });
+
             }
+
+            dialogSequenceAnimation.AppendCallback(() => { eventBus.Publish(stopEventName); });
+            dialogSequenceAnimation.Play();
+        }
+
+        public void SetDialogInfo(DialogInfo dialogInfo)
+        {
+            currentDialogInfo = dialogInfo;
         }
 
         public void StopTutorial()

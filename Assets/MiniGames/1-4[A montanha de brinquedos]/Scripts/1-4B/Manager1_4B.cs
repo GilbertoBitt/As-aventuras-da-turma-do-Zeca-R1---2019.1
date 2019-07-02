@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using MiniGames.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
     public bool isDragging = false;
     public int wordsDone = 0;
     public int wordsNeed = 3;
-    public Word1_4B currentWord;
+    public WordItem currentWord;
     public bool hasWordComplete = false;
     public bool isCountSyllables = false;
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
@@ -32,7 +33,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
     public Transform syllablesParent;
     public GameObject syllablePrefab;
     public GridLayoutGroup syllableGrid;
-    public List<Word1_4B> words = new List<Word1_4B>();
+    public List<WordItem> words = new List<WordItem>();
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
     [SeparatorAttribute("Espaços Brancos")]
 #endif
@@ -108,11 +109,8 @@ public class Manager1_4B : OverridableMonoBehaviour {
     public Text comandTextComp;
     public Text completeWordTextComp;
     public Text TextEnumComp;
-    public Word1_4B[] monosyllable = new Word1_4B[10];
-    public Word1_4B[] Dissyllable = new Word1_4B[10];
-    public Word1_4B[] Trisyllable = new Word1_4B[10];
-    public Word1_4B[] routineOneList = new Word1_4B[10];
-    public Word1_4B[] routineTwoList = new Word1_4B[10];
+    public WordItem[] routineOneList = new WordItem[10];
+    public WordItem[] routineTwoList = new WordItem[10];
     public int TotalRounds = 10;
     public int currentRound = 0;
     public Queue<SyllableHandler1_4B> blueBoxPool = new Queue<SyllableHandler1_4B>();
@@ -220,17 +218,18 @@ public class Manager1_4B : OverridableMonoBehaviour {
     }
 
     public void SuffleAndGenerateFirstRoutine() {
-        int amountWords = monosyllable.Length + Dissyllable.Length;
-        routineOneList = new Word1_4B[amountWords];
-        System.Array.Copy(monosyllable, routineOneList, monosyllable.Length);
-        System.Array.Copy(Dissyllable, 0, routineOneList, monosyllable.Length, Dissyllable.Length);
+        routineOneList = words.Where(x =>
+            x.wordClassification.classification == WordItem.ClassificationBySyllables.Dissilabas ||
+            x.wordClassification.classification == WordItem.ClassificationBySyllables.Monosillabas).ToArray();
         routineOneList.Shuffle();
+        int amountWords = routineOneList.Length;
 
-        amountWords = Trisyllable.Length + Dissyllable.Length;
-        routineTwoList = new Word1_4B[amountWords];
-        System.Array.Copy(Trisyllable, routineTwoList, Trisyllable.Length);
-        System.Array.Copy(Dissyllable, 0, routineTwoList, Trisyllable.Length, Dissyllable.Length);
+
+        routineTwoList = words.Where(x =>
+            x.wordClassification.classification == WordItem.ClassificationBySyllables.Dissilabas ||
+            x.wordClassification.classification == WordItem.ClassificationBySyllables.Trissilabas).ToArray();
         routineTwoList.Shuffle();
+        amountWords = routineTwoList.Length;
     }
 
     public void SetupPools() {
@@ -285,12 +284,12 @@ public class Manager1_4B : OverridableMonoBehaviour {
 
                 //Configurando Didatica com a palavra escolhida.
                 currentWord = routineOneList[currentRound];
-                blueBoxInstances = new SyllableHandler1_4B[currentWord.numberOfChars];
-                emptyBoxInstances = new BlankSpace1_4B[currentWord.numberOfChars];
-                currentWord.characters.Shuffle();
-                for (int i = 0; i < currentWord.numberOfChars; i++) {
+                blueBoxInstances = new SyllableHandler1_4B[currentWord.CountLetters];
+                emptyBoxInstances = new BlankSpace1_4B[currentWord.CountLetters];
+                currentWord.charSyllabes.Shuffle();
+                for (int i = 0; i < currentWord.CountLetters; i++) {
                     blueBoxInstances[i] = blueBoxPool.Dequeue();
-                    blueBoxInstances[i].syllable = currentWord.characters[i].ToUpper();
+                    blueBoxInstances[i].syllable = currentWord.charSyllabes[i].ToUpper();
                     blueBoxInstances[i].UpdateTextContent();
                     blueBoxInstances[i].transform.SetParent(blueBoxParent);
                     blueBoxInstances[i].DoFade(1f);
@@ -316,10 +315,10 @@ public class Manager1_4B : OverridableMonoBehaviour {
                 TextFadeChange.Append(comandTextComp.DOFade(1f, .3f));
 
                 currentWord = routineTwoList[currentRound];
-                blueBoxInstances = new SyllableHandler1_4B[currentWord.syllablesCount];
-                emptyBoxInstances = new BlankSpace1_4B[currentWord.syllablesCount];
+                blueBoxInstances = new SyllableHandler1_4B[currentWord.CountSyllables];
+                emptyBoxInstances = new BlankSpace1_4B[currentWord.CountSyllables];
                 currentWord.syllables.Shuffle();
-                for (int i = 0; i < currentWord.syllablesCount; i++) {
+                for (int i = 0; i < currentWord.CountSyllables; i++) {
                     blueBoxInstances[i] = blueBoxPool.Dequeue();
                     blueBoxInstances[i].syllable = currentWord.syllables[i].ToUpper();
                     blueBoxInstances[i].UpdateTextContent();
@@ -349,16 +348,16 @@ public class Manager1_4B : OverridableMonoBehaviour {
         if (currentRound < 5) {
             //correção de palavras.
             string fullPlayerWordGuess = string.Empty;
-            for (int i = 0; i < currentWord.numberOfChars; i++) {
+            for (int i = 0; i < currentWord.CountLetters; i++) {
                 fullPlayerWordGuess += emptyBoxInstances[i].thisSyllable.textComp.text;
             }
 
             fullPlayerWordGuess = ToTitleCase(fullPlayerWordGuess);
-            currentWord.completeWord = ToTitleCase(currentWord.completeWord);
+            currentWord.word = ToTitleCase(currentWord.word);
 
-            Debug.Log("Respostas do Jogador: [" + fullPlayerWordGuess + "] \nResposta correta: [" + currentWord.completeWord + "]");
+            Debug.Log("Respostas do Jogador: [" + fullPlayerWordGuess + "] \nResposta correta: [" + currentWord.word + "]");
 
-            if (fullPlayerWordGuess == currentWord.completeWord) {
+            if (fullPlayerWordGuess == currentWord.word) {
                 //Acertou a palavra.
                 log.SaveEstatistica(9, 1, true);
                 _soundManager.startSoundFX(audios[0]);
@@ -373,25 +372,25 @@ public class Manager1_4B : OverridableMonoBehaviour {
                 log.SaveEstatistica(9, 1, false);
                 _soundManager.startSoundFX(audios[1]);
                 currentRound++;
-                highlight.startErrado("Você errou! O correto era: " + ToTitleCase(currentWord.completeWord) + string.Empty);
+                highlight.startErrado("Você errou! O correto era: " + ToTitleCase(currentWord.word) + string.Empty);
                 //Iniciar novo Round.
                 Timing.RunCoroutine(StartDidatic());
             }
         } else {
             //correção de palavras.
             string fullPlayerWordGuess = string.Empty;
-            for (int i = 0; i < currentWord.syllablesCount; i++) {
+            for (int i = 0; i < currentWord.CountSyllables; i++) {
                 if (emptyBoxInstances[i] != null){
                     fullPlayerWordGuess += emptyBoxInstances[i].thisSyllable.textComp.text;
                 }
             }
 
             fullPlayerWordGuess = ToTitleCase(fullPlayerWordGuess);
-            currentWord.completeWord = ToTitleCase(currentWord.completeWord);
+            currentWord.word = ToTitleCase(currentWord.word);
 
-            Debug.Log("Respostas do Jogador: [" + fullPlayerWordGuess + "] \nResposta correta: [" + currentWord.completeWord + "]");
+            Debug.Log("Respostas do Jogador: [" + fullPlayerWordGuess + "] \nResposta correta: [" + currentWord.word + "]");
 
-            if (fullPlayerWordGuess == currentWord.completeWord) {
+            if (fullPlayerWordGuess == currentWord.word) {
                 //Acertou a palavra.
                 log.SaveEstatistica(9, 1, true);
                 _soundManager.startSoundFX(audios[0]);
@@ -406,7 +405,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
                 log.SaveEstatistica(9, 1, false);
                 _soundManager.startSoundFX(audios[1]);
                 currentRound++;
-                highlight.startErrado("Você errou! O correto era: " + ToTitleCase(currentWord.completeWord) + string.Empty);
+                highlight.startErrado("Você errou! O correto era: " + ToTitleCase(currentWord.word) + string.Empty);
                 //Iniciar novo Round.
                 Timing.RunCoroutine(StartDidatic());
             }
@@ -418,7 +417,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
         //scrollNumber
         if (currentRound < 5) {
             //correção numero de letras.
-            if (scrollNumber == currentWord.numberOfChars) {
+            if (scrollNumber == currentWord.CountLetters) {
                 //acertou o numero de letras.
                 _soundManager.startSoundFX(audios[0]);
                 textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
@@ -430,12 +429,12 @@ public class Manager1_4B : OverridableMonoBehaviour {
                 //errou o numero de letras.
                 _soundManager.startSoundFX(audios[1]);
                 log.SaveEstatistica(10, 1, true);
-                highlight.startErrado("Você errou o certo era: " + currentWord.numberOfChars);
+                highlight.startErrado("Você errou o certo era: " + currentWord.CountLetters);
                 EndRoutineTwo();
             }
         } else {
             //correção numero de silabas.
-            if (scrollNumber == currentWord.syllablesCount) {
+            if (scrollNumber == currentWord.CountSyllables) {
                 //acertou o numero de letras.
                 _soundManager.startSoundFX(audios[0]);
                 textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
@@ -447,7 +446,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
                 //errou o numero de letras.
                 _soundManager.startSoundFX(audios[1]);
                 log.SaveEstatistica(10, 1, true);
-                highlight.startErrado("Você errou o certo era: " + currentWord.syllablesCount);
+                highlight.startErrado("Você errou o certo era: " + currentWord.CountSyllables);
                 EndRoutineTwo();
             }
         }
@@ -466,7 +465,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
     }
 
     public void StartRoutineTwo() {
-        completeWordTextComp.text = currentWord.completeWord.ToUpper();
+        completeWordTextComp.text = currentWord.word.ToUpper();
         scrollNumber = 0;
         scrollsnap.text = "0";
         confirmButton.interactable = false;
@@ -503,13 +502,13 @@ public class Manager1_4B : OverridableMonoBehaviour {
         List<string> syllablesTemp = currentWord.syllables.ToList();
         syllablesTemp.Shuffle();
 
-        entireWordTextcomp.text = currentWord.completeWord.ToUpper();
+        entireWordTextcomp.text = currentWord.word.ToUpper();
 
         Color colorTemp = entireWordTextcomp.color;
         colorTemp.a = 0f;
         entireWordTextcomp.color = colorTemp;
 
-        for (int i = 0; i < currentWord.syllablesCount; i++) {
+        for (int i = 0; i < currentWord.CountSyllables; i++) {
             GameObject syllable = Instantiate(syllablePrefab, Vector3.zero, Quaternion.identity, syllablesParent);
             syllable.transform.localScale = Vector3.one;
             SyllableHandler1_4B handler = syllable.GetComponent<SyllableHandler1_4B>();
@@ -519,7 +518,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
             syllablesInstance.Add(handler);
         }
 
-        for (int i = 0; i < currentWord.syllablesCount; i++) {
+        for (int i = 0; i < currentWord.CountSyllables; i++) {
             GameObject blankSpace = Instantiate(blankSpacePrefab, Vector3.zero, Quaternion.identity, blankSpaceParent);
             blankSpace.transform.localScale = Vector3.one;
             BlankSpace1_4B handler = blankSpace.GetComponent<BlankSpace1_4B>();
@@ -573,7 +572,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
     }
 
     public void confirmButton02() {
-        if (scrollNumber == currentWord.syllablesCount) {
+        if (scrollNumber == currentWord.CountSyllables) {
             //Debug.Log("Correto o numero de silabas!");
             //scoreAmount += amountScorePerCorrectSyllabes;
             _soundManager.startSoundFX(audios[0]);
@@ -584,7 +583,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
             //Debug.Log("Errado o numero de silabas!");
             _soundManager.startSoundFX(audios[1]);
             log.SaveEstatistica(10, 1, true);
-            highlight.startErrado("Você errou o certo era: " + currentWord.syllablesCount.ToString());
+            highlight.startErrado("Você errou o certo era: " + currentWord.CountSyllables.ToString());
         }
         StartCoroutine(GameCorrectionSyllable());
     }
@@ -617,7 +616,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
         int blankSpaceInstanceCount = blankSpaceInstance.Count;
 
         string correctWords = string.Empty;
-        string currentWords = currentWord.completeWord.ToUpper();
+        string currentWords = currentWord.word.ToUpper();
 
         for (int i = 0; i < blankSpaceInstanceCount; i++) {
             correctWords += blankSpaceInstance[i].thisSyllable.textComp.text;

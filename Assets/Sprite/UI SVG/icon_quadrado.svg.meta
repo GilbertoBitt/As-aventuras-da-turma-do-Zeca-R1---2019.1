@@ -17,8 +17,8 @@ ScriptedImporter:
   generatePhysicsShape: 0
   preserveViewport: 0
   advancedMode: 0
-  predefinedResolutionIndex: 2
-  targetResolution: 720
+  predefinedResolutionIndex: 1
+  targetResolution: 1080
   resolutionMultiplier: 1
   stepDistance: 10
   samplingStepDistance: 100
@@ -36,17 +36,17 @@ ScriptedImporter:
   spriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: Bloco_op2branco
+      name: icon_quadrado
       originalName: 
       pivot: {x: 0.5, y: 0.5}
       alignment: 0
-      border: {x: 26, y: 26, z: 26, w: 26}
+      border: {x: 53, y: 67, z: 56, w: 46}
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 256
+        width: 128
+        height: 114
       spriteID: b0477fcbb4245854187dbe1fffb21b22
       internalID: 0
     PhysicsOutlines: []

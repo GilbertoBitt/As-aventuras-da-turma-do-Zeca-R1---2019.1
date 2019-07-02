@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using com.csutil;
 using UnityEngine;
 using UnityEngine.UI;
 using MEC;
@@ -19,6 +20,10 @@ public class managerAddRainbow : MonoBehaviour
 
 	[FoldoutGroup("Geral")] public int anoLetivo;
 	[FoldoutGroup("Geral")] public TextMeshProUGUI enumciadoTextComponent;
+	[FoldoutGroup("Geral")] public Button showSkillInfoButton;
+
+	[FoldoutGroup("Geral")]
+	public InfoSkillWindow infoSkillInfo;
 	[FoldoutGroup("1ª Ano")] public GameObject panelAnoLetivoOne;
 	[FoldoutGroup("1ª Ano")] public GroupLayoutContentManagerComponent[] groupContent;
 	[FoldoutGroup("1ª Ano")] public RainbowItem[] rainbowItems;
@@ -35,11 +40,14 @@ public class managerAddRainbow : MonoBehaviour
 	[FoldoutGroup("1ª Ano")] public GroupLayoutContentManagerComponent resultValueGroupContentComponent;
 	[FoldoutGroup("1ª Ano")] public TextMeshProUGUI resultValueTextComponent;
 	[FoldoutGroup("1ª Ano")] public Button[] alternativeButtons;
+	[FoldoutGroup("1ª Ano")] public HabilidadeBNCCInfo habilidade1Ano;
+	[FoldoutGroup("2ª Ano")] public HabilidadeBNCCInfo habilidade2Ano;
 	[FoldoutGroup("3ª Ano")] public MultiplyInAddition multiplyInAdditionComponent;
 	[FoldoutGroup("3ª Ano")] public TextMeshProUGUI resultOfAdditionTextComponent;
 	[FoldoutGroup("3ª Ano")] public TextMeshProUGUI resultOfMultiplyTextComponent;
 	[FoldoutGroup("3ª Ano")] public TextMeshProUGUI multiplyEquationText;
 	[FoldoutGroup("3ª Ano")] public GameObject panelThirdAnoLetivo;
+	[FoldoutGroup("3ª Ano")] public HabilidadeBNCCInfo habilidade3Ano;
 
 
 	#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
@@ -128,7 +136,25 @@ public class managerAddRainbow : MonoBehaviour
     public void StartGame ()
     {
 
-	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
+//	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
+
+	    infoSkillInfo = IoC.inject.GetOrAddSingleton<InfoSkillWindow>(this);
+
+	    showSkillInfoButton.OnClickAsObservable().Subscribe(unit =>
+	    {
+		    switch (anoLetivo)
+		    {
+			    case 1:
+				    infoSkillInfo.ShowWindowInfo(habilidade1Ano);
+				    break;
+			    case 2:
+				    infoSkillInfo.ShowWindowInfo(habilidade2Ano);
+				    break;
+			    case 3:
+				    infoSkillInfo.ShowWindowInfo(habilidade3Ano);
+				    break;
+		    }
+	    });
 
 		Timing.RunCoroutine(StartGameLate());
 
@@ -390,6 +416,7 @@ public class managerAddRainbow : MonoBehaviour
 					switch (equation.groupType)
 					{
 						case GroupType.Juntar:
+							equation.equationType = EquationType.Addition;
 							enumciadoTextComponent.text =
 								$"Manu pegou {equation.firstValue} <sprite name=\"{equation.rainbowItem.name}\">, Bia pegou {equation.secondValue}. " +
 								$"Quantos <sprite name=\"{equation.rainbowItem.name}\"> elas pegaram juntas?";
@@ -399,6 +426,7 @@ public class managerAddRainbow : MonoBehaviour
 							secondValueGroupContentComponent.imageComponent.enabled = true;
 							break;
 						case GroupType.Acrescentar:
+							equation.equationType = EquationType.Addition;
 							enumciadoTextComponent.text =
 								$"Paulo tinha {equation.firstValue} <sprite name=\"{equation.rainbowItem.name}\">, Pegou mais {equation.secondValue}. " +
 								$"Com quantos <sprite name=\"{equation.rainbowItem.name}\"> ele ficou?";
@@ -408,6 +436,7 @@ public class managerAddRainbow : MonoBehaviour
 							secondValueGroupContentComponent.imageComponent.enabled = false;
 							break;
 						case GroupType.Separar:
+							equation.equationType = EquationType.Subtraction;
 							enumciadoTextComponent.text =
 								$"João e Paulo tinham juntos {equation.firstValue} <sprite name=\"{equation.rainbowItem.name}\">, Separando {equation.secondValue} para Paulo. " +
 								$"Com quantos <sprite name=\"{equation.rainbowItem.name}\"> João ficou?";
@@ -417,6 +446,7 @@ public class managerAddRainbow : MonoBehaviour
 							secondValueGroupContentComponent.imageComponent.enabled = true;
 							break;
 						case GroupType.Retirar:
+							equation.equationType = EquationType.Subtraction;
 							enumciadoTextComponent.text =
 								$"Zeca conseguiu pegar {equation.firstValue} <sprite name=\"{equation.rainbowItem.name}\">, Mas deu {equation.secondValue} para Tati. " +
 								$"Com quantos <sprite name=\"{equation.rainbowItem.name}\"> ele ficou?";
@@ -442,6 +472,7 @@ public class managerAddRainbow : MonoBehaviour
 					confirmButton.onClick.RemoveAllListeners();
 					resultValueGroupContentComponent.SetupItemGroup();
 					resultValueGroupContentComponent.itemAmount.Value = 0;
+					resultValueTextComponent.text = "?";
 					confirmButton.OnClickAsObservable().Subscribe(unit =>
 					{
 						resultValueTextComponent.text = equation.ResultValue().ToString();
@@ -453,7 +484,7 @@ public class managerAddRainbow : MonoBehaviour
 					int correctResult = equation.ResultValue();
 					int tempMin;
 					if (correctResult - 10 <= 0) {
-						tempMin = correctResult - (correctResult - 1);
+						tempMin = correctResult - (10 - math.abs(correctResult - 10));
 					} else {
 						tempMin = correctResult - 10;
 					}
@@ -517,21 +548,25 @@ public class managerAddRainbow : MonoBehaviour
 					switch (equationContent.groupType)
 					{
 						case GroupType.Juntar:
+							equationContent.equationType = EquationType.Addition;
 							enumciadoTextComponent.text = $"Qual o resultado da adição abaixo?";
 							equationTypeValueTextComponent.text = "+";
 							equationTypeValueTextComponentSecond.text = "+";
 							break;
 						case GroupType.Acrescentar:
+							equationContent.equationType = EquationType.Addition;
 							enumciadoTextComponent.text = $"Qual o resultado da adição abaixo?";
 							equationTypeValueTextComponent.text = "+";
 							equationTypeValueTextComponentSecond.text = "+";
 							break;
 						case GroupType.Separar:
+							equationContent.equationType = EquationType.Subtraction;
 							enumciadoTextComponent.text = $"Qual o resultado da subtração abaixo?";
 							equationTypeValueTextComponent.text = "-";
 							equationTypeValueTextComponentSecond.text = "-";
 							break;
 						case GroupType.Retirar:
+							equationContent.equationType = EquationType.Subtraction;
 							enumciadoTextComponent.text = $"Qual o resultado da subtração abaixo?";
 							equationTypeValueTextComponent.text = "-";
 							equationTypeValueTextComponentSecond.text = "-";
@@ -569,7 +604,7 @@ public class managerAddRainbow : MonoBehaviour
 
 					var equationMultiply = equationContents[timesAsk];
 //
-					var resultText = tempRandom != 0 ? $"= {equationMultiply.ResultValue()}" : "?";
+					var resultText = tempRandom != 0 ? $"= {equationMultiply.ResultValue()}" : "= ?";
 					var firstValueText = tempRandom != 1 ? equationMultiply.firstValue.ToString() : "?";
 					var secondValueText = tempRandom != 2 ? equationMultiply.secondValue.ToString() : "?";
 
@@ -683,6 +718,8 @@ public class managerAddRainbow : MonoBehaviour
 		{
 			alternativeTexts[i].text = alternatives[i].ToString();
 		}
+
+		resultValueTextComponent.text = "?";
 
 		for (int i = 0; i < alternativeButtons.Length; i++)
 		{

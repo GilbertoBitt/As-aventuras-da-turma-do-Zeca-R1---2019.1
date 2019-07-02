@@ -1398,6 +1398,10 @@ else if (checkFim==true && checkfim2==true){
         case 8:
             if (amountPoints >= 10) {
                 amountPoints -= pontosNegativo;
+            }	
+            else
+            {
+	            amountPoints = 0;
             }
             soundManager.startSoundFX(soundFX[3]);
             bucketText = "-" + pontosNegativo.ToString();

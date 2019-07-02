@@ -58,6 +58,7 @@ namespace MiniGames.Rainbow.Scripts._1ª_Ano
                 updatedItensSequence.Join(instancedSprite.DOColor(Color.clear, .3f));
             }
 
+
             if (instancedSprites.Count < amountItem)
             {
                 var needed = amountItem - instancedSprites.Count;
@@ -69,6 +70,7 @@ namespace MiniGames.Rainbow.Scripts._1ª_Ano
                     instancedSprites.Add(instancedImage);
                     instancedImage.sprite = itemSprite.Value.sprite;
                     instancedImage.color = Color.clear;
+                    instanced.SetActive(false);
                 }
             }
 
@@ -79,9 +81,18 @@ namespace MiniGames.Rainbow.Scripts._1ª_Ano
                 {
                     updatedItensSequence.Append(instancedSprite.DOColor(Color.white, .3f));
                 }
-
                 updatedItensSequence.Join(instancedSprite.DOColor(Color.white, .3f));
+                instancedSprite.gameObject.SetActive(true);
             }
+
+            if (instancedSprites.Count - amountItem >= 1)
+            {
+                for (int i = amountItem; i < instancedSprites.Count; i++)
+                {
+                    instancedSprites[i].gameObject.SetActive(false);
+                }
+            }
+
 
             updatedItensSequence.Play();
         }
