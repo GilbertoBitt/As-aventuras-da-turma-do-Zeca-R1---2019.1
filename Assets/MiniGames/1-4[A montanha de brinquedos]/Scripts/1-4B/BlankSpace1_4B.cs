@@ -14,6 +14,8 @@ public class BlankSpace1_4B : MonoBehaviour, IDropHandler, IPointerEnterHandler,
 	public Image thisImageComp;
 
 	public Image traceImageComp;
+
+	private Transform _parentTransform;
 	// Use this for initialization
 
     public void ResetToDefault() {
@@ -23,6 +25,17 @@ public class BlankSpace1_4B : MonoBehaviour, IDropHandler, IPointerEnterHandler,
         thisSyllable = null;
         thisImageComp.DOFade(0f, 0.1f);
         RaycastTargetUpdate(true);
+    }
+
+    public void ResetToDefault(Transform parent)
+    {
+	    _parentTransform = parent;
+	    transform.SetParent(parent);
+	    transform.position = new Vector3(10000, 10000, 0);
+	    hasDrop = false;
+	    thisSyllable = null;
+	    thisImageComp.DOFade(0f, 0.1f);
+	    RaycastTargetUpdate(true);
     }
 
 	void Start () {
@@ -42,38 +55,35 @@ public class BlankSpace1_4B : MonoBehaviour, IDropHandler, IPointerEnterHandler,
 	}
 
 	public void OnDrop (PointerEventData eventData){
-		if (eventData.pointerDrag != null) {
-			//Debug.Log(eventData.pointerDrag.name);
-			SyllableHandler1_4B syllable = eventData.pointerDrag.GetComponent<SyllableHandler1_4B>();
-			if (syllable != null && thisSyllable == null) {
-				syllable.transform.position = this.transform.position;
-                //syllable.transform.SetParent(this.transform);
-                thisSyllable = syllable;
-				syllable.hasDroped = true;
-				hasDrop = true;
-				syllable.blankSpaceDroped = this;
-				RaycastTargetUpdate(false);
-                manager.DropCardSound();
-			}
-		}
+		if (eventData.pointerDrag == null) return;
+		//Debug.Log(eventData.pointerDrag.name);
+		SyllableHandler1_4B syllable = eventData.pointerDrag.GetComponent<SyllableHandler1_4B>();
+		if (syllable == null || thisSyllable != null) return;
+		syllable.transform.SetParent(manager.dragParent);
+		syllable.transform.position = this.transform.position;
+		//syllable.transform.SetParent(this.transform);
+		thisSyllable = syllable;
+		syllable.hasDroped = true;
+		hasDrop = true;
+		syllable.blankSpaceDroped = this;
+		RaycastTargetUpdate(false);
+		manager.DropCardSound();
 	}
 
 	public void OnPointerEnter(PointerEventData eventData){
-		if (eventData.pointerDrag != null) {
-			//Debug.Log(eventData.pointerDrag.name);
-			SyllableHandler1_4B syllable = eventData.pointerDrag.GetComponent<SyllableHandler1_4B>();
-			if (syllable != null) {
-				syllable.isOverBlank = true;
-			}
+		if (eventData.pointerDrag == null) return;
+		//Debug.Log(eventData.pointerDrag.name);
+		SyllableHandler1_4B syllable = eventData.pointerDrag.GetComponent<SyllableHandler1_4B>();
+		if (syllable != null) {
+			syllable.isOverBlank = true;
 		}
 	}
 
 	public void OnPointerExit(PointerEventData eventData){
-		if (eventData.pointerDrag != null) {
-			SyllableHandler1_4B syllable = eventData.pointerDrag.GetComponent<SyllableHandler1_4B>();
-			if (syllable != null) {
-				syllable.isOverBlank = false;
-			}
+		if (eventData.pointerDrag == null) return;
+		SyllableHandler1_4B syllable = eventData.pointerDrag.GetComponent<SyllableHandler1_4B>();
+		if (syllable != null) {
+			syllable.isOverBlank = false;
 		}
 	}
 

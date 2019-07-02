@@ -62,17 +62,9 @@ public class ItemGroup1_4A : OverridableMonoBehaviour {
 		if (circleCollider == null) {
 			circleCollider = this.GetComponent<CircleCollider2D> ();
 		}
-      //  TutorMontanha2 = manager.TutorMontanha2;
 
     }
 
-	// Update is called once per frame
-	IEnumerator coroutineExplo;
-	/*void Update () {
-
-
-
-	}*/
 
 	public void BonusItemFix(){
 		if(isBonusItem && bonusItemParticle.activeInHierarchy == false){
@@ -83,44 +75,6 @@ public class ItemGroup1_4A : OverridableMonoBehaviour {
 			bonusItemParticle.SetActive(false);
 		}
 	}
-
-	/* 
-	IEnumerator TimeitemBonus(){
-//        manager.tutorial.SetActive(true);
-      
-        yield return Yielders.Get(0.5f);
-		if (PlayerPrefs.HasKey ("TutorM_Bonus") == false) {
-          //  manager.tutorial.SetActive(true);
-            // this.tutorial.GetComponent<TutorMontanha>().tutorNumber = 5;
-            manager.montanha.GetComponent<GraphicRaycaster>().enabled = false;
-           // this.tutorial.GetComponent<TutorMontanha> ().Manage.GetComponent<Manager1_4A> ().montanha.GetComponent<GraphicRaycaster> ().enabled = false;
-            manager.didatica.GetComponent<GraphicRaycaster>().enabled = false;
-
-//            manager.tutorial.GetComponent<TutorMontanha> ().animTutor.enabled = true;
-            manager.tutorial.GetComponent<TutorMontanha>().tutorialMontanha.GetComponent<Animator>().enabled = true;
-          //  manager.tutorial.GetComponent<TutorMontanha> ().animTutor.SetInteger ("numbTutor",3);
-			PlayerPrefs.SetInt ("TutorM_Bonus", 0);
-           // TutorMontanha2.numtext = 5;
-           // manager.tutorial.GetComponent<TutorMontanha>().profBalao.text = this.tutorial.GetComponent<TutorMontanha>().TextTutor [5];
-           // TutorMontanha2.soundManager.startVoiceFXReturn(TutorMontanha2.audiosTutorial[TutorMontanha2.numtext]);
-           //    TutorMontanha2.profBalao.enabled = true;
-            manager.tutorial.GetComponent<TutorMontanha>().btPulartext.text = "Continuar";
-            manager.tutorial.GetComponent<TutorMontanha>().tutorNumber = 5;
-
-            foreach (var item in manager.GetComponent<Manager1_4A>().tutorial.GetComponent<TutorMontanha>().gTutor) {
-				item.SetActive (true);
-			}
-            manager.tutorial.GetComponent<TutorMontanha> ().gTutor [6].SetActive (false);
-            manager.tutorial.GetComponent<GraphicRaycaster> ().enabled = true;
-            manager.tutorial.SetActive (true);
-			Time.timeScale = 0f;
-		} else {
-			PlayerPrefs.SetInt ("TutorM_Bonus", 1);
-			this.tutorObBonus = PlayerPrefs.GetInt ("TutorM_Bonus", 1);
-		}
-
-	}
-*/
 
 	public void startDragging(){
 		if (!isBeenDrag) {
@@ -189,41 +143,26 @@ public class ItemGroup1_4A : OverridableMonoBehaviour {
 			
 	}
 
-    public override void FixedUpdateMe() {
 
-		if(manager.checkTorreDestroy && this.isActiveAndEnabled == true){
-			coroutineExplo = timeExplo();
-			StartCoroutine(coroutineExplo);			
-		}
-		/*else{
-			coroutineExplo = timeExplo();
-		//	StopCoroutine(coroutineExplo);
-		}*/
-
-	}
-		
 
 	public void UpdateImage(){
-		if (itemInfo != null) {
-			this.GetComponent<Image> ().sprite = itemInfo.itemImage;
-			this.GetComponent<Canvas>().overrideSorting = true;
-		}
+		if (itemInfo == null) return;
+		this.GetComponent<Image> ().sprite = itemInfo.itemImage;
+		this.GetComponent<Canvas>().overrideSorting = true;
 	}
 
 	public void UpdateImage(float Alpha){
-		if (itemInfo != null) {
-			this.GetComponent<Image> ().sprite = itemInfo.itemImage;
-			this.GetComponent<Image> ().color = new Vector4 (1f, 1f, 1f, Alpha);
-			this.GetComponent<Canvas>().overrideSorting = true;
-		}
+		if (itemInfo == null) return;
+		this.GetComponent<Image> ().sprite = itemInfo.itemImage;
+		this.GetComponent<Image> ().color = new Vector4 (1f, 1f, 1f, Alpha);
+		this.GetComponent<Canvas>().overrideSorting = true;
 	}
 
 	public void UpdateImage(Color _color){
-		if (itemInfo != null) {
-			this.GetComponent<Image> ().sprite = itemInfo.itemImage;
-			this.GetComponent<Image> ().color = _color;
-			this.GetComponent<Canvas>().overrideSorting = true;
-		}
+		if (itemInfo == null) return;
+		this.GetComponent<Image> ().sprite = itemInfo.itemImage;
+		this.GetComponent<Image> ().color = _color;
+		this.GetComponent<Canvas>().overrideSorting = true;
 	}
 
 	public void UpdateImageLock(Color _color){

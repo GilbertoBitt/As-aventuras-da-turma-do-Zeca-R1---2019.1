@@ -51,7 +51,6 @@ public class Manager_1_2B : OverridableMonoBehaviour
 	public GameObject nextButtonRef;
 	public Image fadeImage;
 	public TextMeshProUGUI comandText;
-	public Image iconFromText;
 	public FinalScore scoreEnd;
 	public Canvas scoreEndCanvas;
 	public Text scoreText;
@@ -188,7 +187,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 	    Populate();
 	    config = GameConfig.Instance;
 	    
-	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
+//	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
 
 		if (_infoSkillInfo == null)
@@ -511,7 +510,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 	            _string.Append("Encontre ").Append(needFind).Append(" ").Append(GetSpacialFormName(selectedForm));
 	            comandText.text = _string.ToString();
 //	            iconFromText.sprite = returnIcon(formList[dificult]);
-	            iconFromText.enabled = false;
+//	            iconFromText.enabled = false;
         		break;
         	case 3:
 	            _string.Clear();
@@ -536,7 +535,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 	            }
 	            comandText.text = _string.ToString();
 //	            iconFromText.sprite = returnIcon(formList[dificult]);
-	            iconFromText.enabled = false;
+//	            iconFromText.enabled = false;
         		break;
         }
 

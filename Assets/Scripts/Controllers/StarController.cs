@@ -51,7 +51,7 @@ namespace Controllers
                 starSpriteIconComponents[i].sprite = starSprite;
             }
 
-            for (int i = (starSpriteIconComponents.Length - value) -1; i < starSpriteIconComponents.Length; i++)
+            for (int i = (starSpriteIconComponents.Length - value); i < starSpriteIconComponents.Length; i++)
             {
                 starSpriteIconComponents[i].sprite = emptyStarSpaceSprite;
             }

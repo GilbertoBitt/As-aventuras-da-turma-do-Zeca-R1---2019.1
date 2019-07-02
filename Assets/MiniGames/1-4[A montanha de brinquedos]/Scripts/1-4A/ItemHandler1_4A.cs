@@ -34,10 +34,12 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	private int sortingOrderStart;
     public bool blockDrag = false;
 
+    private Camera _camera;
 	// Use this for initialization
 	public void Start () {
 		//itemsOnSlot.Reverse ();
 		slotCount = itemsOnSlot.Count;
+		_camera = Camera.main;
 	}
 	
 	// Update is called once per frame
@@ -62,74 +64,71 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	private ItemGroup1_4A _privateItem;
 	public void OnBeginDrag (PointerEventData eventData){
 		int temp = slotCount - 1;
-		if (blockDrag == false && gameManager.isDragging == false && isBeenDrag == false && !gameManager.isRemoving && isRed == false) {
-			UpdateDragItem ();
-			gameManager.checkItensPos();
-			itemToDrag.GetComponent<CanvasGroup> ().blocksRaycasts = false;
-			startPosition = itemToDrag.transform.position;
-			startScale = itemToDrag.transform.localScale;
+		if (blockDrag != false || gameManager.isDragging != false || isBeenDrag != false || gameManager.isRemoving ||
+		    isRed != false) return;
+		UpdateDragItem ();
+		gameManager.checkItensPos();
+		itemToDrag.GetComponent<CanvasGroup> ().blocksRaycasts = false;
+		startPosition = itemToDrag.transform.position;
+		startScale = itemToDrag.transform.localScale;
 
-			gameManager.isDragging = true;
-			isBeenDrag = true;			
+		gameManager.isDragging = true;
+		isBeenDrag = true;
 
-			itemToDrag.transform.SetParent (gameManager.dragParent);
-			itemToDrag.transform.localScale = startScale;
-			_privateItem = itemToDrag.GetComponent<ItemGroup1_4A>();
-			_privateItem.isBeenDrag = true;
-			_privateItem.DisableBackgroundImage();
-			sortingOrderStart = itemToDrag.GetComponent<Canvas>().sortingOrder;
-			itemToDrag.GetComponent<Canvas>().sortingOrder = 7;
-		}
+		itemToDrag.transform.SetParent (gameManager.dragParent);
+		itemToDrag.transform.localScale = startScale;
+		_privateItem = itemToDrag.GetComponent<ItemGroup1_4A>();
+		_privateItem.isBeenDrag = true;
+		_privateItem.DisableBackgroundImage();
+		sortingOrderStart = itemToDrag.GetComponent<Canvas>().sortingOrder;
+		itemToDrag.GetComponent<Canvas>().sortingOrder = 7;
 	}
 		
 	public void OnDrag (PointerEventData eventData){
-		if (gameManager.isDragging == true && isBeenDrag == true && !gameManager.isRemoving && isRed == false) {
-			/*float distance = this.transform.position.z - Camera.main.transform.position.z;
+		if (gameManager.isDragging != true || isBeenDrag != true || gameManager.isRemoving || isRed != false) return;
+		/*float distance = this.transform.position.z - Camera.main.transform.position.z;
 			Vector3 pos = new Vector3(Input.mousePosition.x,Input.mousePosition.y,distance);*/
-			//itemToDrag.transform.position = Camera.main.ScreenToWorldPoint(pos);
-			Vector3 pos = Input.mousePosition;
-			pos.z = 10f;
-			itemToDrag.transform.position =  Camera.main.ScreenToWorldPoint(pos);
-			itemToDrag.GetComponent<ItemGroup1_4A> ().isBeenDrag = true;
-		}
+		//itemToDrag.transform.position = Camera.main.ScreenToWorldPoint(pos);
+		Vector3 pos = Input.mousePosition;
+		pos.z = 100f;
+		if (Camera.main != null) itemToDrag.transform.position = _camera.ScreenToWorldPoint(pos);
+		itemToDrag.GetComponent<ItemGroup1_4A> ().isBeenDrag = true;
 	}
 
 	
 
 	public void OnEndDrag (PointerEventData eventData){
-		if (itemToDrag != null) {
-			itemToDrag.GetComponent<CanvasGroup> ().blocksRaycasts = true;
-			itemToDrag.transform.SetParent (this.transform);
-			itemToDrag.transform.position = startPosition;
-			itemToDrag.transform.localScale = startScale;
-			isBeenDrag = false;
-			gameManager.isDragging = false;
-			_privateItem.isBeenDrag = false;
-			_privateItem.EnableBackgroundImage();
-			itemToDrag.GetComponent<Canvas>().sortingOrder = sortingOrderStart;
-		}
+		if (itemToDrag == null) return;
+		itemToDrag.GetComponent<CanvasGroup> ().blocksRaycasts = true;
+		itemToDrag.transform.SetParent (this.transform);
+		itemToDrag.transform.position = startPosition;
+		itemToDrag.transform.localScale = startScale;
+		isBeenDrag = false;
+		gameManager.isDragging = false;
+		_privateItem.isBeenDrag = false;
+		_privateItem.EnableBackgroundImage();
+		itemToDrag.GetComponent<Canvas>().sortingOrder = sortingOrderStart;
 	}
 
 	public void EndDrag() {
-		if (itemToDrag != null) {
-			itemToDrag.GetComponent<CanvasGroup> ().blocksRaycasts = true;
-			itemToDrag.transform.SetParent (this.transform);
-			itemToDrag.transform.position = startPosition;
-			itemToDrag.transform.localScale = startScale;
-			isBeenDrag = false;
-			gameManager.isDragging = false;
-			_privateItem.isBeenDrag = false;
-			_privateItem.EnableBackgroundImage();
-			itemToDrag.GetComponent<Canvas>().sortingOrder = sortingOrderStart;
-		}
+		if (itemToDrag == null) return;
+		itemToDrag.GetComponent<CanvasGroup> ().blocksRaycasts = true;
+		itemToDrag.transform.SetParent (this.transform);
+		itemToDrag.transform.position = startPosition;
+		itemToDrag.transform.localScale = startScale;
+		isBeenDrag = false;
+		gameManager.isDragging = false;
+		_privateItem.isBeenDrag = false;
+		_privateItem.EnableBackgroundImage();
+		itemToDrag.GetComponent<Canvas>().sortingOrder = sortingOrderStart;
 	}
 
 	private void LateUpdate() {
-		if(gameManager.isDragging) return;
-		if(Input.GetMouseButton(0)) return;
-		if (itemToDrag == null) return;
-		if (_privateItem == null || _privateItem.isBeenDrag || !gameManager.isPlaying) return;
-		EndDrag();
+//		if(gameManager.isDragging) return;
+//		if(Input.GetMouseButton(0)) return;
+//		if (itemToDrag == null) return;
+//		if (_privateItem == null || _privateItem.isBeenDrag || !gameManager.isPlaying) return;
+//		EndDrag();
 	}
 
 	#endregion
@@ -148,17 +147,15 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	/// <param name="id">Identifier.</param>
 	/// <param name="spriteImage">Sprite image.</param>
 	public void UpdateItemInfo(int id,Item1_4A itemInfo){
-		if (id <= itemsOnSlot.Count) {
-			itemsOnSlot [id].GetComponent<ItemGroup1_4A> ().itemInfo = itemInfo;
-			itemsOnSlot [id].GetComponent<ItemGroup1_4A> ().UpdateImage ();
-		}
+		if (id > itemsOnSlot.Count) return;
+		itemsOnSlot [id].GetComponent<ItemGroup1_4A> ().itemInfo = itemInfo;
+		itemsOnSlot [id].GetComponent<ItemGroup1_4A> ().UpdateImage ();
 	}
 
 	public void UpdateItemInfo(int id,Item1_4A itemInfo, float alphaImage){
-		if (id <= itemsOnSlot.Count) {
-			itemsOnSlot [id].GetComponent<ItemGroup1_4A> ().itemInfo = itemInfo;
-			itemsOnSlot [id].GetComponent<ItemGroup1_4A> ().UpdateImage (alphaImage);
-		}
+		if (id > itemsOnSlot.Count) return;
+		itemsOnSlot [id].GetComponent<ItemGroup1_4A> ().itemInfo = itemInfo;
+		itemsOnSlot [id].GetComponent<ItemGroup1_4A> ().UpdateImage (alphaImage);
 	}
 
 	public void ActiveCollider2D(){
@@ -175,39 +172,41 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 	public void removeItemInFront(bool _isRight){
 		int temp = slotCount - 1;
-        if (itemsOnSlot[temp] != null) {
-            GameObject item = itemsOnSlot[temp];
-            itemsOnSlot[temp].GetComponent<ItemGroup1_4A>().DisableBackgroundImage();
-            itemsOnSlot.RemoveAt(temp);
-            if (_isRight) {
-                item.SetActive(false);
-            } else {
-                gameManager.ThrowItemAway(item.transform);
-            }
-            slotCount--;
+		if (!(itemsOnSlot[temp] != null)) return;
+		GameObject item = itemsOnSlot[temp];
+        itemsOnSlot[temp].GetComponent<ItemGroup1_4A>().DisableBackgroundImage();
+        itemsOnSlot.RemoveAt(temp);
+        if (_isRight) {
+	        item.SetActive(false);
+        } else {
+	        gameManager.ThrowItemAway(item.transform);
         }
+        slotCount--;
 	}
 
 	public void UpdateDragItem(){
-		if (itemsOnSlot.Count > 0) {
-			slotCount = itemsOnSlot.Count;
-			itemToDrag = itemsOnSlot [slotCount - 1];
-            //blockDrag = false;
-        }
+		if (itemsOnSlot.Count <= 0) return;
+		slotCount = itemsOnSlot.Count;
+		itemToDrag = itemsOnSlot [slotCount - 1];
+		//blockDrag = false;
 	}
 
-	public void UpdateStartList(){
-		for (int i = 0; i < itemsOnSlot.Count; i++) {
+	public void UpdateStartList()
+	{
+		foreach (var t in itemsOnSlot)
+		{
 			ItemHistory1_4A item = new ItemHistory1_4A ();
-			item.itemComp = itemsOnSlot [i];
-			item.sibblingIndex = itemsOnSlot [i].transform.GetSiblingIndex ();
+			item.itemComp = t;
+			item.sibblingIndex = t.transform.GetSiblingIndex ();
 			originalItems.Add (item);
 		}
 	}
 
-	public void disableAllColliders2D(){
-		for (int i = 0; i < itemsOnSlot.Count; i++) {
-			itemsOnSlot [i].GetComponent<ItemGroup1_4A> ().toggleCollider (false);
+	public void disableAllColliders2D()
+	{
+		foreach (var t in itemsOnSlot)
+		{
+			t.GetComponent<ItemGroup1_4A> ().toggleCollider (false);
 		}
 	}
 
@@ -219,12 +218,13 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 	public void ResetItemsPos(){
 		itemsOnSlot.Clear ();
-		for (int i = 0; i < originalItems.Count; i++) {
-			itemsOnSlot.Add (originalItems [i].itemComp);
-			originalItems [i].itemComp.transform.SetParent (this.transform);
-			originalItems [i].itemComp.transform.SetSiblingIndex (originalItems [i].sibblingIndex);
-			originalItems [i].itemComp.SetActive (true);
-        }
+		foreach (var t in originalItems)
+		{
+			itemsOnSlot.Add (t.itemComp);
+			t.itemComp.transform.SetParent (this.transform);
+			t.itemComp.transform.SetSiblingIndex (t.sibblingIndex);
+			t.itemComp.SetActive (true);
+		}
         blockDrag = false;
 		slotCount = itemsOnSlot.Count;
 		handlersOfTheFloor = handlersOfTheFloorHistory;
@@ -243,15 +243,19 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 		startMaxBadItems = maxBadItems;
 	}
 
-	public void UpdateItemHandlerOnChilds(){
-		for (int i = 0; i < itemsOnSlot.Count; i++) {
-			itemsOnSlot [i].GetComponent<ItemGroup1_4A> ().UpdateItemHandler (this);
+	public void UpdateItemHandlerOnChilds()
+	{
+		foreach (var t in itemsOnSlot)
+		{
+			t.GetComponent<ItemGroup1_4A> ().UpdateItemHandler (this);
 		}
 	}
 
-	public void ResetBonusItems(){
-		for (int i = 0; i < itemsOnSlot.Count; i++){
-			itemsOnSlot[i].GetComponent<ItemGroup1_4A>().toggleBonusItem(false);
+	public void ResetBonusItems()
+	{
+		foreach (var t in itemsOnSlot)
+		{
+			t.GetComponent<ItemGroup1_4A>().toggleBonusItem(false);
 		}
 	}
 
@@ -273,16 +277,20 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 		return handlersOfTheFloor.Count;	
 	}
 
-	public void updateOtherHandlers(){
-		for (int i = 0; i < handlersOfTheFloorHistory.Count; i++) {
-			handlersOfTheFloorHistory [i].amountBadItems = amountBadItems;
-			handlersOfTheFloorHistory [i].maxBadItems = maxBadItems;
+	public void updateOtherHandlers()
+	{
+		foreach (var t in handlersOfTheFloorHistory)
+		{
+			t.amountBadItems = amountBadItems;
+			t.maxBadItems = maxBadItems;
 		}
 	}
 
-	public void RemoveThisHandlerFromAll(ItemHandler1_4A _handler){
-		for (int i = 0; i < this.handlersOfTheFloor.Count; i++) {
-			this.handlersOfTheFloor[i].removeIfExist (_handler);
+	public void RemoveThisHandlerFromAll(ItemHandler1_4A _handler)
+	{
+		foreach (var t in this.handlersOfTheFloor)
+		{
+			t.removeIfExist (_handler);
 		}
 	}
 

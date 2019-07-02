@@ -242,16 +242,19 @@ public class Manager1_4A : OverridableMonoBehaviour {
 
     [TextArea()]
     public string[] textos;
+
+    private static readonly int AbrirBau = Animator.StringToHash("AbrirBau");
+    private static readonly int FecharBau = Animator.StringToHash("fecharBau");
+    private static readonly int NumbBauSort = Animator.StringToHash("NumbBauSort");
+    private static readonly int TransporTrue = Animator.StringToHash("TransporTrue");
+
     // Use this for initialization
     void Start() {
-//        minigame = config.allMinigames[4];
 
         StartCoroutine(beginGame());
         startTowerPos = towerParent.position;
-//        nextManager.StartCoroutine(nextManager.startIt());
         _chestIndex = Random.Range(0, chests.Count - 1);
         log.StartTimerLudica(true);
-      //  TutorMontanha2 = TutorMontanha2;
         Input.multiTouchEnabled = false;
     }
 
@@ -291,32 +294,32 @@ public class Manager1_4A : OverridableMonoBehaviour {
             ShakeCameraOff();
         }
 
-        if (shakeOn) {
+        if (!shakeOn) return;
+        // reset original position
+        var transform1 = towerParent.transform;
+        var localPosition = transform1.localPosition;
+        localPosition = originPosition;
 
-            // reset original position
-            towerParent.transform.localPosition = originPosition;
+        // generate random position in a 1 unit circle and add power
+        Vector2 ShakePos = Random.insideUnitCircle * shakePower;
 
-            // generate random position in a 1 unit circle and add power
-            Vector2 ShakePos = Random.insideUnitCircle * shakePower;
-
-            // transform to new position adding the new coordinates
-            towerParent.transform.localPosition = new Vector3(towerParent.transform.localPosition.x + ShakePos.x, towerParent.transform.localPosition.y + ShakePos.y, towerParent.transform.localPosition.z);
-
-        }
+        // transform to new position adding the new coordinates
+        localPosition = new Vector3(localPosition.x + ShakePos.x,
+	        localPosition.y + ShakePos.y, localPosition.z);
+        transform1.localPosition = localPosition;
     }
 
     void updateStarAmount(int _amount) {
         starAmount = _amount;
-        if (_amount < 3) {
-            _amount++;
+        if (_amount >= 3) return;
+        _amount++;
 
-            for (int i = 0; i < 3; i++) {
-                starsParent.GetChild(i).GetComponent<Image>().sprite = spriteEmptyStar;
-            }
+        for (int i = 0; i < 3; i++) {
+	        starsParent.GetChild(i).GetComponent<Image>().sprite = spriteEmptyStar;
+        }
 
-            for (int i = 0; i < _amount; i++) {
-                starsParent.GetChild(i).GetComponent<Image>().sprite = spriteFullStar;
-            }
+        for (int i = 0; i < _amount; i++) {
+	        starsParent.GetChild(i).GetComponent<Image>().sprite = spriteFullStar;
         }
 
     }
@@ -433,7 +436,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
     }
     IEnumerator DesativBauAnim() {
         yield return Yielders.Get(2f);
-        chests[_chestIndex].zecaFecharBau.SetBool("AbrirBau", true);
+        chests[_chestIndex].zecaFecharBau.SetBool(AbrirBau, true);
         int chestsCount = chests.Count;
         for (int i = 0; i < chestsCount; i++) {
             chests[i].GetComponent<Animator>().enabled = false;
@@ -537,33 +540,6 @@ public class Manager1_4A : OverridableMonoBehaviour {
 	/// <param name="itemGroup1_4A"></param>
 	/// <returns>Animation and Effect of Tower Falling</returns>
 	IEnumerator<float> fallOfTower(ItemGroup1_4A itemGroup) {
-
-        /* if (PlayerPrefs.HasKey("TutorM_Queda") == false) {
-            montanha.GetComponent<GraphicRaycaster>().enabled = false;
-            didatica.GetComponent<GraphicRaycaster>().enabled = false;
-            PlayerPrefs.SetInt("TutorM_Queda", 0);
-            yield return Timing.WaitForSeconds(.3f);
-//            this.tutorial.GetComponent<TutorMontanha>().animTutor.enabled = true;
-            //this.tutorial.GetComponent<TutorMontanha>().tutorialMontanha.GetComponent<Animator>().enabled = true;
-           // TutorMontanha2.numtext = 6;
-         //   this.tutorial.GetComponent<TutorMontanha>().animTutor.SetInteger("numbTutor", 6);
-          //  this.tutorial.GetComponent<TutorMontanha>().profBalao.text = this.tutorial.GetComponent<TutorMontanha>().TextTutor[6];
-           // TutorMontanha2.soundManager.startVoiceFXReturn(TutorMontanha2.audiosTutorial[6]);
-           // TutorMontanha2.profBalao.enabled = true;
-         //   this.tutorial.GetComponent<TutorMontanha>().btPulartext.text = "Continuar";
-         //   this.tutorial.GetComponent<TutorMontanha>().tutorNumber = 4;
-            foreach (var item in tutorial.GetComponent<TutorMontanha>().gTutor) {
-                item.SetActive(true);
-            }
-         //   this.tutorial.GetComponent<TutorMontanha>().gTutor[6].SetActive(false);
-         //   this.tutorial.GetComponent<GraphicRaycaster>().enabled = true;
-         //   this.tutorial.SetActive(true);
-            Time.timeScale = 0f;
-        } else {
-            PlayerPrefs.SetInt("TutorM_Queda", 1);
-            //	this.tutorObjLock = PlayerPrefs.GetInt ("TutorM_Queda", 1);
-        }
-        */
         checkTorreDestroy = true;
         StartCoroutine(scoreReset());
         //yield return new WaitForSeconds (0.1f);
@@ -593,39 +569,6 @@ public class Manager1_4A : OverridableMonoBehaviour {
         Timing.RunCoroutine(rebuildingTower(itemGroup.thisItemHandler));
 
     }
-/* 
-    IEnumerator TutorQuedaMont() {
-
-        yield return Yielders.Get(0.5f);
-        if (PlayerPrefs.HasKey("TutorM_Queda") == false) {
-            montanha.GetComponent<GraphicRaycaster>().enabled = false;
-            didatica.GetComponent<GraphicRaycaster>().enabled = false;
-            PlayerPrefs.SetInt("TutorM_Queda", 0);
-            yield return Yielders.Get(.3f);
-          //  this.tutorial.GetComponent<TutorMontanha>().animTutor.enabled = true;
-          //  this.tutorial.GetComponent<TutorMontanha>().tutorialMontanha.GetComponent<Animator>().enabled = true;
-           // this.tutorial.GetComponent<TutorMontanha>().animTutor.SetInteger("numbTutor", 6);
-          //  this.tutorial.GetComponent<TutorMontanha>().profBalao.text = this.tutorial.GetComponent<TutorMontanha>().TextTutor[6];
-          //  TutorMontanha2.profBalao.enabled = true;
-          //  TutorMontanha2.numtext = 6;
-          //  soundManager.startVoiceFXReturn(TutorMontanha2.audiosTutorial[6]);
-          //  this.tutorial.GetComponent<TutorMontanha>().btPulartext.text = "Continuar";
-          //  this.tutorial.GetComponent<TutorMontanha>().tutorNumber = 4;
-            foreach (var item in tutorial.GetComponent<TutorMontanha>().gTutor) {
-                item.SetActive(true);
-            }
-            this.tutorial.GetComponent<TutorMontanha>().gTutor[6].SetActive(false);
-            this.tutorial.GetComponent<GraphicRaycaster>().enabled = true;
-            this.tutorial.SetActive(true);
-            Time.timeScale = 0f;
-        } else {
-            PlayerPrefs.SetInt("TutorM_Queda", 1);
-            this.tutorObjLock = PlayerPrefs.GetInt("TutorM_Queda", 1);
-        }
-        // TutorMontanha2.profBalao.enabled = false;
-
-    }
-*/
     public int scoreToIncrease(bool _hasBonusItem) {
         if (_hasBonusItem) {
             int score = amountBonusItem;
@@ -716,41 +659,11 @@ public class Manager1_4A : OverridableMonoBehaviour {
                 float s = times / duration;
 
                 for (int i = 0; i < _itemHandler.slotCount; i++) {
-                    //float alphaLerp = Mathf.Lerp (startColors [i].a, endColors [i].a, curve.Evaluate (s));
-                    //_itemHandler.itemsOnSlot [i].GetComponent<ItemGroup1_4A> ().UpdateImage (alphaLerp);
 
                     if (i == 0 && _itemHandler.isRed) {
                         Color _color = Color.Lerp(startColors[i], Color.gray, curve.Evaluate(s));
                         _itemHandler.itemsOnSlot[i].GetComponent<ItemGroup1_4A>().UpdateImage(_color);
                         _itemHandler.itemsOnSlot[i].GetComponent<ItemGroup1_4A>().toggleLock(true);
-                        /*
-                        if (PlayerPrefs.HasKey("TutorM_Lock") == false) {
-                            montanha.GetComponent<GraphicRaycaster>().enabled = false;
-                            didatica.GetComponent<GraphicRaycaster>().enabled = false;
-                            PlayerPrefs.SetInt("TutorM_Lock", 0);
-                            yield return Yielders.Get(.3f);
-                        //    this.tutorial.GetComponent<TutorMontanha>().animTutor.enabled = true;
-                        //    this.tutorial.GetComponent<TutorMontanha>().tutorialMontanha.GetComponent<Animator>().enabled = true;
-                        //    this.tutorial.GetComponent<TutorMontanha>().animTutor.SetInteger("numbTutor", 3);
-                           // TutorMontanha2.numtext = 4;
-                           // this.tutorial.GetComponent<TutorMontanha>().profBalao.text = this.tutorial.GetComponent<TutorMontanha>().TextTutor[4];
-                           // TutorMontanha2.soundManager.startVoiceFXReturn(TutorMontanha2.audiosTutorial[4]);
-                           // TutorMontanha2.profBalao.enabled = true;
-                            this.tutorial.GetComponent<TutorMontanha>().btPulartext.text = "Continuar";
-                            this.tutorial.GetComponent<TutorMontanha>().tutorNumber = 4;
-                            foreach (var item in tutorial.GetComponent<TutorMontanha>().gTutor) {
-                                item.SetActive(true);
-                            }
-                            this.tutorial.GetComponent<TutorMontanha>().gTutor[6].SetActive(false);
-                            this.tutorial.GetComponent<GraphicRaycaster>().enabled = true;
-                            this.tutorial.SetActive(true);
-                            Time.timeScale = 0f;
-                        } else {
-                            PlayerPrefs.SetInt("TutorM_Lock", 1);
-                            this.tutorObjLock = PlayerPrefs.GetInt("TutorM_Lock", 1);
-                        }
-                        */
-                        //_itemHandler.itemsOnSlot [i].GetComponent<ItemGroup1_4A> ().
                     } else {
                         Color _color = Color.Lerp(startColors[i], endColors[i], curve.Evaluate(s));
                         _itemHandler.itemsOnSlot[i].GetComponent<ItemGroup1_4A>().UpdateImage(_color);
@@ -758,19 +671,11 @@ public class Manager1_4A : OverridableMonoBehaviour {
 
                 }
 
-                //WrongCards[i].position = Vector3.Lerp(posFrom[i],posTo[i], repositionCurve.Evaluate (s));
-
                 yield return Yielders.EndOfFrame;
             }
 
-            /*if(isBadItem){
-				
-			}*/
-
             List<GameObject> _list2 = _itemHandler.itemsOnSlot.ReturnReverseList();
-            /*if(_itemHandler.handlersOfTheFloorHistory.Count - _itemHandler.handlersOfTheFloor.Count >= _itemHandler.handlersOfTheFloorHistory.Count ){
-				_itemHandler.GetComponentInParent<Image>().color = Color.clear;
-			}*/
+
             _itemHandler.UpdateDragItem();
             _itemHandler.blockDrag = false;
 
@@ -836,9 +741,8 @@ public class Manager1_4A : OverridableMonoBehaviour {
     }
 
     IEnumerator endGame() {
-        yield return new WaitUntil(() => !itemHandlers.Any(x => x.hasEnded == false));
+        yield return new WaitUntil(() => itemHandlers.All(x => x.hasEnded != false));
         pauseButton.interactable = false;
-        //	//Debug.Log ("Game Finisishsisisdjsaidjasoidjokjfaodkjfaçlksdjflaskdjfçlaksjflçkjdflça");
         CancelInvoke();
         isPlaying = false;
         currentDificult++;
@@ -856,36 +760,22 @@ public class Manager1_4A : OverridableMonoBehaviour {
 
         if (starAmount >= 3) {
             //Debug.Log ("END GAME - CHAMAR DIDATICA!");
+            ChamarMaeZeca();
         }
 
-        //yield return new WaitForSeconds (1f);
         yield return Yielders.Get(1f);
 
         if (hasEndedByTime || (currentDificult > dificults.Count - 1)) {
 
             log.StartTimerLudica(true);
             log.pontosLudica = scoreAmount;
-            if (hasEndedByTime) {
-                log.faseLudica = currentDificult;
-            } else {
-                log.faseLudica = 4;
-            }
-
-            /*textos alternativos de finalização.
-            if(hasEndedByTime && currentDificult <= 1){
-                //texto 1
-            } else if(hasEndedByTime == false && currentDificult == 4){
-                //texto 2
-            }
-            */
+            log.faseLudica = hasEndedByTime ? currentDificult : 4;
             if (!checkMaeZeca) {
                 ChamarMaeZeca();
             }
-
             // isGameEnded = true;
 
             StopAllCoroutines();
-            //Debug.Log ("EndByTime");
         } else {
             _highlight.startChangeLevelAnimation(currentDificult + 1);
             //yield return new WaitForSeconds(3f);
@@ -1067,19 +957,12 @@ public class Manager1_4A : OverridableMonoBehaviour {
 
 		foreach (var item in partBauTransp)
 		{
-		item.SetActive(true);
-		item.GetComponent<Animator>().SetBool("TransporTrue",true);
-		//yield return new WaitForSeconds(.2f);
-	
-		}	
-	//	yield return new WaitForSeconds(.3f);
+			item.SetActive(true);
+			item.GetComponent<Animator>().SetBool(TransporTrue, true);
 
-		
-
-		//yield return new WaitForSeconds(.8f);
+		}
 
 		yield return Yielders.Get(0.8f);
-		//chests[_chestIndex].GetComponent<Animator> ().enabled = true;
 	
 
 		Color WhiteWithoutAlpha = new Vector4(1f,1f,1f,0f);
@@ -1097,18 +980,13 @@ public class Manager1_4A : OverridableMonoBehaviour {
 			}
 		
 			foreach (var item in partBauTransp)
-		{
-	//	item.SetActive(true);
-		item.GetComponent<Animator>().SetBool("TransporTrue",false);
-		}	
+			{
+				item.GetComponent<Animator>().SetBool(TransporTrue,false);
+			}
 
 			yield return Yielders.EndOfFrame;
-			//chests[_chestIndex].GetComponent<Animator> ().enabled = true;
-
 	
 		}
-		
-	//	yield return new WaitForSeconds(1f);
 		if(isPlaying){
 			chestsParent.Shuffle();
 			Vector3 _anchoredPosition = chests[0].GetComponent<RectTransform>().anchoredPosition;
@@ -1118,16 +996,11 @@ public class Manager1_4A : OverridableMonoBehaviour {
 				chests[i].transform.SetParent(chestsParent[i].transform);
 				chests[i].rectComp.anchoredPosition = _anchoredPosition;
 				chests[i].rectComp.sizeDelta = _sizeDelta;
-				/*Vector3 scaleText = Vector3.one;
-				if(ChestOnRight.Contains(chestsParent[i])){					
-					scaleText.x = -1f;
-				}	*/			
 				chests[i].transform.localScale = Vector3.one;
 				chests[i].textComp.gameObject.transform.localScale = chestsParent[i].transform.localScale;
 				chests[i].GetComponent<ChestHandler1_4A>().bauSort = chestsParent[i].GetComponent<BauNumber>().numbBau;
 			}
 			OnChestsChange.Invoke();
-			////Debug.Log("Baus Randomizados");
 		}
 			
 
@@ -1145,51 +1018,13 @@ public class Manager1_4A : OverridableMonoBehaviour {
 			}
 
 			yield return Yielders.EndOfFrame;
-			//chests[_chestIndex].GetComponent<Animator> ().enabled = false;
 		}
-
-		//yield return Yielders.Get(1f);
-
-
-		//yield return new WaitForSeconds(0.5f);
-	
 			
-		Invoke("startRandomChest", timeToRandomizeChest);
-/*
-		if (PlayerPrefs.HasKey ("TutorM_Troca") == false) {
-			montanha.GetComponent<GraphicRaycaster> ().enabled = false;
-			didatica.GetComponent<GraphicRaycaster> ().enabled = false;
-			PlayerPrefs.SetInt ("TutorM_Troca", 0);
-			yield return Yielders.Get(.75f);
-          //  TutorMontanha2.numtext = 1;
-            this.tutorial.GetComponent<TutorMontanha>().profBalao.text = this.tutorial.GetComponent<TutorMontanha>().TextTutor [1];
-          //  TutorMontanha2.soundManager.startVoiceFXReturn(TutorMontanha2.audiosTutorial[1]);
-          //  TutorMontanha2.profBalao.enabled = true;
-            this.tutorial.GetComponent<TutorMontanha>().btPulartext.text = "Continuar";
-			this.tutorial.GetComponent<TutorMontanha>().tutorNumber = 1;
-			foreach (var item in tutorial.GetComponent<TutorMontanha>().gTutor) {
-				item.SetActive (true);
-			}	
-			this.tutorial.GetComponent<TutorMontanha> ().gTutor [6].SetActive (false);
-			this.tutorial.GetComponent<GraphicRaycaster> ().enabled = true;
-			this.tutorial.SetActive (true);
-			Time.timeScale = 0f;
-			yield return Yielders.Get(.75f);
-		} else {
-			PlayerPrefs.SetInt ("TutorM_Troca", 1);
-			this.tutorTroca = PlayerPrefs.GetInt ("TutorM_Troca", 1);
-			yield return Yielders.Get(1.5f);
-		}
+		Invoke(nameof(startRandomChest), timeToRandomizeChest);
 
-
-        */
 		foreach (var item in partBauTransp)
 		{
-			//	item.GetComponent<Animator>().SetBool("TransporTrue",false);
-//			item.GetComponent<ParticleSystem.EmitParams>().startLifetime = 0;
 			item.SetActive(false);
-			//yield return new WaitForSeconds(.2f);
-
 		}	
 	}
 
@@ -1208,41 +1043,31 @@ public class Manager1_4A : OverridableMonoBehaviour {
 				_chestIndex = Random.Range(0,chests.Count-1);		
 				while (chests[_chestIndex].isChestClose == true || chests[_chestIndex].isChestBonus == true){
 					_chestIndex = Random.Range(0,chests.Count-1);
-					//chests[_chestIndex].jucaFecharBau.enabled=true;
 				}
-			chests[_chestIndex].jucaFecharBau.enabled=true;
-			//chests[_chestIndex].zecaFecharBau.enabled=true;
-		//	chests[_chestIndex].GetComponent<Animator> ().enabled = true;
-			chests[_chestIndex].jucaFecharBau.SetBool("fecharBau",true);
-			chests[_chestIndex].jucaFecharBau.SetInteger("NumbBauSort",chests[_chestIndex].GetComponent<ChestHandler1_4A>().bauSort);
+				chests[_chestIndex].jucaFecharBau.enabled=true;
+				chests[_chestIndex].jucaFecharBau.SetBool(FecharBau,true);
+				chests[_chestIndex].jucaFecharBau.SetInteger(NumbBauSort,chests[_chestIndex].GetComponent<ChestHandler1_4A>().bauSort);
 				StartCoroutine (TimeEnableBau());
 			} 
 			
 			else {				
-				Invoke("randomChestToCLose", timeToChestClose);
+				Invoke(nameof(randomChestToCLose), timeToChestClose);
 				isClosingChest = false;
 			}
 
-            for (int i = 0; i < chests.Count; i++) {
-                if (chests[i].isChestBonus) {
-                    chestBonus = chests[i];
-                }
+            foreach (var t in chests)
+            {
+	            if (t.isChestBonus) {
+		            chestBonus = t;
+	            }
             }
 
 
 		}
 	}
 	IEnumerator TimeEnableBau(){
-
-		//yield return new WaitForSeconds (1f);
 		yield return Yielders.Get(10f);
-		//chests[_chestIndex].zecaFecharBau.SetBool("AbrirBau",false);
-		chests[_chestIndex].jucaFecharBau.SetBool("fecharBau",false);
-		//chests[_chestIndex].jucaFecharBau.enabled=false;
-		//chests[_chestIndex].GetComponent<Animator> ().enabled = hasChestClose;
-
-
-
+		chests[_chestIndex].jucaFecharBau.SetBool(FecharBau,false);
 	}
 
 
@@ -1254,16 +1079,13 @@ public class Manager1_4A : OverridableMonoBehaviour {
 		hasChestClose = true;
 		isClosingChest = false;
 		float temp = Random.Range(rangeTimeToOpen.x,rangeTimeToOpen.y);
-		Invoke("OpenChestAnimation", temp);
+		Invoke(nameof(OpenChestAnimation), temp);
 	}
 
 	
 	void OpenChestAnimation(){
 		isOpeningChest = true;
-		////Debug.Log("Abrindo Bau: "+_chestIndex);
-		//chests[_chestIndex].GetComponent<Animator> ().enabled = true;
-		//chests[_chestIndex].zecaFecharBau.enabled=true;
-		chests[_chestIndex].zecaFecharBau.SetBool("AbrirBau",true);
+		chests[_chestIndex].zecaFecharBau.SetBool(AbrirBau,true);
 		StartCoroutine (TimeEnableBau());
 	}
 
@@ -1278,107 +1100,44 @@ public class Manager1_4A : OverridableMonoBehaviour {
 			hasChestClose = false;		
 		}
 		isOpeningChest = false;
-		////Debug.Log(isOpeningChest);
-		Invoke("randomChestToCLose", timeToChestClose);
+		Invoke(nameof(randomChestToCLose), timeToChestClose);
 	}
 
 
 	void ChooseChest(){
         Debug.Log("Bau Bonus Starting");
-       /* if (hasChestBonus){
-            chestBonus.ToggleBonusParticle(false);
-            chestBonus.isChestBonus = false;
-            hasChestBonus = false;
-			OnChestOpens.Invoke();
-            Debug.Log("Still Bonus so End it");
-        }*/
-
-		if(!hasChestBonus && isPlaying){
-			float randomTemp = Random.Range(0f,100f);
-			if(randomTemp <= chancesOfChestBonus){
-
-                int temp = chests.Count;
-                for (int i = 0; i < temp; i++) {
-                    chests[i].isChestBonus = false;
-                    chests[i].ToggleBonusParticle(false);
-                }
-
-                chests2 = chests.ToList();
-				chests2.Shuffle();               
-
-                if (!chests2[0].isChestClose) {
-                    chestBonus = chests2[0];
-                    //chestBonus.isChestBonus = true;
-                    //chestBonus.ToggleBonusParticle(true);
-                    //Debug.Log("Bau Bonus");
-                   // StartCoroutine(TimeTutorBauBonus());
-                } else if (!chests2[1].isChestClose) {
-                    chestBonus = chests2[1];
-                    //chestBonus.isChestBonus = true;
-                    //chestBonus.ToggleBonusParticle(true);
-                    //Debug.Log("Bau Bonus");
-                   // StartCoroutine(TimeTutorBauBonus());
-                } else if(!chests2[2].isChestClose) {
-                    chestBonus = chests2[2];
-                    //chestBonus.isChestBonus = true;
-                    //chestBonus.ToggleBonusParticle(true);
-                    //Debug.Log("Bau Bonus");
-                 //   StartCoroutine(TimeTutorBauBonus());
-                }
-                if (chestBonus == null) {
-                    Debug.Log("Bau Bonus Nulled");
-                }
-                chestBonus.isChestBonus = true;
-                chestBonus.particleBonusChest.SetActive(true);
-
-                
-                //OnChestBlock.Invoke();
-                hasChestBonus = true;
-				Debug.Log("Bau Bonus");
-                Timing.KillCoroutines(chestBonusEnd);
-                chestBonusEnd = Timing.RunCoroutine(endChestBonus(), "ChestBonusEnd");
-                //Invoke("endChestBonus", 8f);
-            }			
-		}		
-
-		
-	}
-    /*
-	IEnumerator TimeTutorBauBonus() {
-      
-        yield return Yielders.Get (0.5f);
-
-		if(PlayerPrefs.HasKey("TutorBauBonus_0")==false){
-			montanha.GetComponent<GraphicRaycaster> ().enabled = false;
-			didatica.GetComponent<GraphicRaycaster> ().enabled = false;
-			//this.tutorial.GetComponent<TutorMontanha> ().animTutor.enabled = true;
-           // this.tutorial.GetComponent<TutorMontanha>().tutorialMontanha.GetComponent<Animator>().enabled = true;
-           // this.tutorial.GetComponent<TutorMontanha> ().animTutor.SetInteger ("numbTutor",2);
-			//PlayerPrefs.SetInt("TutorBauBonus_0",1);
-           // TutorMontanha2.numtext = 3;
-           // this.tutorial.GetComponent<TutorMontanha>().btPulartext.text = "Continuar";
-			//this.tutorial.GetComponent<TutorMontanha>().tutorNumber = 3;
-			//this.tutorial.GetComponent<TutorMontanha>().profBalao.text = this.tutorial.GetComponent<TutorMontanha>().TextTutor [3];
-         //   TutorMontanha2.soundManager.startVoiceFXReturn(TutorMontanha2.audiosTutorial[3]);
-
-           //    TutorMontanha2.profBalao.enabled = true;
-            this.tutorial.GetComponent<TutorMontanha>().tutorNumber = 1;
-			foreach (var item in tutorial.GetComponent<TutorMontanha>().gTutor) {
-				item.SetActive (true);
-			}	
-			this.tutorial.GetComponent<TutorMontanha> ().gTutor [6].SetActive (false);
-			this.tutorial.GetComponent<GraphicRaycaster> ().enabled = true;
-			this.tutorial.SetActive (true);
-			Time.timeScale = 0f;
-		}
-		else{
-			//PlayerPrefs.SetInt("TutorJuca_0",1);
-			this.TutorBauBonus = PlayerPrefs.GetInt("TutorBauBonus_0",1);
-
+       if (hasChestBonus || !isPlaying) return;
+       float randomTemp = Random.Range(0f,100f);
+		if (!(randomTemp <= chancesOfChestBonus)) return;
+		int temp = chests.Count;
+		for (int i = 0; i < temp; i++) {
+			chests[i].isChestBonus = false;
+			chests[i].ToggleBonusParticle(false);
 		}
 
+		chests2 = chests.ToList();
+		chests2.Shuffle();
+
+		if (!chests2[0].isChestClose) {
+			chestBonus = chests2[0];
+		} else if (!chests2[1].isChestClose) {
+			chestBonus = chests2[1];
+		} else if(!chests2[2].isChestClose) {
+			chestBonus = chests2[2];
+		}
+		if (chestBonus == null) {
+			Debug.Log("Bau Bonus Nulled");
+		}
+		chestBonus.isChestBonus = true;
+		chestBonus.particleBonusChest.SetActive(true);
+
+		hasChestBonus = true;
+		Debug.Log("Bau Bonus");
+		Timing.KillCoroutines(chestBonusEnd);
+		chestBonusEnd = Timing.RunCoroutine(endChestBonus(), "ChestBonusEnd");
+
+
 	}
-*/
 	IEnumerator<float> endChestBonus(){
         yield return Timing.WaitForOneFrame;
         hasChestBonus = true;
@@ -1457,19 +1216,19 @@ public class Manager1_4A : OverridableMonoBehaviour {
 			float s = timer / itemThrowAwayDuration;
 
 			if(_transformItem != null){
-            item.DisableBackgroundImage();
-			_transformItem.position = Vector3.Lerp(startPos,endPos,itemThrowAwayPositionCurve.Evaluate(s));
-			_transformItem.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 5f, itemThrowAwayScaleCurve.Evaluate(s));
+				item.DisableBackgroundImage();
+				_transformItem.position = Vector3.Lerp(startPos,endPos,itemThrowAwayPositionCurve.Evaluate(s));
+				_transformItem.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 5f, itemThrowAwayScaleCurve.Evaluate(s));
 			} else {
 				break;
 			}
 
 			yield return Yielders.EndOfFrame;
 		}
-		if(_transformItem != null){
-			_transformItem.localScale = Vector3.one;
-			_transformItem.gameObject.SetActive(false);
-		}
+
+		if (_transformItem == null) yield break;
+		_transformItem.localScale = Vector3.one;
+		_transformItem.gameObject.SetActive(false);
 		////Debug.Log("Item Errado Jogado Fora!");
 
 	}

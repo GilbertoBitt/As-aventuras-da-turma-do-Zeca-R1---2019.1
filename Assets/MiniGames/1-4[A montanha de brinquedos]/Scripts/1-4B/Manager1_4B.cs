@@ -5,14 +5,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Assets.Scripts.Utils;
 using Controllers;
 using MiniGames.Scripts;
 using Sirenix.OdinInspector;
 using TMPro;
 using UniRx;
+using UniRx.Toolkit;
 using UniRx.Triggers;
-using UniRXExtended;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -89,8 +88,13 @@ public class Manager1_4B : OverridableMonoBehaviour
     [FoldoutGroup("Geral")] [ReadOnly] public List<ButtonTMPComponent> buttonInstances;
     public ButtonTMPComponentPool buttonPool;
     [FoldoutGroup("Geral")] public Image itemIconImage;
+    [AssetList(Path = "MiniGames/1-4[A montanha de brinquedos]/Scripts/1-4B/Words/2ª Ano", AutoPopulate = true)]
+    [FoldoutGroup("2ª ano")] public WordItem[] randomWordArray = new WordItem[1];
+    [FoldoutGroup("2ª ano")] public int currentGameRound = 0;
+    [FoldoutGroup("2ª ano")] public int maxRound = 3;
 
     public ReactiveCommand startGame;
+    public ReactiveCommand updatedGame = new ReactiveCommand();
 
     public Manager1_4A previousManager;
     public GameObject panelInteragindo;
@@ -193,10 +197,16 @@ public class Manager1_4B : OverridableMonoBehaviour
     public SyllableHandler1_4B[] blueBoxInstances = new SyllableHandler1_4B[0];
     public Queue<BlankSpace1_4B> emptyBoxPool = new Queue<BlankSpace1_4B>();
     public BlankSpace1_4B[] emptyBoxInstances = new BlankSpace1_4B[0];
+    public BlueBoxPool poolBlueBox;
+    public List<SyllableHandler1_4B> blueBoxInstancesOnScene;
+    public BlankBoxPool poolBlankBox;
+    public List<BlankSpace1_4B> blankInstancesOnScene;
 
     public int poolSize = 12;
     public GameObject prefabBlueBox;
+    public SyllableHandler1_4B prefabBlueBoxInstance;
     public GameObject prefabEmptyBox;
+    public BlankSpace1_4B prefabEmptyBoxInstance;
     public Transform poolParent;
     public Transform blueBoxParent;
     public Transform emptyBoxParent;
@@ -204,26 +214,64 @@ public class Manager1_4B : OverridableMonoBehaviour
     public Button confirmButtonRoutine2;
     public CanvasGroup nexPanelGroupComp;
 
+    [FoldoutGroup("2ª ano")]
+    public ReactiveDictionary<string, bool> wordsToFind = new ReactiveDictionary<string, bool>();
+
     public void InitGameConfig()
     {
         buttonPool = new ButtonTMPComponentPool(buttonPrefab, buttonParentTransform);
         //StartConfiguration
+        startGame = new ReactiveCommand();
+        updatedGame = new ReactiveCommand();
         switch (anoLetivo.Value)
         {
             case AnoLetivoState.Ano1:
                 SuffleAndGenerateFirstRoutine();
                 SetupPools();
+                startGame.Subscribe(OnGameStart);
+                updatedGame.Subscribe(updated =>
+                {
+                    if (!isPlaying) return;
+                    if (emptyBoxInstances.All(x => x.hasDrop == true) && !hasWordComplete) {
+                        hasWordComplete = true;
+                        confirmButton.interactable = true;
+                    } else if (emptyBoxInstances.Any(x => x.hasDrop != true) && hasWordComplete) {
+                        hasWordComplete = false;
+                        confirmButton.interactable = false;
+                    }
+                });
+
+                this.UpdateAsObservable().Subscribe(unit => { updatedGame?.Execute(); });
                 break;
             case AnoLetivoState.Ano2:
+
+                blueBoxInstancesOnScene = new List<SyllableHandler1_4B>();
+                blankInstancesOnScene = new List<BlankSpace1_4B>();
+
+                #region SetupPool
+                //Preload and config pool of boxes
+
+                poolBlueBox = new BlueBoxPool(prefabBlueBoxInstance, blueBoxParent, this);
+
+                poolBlankBox = new BlankBoxPool(prefabEmptyBoxInstance, emptyBoxParent, this);
+
+                //boxes preload ended
+                #endregion
+
+                randomWordArray.Shuffle();
+
+                startGame.Subscribe(StartLoopSecondYear);
+
+                dragDropPanelContent.SetActive(true);
+
+
+
                 break;
             case AnoLetivoState.Ano3:
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-
-        startGame = new ReactiveCommand();
-        startGame.Subscribe(OnGameStart);
 
         //Bind to UniRX
         currentGameState.Where(state => state == GameState.MainState).Subscribe(OnMainState);
@@ -232,6 +280,94 @@ public class Manager1_4B : OverridableMonoBehaviour
         currentGameState.Where(state => state == GameState.SecondStateAlternate).Subscribe(OnSecondStateAlternate);
 
         startGame.Execute();
+
+
+    }
+
+    private void StartLoopSecondYear(Unit obj)
+    {
+        if (wordsToFind == null)
+        {
+            wordsToFind = new ReactiveDictionary<string, bool>();
+        }
+        wordsToFind.Clear();
+        //Return boxes used to pool.
+        blueBoxInstancesOnScene.ForEach(box =>
+        {
+            poolBlueBox.Return(box);
+            blueBoxInstancesOnScene.Remove(box);
+        });
+
+        blankInstancesOnScene.ForEach(box =>
+        {
+            poolBlankBox.Return(box);
+            blankInstancesOnScene.Remove(box);
+        });
+
+        currentGameRound++;
+
+        if (currentGameRound <= maxRound)
+        {
+            currentWord = randomWordArray[currentGameRound];
+        }
+
+        foreach (var word in currentWord.alternativeWordsContent.alternativeWords)
+        {
+            wordsToFind.Add(word.ToLower(), false);
+        }
+
+        var alternativeWords = currentWord.alternativeWordsContent.alternativeWords.Length;
+        textEnunciadoComponent.DOText($"Forme {alternativeWords} {(alternativeWords == 1 ? "nova palavra" : "novas palavras")}", 1f);
+
+        //instance blue box for syllable
+
+        var shuffleSyllables = currentWord.syllables.Shuffle();
+
+        foreach (var syllable in shuffleSyllables)
+        {
+            var blueBoxInstance = poolBlueBox.Rent();
+            blueBoxInstance.UpdateTextContent(syllable.ToUpper());
+            blueBoxInstance.DoFade(1f);
+            blueBoxInstancesOnScene.Add(blueBoxInstance);
+
+            var emptySpace = poolBlankBox.Rent();
+            emptySpace.DoFade(1f);
+            blankInstancesOnScene.Add(emptySpace);
+        }
+
+        //Set configs for onClickConfirmButton
+
+        this.UpdateAsObservable()
+            .Where(unit => isPlaying && blankInstancesOnScene.TrueForAll(box => box.hasDrop && box.thisSyllable != null))
+            .Subscribe(unit => { confirmButton.interactable = true; });
+
+        this.UpdateAsObservable().Where(unit =>
+                isPlaying && !blankInstancesOnScene.TrueForAll(box => box.hasDrop && box.thisSyllable != null))
+            .Subscribe(unit => { confirmButton.interactable = false; });
+
+        confirmButton.OnClickAsObservable().Subscribe(CorrectCurrentWord);
+
+    }
+
+    private void CorrectCurrentWord(Unit unit)
+    {
+        //correction method to completed word
+
+        //Get value guessed
+        var playerGuessWord = blankInstancesOnScene.Where(item => item.thisSyllable != null).Aggregate(string.Empty, (current, item) => current + item.thisSyllable.textComp.text).ToLower();
+
+        //confirm if word has or not this alternative word.
+        var hasWord = wordsToFind.Keys.Contains(playerGuessWord);
+
+        if (hasWord)
+        {
+            Debug.Log("palavra encontrada");
+        }
+        else
+        {
+            Debug.Log("failed to find");
+        }
+
     }
 
     private void OnGameStart(Unit unit)
@@ -458,14 +594,7 @@ public class Manager1_4B : OverridableMonoBehaviour
 
 
     public override void UpdateMe() {
-        if (!isPlaying) return;
-        if (emptyBoxInstances.All(x => x.hasDrop == true) && !hasWordComplete) {
-            hasWordComplete = true;
-            confirmButton.interactable = true;
-        } else if (emptyBoxInstances.Any(x => x.hasDrop != true) && hasWordComplete) {
-            hasWordComplete = false;
-            confirmButton.interactable = false;
-        }
+
     }
 
 
@@ -509,7 +638,6 @@ public class Manager1_4B : OverridableMonoBehaviour
 //        }
 
         oldPanelDisable.GetComponent<GraphicRaycaster>().enabled = false;
-//        activateThisPanel.GetComponent<GraphicRaycaster>().enabled = false;
         oldPanelDisable.SetActive(false);
         activateThisPanel.SetActive(true);
         nexPanelGroupComp.blocksRaycasts = false;
@@ -1034,6 +1162,80 @@ public class Manager1_4B : OverridableMonoBehaviour
 
     public void DropCardSound() {
         _soundManager.startSoundFX(audios[2]);
+    }
+
+    public class BlueBoxPool : ObjectPool<SyllableHandler1_4B>
+    {
+        readonly SyllableHandler1_4B _prefab;
+        readonly Transform _hierarchyParent;
+        private readonly Manager1_4B _manager;
+
+        public BlueBoxPool(SyllableHandler1_4B prefab, Transform hierarchyParent, Manager1_4B manager)
+        {
+            this._prefab = prefab;
+            this._hierarchyParent = hierarchyParent;
+            this._manager = manager;
+        }
+
+        protected override SyllableHandler1_4B CreateInstance()
+        {
+            var buttonInstance = UnityEngine.Object.Instantiate(_prefab, _hierarchyParent);
+            buttonInstance.manager = this._manager;
+            buttonInstance.ResetToDefault(_hierarchyParent);
+            buttonInstance.thisCanvasGroup.alpha = 0f;
+            buttonInstance.gameObject.SetActive(false);
+            return buttonInstance;
+        }
+
+        protected override void OnBeforeReturn(SyllableHandler1_4B instance)
+        {
+            instance.gameObject.SetActive(false);
+            instance.ResetToDefault(_hierarchyParent);
+        }
+
+        protected override void OnBeforeRent(SyllableHandler1_4B instance)
+        {
+
+            instance.ResetToDefault(_hierarchyParent);
+            instance.gameObject.SetActive(true);
+        }
+    }
+
+    public class BlankBoxPool : ObjectPool<BlankSpace1_4B>
+    {
+        readonly BlankSpace1_4B _prefab;
+        readonly Transform _hierarchyParent;
+        private readonly Manager1_4B _manager14B;
+
+        public BlankBoxPool(BlankSpace1_4B prefab, Transform hierarchyParent, Manager1_4B manager)
+        {
+            this._prefab = prefab;
+            this._hierarchyParent = hierarchyParent;
+            this._manager14B = manager;
+        }
+
+        protected override BlankSpace1_4B CreateInstance()
+        {
+            var buttonInstance = UnityEngine.Object.Instantiate<BlankSpace1_4B>(_prefab, _hierarchyParent);
+            buttonInstance.manager = this._manager14B;
+            buttonInstance.ResetToDefault(_hierarchyParent);
+            var color = Color.white;
+            color.a = 0f;
+            buttonInstance.thisImageComp.color = color;
+            return buttonInstance;
+        }
+
+        protected override void OnBeforeReturn(BlankSpace1_4B instance)
+        {
+            instance.ResetToDefault(_hierarchyParent);
+            instance.gameObject.SetActive(false);
+        }
+
+        protected override void OnBeforeRent(BlankSpace1_4B instance)
+        {
+            instance.gameObject.SetActive(true);
+            instance.ResetToDefault(_hierarchyParent);
+        }
     }
 
 }

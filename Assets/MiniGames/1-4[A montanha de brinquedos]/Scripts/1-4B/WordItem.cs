@@ -21,6 +21,7 @@ namespace MiniGames.Scripts
         public string[] letters;
         public TonicSyllable tonicSyllables;
         public EnumClassification wordClassification;
+        public AlternativeWords alternativeWordsContent;
         public bool buildWithLetters = false;
 
 
@@ -55,6 +56,13 @@ namespace MiniGames.Scripts
                 letters[i] = word[i].ToString().ToLower();
             }
 
+            if (!alternativeWordsContent.enabled) return;
+
+            for (var index = 0; index < alternativeWordsContent.alternativeWords.Length; index++)
+            {
+                var alternativeWord = alternativeWordsContent.alternativeWords[index];
+                alternativeWordsContent.alternativeWords[index] = alternativeWord.ToLower();
+            }
         }
 
         public string ToTitleCase(string str) {
@@ -92,5 +100,13 @@ namespace MiniGames.Scripts
         public WordItem.ClassificationBySyllables classification;
         [ShowIf("classification", WordItem.ClassificationBySyllables.Polissilaba)]
         public int syllableAmount;
+    }
+
+    [Serializable, Toggle("enabled")]
+    public class AlternativeWords
+    {
+        public bool enabled;
+        public string[] alternativeWords = new string[1];
+
     }
 }
