@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081c9b890044fb3428a4df19b7bc3466, type: 3}
+  m_Name: morango
+  m_EditorClassIdentifier: 
+  word: morango
+  itemSprite: {fileID: 3286163911610860551, guid: 4904bee07ad90994f93c05b9f61e2ea7,
+    type: 3}
+  syllables:
+  - mo
+  - ran
+  - go
+  charSyllabes:
+  - m
+  - o
+  - r
+  - a
+  - n
+  - g
+  - o
+  letters:
+  - m
+  - o
+  - r
+  - a
+  - n
+  - g
+  - o
+  tonicSyllables:
+    enabled: 0
+    classification: 0
+  wordClassification:
+    enabled: 1
+    classification: 3
+    syllableAmount: 4
+  buildWithLetters: 1

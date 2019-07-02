@@ -310,13 +310,11 @@ namespace UnityStandardAssets._2D
         void VoltarCorrer() {
             //   CheckCaindo(false);          
             if (!EndedByLife) {
-            m_Anim.SetBool("Levantando", false);
-            m_Anim.SetBool("BatendoCaixa", false);
-            m_Anim.SetInteger("NumCaindo", 0);
-            Invoke("EnableBTinfinty", 0.5f);
-            OnEnableBtVacin2.Invoke();
-        } else {
-                
+                m_Anim.SetBool("Levantando", false);
+                m_Anim.SetBool("BatendoCaixa", false);
+                m_Anim.SetInteger("NumCaindo", 0);
+                Invoke("EnableBTinfinty", 0.5f);
+                OnEnableBtVacin2.Invoke();
             }
 
 

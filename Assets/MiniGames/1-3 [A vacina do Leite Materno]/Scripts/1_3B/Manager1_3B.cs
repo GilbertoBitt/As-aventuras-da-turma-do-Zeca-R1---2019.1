@@ -498,13 +498,20 @@ public class Manager1_3B : OverridableMonoBehaviour {
 
 
 
-        if (userChoiseFood.food == rightFoodItem) {
-            int rand = Random.Range(0, 1);
+        if (userChoiseFood == rightBubbleFood) {
+	        var currentScore = scoreAmount;
+	        var newscore = scoreAmount + scoreAmountPerRight;
+	        scoreText.DOTextInt(currentScore, newscore, 1f).OnComplete(() =>
+	        {
+		        scoreAmount = newscore;
+		        Debug.Log($"score updated to {newscore}");
+
+	        });
             Invoke("CorrectionSucess", 0.6f);
             _log.SaveEstatistica(3, 1, true);
             userChoiseFood.StartCorrectcenter (gotoCenterDelay);
 			Timing.KillCoroutines ("IncreaseEffectScore");
-			Timing.RunCoroutine (scoreIncrease (scoreAmountPerRight), "IncreaseEffectScore");
+//			Timing.RunCoroutine (scoreIncrease (scoreAmountPerRight), "IncreaseEffectScore");
             _log.AddPontosPedagogica(scoreAmountPerRight);
 
         } else {

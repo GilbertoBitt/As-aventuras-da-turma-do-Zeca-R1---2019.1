@@ -136,7 +136,7 @@ public class managerAddRainbow : MonoBehaviour
     public void StartGame ()
     {
 
-//	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
+	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
 
 	    infoSkillInfo = IoC.inject.GetOrAddSingleton<InfoSkillWindow>(this);
 

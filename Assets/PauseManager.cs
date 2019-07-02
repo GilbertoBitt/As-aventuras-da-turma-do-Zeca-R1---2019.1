@@ -45,7 +45,7 @@ public class PauseManager : MonoBehaviour {
         btPause.SetActive (true);
 		Unpause();
 		pausePanel.SetActive (false);
-		config.SavePrefs ();
+		GameConfig.Instance.SavePrefs ();
 	}
 
     public void Unpause()
@@ -58,28 +58,28 @@ public class PauseManager : MonoBehaviour {
     public void OpenConfig(){
 
         SomBT();
-        Toggles [0].isOn = !config.isAudioOn;
-		Toggles [1].isOn = !config.isAudioFXOn;
-		Toggles [2].isOn = !config.isAudioVoiceOn;
+        Toggles [0].isOn = !GameConfig.Instance.isAudioOn;
+		Toggles [1].isOn = !GameConfig.Instance.isAudioFXOn;
+		Toggles [2].isOn = !GameConfig.Instance.isAudioVoiceOn;
 
 	}
 
 	public void backgroundMusicValidate()
 	{
 		SomBT();
-		config.isAudioOn = !Toggles [0].isOn;
+		GameConfig.Instance.isAudioOn = !Toggles [0].isOn;
 	}
 
 	public void soundFXValidate()
 	{
 		SomBT();
-		config.isAudioFXOn = !Toggles [1].isOn;
+		GameConfig.Instance.isAudioFXOn = !Toggles [1].isOn;
 	}
 
 	public void VoicesValidate()
 	{
 		SomBT();
-		config.isAudioVoiceOn = !Toggles [2].isOn;
+		GameConfig.Instance.isAudioVoiceOn = !Toggles [2].isOn;
 	}
 
 	public void backToMenu(){

@@ -84,38 +84,39 @@ public class ControlCaixa : OverridableMonoBehaviour {
     }*/
 
     private void OnCollisionEnter2D(Collision2D collision) {
-  
-    
-        if (collision.gameObject.CompareTag("Player") == true) {
-            Vector3 hit = collision.contacts[0].normal;
-            //Debug.Log(hit);
-            
-            float angle = Vector3.Angle(hit, Vector3.up);
-            Vector3 cross = Vector3.Cross(Vector3.forward, hit);
-          
-            if (Mathf.Approximately(angle, 90) && cross.y > 0) {
-                
-                manager.batendoCaixa = true;
-              //  Debug.Log("batendoCaixa [" + manager.batendoCaixa + "]");
-                manager.HitSoundEffect();
-                if (manager.plataformController2d.isFlying) {
-                    manager.StopFlyCollision();
-                }
-                // colliderBox.isTrigger = true;
-                colliderBox.isTrigger = true;                
-                if (manager.batendoCaixa) {
-                    manager.animPerson.SetBool("BatendoCaixa", true);
-                    manager.plataformController2d.collVoando.enabled = false;
-                    manager.batendoCaixa = true;
-                   // Debug.Log("batendoCaixa 2 [" + manager.batendoCaixa + "]");
-                }                
-                manager.StopRunning();
-                manager.ButtonsEnable(false);
-              //  manager.imgPersonAnimP.enabled = true;
-                manager.checkPiscar = true;
-                manager.imgPersonAnimP.SetBool("Piscar", true);
-            }
+        if (collision.gameObject.CompareTag("Player") != true) return;
+        Vector3 hit = collision.contacts[0].normal;
+        //Debug.Log(hit);
+
+        float angle = Vector3.Angle(hit, Vector3.up);
+        Vector3 cross = Vector3.Cross(Vector3.forward, hit);
+
+        if (!Mathf.Approximately(angle, 90) || !(cross.y > 0)) return;
+        manager.batendoCaixa = true;
+        //  Debug.Log("batendoCaixa [" + manager.batendoCaixa + "]");
+        manager.HitSoundEffect();
+        if (manager.plataformController2d.isFlying) {
+            manager.StopFlyCollision();
         }
+
+        if (manager.deslizandoLeite)
+        {
+            manager.animPerson.SetBool("DelizandoLeite", false);
+        }
+
+        // colliderBox.isTrigger = true;
+        colliderBox.isTrigger = true;
+        if (manager.batendoCaixa) {
+            manager.animPerson.SetBool("BatendoCaixa", true);
+            manager.plataformController2d.collVoando.enabled = false;
+            manager.batendoCaixa = true;
+            // Debug.Log("batendoCaixa 2 [" + manager.batendoCaixa + "]");
+        }
+        manager.StopRunning();
+        manager.ButtonsEnable(false);
+        //  manager.imgPersonAnimP.enabled = true;
+        manager.checkPiscar = true;
+        manager.imgPersonAnimP.SetBool("Piscar", true);
     }
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision.CompareTag("Player") == true) {

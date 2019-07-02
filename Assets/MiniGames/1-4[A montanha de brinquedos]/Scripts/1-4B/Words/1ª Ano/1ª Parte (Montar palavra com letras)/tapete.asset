@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081c9b890044fb3428a4df19b7bc3466, type: 3}
+  m_Name: tapete
+  m_EditorClassIdentifier: 
+  word: tapete
+  itemSprite: {fileID: 3286163911610860551, guid: e264228e172b4b449aabf292d248e304,
+    type: 3}
+  syllables:
+  - ta
+  - pe
+  - te
+  charSyllabes:
+  - t
+  - a
+  - p
+  - e
+  - t
+  - e
+  letters:
+  - t
+  - a
+  - p
+  - e
+  - t
+  - e
+  tonicSyllables:
+    enabled: 0
+    classification: 0
+  wordClassification:
+    enabled: 1
+    classification: 3
+    syllableAmount: 4
+  buildWithLetters: 1

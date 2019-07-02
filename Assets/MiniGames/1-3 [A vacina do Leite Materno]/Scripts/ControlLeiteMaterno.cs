@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using UnityStandardAssets.CrossPlatformInput;
 using MEC;
 using MiniGames.Scripts._1_3A;
+using UniRx.Triggers;
 
 public class ControlLeiteMaterno : MonoBehaviour {
 
@@ -27,6 +28,8 @@ public class ControlLeiteMaterno : MonoBehaviour {
         areaEffector = this.GetComponent<AreaEffector2D>();
         areaEffector.enabled = false;
 
+
+
     }
 
 
@@ -39,95 +42,33 @@ public class ControlLeiteMaterno : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D other) {
+        if (!other.CompareTag("PlayerPe") || !(Manager1_3AR.playerRigidbody.velocity.y <= 0) ||
+            Manager1_3AR.plataformController2d.isFlying) return;
+        areaEffector.enabled = true;
+        Manager1_3AR.plataformController2d.checkDeslizando = true;
+        Manager1_3AR.animPerson.SetInteger("NumCaindo", 1);
+        Manager1_3AR.animPerson.SetBool("DelizandoLeite", true);
+        Manager1_3AR.ButtonsEnable(false);
+        Manager1_3AR.deslizandoLeite = true;
+        Invoke(nameof(CallTimeVoltar), 2f);
+    }
 
-        if (other.CompareTag("PlayerPe") == true && Manager1_3AR.playerRigidbody.velocity.y <= 0 && !Manager1_3AR.plataformController2d.isFlying) {
-            areaEffector.enabled = true;
-            Manager1_3AR.plataformController2d.checkDeslizando = true;
-            Manager1_3AR.animPerson.SetInteger("NumCaindo", 1);
-            Manager1_3AR.animPerson.SetBool("DelizandoLeite", true);
-            Manager1_3AR.ButtonsEnable(false);
-            Manager1_3AR.deslizandoLeite = true;
-
-
-
-        }
-            /*
-            if (this.transform.position.y > other.transform.position.y) {
-                areaEffector.enabled = false;
-                Debug.Log("em baixo do leite");
-            } else {
-                Manager1_3AR.plataformController2d.checkDeslizando = true;
-                Manager1_3AR.animPerson.SetInteger("NumCaindo", 1);
-                Manager1_3AR.animPerson.SetBool("DelizandoLeite", true);
-                // Debug.Log("Ecorrengando");
-                Manager1_3AR.ButtonsEnable(false);
-                areaEffector.enabled = true;
-            }
-
-       
-        }
-        */
-
-        /*
-        if (this.transform.position.y > other.transform.position.y) {
-                areaEffector.enabled = false;
-                Debug.Log("em baixo do leite");
-            } else {
-                Debug.Log("em cima do leite");
-                Manager1_3AR.animPerson.SetInteger("NumCaindo", 1);
-                // Debug.Log("Ecorrengando");
-                Manager1_3AR.ButtonsEnable(false);
-                areaEffector.enabled = true;
-            }
-
-             ContactPoint2D[] contatscs = new ContactPoint2D[10];
-
-             other.GetContacts(contatscs);
-
-
-             Vector3 hit = contatscs[0].normal;
-             Debug.Log(hit);
-             float angle = Vector3.Angle(hit, Vector3.up);
-
-             if (Mathf.Approximately(angle, 0) || Mathf.Approximately(angle, 5) || Mathf.Approximately(angle, -5)) {
-                 //Down
-                 Manager1_3AR.animPerson.SetInteger("NumCaindo", 1);
-                 Manager1_3AR.ButtonsEnable(false);
-                 areaEffector.enabled = true;
-                 Debug.Log("baixo");
-             }
-             if (Mathf.Approximately(angle, 180)) {
-                 //Up               
-                 // Debug.Log("Ecorrengando");
-
-                 areaEffector.enabled = false;
-                 Debug.Log("cima");
-             }
-             /*if (Mathf.Approximately(angle, 90)) {
-                 // Sides
-                 Vector3 cross = Vector3.Cross(Vector3.forward, hit);
-                 if (cross.y > 0) { // left side of the player
-                     areaEffector.enabled = false;
-                     Debug.Log("Esquerda");
-                 } else { // right side of the player
-                     Debug.Log("Direita");
-                     areaEffector.enabled = false;
-                 }
-             }*/
-
-
+    void CallTimeVoltar()
+    {
+        if(!Manager1_3AR.deslizandoLeite) return;
+        StartCoroutine(TimerVolta());
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerPe") == true && Manager1_3AR.jumpButton.interactable == false) {
-          
-          //  Debug.Log("Caindo");
-           StartCoroutine(TimerVolta());
-         
+
+        if (other.CompareTag("PlayerPe")) {
+          StartCoroutine(TimerVolta());
         }
       
     }
+
+
     IEnumerator TimerVolta()
     {
         colliderBox.enabled = false;
@@ -146,6 +87,7 @@ public class ControlLeiteMaterno : MonoBehaviour {
         CrossPlatformInputManager.SetAxisZero("Vertical");
         yield return new WaitForSeconds(1f);
         Manager1_3AR.animPerson.SetBool("DelizandoLeite", false);
+        Manager1_3AR.deslizandoLeite = false;
         //  Manager1_3AR.BackRunning();
         //Manager1_3AR.ButtonsEnable(true);
 

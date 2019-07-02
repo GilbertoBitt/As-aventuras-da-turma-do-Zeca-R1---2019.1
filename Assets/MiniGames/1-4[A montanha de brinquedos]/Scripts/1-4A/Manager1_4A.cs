@@ -34,7 +34,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
     public bool isDragging = false;
     [Range(0f, 100f)]
     public float chancesOfBadItem = 5f;
-    public bool isGameEnded = false;
+//    public bool isGameEnded = false;
     public bool hasEndedByTime = false;
     public Color gridColor;
 
@@ -248,7 +248,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
 
         StartCoroutine(beginGame());
         startTowerPos = towerParent.position;
-        nextManager.StartCoroutine(nextManager.startIt());
+//        nextManager.StartCoroutine(nextManager.startIt());
         _chestIndex = Random.Range(0, chests.Count - 1);
         log.StartTimerLudica(true);
       //  TutorMontanha2 = TutorMontanha2;
@@ -913,8 +913,9 @@ public class Manager1_4A : OverridableMonoBehaviour {
 
     }
 
-    public void chamarDidadica(){
-        isGameEnded = true;
+    public void chamarDidadica()
+    {
+	    nextManager.InitGame();
     }
 
     

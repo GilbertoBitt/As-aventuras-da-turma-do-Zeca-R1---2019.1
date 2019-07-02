@@ -14,12 +14,15 @@ namespace MiniGames.Scripts
         public Sprite itemSprite;
         [ListDrawerSettings(HideAddButton = true, HideRemoveButton = true)]
         public string[] syllables;
-        public int CountSyllables => (int) wordClassification.classification;
-        public int CountLetters => syllables.Length;
+        public int CountSyllables => wordClassification.classification != ClassificationBySyllables.Polissilaba ? (int) wordClassification.classification : wordClassification.syllableAmount;
+        public int CountLetters => word.Length;
         [ReadOnly]
         public string[] charSyllabes;
+        public string[] letters;
         public TonicSyllable tonicSyllables;
         public EnumClassification wordClassification;
+        public bool buildWithLetters = false;
+
 
         private void OnValidate()
         {
@@ -42,6 +45,15 @@ namespace MiniGames.Scripts
                 syllables[i] = copy[i];
             }
 
+            if (letters != null && letters.Length == CountLetters) return;
+            {
+                letters = new string[word.Length];
+            }
+
+            for (int i = 0; i < word.Length; i++)
+            {
+                letters[i] = word[i].ToString().ToLower();
+            }
 
         }
 
@@ -53,7 +65,8 @@ namespace MiniGames.Scripts
         {
             Monosillabas = 1,
             Dissilabas,
-            Trissilabas
+            Trissilabas,
+            Polissilaba
         }
 
         public enum TonicSyllablesClassification
@@ -77,5 +90,7 @@ namespace MiniGames.Scripts
     {
         public bool enabled;
         public WordItem.ClassificationBySyllables classification;
+        [ShowIf("classification", WordItem.ClassificationBySyllables.Polissilaba)]
+        public int syllableAmount;
     }
 }

@@ -60,6 +60,19 @@ public static class DOTweenEx {
         return DOTweenEx.DOTextInt(text, initialValue, finalValue, duration, it => it.ToString());
     }
 
+    public static Tweener DOTextInt(this TextMeshProUGUI text, int initialValue, int finalValue, float duration, Func<int, string> convertor) {
+        return DOTween.To(
+            () => initialValue,
+            it => text.text = convertor(it),
+            finalValue,
+            duration
+        );
+    }
+
+    public static Tweener DOTextInt(this TextMeshProUGUI text, int initialValue, int finalValue, float duration) {
+        return DOTweenEx.DOTextInt(text, initialValue, finalValue, duration, it => it.ToString());
+    }
+
     public static Tweener DOTextFloat(this Text text, float initialValue, float finalValue, float duration, Func<float, string> convertor) {
         return DOTween.To(
              () => initialValue,

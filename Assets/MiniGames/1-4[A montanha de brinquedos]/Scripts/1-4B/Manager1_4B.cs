@@ -1,14 +1,96 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using MEC;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Assets.Scripts.Utils;
+using Controllers;
 using MiniGames.Scripts;
+using Sirenix.OdinInspector;
+using TMPro;
+using UniRx;
+using UniRx.Triggers;
+using UniRXExtended;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Manager1_4B : OverridableMonoBehaviour {
+public class Manager1_4B : OverridableMonoBehaviour
+{
+
+    [FoldoutGroup("Geral")]
+    public GameStateReactiveProperty currentGameState = new GameStateReactiveProperty(GameState.MainState);
+
+    [FoldoutGroup("Geral")]
+    public AnoLetivoStateReactiveProperty anoLetivo = new AnoLetivoStateReactiveProperty(AnoLetivoState.Ano1);
+
+    [Serializable]
+    public class GameStateReactiveProperty : ReactiveProperty<GameState>
+    {
+        public GameStateReactiveProperty()
+        {
+        }
+
+        public GameStateReactiveProperty(GameState initialValue)
+            :base(initialValue)
+        {
+        }
+    }
+
+    [Serializable]
+    public class AnoLetivoStateReactiveProperty : ReactiveProperty<AnoLetivoState>
+    {
+        public AnoLetivoStateReactiveProperty()
+        {
+        }
+
+        public AnoLetivoStateReactiveProperty(AnoLetivoState initialValue)
+            :base(initialValue)
+        {
+        }
+    }
+
+
+
+    public enum GameState
+    {
+        MainState,
+        MainStateAlternate,
+        SecondState,
+        SecondStateAlternate
+    }
+
+    public enum AnoLetivoState
+    {
+        Ano1 = 1,
+        Ano2 = 2,
+        Ano3 = 3
+    }
+
+
+    [FoldoutGroup("Geral")]
+    public Button confirmButton;
+    [FoldoutGroup("Geral")]
+    public ScoreController scoreController;
+    [FoldoutGroup("Geral")]
+    public StarController starController;
+    [FoldoutGroup("Geral")]
+    public TextMeshProUGUI textEnunciadoComponent;
+    [FoldoutGroup("Geral")]
+    public Button showInformationButton;
+
+    [FoldoutGroup("Geral")] public TextMeshProUGUI completeWordTextComponent;
+    [FoldoutGroup("Geral")] public GameObject dragDropPanelContent;
+    [FoldoutGroup("Geral")] public GameObject buttonsPanel;
+    [AssetsOnly]
+    [FoldoutGroup("Geral")] public ButtonTMPComponent buttonPrefab;
+    [FoldoutGroup("Geral")] public Transform buttonParentTransform;
+    [FoldoutGroup("Geral")] [ReadOnly] public List<ButtonTMPComponent> buttonInstances;
+    public ButtonTMPComponentPool buttonPool;
+    [FoldoutGroup("Geral")] public Image itemIconImage;
+
+    public ReactiveCommand startGame;
 
     public Manager1_4A previousManager;
     public GameObject panelInteragindo;
@@ -29,7 +111,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
     [SeparatorAttribute("Palavras")]
 #endif
-    public Text entireWordTextcomp;
+//    public Text entireWordTextcomp;
     public Transform syllablesParent;
     public GameObject syllablePrefab;
     public GridLayoutGroup syllableGrid;
@@ -46,18 +128,12 @@ public class Manager1_4B : OverridableMonoBehaviour {
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
     [SeparatorAttribute("Pontuação")]
 #endif
-    public Text textScoreComp;
-    public int scoreAmount;
     public int amountScorePerCorrect = 0;
     public int amountScorePerCorrectNumber = 0;
     public int amountScorePerCorrectSyllabes = 0;
     public float scoreIncreaseDuration = 1.0f;
     public AnimationCurve ScoreIncreaseCurve = AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f);
-#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
-    [SeparatorAttribute("Estrelas")]
-#endif
-    public int starsAmount;
-    public Transform starsParent;
+
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
     [SeparatorAttribute("Scroll(Numero de Letras)")]
 #endif
@@ -106,9 +182,9 @@ public class Manager1_4B : OverridableMonoBehaviour {
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
     [SeparatorAttribute("-- new")]
 #endif
-    public Text comandTextComp;
-    public Text completeWordTextComp;
-    public Text TextEnumComp;
+//    public Text comandTextComp;
+//    public Text completeWordTextComp;
+//    public Text TextEnumComp;
     public WordItem[] routineOneList = new WordItem[10];
     public WordItem[] routineTwoList = new WordItem[10];
     public int TotalRounds = 10;
@@ -117,19 +193,269 @@ public class Manager1_4B : OverridableMonoBehaviour {
     public SyllableHandler1_4B[] blueBoxInstances = new SyllableHandler1_4B[0];
     public Queue<BlankSpace1_4B> emptyBoxPool = new Queue<BlankSpace1_4B>();
     public BlankSpace1_4B[] emptyBoxInstances = new BlankSpace1_4B[0];
+
     public int poolSize = 12;
     public GameObject prefabBlueBox;
     public GameObject prefabEmptyBox;
     public Transform poolParent;
     public Transform blueBoxParent;
     public Transform emptyBoxParent;
-    public Button confirmButton;
+
     public Button confirmButtonRoutine2;
     public CanvasGroup nexPanelGroupComp;
 
-    void Start() {
-     //   TutorMontanha2 = previousManager.TutorMontanha2;
+    public void InitGameConfig()
+    {
+        buttonPool = new ButtonTMPComponentPool(buttonPrefab, buttonParentTransform);
+        //StartConfiguration
+        switch (anoLetivo.Value)
+        {
+            case AnoLetivoState.Ano1:
+                SuffleAndGenerateFirstRoutine();
+                SetupPools();
+                break;
+            case AnoLetivoState.Ano2:
+                break;
+            case AnoLetivoState.Ano3:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        startGame = new ReactiveCommand();
+        startGame.Subscribe(OnGameStart);
+
+        //Bind to UniRX
+        currentGameState.Where(state => state == GameState.MainState).Subscribe(OnMainState);
+        currentGameState.Where(state => state == GameState.MainStateAlternate).Subscribe(OnMainStateAlternate);
+        currentGameState.Where(state => state == GameState.SecondState).Subscribe(OnSecondState);
+        currentGameState.Where(state => state == GameState.SecondStateAlternate).Subscribe(OnSecondStateAlternate);
+
+        startGame.Execute();
     }
+
+    private void OnGameStart(Unit unit)
+    {
+        switch (anoLetivo.Value)
+        {
+            case AnoLetivoState.Ano1:
+            {
+                dragDropPanelContent.SetActive(true);
+                isPlaying = false;
+                //Reconfigurar Pool.
+                int temp = blueBoxInstances.Length;
+                for (int i = 0; i < temp; i++) {
+                    blueBoxInstances[i].ResetToDefault();
+                    blueBoxPool.Enqueue(blueBoxInstances[i]);
+                    blueBoxInstances[i] = null;
+                    emptyBoxInstances[i].ResetToDefault();
+                    emptyBoxPool.Enqueue(emptyBoxInstances[i]);
+                    emptyBoxInstances[i] = null;
+                }
+
+                blueBoxInstances = new SyllableHandler1_4B[0];
+                emptyBoxInstances = new BlankSpace1_4B[0];
+
+                if (currentRound < 10) {
+                    if (currentRound < 5) {
+
+                        //Iniciar Rotina de Letras.
+
+                        //Iniciando Sequencia de animação para mudança do texto do comando(Titulo).
+                        Sequence textFadeChange = DOTween.Sequence();
+                        if (textEnunciadoComponent.color.a > 0f) {
+                            textFadeChange.Append(textEnunciadoComponent.DOFade(0f, .3f));
+                        }
+                        textFadeChange.AppendCallback(() => ChangeTextTitle("Forme a Palavra"));
+                        textFadeChange.Append(textEnunciadoComponent.DOFade(1f, .3f));
+
+                        //Configurando Didatica com a palavra escolhida.
+                        currentWord = routineOneList[currentRound];
+                        blueBoxInstances = new SyllableHandler1_4B[currentWord.CountLetters];
+                        emptyBoxInstances = new BlankSpace1_4B[currentWord.CountLetters];
+                        currentWord.letters.Shuffle();
+                        for (int i = 0; i < currentWord.CountLetters; i++) {
+                            blueBoxInstances[i] = blueBoxPool.Dequeue();
+                            blueBoxInstances[i].syllable = currentWord.letters[i].ToUpper();
+                            blueBoxInstances[i].UpdateTextContent();
+                            blueBoxInstances[i].transform.SetParent(blueBoxParent);
+                            blueBoxInstances[i].DoFade(1f);
+                            emptyBoxInstances[i] = emptyBoxPool.Dequeue();
+                            emptyBoxInstances[i].transform.SetParent(emptyBoxParent);
+                            emptyBoxInstances[i].DoFade(1f);
+                        }
+
+                        itemIconImage.sprite = currentWord.itemSprite;
+                        itemIconImage.DOFade(1f, 0.5f);
+
+                        //Iniciando Rotina 1.
+
+                        currentGameState.Value = GameState.MainState;
+                        isPlaying = true;
+                        confirmButton.interactable = false;
+
+                    } else {
+                        //Iniciar Rotina de Silabas.
+                        hasWordComplete = false;
+                        Sequence TextFadeChange = DOTween.Sequence();
+                        if (textEnunciadoComponent.color.a > 0f) {
+                            TextFadeChange.Append(textEnunciadoComponent.DOFade(0f, .3f));
+                        }
+                        TextFadeChange.AppendCallback(() => ChangeTextTitle("Organize as Sílabas"));
+                        TextFadeChange.Append(textEnunciadoComponent.DOFade(1f, .3f));
+
+                        currentWord = routineTwoList[currentRound];
+                        blueBoxInstances = new SyllableHandler1_4B[currentWord.CountSyllables];
+                        emptyBoxInstances = new BlankSpace1_4B[currentWord.CountSyllables];
+                        currentWord.syllables.Shuffle();
+                        for (int i = 0; i < currentWord.CountSyllables; i++) {
+                            blueBoxInstances[i] = blueBoxPool.Dequeue();
+                            blueBoxInstances[i].syllable = currentWord.syllables[i].ToUpper();
+                            blueBoxInstances[i].UpdateTextContent();
+                            blueBoxInstances[i].transform.SetParent(blueBoxParent);
+                            blueBoxInstances[i].DoFade(1f);
+                            emptyBoxInstances[i] = emptyBoxPool.Dequeue();
+                            emptyBoxInstances[i].transform.SetParent(emptyBoxParent);
+                            emptyBoxInstances[i].DoFade(1f);
+
+                        }
+                        itemIconImage.sprite = currentWord.itemSprite;
+                        itemIconImage.DOFade(1f, 0.5f);
+                        //Iniciando Rotina 1.
+                        currentGameState.Value = GameState.MainStateAlternate;
+                        isPlaying = true;
+                        confirmButton.interactable = false;
+                    }
+                } else {
+                    //Iniciar Interagindo.
+                    endDitatica();
+                }
+                break;
+            }
+
+            case AnoLetivoState.Ano2:
+                break;
+            case AnoLetivoState.Ano3:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void OnSecondStateAlternate(GameState obj)
+    {
+        switch (anoLetivo.Value)
+        {
+            case AnoLetivoState.Ano1:
+                UpdateEnunciado("Quantas sílabas a palavra abaixo tem?");
+                for (int i = 0; i <= 10; i++)
+                {
+                    var instance = buttonPool.Rent();
+                    instance.textComponent.text = i.ToString();
+                    var indexValue = i;
+                    instance.buttonComponent.OnPointerClickAsObservable().Subscribe(data =>
+                    {
+                        scrollNumber = indexValue;
+                        ConfirmButtonRoutineTwo(Unit.Default);
+                    });
+                    buttonInstances.Add(instance);
+                }
+                break;
+            case AnoLetivoState.Ano2:
+                break;
+            case AnoLetivoState.Ano3:
+                break;
+            default:
+                Debug.Break();
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void OnSecondState(GameState obj)
+    {
+        switch (anoLetivo.Value)
+                {
+                    case AnoLetivoState.Ano1:
+                        UpdateEnunciado("Forme a palavra de acordo com o item abaixo.");
+                        for (int i = 0; i <= 10; i++)
+                        {
+                            var instance = buttonPool.Rent();
+                            instance.textComponent.text = i.ToString();
+                            var indexValue = i;
+                            instance.buttonComponent.OnPointerClickAsObservable().Subscribe(data =>
+                            {
+                                scrollNumber = indexValue;
+                                ConfirmButtonRoutineTwo(Unit.Default);
+                            });
+                            buttonInstances.Add(instance);
+                        }
+                        break;
+                    case AnoLetivoState.Ano2:
+                        break;
+                    case AnoLetivoState.Ano3:
+                        break;
+                    default:
+                        Debug.Break();
+                        throw new ArgumentOutOfRangeException();
+                }
+    }
+
+    CompositeDisposable disposables = new CompositeDisposable();
+    private void OnMainStateAlternate(GameState state)
+    {
+        switch (anoLetivo.Value)
+        {
+            case AnoLetivoState.Ano1:
+                UpdateEnunciado("Forme a palavra de acordo com o item abaixo.");
+                buttonInstances.ForEach(component =>
+                {
+                    buttonPool.Return(component);
+                });
+                disposables.Dispose();
+                confirmButton.OnClickAsObservable().Subscribe(unit => { WordSillablesCorrection(); });
+                break;
+            case AnoLetivoState.Ano2:
+                break;
+            case AnoLetivoState.Ano3:
+                break;
+            default:
+                Debug.Break();
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void OnMainState(GameState state)
+    {
+        switch (anoLetivo.Value)
+        {
+            case AnoLetivoState.Ano1:
+                UpdateEnunciado("Forme a palavra de acordo com o item abaixo.");
+                buttonInstances.ForEach(component =>
+                {
+                    buttonPool.Return(component);
+                });
+                disposables.Dispose();
+                confirmButton.OnClickAsObservable().Subscribe(unit => { WordDraggedCorretion(); });
+                break;
+            case AnoLetivoState.Ano2:
+                break;
+            case AnoLetivoState.Ano3:
+                break;
+            default:
+                Debug.Break();
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    public void UpdateEnunciado(string textTo)
+    {
+        textEnunciadoComponent.DOFade(0f, 0.3f).OnComplete(() =>
+        {
+            textEnunciadoComponent.SetText(textTo);
+            textEnunciadoComponent.DOFade(1f, 0.3f);
+        });
+    }
+
 
     public override void UpdateMe() {
         if (!isPlaying) return;
@@ -140,94 +466,75 @@ public class Manager1_4B : OverridableMonoBehaviour {
             hasWordComplete = false;
             confirmButton.interactable = false;
         }
-
     }
 
-#pragma warning disable IDE1006 // Estilos de Nomenclatura
-    public IEnumerator startIt() {
-#pragma warning restore IDE1006 // Estilos de Nomenclatura
 
-        yield return new WaitUntil(() => previousManager.isGameEnded == true);
-        //comandTextComp.text = "Forme as Palavras.";
+    public void InitGame()
+    {
+//        if (PlayerPrefs.HasKey("TutorMD_0") == false)
+//        {
+//            oldPanelDisable.GetComponent<GraphicRaycaster>().enabled = false;
+//            activateThisPanel.GetComponent<GraphicRaycaster>().enabled = false;
+//            PlayerPrefs.SetInt("TutorMD_0", 0);
+//        }
+//        else
+//        {
+//            PlayerPrefs.SetInt("TutorMD_0", 1);
+//            //tutorIniMD_0 = PlayerPrefs.GetInt("TutorMD_0",1);
+//        }
+//
+//        log.StartTimerDidatica(true);
+//        oldPanelDisable.SetActive(false);
+//        activateThisPanel.SetActive(true);
+//        if (PlayerPrefs.HasKey("TutorM_Didatica") == false)
+//        {
+//            oldPanelDisable.GetComponent<GraphicRaycaster>().enabled = false;
+//            activateThisPanel.GetComponent<GraphicRaycaster>().enabled = false;
+//            PlayerPrefs.SetInt("TutorM_Didatica", 0);
+//            this.tutorial.GetComponent<TutorMontanha>().btPulartext.text = "Iniciar";
+//            this.tutorial.GetComponent<TutorMontanha>().tutorNumber = 7;
+//            foreach (var item in tutorial.GetComponent<TutorMontanha>().gTutor)
+//            {
+//                item.SetActive(true);
+//            }
+//
+//            this.tutorial.GetComponent<TutorMontanha>().gTutor[6].SetActive(false);
+//            this.tutorial.GetComponent<GraphicRaycaster>().enabled = true;
+//            this.tutorial.SetActive(true);
+//            Time.timeScale = 0f;
+//        }
+//        else
+//        {
+//            PlayerPrefs.SetInt("TutorM_Didatica", 1);
+//        }
 
-        if (PlayerPrefs.HasKey("TutorMD_0") == false) {
-            oldPanelDisable.GetComponent<GraphicRaycaster>().enabled = false;
-            activateThisPanel.GetComponent<GraphicRaycaster>().enabled = false;
-            PlayerPrefs.SetInt("TutorMD_0", 0);
-        } else {
-            PlayerPrefs.SetInt("TutorMD_0", 1);
-            //tutorIniMD_0 = PlayerPrefs.GetInt("TutorMD_0",1);
-        }
-        log.StartTimerDidatica(true);
-        previousManager.enabled = false;
-        //verticalLayoutGroup.enabled = false;
-        previousManager.enabled = false;
+        oldPanelDisable.GetComponent<GraphicRaycaster>().enabled = false;
+//        activateThisPanel.GetComponent<GraphicRaycaster>().enabled = false;
         oldPanelDisable.SetActive(false);
         activateThisPanel.SetActive(true);
-        if (PlayerPrefs.HasKey("TutorM_Didatica") == false) {
-            oldPanelDisable.GetComponent<GraphicRaycaster>().enabled = false;
-            activateThisPanel.GetComponent<GraphicRaycaster>().enabled = false;
-            PlayerPrefs.SetInt("TutorM_Didatica", 0);
-
-            yield return Yielders.Get(.3f);
-//            this.tutorial.GetComponent<TutorMontanha>().animTutor.enabled = true;
- //           this.tutorial.GetComponent<TutorMontanha>().animTutor.SetInteger("numbTutor", 6);
- //           this.tutorial.GetComponent<TutorMontanha>().profBalao.text = this.tutorial.GetComponent<TutorMontanha>().TextTutor[7];
-          //  TutorMontanha2.soundManager.startVoiceFXReturn(TutorMontanha2.audiosTutorial[7]);
-          //  TutorMontanha2.profBalao.enabled = true;
-            this.tutorial.GetComponent<TutorMontanha>().btPulartext.text = "Iniciar";
-            this.tutorial.GetComponent<TutorMontanha>().tutorNumber = 7;
-            foreach (var item in tutorial.GetComponent<TutorMontanha>().gTutor) {
-                item.SetActive(true);
-            }
-            this.tutorial.GetComponent<TutorMontanha>().gTutor[6].SetActive(false);
-            this.tutorial.GetComponent<GraphicRaycaster>().enabled = true;
-            this.tutorial.SetActive(true);
-            Time.timeScale = 0f;
-        } else {
-            PlayerPrefs.SetInt("TutorM_Didatica", 1);
-            //this.tutorObjLock = PlayerPrefs.GetInt ("TutorM_Didatica", 1);
-        }
-        //panelCountSyllable.SetActive(false);
         nexPanelGroupComp.blocksRaycasts = false;
         nexPanelGroupComp.interactable = false;
         nexPanelGroupComp.alpha = 0f;
-        //words.Suffle();
-        // TutorMontanha2.profBalao.enabled = false;
-        //StartCoroutine(StartThis());
-        //yield return new WaitForSeconds(1f);
-        //verticalLayoutGroup.enabled = true;
-        scoreAmount = previousManager.scoreAmount;
-        textScoreComp.text = scoreAmount.ToString();
-        starsAmount = previousManager.starAmount;
-        //Debug.Log("estrelas " + starsAmount);
-
-        updateStarAmount();
-
-        SuffleAndGenerateFirstRoutine();
-        SetupPools();
-
-        Timing.RunCoroutine(StartDidatic());
-
-
-
+        scoreController.amountValue.Value = previousManager.scoreAmount;
+        starController.amountValue.Value = previousManager.starAmount;
+        InitGameConfig();
     }
 
     public void ChangeTextTitle(string _text) {
-        comandTextComp.text = _text;
+        textEnunciadoComponent.text = _text;
     }
 
     public void SuffleAndGenerateFirstRoutine() {
         routineOneList = words.Where(x =>
-            x.wordClassification.classification == WordItem.ClassificationBySyllables.Dissilabas ||
-            x.wordClassification.classification == WordItem.ClassificationBySyllables.Monosillabas).ToArray();
+            x.buildWithLetters).ToArray();
         routineOneList.Shuffle();
         int amountWords = routineOneList.Length;
 
 
         routineTwoList = words.Where(x =>
             x.wordClassification.classification == WordItem.ClassificationBySyllables.Dissilabas ||
-            x.wordClassification.classification == WordItem.ClassificationBySyllables.Trissilabas).ToArray();
+            x.wordClassification.classification == WordItem.ClassificationBySyllables.Trissilabas ||
+            x.wordClassification.classification == WordItem.ClassificationBySyllables.Polissilaba).ToArray();
         routineTwoList.Shuffle();
         amountWords = routineTwoList.Length;
     }
@@ -252,203 +559,158 @@ public class Manager1_4B : OverridableMonoBehaviour {
 
     }
 
-    public IEnumerator<float> StartDidatic() {
-        isPlaying = false;
+//    public IEnumerator<float> StartDidatic() {
+//
+//
+//    }
 
-        //Reconfigurar Pool.
-        int temp = blueBoxInstances.Length;
-        for (int i = 0; i < temp; i++) {
-            blueBoxInstances[i].ResetToDefault();
-            blueBoxPool.Enqueue(blueBoxInstances[i]);
-            blueBoxInstances[i] = null;
-            emptyBoxInstances[i].ResetToDefault();
-            emptyBoxPool.Enqueue(emptyBoxInstances[i]);
-            emptyBoxInstances[i] = null;
-        }
-
-        blueBoxInstances = new SyllableHandler1_4B[0];
-        emptyBoxInstances = new BlankSpace1_4B[0];
-
-        if (currentRound < 10) {
-            if (currentRound < 5) {
-
-                //Iniciar Rotina de Letras.               
-
-                //Iniciando Sequencia de animação para mudança do texto do comando(Titulo).
-                Sequence TextFadeChange = DOTween.Sequence();
-                if (comandTextComp.color.a > 0f) {
-                    TextFadeChange.Append(comandTextComp.DOFade(0f, .3f));
-                }
-                TextFadeChange.AppendCallback(() => ChangeTextTitle("Forme a Palavra"));
-                TextFadeChange.Append(comandTextComp.DOFade(1f, .3f));
-
-                //Configurando Didatica com a palavra escolhida.
-                currentWord = routineOneList[currentRound];
-                blueBoxInstances = new SyllableHandler1_4B[currentWord.CountLetters];
-                emptyBoxInstances = new BlankSpace1_4B[currentWord.CountLetters];
-                currentWord.charSyllabes.Shuffle();
-                for (int i = 0; i < currentWord.CountLetters; i++) {
-                    blueBoxInstances[i] = blueBoxPool.Dequeue();
-                    blueBoxInstances[i].syllable = currentWord.charSyllabes[i].ToUpper();
-                    blueBoxInstances[i].UpdateTextContent();
-                    blueBoxInstances[i].transform.SetParent(blueBoxParent);
-                    blueBoxInstances[i].DoFade(1f);
-                    emptyBoxInstances[i] = emptyBoxPool.Dequeue();
-                    emptyBoxInstances[i].transform.SetParent(emptyBoxParent);
-                    emptyBoxInstances[i].DoFade(1f);
-                }
-
-                yield return Timing.WaitForOneFrame;
-
-                //Iniciando Rotina 1.
-                isPlaying = true;
-                confirmButton.interactable = false;
-
-            } else {
-                //Iniciar Rotina de Silabas.
-                hasWordComplete = false;
-                Sequence TextFadeChange = DOTween.Sequence();
-                if (comandTextComp.color.a > 0f) {
-                    TextFadeChange.Append(comandTextComp.DOFade(0f, .3f));
-                }
-                TextFadeChange.AppendCallback(() => ChangeTextTitle("Organize as Sílabas"));
-                TextFadeChange.Append(comandTextComp.DOFade(1f, .3f));
-
-                currentWord = routineTwoList[currentRound];
-                blueBoxInstances = new SyllableHandler1_4B[currentWord.CountSyllables];
-                emptyBoxInstances = new BlankSpace1_4B[currentWord.CountSyllables];
-                currentWord.syllables.Shuffle();
-                for (int i = 0; i < currentWord.CountSyllables; i++) {
-                    blueBoxInstances[i] = blueBoxPool.Dequeue();
-                    blueBoxInstances[i].syllable = currentWord.syllables[i].ToUpper();
-                    blueBoxInstances[i].UpdateTextContent();
-                    blueBoxInstances[i].transform.SetParent(blueBoxParent);
-                    blueBoxInstances[i].DoFade(1f);
-                    emptyBoxInstances[i] = emptyBoxPool.Dequeue();
-                    emptyBoxInstances[i].transform.SetParent(emptyBoxParent);
-                    emptyBoxInstances[i].DoFade(1f);
-                }
-
-                yield return Timing.WaitForOneFrame;
-                //Iniciando Rotina 1.
-                isPlaying = true;
-                confirmButton.interactable = false;
-            }
-        } else {
-            //Iniciar Interagindo.
-            endDitatica();
-        }
-
-    }
-
-    public void ConfirmButtonRoutine() {
+    public void ConfirmButtonRoutine(Unit unit) {
         _soundManager.startSoundFX(buttomConfirmClipAudio);
         confirmButton.interactable = false;
         isPlaying = false;
-        if (currentRound < 5) {
+
+        if (currentRound < 5)
+        {
             //correção de palavras.
-            string fullPlayerWordGuess = string.Empty;
-            for (int i = 0; i < currentWord.CountLetters; i++) {
-                fullPlayerWordGuess += emptyBoxInstances[i].thisSyllable.textComp.text;
-            }
-
-            fullPlayerWordGuess = ToTitleCase(fullPlayerWordGuess);
-            currentWord.word = ToTitleCase(currentWord.word);
-
-            Debug.Log("Respostas do Jogador: [" + fullPlayerWordGuess + "] \nResposta correta: [" + currentWord.word + "]");
-
-            if (fullPlayerWordGuess == currentWord.word) {
-                //Acertou a palavra.
-                log.SaveEstatistica(9, 1, true);
-                _soundManager.startSoundFX(audios[0]);
-                highlight.startCerto("Parabéns! Você acertou!");
-                textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
-                scoreAmount += amountScorePerCorrectSyllabes;
-                //Iniciar Contagem de Letras.
-                TextEnumComp.text = "Quantas letras tem essa palavra?";
-                StartRoutineTwo();
-            } else {
-                //Errou a palavra.
-                log.SaveEstatistica(9, 1, false);
-                _soundManager.startSoundFX(audios[1]);
-                currentRound++;
-                highlight.startErrado("Você errou! O correto era: " + ToTitleCase(currentWord.word) + string.Empty);
-                //Iniciar novo Round.
-                Timing.RunCoroutine(StartDidatic());
-            }
-        } else {
-            //correção de palavras.
-            string fullPlayerWordGuess = string.Empty;
-            for (int i = 0; i < currentWord.CountSyllables; i++) {
-                if (emptyBoxInstances[i] != null){
-                    fullPlayerWordGuess += emptyBoxInstances[i].thisSyllable.textComp.text;
-                }
-            }
-
-            fullPlayerWordGuess = ToTitleCase(fullPlayerWordGuess);
-            currentWord.word = ToTitleCase(currentWord.word);
-
-            Debug.Log("Respostas do Jogador: [" + fullPlayerWordGuess + "] \nResposta correta: [" + currentWord.word + "]");
-
-            if (fullPlayerWordGuess == currentWord.word) {
-                //Acertou a palavra.
-                log.SaveEstatistica(9, 1, true);
-                _soundManager.startSoundFX(audios[0]);
-                highlight.startCerto("Parabéns! Você acertou!");
-                textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
-                scoreAmount += amountScorePerCorrectSyllabes;
-                //Iniciar Contagem de Letras.
-                TextEnumComp.text = "Quantas sílabas tem essa palavra?";
-                StartRoutineTwo();
-            } else {
-                //Errou a palavra.
-                log.SaveEstatistica(9, 1, false);
-                _soundManager.startSoundFX(audios[1]);
-                currentRound++;
-                highlight.startErrado("Você errou! O correto era: " + ToTitleCase(currentWord.word) + string.Empty);
-                //Iniciar novo Round.
-                Timing.RunCoroutine(StartDidatic());
-            }
+            WordDraggedCorretion();
+        } else
+        {
+            WordSillablesCorrection();
         }
     }
 
-    public void ConfirmButtonRoutineTwo() {
+    private void WordSillablesCorrection()
+    {
+        //correção de palavras.
+        string fullPlayerWordGuess = emptyBoxInstances.Where(item => item.thisSyllable != null).Aggregate(string.Empty, (current, item) => current + item.thisSyllable.textComp.text);
+
+        fullPlayerWordGuess = ToTitleCase(fullPlayerWordGuess);
+        currentWord.word = ToTitleCase(currentWord.word);
+
+        Debug.Log("Respostas do Jogador: [" + fullPlayerWordGuess + "] \nResposta correta: [" + currentWord.word + "]");
+
+        if (string.Equals(fullPlayerWordGuess, currentWord.word, StringComparison.CurrentCultureIgnoreCase))
+        {
+            //Acertou a palavra.
+            log.SaveEstatistica(9, 1, true);
+            _soundManager.startSoundFX(audios[0]);
+            highlight.startCerto("Parabéns! Você acertou!");
+//                textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
+            scoreController.amountValue.Value += amountScorePerCorrectSyllabes;
+            //Iniciar Contagem de Letras.
+            textEnunciadoComponent.text = "Quantas sílabas tem essa palavra?";
+            currentGameState.Value = GameState.SecondStateAlternate;
+            StartRoutineTwo();
+        }
+        else
+        {
+            //Errou a palavra.
+            log.SaveEstatistica(9, 1, false);
+            _soundManager.startSoundFX(audios[1]);
+            currentRound++;
+            highlight.startErrado("Você errou! O correto era: " + ToTitleCase(currentWord.word) + string.Empty);
+            currentGameState.Value = GameState.MainStateAlternate;
+            //Iniciar novo Round.
+//                Timing.RunCoroutine(StartDidatic());
+            startGame.Execute();
+        }
+    }
+
+    private void WordDraggedCorretion()
+    {
+        string fullPlayerWordGuess = emptyBoxInstances.Where(item => item.thisSyllable != null).Aggregate(string.Empty, (current, item) => current + item.thisSyllable.textComp.text);
+
+        fullPlayerWordGuess = ToTitleCase(fullPlayerWordGuess);
+        currentWord.word = ToTitleCase(currentWord.word);
+
+        Debug.Log("Respostas do Jogador: [" + fullPlayerWordGuess + "] \nResposta correta: [" + currentWord.word + "]");
+
+        if (string.Equals(fullPlayerWordGuess, currentWord.word, StringComparison.CurrentCultureIgnoreCase))
+        {
+            //Acertou a palavra.
+            log.SaveEstatistica(9, 1, true);
+            _soundManager.startSoundFX(audios[0]);
+            highlight.startCerto("Parabéns! Você acertou!");
+//                textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
+            scoreController.amountValue.Value += amountScorePerCorrectSyllabes;
+            //Iniciar Contagem de Letras.
+            textEnunciadoComponent.text = "Quantas letras tem essa palavra?";
+            currentGameState.Value = GameState.SecondState;
+            StartRoutineTwo();
+        }
+        else
+        {
+            //Errou a palavra.
+            log.SaveEstatistica(9, 1, false);
+            _soundManager.startSoundFX(audios[1]);
+            currentRound++;
+            highlight.startErrado("Você errou! O correto era: " + ToTitleCase(currentWord.word) + string.Empty);
+            currentGameState.Value = GameState.MainState;
+            //Iniciar novo Round.
+//                Timing.RunCoroutine(StartDidatic());
+            startGame.Execute();
+        }
+    }
+
+    public void ConfirmButtonRoutineTwo(Unit unit) {
         _soundManager.startSoundFX(buttomConfirmClipAudio);
         //scrollNumber
-        if (currentRound < 5) {
+        if (currentRound < 5)
+        {
             //correção numero de letras.
-            if (scrollNumber == currentWord.CountLetters) {
-                //acertou o numero de letras.
-                _soundManager.startSoundFX(audios[0]);
-                textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
-                scoreAmount += amountScorePerCorrectSyllabes;
-                log.SaveEstatistica(10, 1, true);
-                highlight.startCerto("Parabéns! Você acertou!");
-                EndRoutineTwo();
-            } else {
-                //errou o numero de letras.
-                _soundManager.startSoundFX(audios[1]);
-                log.SaveEstatistica(10, 1, true);
-                highlight.startErrado("Você errou o certo era: " + currentWord.CountLetters);
-                EndRoutineTwo();
-            }
-        } else {
+            CorrectionAmountLetters();
+        } else
+        {
             //correção numero de silabas.
-            if (scrollNumber == currentWord.CountSyllables) {
-                //acertou o numero de letras.
-                _soundManager.startSoundFX(audios[0]);
-                textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
-                scoreAmount += amountScorePerCorrectSyllabes;
-                log.SaveEstatistica(10, 1, true);
-                highlight.startCerto("Parabéns! Você acertou!");
-                EndRoutineTwo();
-            } else {
-                //errou o numero de letras.
-                _soundManager.startSoundFX(audios[1]);
-                log.SaveEstatistica(10, 1, true);
-                highlight.startErrado("Você errou o certo era: " + currentWord.CountSyllables);
-                EndRoutineTwo();
-            }
+            CorrectionAmountSyllables();
+        }
+    }
+
+    private void CorrectionAmountSyllables()
+    {
+        if (scrollNumber == currentWord.CountSyllables)
+        {
+            //acertou o numero de letras.
+            _soundManager.startSoundFX(audios[0]);
+//                textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
+            scoreController.amountValue.Value += amountScorePerCorrectSyllabes;
+            log.SaveEstatistica(10, 1, true);
+            highlight.startCerto("Parabéns! Você acertou!");
+            currentGameState.Value = GameState.SecondStateAlternate;
+            EndRoutineTwo();
+        }
+        else
+        {
+            //errou o numero de letras.
+            _soundManager.startSoundFX(audios[1]);
+            log.SaveEstatistica(10, 1, true);
+            highlight.startErrado("Você errou o certo era: " + currentWord.CountSyllables);
+            currentGameState.Value = GameState.MainStateAlternate;
+            EndRoutineTwo();
+        }
+    }
+
+    private void CorrectionAmountLetters()
+    {
+        if (scrollNumber == currentWord.CountLetters)
+        {
+            //acertou o numero de letras.
+            _soundManager.startSoundFX(audios[0]);
+//                textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
+            scoreController.amountValue.Value += amountScorePerCorrectSyllabes;
+            log.SaveEstatistica(10, 1, true);
+            highlight.startCerto("Parabéns! Você acertou!");
+            currentGameState.Value = GameState.SecondState;
+            EndRoutineTwo();
+        }
+        else
+        {
+            //errou o numero de letras.
+            _soundManager.startSoundFX(audios[1]);
+            log.SaveEstatistica(10, 1, true);
+            highlight.startErrado("Você errou o certo era: " + currentWord.CountLetters);
+            currentGameState.Value = GameState.MainState;
+            EndRoutineTwo();
         }
     }
 
@@ -456,16 +718,17 @@ public class Manager1_4B : OverridableMonoBehaviour {
         //completeWordTextComp.text = currentWord.completeWord.ToUpper();        
         confirmButton.interactable = true;
         confirmButton.gameObject.SetActive(true);
-        completeWordTextComp.DOFade(0f, 0.3f);
+        completeWordTextComponent.DOFade(0f, 0.3f);
         nexPanelGroupComp.blocksRaycasts = false;
         nexPanelGroupComp.interactable = false;
         nexPanelGroupComp.DOFade(0f, 0.3f);
         currentRound++;
-        Timing.RunCoroutine(StartDidatic());
+//        Timing.RunCoroutine(StartDidatic());
+        startGame.Execute();
     }
 
     public void StartRoutineTwo() {
-        completeWordTextComp.text = currentWord.word.ToUpper();
+        completeWordTextComponent.text = currentWord.word.ToUpper();
         scrollNumber = 0;
         scrollsnap.text = "0";
         confirmButton.interactable = false;
@@ -473,10 +736,11 @@ public class Manager1_4B : OverridableMonoBehaviour {
         Sequence routine2Start = DOTween.Sequence();
         routine2Start.AppendCallback(() => FadesSecondRoutine());
         routine2Start.AppendInterval(0.5f);
-        routine2Start.Append(completeWordTextComp.DOFade(1f, 1f));
+        routine2Start.Append(completeWordTextComponent.DOFade(1f, 1f));
         routine2Start.Play();
         nexPanelGroupComp.blocksRaycasts = true;
         nexPanelGroupComp.interactable = true;
+
     }
 
     public void FadesSecondRoutine() {
@@ -486,6 +750,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
             blueBoxInstances[i].DoFade(0f);
             emptyBoxInstances[i].DoFade(0f);
         }
+        itemIconImage.DOFade(0f, 0.5f);
     }
 
     public IEnumerator StartThis() {
@@ -502,11 +767,11 @@ public class Manager1_4B : OverridableMonoBehaviour {
         List<string> syllablesTemp = currentWord.syllables.ToList();
         syllablesTemp.Shuffle();
 
-        entireWordTextcomp.text = currentWord.word.ToUpper();
+        completeWordTextComponent.text = currentWord.word.ToUpper();
 
-        Color colorTemp = entireWordTextcomp.color;
+        Color colorTemp = completeWordTextComponent.color;
         colorTemp.a = 0f;
-        entireWordTextcomp.color = colorTemp;
+        completeWordTextComponent.color = colorTemp;
 
         for (int i = 0; i < currentWord.CountSyllables; i++) {
             GameObject syllable = Instantiate(syllablePrefab, Vector3.zero, Quaternion.identity, syllablesParent);
@@ -537,7 +802,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
         playerNumberSelect = scrollNumber;
     }
 
-    public IEnumerator<float> scoreIncrease(int increase) {
+    /*public IEnumerator<float> scoreIncrease(int increase) {
 
         //Debug.Log ("Start Increase Points");
         float times = 0.0f;
@@ -555,9 +820,9 @@ public class Manager1_4B : OverridableMonoBehaviour {
             yield return Timing.WaitForOneFrame;
         }
 
-    }
+    }*/
 
-    void updateStarAmount() {
+    /*void updateStarAmount() {
 
         if (starsAmount < 3) {
             for (int i = 0; i < 3; i++) {
@@ -569,14 +834,15 @@ public class Manager1_4B : OverridableMonoBehaviour {
             }
         }
 
-    }
+    }*/
 
     public void confirmButton02() {
         if (scrollNumber == currentWord.CountSyllables) {
             //Debug.Log("Correto o numero de silabas!");
             //scoreAmount += amountScorePerCorrectSyllabes;
             _soundManager.startSoundFX(audios[0]);
-            StartCoroutine(scoreIncrease(amountScorePerCorrectSyllabes));
+//            StartCoroutine(scoreIncrease(amountScorePerCorrectSyllabes));
+            scoreController.amountValue.Value += amountScorePerCorrectSyllabes;
             log.SaveEstatistica(10, 1, true);
             highlight.startCerto("Parabéns! Você acertou!");
         } else {
@@ -668,7 +934,8 @@ public class Manager1_4B : OverridableMonoBehaviour {
         }
 
         if (inscreaseamount > 0) {
-            StartCoroutine(scoreIncrease(inscreaseamount));
+//            StartCoroutine(scoreIncrease(inscreaseamount));
+            scoreController.amountValue.Value += inscreaseamount;
         }
 
         yield return new WaitForSeconds(.5f);
@@ -685,9 +952,9 @@ public class Manager1_4B : OverridableMonoBehaviour {
         Color blankStartColor = blankSpaceInstance[0].thisImageComp.color;
         float times = 0.0f;
 
-        Color colorTemp = entireWordTextcomp.color;
+        Color colorTemp = completeWordTextComponent.color;
         colorTemp.a = 1f;
-        Color startColor = entireWordTextcomp.color;
+        Color startColor = completeWordTextComponent.color;
 
         panelCountSyllable.SetActive(true);
 
@@ -704,7 +971,7 @@ public class Manager1_4B : OverridableMonoBehaviour {
                 blankSpaceInstance[i].traceImageComp.color = Color.Lerp(blankStartColor, Color.clear, fadeInTextCurve.Evaluate(s));
             }
 
-            entireWordTextcomp.color = Color.Lerp(startColor, colorTemp, fadeInTextCurve.Evaluate(s));
+            completeWordTextComponent.color = Color.Lerp(startColor, colorTemp, fadeInTextCurve.Evaluate(s));
 
             yield return new WaitForEndOfFrame();
         }
@@ -731,8 +998,8 @@ public class Manager1_4B : OverridableMonoBehaviour {
     public void endDitatica() {
         StopAllCoroutines();
         //TODO delay aqui
-        painelDesafio.scoreAmount = scoreAmount;
-        painelDesafio.starAmount = starsAmount;
+        painelDesafio.scoreAmount = scoreController.amountValue.Value;
+        painelDesafio.starAmount = starController.amountValue.Value;
         panelInteragindo.SetActive(true);
         //		panelInteragindo.GetComponent<Animator>().SetInteger("panelDesafioNumber",1);
     }
@@ -770,3 +1037,5 @@ public class Manager1_4B : OverridableMonoBehaviour {
     }
 
 }
+
+

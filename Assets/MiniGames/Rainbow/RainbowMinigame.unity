@@ -52116,7 +52116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81cb8ef550cfea9459e172185412284a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anoLetivo: 2
+  anoLetivo: 3
   enumciadoTextComponent: {fileID: 1402613630}
   showSkillInfoButton: {fileID: 1038515922}
   infoSkillInfo: {fileID: 1623016254}

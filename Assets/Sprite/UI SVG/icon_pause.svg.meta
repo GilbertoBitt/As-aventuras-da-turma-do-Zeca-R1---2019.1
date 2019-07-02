@@ -17,9 +17,9 @@ ScriptedImporter:
   generatePhysicsShape: 0
   preserveViewport: 0
   advancedMode: 0
-  predefinedResolutionIndex: 2
-  targetResolution: 720
-  resolutionMultiplier: 1
+  predefinedResolutionIndex: 1
+  targetResolution: 1080
+  resolutionMultiplier: 2
   stepDistance: 10
   samplingStepDistance: 100
   maxCordDeviationEnabled: 0
@@ -27,7 +27,7 @@ ScriptedImporter:
   maxTangentAngleEnabled: 0
   maxTangentAngle: 5
   keepTextureAspectRatio: 1
-  textureSize: 256
+  textureSize: 512
   textureWidth: 256
   textureHeight: 256
   wrapMode: 0
@@ -36,17 +36,17 @@ ScriptedImporter:
   spriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: Bloco_op2branco
+      name: icon_pause
       originalName: 
       pivot: {x: 0.5, y: 0.5}
       alignment: 0
-      border: {x: 26, y: 26, z: 26, w: 26}
+      border: {x: 0, y: 0, z: 0, w: 0}
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 256
+        width: 512
+        height: 508
       spriteID: b0477fcbb4245854187dbe1fffb21b22
       internalID: 0
     PhysicsOutlines: []

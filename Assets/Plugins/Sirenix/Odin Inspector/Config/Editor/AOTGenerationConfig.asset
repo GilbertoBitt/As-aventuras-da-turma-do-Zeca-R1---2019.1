@@ -16,12 +16,15 @@ MonoBehaviour:
   deleteDllAfterBuilds: 1
   AutomateForAllAOTPlatforms: 1
   automateForPlatforms: 0900000014000000
-  lastScan: 636969932614084537
+  lastScan: 636973394713473249
   supportSerializedTypes:
   - TypeName: BlankSpace1_4B, Assembly-CSharp
     IsCustom: 0
     Emit: 1
   - TypeName: BulletManager1_3B, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: MiniGames.Scripts.ButtonTMPComponentPool, Assembly-CSharp
     IsCustom: 0
     Emit: 1
   - TypeName: System.Collections.Generic.Dictionary`2[[SpacialForms, Assembly-CSharp],[System.Collections.Generic.List`1[[UnityEngine.Sprite,
@@ -53,6 +56,9 @@ MonoBehaviour:
     Emit: 1
   - TypeName: System.Collections.Generic.Queue`1[[SyllableHandler1_4B, Assembly-CSharp]],
       System
+    IsCustom: 0
+    Emit: 1
+  - TypeName: UniRx.ReactiveCommand, UniRx
     IsCustom: 0
     Emit: 1
   - TypeName: SpacialForms, Assembly-CSharp

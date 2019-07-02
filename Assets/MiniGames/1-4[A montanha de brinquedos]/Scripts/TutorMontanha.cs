@@ -109,6 +109,7 @@ public class TutorMontanha : MonoBehaviour {
             ///GetComponent<GameObject>().SetActive (false);
             /// montanha.GetComponent<GraphicRaycaster> ().enabled = true;
             didatica.GetComponent<GraphicRaycaster> ().enabled = true;
+            didatica.SetActive(true);
 			Prof.GetComponent<Animator> ().enabled = true;
 			Prof.GetComponent<espressFacialProf> ().enabled = false;
 			

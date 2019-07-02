@@ -125,7 +125,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.2.401
+  bundleVersion: 2.2.404
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -167,10 +167,11 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: br.com.eduqbrinq.asaventurasdaturmadozeca
+    Standalone: br.com.eduqbrinq.asaventurasdaturmadozeca
   buildNumber:
-    Standalone: 401
-    iPhone: 401
-  AndroidBundleVersionCode: 22401
+    Standalone: 405
+    iPhone: 405
+  AndroidBundleVersionCode: 22404
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -694,8 +695,10 @@ PlayerSettings:
   platformArchitecture: {}
   scriptingBackend:
     Android: 1
+    Standalone: 1
   il2cppCompilerConfiguration:
     Android: 2
+    Standalone: 2
   managedStrippingLevel:
     Android: 1
   incrementalIl2cppBuild: {}

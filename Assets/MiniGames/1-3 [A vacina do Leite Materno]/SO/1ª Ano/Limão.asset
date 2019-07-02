@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 3286163911610860551, guid: 779bb2036bb00cf42a16778c87dfc37a,
     type: 3}
-  itemWord: "Lim\xE3o"
-  startLetter: 76
+  itemWord: "Suco de Lim\xE3o"
+  startLetter: 83
