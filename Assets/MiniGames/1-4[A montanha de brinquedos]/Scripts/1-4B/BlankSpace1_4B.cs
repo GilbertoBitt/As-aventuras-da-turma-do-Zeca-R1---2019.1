@@ -19,8 +19,8 @@ public class BlankSpace1_4B : MonoBehaviour, IDropHandler, IPointerEnterHandler,
 	// Use this for initialization
 
     public void ResetToDefault() {
-        transform.SetParent(manager.poolParent);
-        transform.position = new Vector3(10000, 10000, 0);
+//        transform.SetParent(manager.poolParent);
+//        transform.position = new Vector3(10000, 10000, 0);
         hasDrop = false;
         thisSyllable = null;
         thisImageComp.DOFade(0f, 0.1f);
@@ -31,7 +31,7 @@ public class BlankSpace1_4B : MonoBehaviour, IDropHandler, IPointerEnterHandler,
     {
 	    _parentTransform = parent;
 	    transform.SetParent(parent);
-	    transform.position = new Vector3(10000, 10000, 0);
+//	    transform.position = new Vector3(10000, 10000, 0);
 	    hasDrop = false;
 	    thisSyllable = null;
 	    thisImageComp.DOFade(0f, 0.1f);
@@ -59,7 +59,7 @@ public class BlankSpace1_4B : MonoBehaviour, IDropHandler, IPointerEnterHandler,
 		//Debug.Log(eventData.pointerDrag.name);
 		SyllableHandler1_4B syllable = eventData.pointerDrag.GetComponent<SyllableHandler1_4B>();
 		if (syllable == null || thisSyllable != null) return;
-		syllable.transform.SetParent(manager.dragParent);
+		syllable.gameObject.transform.SetParent(manager.poolParent);
 		syllable.transform.position = this.transform.position;
 		//syllable.transform.SetParent(this.transform);
 		thisSyllable = syllable;
@@ -72,7 +72,6 @@ public class BlankSpace1_4B : MonoBehaviour, IDropHandler, IPointerEnterHandler,
 
 	public void OnPointerEnter(PointerEventData eventData){
 		if (eventData.pointerDrag == null) return;
-		//Debug.Log(eventData.pointerDrag.name);
 		SyllableHandler1_4B syllable = eventData.pointerDrag.GetComponent<SyllableHandler1_4B>();
 		if (syllable != null) {
 			syllable.isOverBlank = true;
@@ -84,6 +83,7 @@ public class BlankSpace1_4B : MonoBehaviour, IDropHandler, IPointerEnterHandler,
 		SyllableHandler1_4B syllable = eventData.pointerDrag.GetComponent<SyllableHandler1_4B>();
 		if (syllable != null) {
 			syllable.isOverBlank = false;
+			RaycastTargetUpdate(true);
 		}
 	}
 

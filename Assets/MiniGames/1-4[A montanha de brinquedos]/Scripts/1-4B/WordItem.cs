@@ -15,7 +15,7 @@ namespace MiniGames.Scripts
         [ListDrawerSettings(HideAddButton = true, HideRemoveButton = true)]
         public string[] syllables;
         public int CountSyllables => wordClassification.classification != ClassificationBySyllables.Polissilaba ? (int) wordClassification.classification : wordClassification.syllableAmount;
-        public int CountLetters => word.Length;
+        public int CountLetters => letters.Length;
         [ReadOnly]
         public string[] charSyllabes;
         public string[] letters;

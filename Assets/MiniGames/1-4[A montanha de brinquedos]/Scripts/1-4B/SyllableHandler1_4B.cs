@@ -5,8 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using UniRx;
 
-public class SyllableHandler1_4B : OverridableMonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerEnterHandler, IPointerExitHandler {
+public class SyllableHandler1_4B : OverridableMonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler {
 
 	Outline outlineComp;
 	public CanvasGroup thisCanvasGroup;
@@ -21,8 +22,10 @@ public class SyllableHandler1_4B : OverridableMonoBehaviour, IDragHandler, IEndD
 	public Image imageComp;
 	private float zValue;
 	private Camera _camera;
+	private Vector3 _position;
 
     public void ResetToDefault() {
+//	    _position = transform.position;
         thisCanvasGroup.alpha = 0;
         textComp.text = "";
         syllable = "";
@@ -30,8 +33,8 @@ public class SyllableHandler1_4B : OverridableMonoBehaviour, IDragHandler, IEndD
         hasDroped = false;
         isBeenDrag = false;
         blankSpaceDroped = null;
-        transform.SetParent(manager.poolParent);
-        transform.position = new Vector3(5000, 5000, 0);
+        transform.SetParent(manager.blueBoxParent);
+//        transform.position = new Vector3(5000, 5000, 0);
     }
 
     public void ResetToDefault(Transform parent) {
@@ -42,8 +45,8 @@ public class SyllableHandler1_4B : OverridableMonoBehaviour, IDragHandler, IEndD
 	    hasDroped = false;
 	    isBeenDrag = false;
 	    blankSpaceDroped = null;
-	    transform.SetParent(parent);
-	    transform.position = new Vector3(5000, 5000, 0);
+//	    transform.SetParent(parent);
+//	    transform.position = new Vector3(5000, 5000, 0);
     }
 
 
@@ -64,42 +67,46 @@ public class SyllableHandler1_4B : OverridableMonoBehaviour, IDragHandler, IEndD
 		}
 
 		_camera = Camera.main;
+		_position = transform.position;
+
+		Observable.EveryLateUpdate().Where(x => isOverBlank && !hasDroped && !isBeenDrag).Subscribe(l =>
+		{
+			manager.isDragging = false;
+			isOverBlank = false;
+			transform.SetParent(manager.blueBoxParent);
+			manager.UpdatedGridLayout();
+		});
 	}
 
-    public override void LateUpdateMe() {
-	    if (blankSpaceDroped != null || isBeenDrag || (!hasDroped && !isOverBlank)) return;
-	    thisCanvasGroup.blocksRaycasts = true;
-        manager.isDragging = false;
-        hasDroped = false;
-        isOverBlank = false;
-        this.transform.SetParent(manager.syllablesParent);
-    }
+//    public override void LateUpdateMe() {
+//	    if (blankSpaceDroped != null || isBeenDrag || (!hasDroped && !isOverBlank)) return;
+//	    thisCanvasGroup.blocksRaycasts = true;
+//        manager.isDragging = false;
+//        hasDroped = false;
+//        isOverBlank = false;
+////        this.transform.SetParent(manager.syllablesParent);
+//    }
 
-    public void OnBeginDrag (PointerEventData eventData){
-	    if (manager.isPlaying && !manager.isDragging)
+    public void OnBeginDrag (PointerEventData eventData)
+    {
+	    thisCanvasGroup.blocksRaycasts = false;
+	    manager.isDragging = true;
+	    if (hasDroped && blankSpaceDroped != null)
 	    {
-		    thisCanvasGroup.blocksRaycasts = false;
-		    manager.isDragging = true;
-		    if (hasDroped && blankSpaceDroped != null)
-		    {
-			    blankSpaceDroped.RaycastTargetUpdate(true);
-			    blankSpaceDroped.hasDrop = false;
-			    blankSpaceDroped.thisSyllable = null;
-			    blankSpaceDroped = null;
-		    }
-		    hasDroped = false;
-		    zValue = this.transform.position.z;
-		    this.transform.SetParent(manager.dragParent);
-		    isBeenDrag = true;
+		    blankSpaceDroped.RaycastTargetUpdate(true);
+		    blankSpaceDroped.hasDrop = false;
+		    blankSpaceDroped.thisSyllable = null;
+		    blankSpaceDroped = null;
 	    }
+	    hasDroped = false;
+	    this.transform.SetParent(manager.poolParent);
+	    var pos = Input.mousePosition;
+	    pos.z = 100f;
+	    transform.position = _camera.ScreenToWorldPoint(pos);
+	    isBeenDrag = true;
     }
 
 	public void OnDrag (PointerEventData eventData){
-		if (!manager.isPlaying || !manager.isDragging) return;
-//		Vector2 pos;
-//		RectTransformUtility.ScreenPointToLocalPointInRectangle(thisCanvasGroup.transform as RectTransform, Input.mousePosition, Camera.main, out pos);
-
-//		transform.position = thisCanvasGroup.transform.TransformPoint(pos);
 		var pos = Input.mousePosition;
 		pos.z = 100f;
 		transform.position = _camera.ScreenToWorldPoint(pos);
@@ -108,11 +115,13 @@ public class SyllableHandler1_4B : OverridableMonoBehaviour, IDragHandler, IEndD
 
 	public void OnEndDrag (PointerEventData eventData){
 		thisCanvasGroup.blocksRaycasts = true;
-		manager.isDragging = false;
 		if (!isOverBlank) {
-			this.transform.SetParent(manager.syllablesParent);
+			transform.SetParent(manager.blueBoxParent);
+//			transform.position = _position;
+			manager.UpdatedGridLayout();
 		}
 		isBeenDrag = false;
+		manager.isDragging = false;
 	}
 
 	public void UpdateTextContent(){
@@ -127,15 +136,5 @@ public class SyllableHandler1_4B : OverridableMonoBehaviour, IDragHandler, IEndD
 
     public void DoFade(float alpha) {
         thisCanvasGroup.DOFade(alpha, 0.3f);
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-
     }
 }

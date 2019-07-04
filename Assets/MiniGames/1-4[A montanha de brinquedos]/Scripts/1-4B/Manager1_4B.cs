@@ -18,6 +18,9 @@ using UnityEngine.UI;
 public class Manager1_4B : OverridableMonoBehaviour
 {
 
+    public GridLayoutGroup gridLayoutGroup;
+    public RectTransform gridLayoutGroupRectTransform;
+
     [FoldoutGroup("Geral")]
     public GameStateReactiveProperty currentGameState = new GameStateReactiveProperty(GameState.MainState);
 
@@ -217,25 +220,47 @@ public class Manager1_4B : OverridableMonoBehaviour
     [FoldoutGroup("2ª ano")]
     public ReactiveDictionary<string, bool> wordsToFind = new ReactiveDictionary<string, bool>();
 
+    public void UpdatedGridLayout()
+    {
+        gridLayoutGroup.CalculateLayoutInputHorizontal();
+        gridLayoutGroup.CalculateLayoutInputVertical();
+        gridLayoutGroup.SetLayoutHorizontal();
+        gridLayoutGroup.SetLayoutVertical();
+    }
+
     public void InitGameConfig()
     {
         buttonPool = new ButtonTMPComponentPool(buttonPrefab, buttonParentTransform);
         //StartConfiguration
         startGame = new ReactiveCommand();
         updatedGame = new ReactiveCommand();
+        
         switch (anoLetivo.Value)
         {
             case AnoLetivoState.Ano1:
+                
+                #region SetupPool
+                //Preload and config pool of boxes
+                
+                blueBoxInstancesOnScene = new List<SyllableHandler1_4B>();
+                blankInstancesOnScene = new List<BlankSpace1_4B>();
+
+                poolBlueBox = new BlueBoxPool(prefabBlueBoxInstance, blueBoxParent, this);
+
+                poolBlankBox = new BlankBoxPool(prefabEmptyBoxInstance, emptyBoxParent, this);
+
+                //boxes preload ended
+                #endregion
+                
                 SuffleAndGenerateFirstRoutine();
-                SetupPools();
                 startGame.Subscribe(OnGameStart);
                 updatedGame.Subscribe(updated =>
                 {
                     if (!isPlaying) return;
-                    if (emptyBoxInstances.All(x => x.hasDrop == true) && !hasWordComplete) {
+                    if (blankInstancesOnScene.All(x => x.hasDrop == true) && !hasWordComplete) {
                         hasWordComplete = true;
                         confirmButton.interactable = true;
-                    } else if (emptyBoxInstances.Any(x => x.hasDrop != true) && hasWordComplete) {
+                    } else if (blankInstancesOnScene.Any(x => x.hasDrop != true) && hasWordComplete) {
                         hasWordComplete = false;
                         confirmButton.interactable = false;
                     }
@@ -263,8 +288,6 @@ public class Manager1_4B : OverridableMonoBehaviour
                 startGame.Subscribe(StartLoopSecondYear);
 
                 dragDropPanelContent.SetActive(true);
-
-
 
                 break;
             case AnoLetivoState.Ano3:
@@ -380,95 +403,115 @@ public class Manager1_4B : OverridableMonoBehaviour
                 isPlaying = false;
                 //Reconfigurar Pool.
                 int temp = blueBoxInstances.Length;
-                for (int i = 0; i < temp; i++) {
-                    blueBoxInstances[i].ResetToDefault();
-                    blueBoxPool.Enqueue(blueBoxInstances[i]);
-                    blueBoxInstances[i] = null;
-                    emptyBoxInstances[i].ResetToDefault();
-                    emptyBoxPool.Enqueue(emptyBoxInstances[i]);
-                    emptyBoxInstances[i] = null;
+
+                if (blueBoxInstancesOnScene.Count >= 1)
+                {
+                    blueBoxInstancesOnScene.ForEach(box =>
+                    {
+                        poolBlueBox.Return(box);
+                    }); 
+                    blueBoxInstancesOnScene.Clear();
+                }
+
+                if (blankInstancesOnScene.Count >= 1)
+                {
+                    blankInstancesOnScene.ForEach(box =>
+                    {
+                        poolBlankBox.Return(box);
+                    });
+                    blankInstancesOnScene.Clear();
                 }
 
                 blueBoxInstances = new SyllableHandler1_4B[0];
                 emptyBoxInstances = new BlankSpace1_4B[0];
 
-                if (currentRound < 10) {
-                    if (currentRound < 5) {
-
-                        //Iniciar Rotina de Letras.
-
-                        //Iniciando Sequencia de animação para mudança do texto do comando(Titulo).
-                        Sequence textFadeChange = DOTween.Sequence();
-                        if (textEnunciadoComponent.color.a > 0f) {
-                            textFadeChange.Append(textEnunciadoComponent.DOFade(0f, .3f));
-                        }
-                        textFadeChange.AppendCallback(() => ChangeTextTitle("Forme a Palavra"));
-                        textFadeChange.Append(textEnunciadoComponent.DOFade(1f, .3f));
-
-                        //Configurando Didatica com a palavra escolhida.
-                        currentWord = routineOneList[currentRound];
-                        blueBoxInstances = new SyllableHandler1_4B[currentWord.CountLetters];
-                        emptyBoxInstances = new BlankSpace1_4B[currentWord.CountLetters];
-                        currentWord.letters.Shuffle();
-                        for (int i = 0; i < currentWord.CountLetters; i++) {
-                            blueBoxInstances[i] = blueBoxPool.Dequeue();
-                            blueBoxInstances[i].syllable = currentWord.letters[i].ToUpper();
-                            blueBoxInstances[i].UpdateTextContent();
-                            blueBoxInstances[i].transform.SetParent(blueBoxParent);
-                            blueBoxInstances[i].DoFade(1f);
-                            emptyBoxInstances[i] = emptyBoxPool.Dequeue();
-                            emptyBoxInstances[i].transform.SetParent(emptyBoxParent);
-                            emptyBoxInstances[i].DoFade(1f);
-                        }
-
-                        itemIconImage.sprite = currentWord.itemSprite;
-                        itemIconImage.DOFade(1f, 0.5f);
-
-                        //Iniciando Rotina 1.
-
-                        currentGameState.Value = GameState.MainState;
-                        isPlaying = true;
-                        confirmButton.interactable = false;
-
-                    } else {
-                        //Iniciar Rotina de Silabas.
-                        hasWordComplete = false;
-                        Sequence TextFadeChange = DOTween.Sequence();
-                        if (textEnunciadoComponent.color.a > 0f) {
-                            TextFadeChange.Append(textEnunciadoComponent.DOFade(0f, .3f));
-                        }
-                        TextFadeChange.AppendCallback(() => ChangeTextTitle("Organize as Sílabas"));
-                        TextFadeChange.Append(textEnunciadoComponent.DOFade(1f, .3f));
-
-                        currentWord = routineTwoList[currentRound];
-                        blueBoxInstances = new SyllableHandler1_4B[currentWord.CountSyllables];
-                        emptyBoxInstances = new BlankSpace1_4B[currentWord.CountSyllables];
-                        currentWord.syllables.Shuffle();
-                        for (int i = 0; i < currentWord.CountSyllables; i++) {
-                            blueBoxInstances[i] = blueBoxPool.Dequeue();
-                            blueBoxInstances[i].syllable = currentWord.syllables[i].ToUpper();
-                            blueBoxInstances[i].UpdateTextContent();
-                            blueBoxInstances[i].transform.SetParent(blueBoxParent);
-                            blueBoxInstances[i].DoFade(1f);
-                            emptyBoxInstances[i] = emptyBoxPool.Dequeue();
-                            emptyBoxInstances[i].transform.SetParent(emptyBoxParent);
-                            emptyBoxInstances[i].DoFade(1f);
-
-                        }
-                        itemIconImage.sprite = currentWord.itemSprite;
-                        itemIconImage.DOFade(1f, 0.5f);
-                        //Iniciando Rotina 1.
-                        currentGameState.Value = GameState.MainStateAlternate;
-                        isPlaying = true;
-                        confirmButton.interactable = false;
-                    }
-                } else {
-                    //Iniciar Interagindo.
+                if (currentRound > maxRound)
+                {
                     endDitatica();
                 }
+                else
+                {
+                    switch (currentGameState.Value)
+                    {
+                        case GameState.MainState:
+                            currentRound++;
+                            //Iniciar Rotina de Letras.
+
+                            //Iniciando Sequencia de animação para mudança do texto do comando(Titulo).
+                            Sequence textFadeChange = DOTween.Sequence();
+                            if (textEnunciadoComponent.color.a > 0f) {
+                                textFadeChange.Append(textEnunciadoComponent.DOFade(0f, .3f));
+                            }
+                            textFadeChange.AppendCallback(() => ChangeTextTitle("Forme a Palavra"));
+                            textFadeChange.Append(textEnunciadoComponent.DOFade(1f, .3f));
+
+                            //Configurando Didatica com a palavra escolhida.
+                            currentWord = routineOneList[currentRound];
+                            blueBoxInstances = new SyllableHandler1_4B[currentWord.CountLetters];
+                            emptyBoxInstances = new BlankSpace1_4B[currentWord.CountLetters];
+                            currentWord.letters.Shuffle();
+                            for (int i = 0; i < currentWord.CountLetters; i++) {
+                                
+                                var blueBoxInstance = poolBlueBox.Rent();
+                                blueBoxInstance.UpdateTextContent(currentWord.letters[i].ToUpper());
+                                blueBoxInstance.DoFade(1f);
+                                blueBoxInstancesOnScene.Add(blueBoxInstance);
+
+                                var emptySpace = poolBlankBox.Rent();
+                                emptySpace.DoFade(1f);
+                                blankInstancesOnScene.Add(emptySpace);
+                            }
+
+                            itemIconImage.sprite = currentWord.itemSprite;
+                            itemIconImage.DOFade(1f, 0.5f);
+
+                            currentGameState.Value = GameState.MainState;
+                            isPlaying = true;
+                            confirmButton.interactable = false;
+                            break;
+                        case GameState.MainStateAlternate:
+                            break;
+                        case GameState.SecondState:
+                            currentRound++;
+                            hasWordComplete = false;
+                            Sequence TextFadeChange = DOTween.Sequence();
+                            if (textEnunciadoComponent.color.a > 0f) {
+                                TextFadeChange.Append(textEnunciadoComponent.DOFade(0f, .3f));
+                            }
+                            TextFadeChange.AppendCallback(() => ChangeTextTitle("Organize as Sílabas"));
+                            TextFadeChange.Append(textEnunciadoComponent.DOFade(1f, .3f));
+
+                            currentWord = routineTwoList[currentRound];
+                            blueBoxInstances = new SyllableHandler1_4B[currentWord.CountSyllables];
+                            emptyBoxInstances = new BlankSpace1_4B[currentWord.CountSyllables];
+                            currentWord.syllables.Shuffle();
+                            for (int i = 0; i < currentWord.CountSyllables; i++) {
+                                var blueBoxInstance = poolBlueBox.Rent();
+                                blueBoxInstance.UpdateTextContent(currentWord.syllables[i].ToUpper());
+                                blueBoxInstance.DoFade(1f);
+                                blueBoxInstancesOnScene.Add(blueBoxInstance);
+
+                                var emptySpace = poolBlankBox.Rent();
+                                emptySpace.DoFade(1f);
+                                blankInstancesOnScene.Add(emptySpace);
+                            }
+                            itemIconImage.sprite = currentWord.itemSprite;
+                            itemIconImage.DOFade(1f, 0.5f);
+                            currentGameState.Value = GameState.MainStateAlternate;
+                            isPlaying = true;
+                            confirmButton.interactable = false;
+                            break;
+                        case GameState.SecondStateAlternate:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+                
+
+                
                 break;
             }
-
             case AnoLetivoState.Ano2:
                 break;
             case AnoLetivoState.Ano3:
@@ -492,7 +535,7 @@ public class Manager1_4B : OverridableMonoBehaviour
                     instance.buttonComponent.OnPointerClickAsObservable().Subscribe(data =>
                     {
                         scrollNumber = indexValue;
-                        ConfirmButtonRoutineTwo(Unit.Default);
+                        CorrectionAmountSyllables();
                     });
                     buttonInstances.Add(instance);
                 }
@@ -521,7 +564,7 @@ public class Manager1_4B : OverridableMonoBehaviour
                             instance.buttonComponent.OnPointerClickAsObservable().Subscribe(data =>
                             {
                                 scrollNumber = indexValue;
-                                ConfirmButtonRoutineTwo(Unit.Default);
+                                CorrectionAmountLetters();
                             });
                             buttonInstances.Add(instance);
                         }
@@ -600,43 +643,6 @@ public class Manager1_4B : OverridableMonoBehaviour
 
     public void InitGame()
     {
-//        if (PlayerPrefs.HasKey("TutorMD_0") == false)
-//        {
-//            oldPanelDisable.GetComponent<GraphicRaycaster>().enabled = false;
-//            activateThisPanel.GetComponent<GraphicRaycaster>().enabled = false;
-//            PlayerPrefs.SetInt("TutorMD_0", 0);
-//        }
-//        else
-//        {
-//            PlayerPrefs.SetInt("TutorMD_0", 1);
-//            //tutorIniMD_0 = PlayerPrefs.GetInt("TutorMD_0",1);
-//        }
-//
-//        log.StartTimerDidatica(true);
-//        oldPanelDisable.SetActive(false);
-//        activateThisPanel.SetActive(true);
-//        if (PlayerPrefs.HasKey("TutorM_Didatica") == false)
-//        {
-//            oldPanelDisable.GetComponent<GraphicRaycaster>().enabled = false;
-//            activateThisPanel.GetComponent<GraphicRaycaster>().enabled = false;
-//            PlayerPrefs.SetInt("TutorM_Didatica", 0);
-//            this.tutorial.GetComponent<TutorMontanha>().btPulartext.text = "Iniciar";
-//            this.tutorial.GetComponent<TutorMontanha>().tutorNumber = 7;
-//            foreach (var item in tutorial.GetComponent<TutorMontanha>().gTutor)
-//            {
-//                item.SetActive(true);
-//            }
-//
-//            this.tutorial.GetComponent<TutorMontanha>().gTutor[6].SetActive(false);
-//            this.tutorial.GetComponent<GraphicRaycaster>().enabled = true;
-//            this.tutorial.SetActive(true);
-//            Time.timeScale = 0f;
-//        }
-//        else
-//        {
-//            PlayerPrefs.SetInt("TutorM_Didatica", 1);
-//        }
-
         oldPanelDisable.GetComponent<GraphicRaycaster>().enabled = false;
         oldPanelDisable.SetActive(false);
         activateThisPanel.SetActive(true);
@@ -667,31 +673,6 @@ public class Manager1_4B : OverridableMonoBehaviour
         amountWords = routineTwoList.Length;
     }
 
-    public void SetupPools() {
-        //Blue box pool Setup;
-        for (int i = 0; i < poolSize; i++) {
-            GameObject temp = Instantiate(prefabBlueBox, new Vector3(1000, 1000, poolParent.position.z), Quaternion.identity, poolParent);
-            SyllableHandler1_4B tempHandler = temp.GetComponent<SyllableHandler1_4B>();
-            tempHandler.thisCanvasGroup.alpha = 0f;
-            tempHandler.manager = this;
-            blueBoxPool.Enqueue(tempHandler);
-        }
-
-        for (int i = 0; i < poolSize; i++) {
-            GameObject temp = Instantiate(prefabEmptyBox, new Vector3(1000, 1000, poolParent.position.z), Quaternion.identity, poolParent);
-            BlankSpace1_4B tempHandler = temp.GetComponent<BlankSpace1_4B>();
-            tempHandler.manager = this;
-            tempHandler.thisImageComp.color = new Color(1f, 1f, 1f, 0f);
-            emptyBoxPool.Enqueue(tempHandler);
-        }
-
-    }
-
-//    public IEnumerator<float> StartDidatic() {
-//
-//
-//    }
-
     public void ConfirmButtonRoutine(Unit unit) {
         _soundManager.startSoundFX(buttomConfirmClipAudio);
         confirmButton.interactable = false;
@@ -710,7 +691,7 @@ public class Manager1_4B : OverridableMonoBehaviour
     private void WordSillablesCorrection()
     {
         //correção de palavras.
-        string fullPlayerWordGuess = emptyBoxInstances.Where(item => item.thisSyllable != null).Aggregate(string.Empty, (current, item) => current + item.thisSyllable.textComp.text);
+        string fullPlayerWordGuess = blankInstancesOnScene.Where(item => item.thisSyllable != null).Aggregate(string.Empty, (current, item) => current + item.thisSyllable.textComp.text);
 
         fullPlayerWordGuess = ToTitleCase(fullPlayerWordGuess);
         currentWord.word = ToTitleCase(currentWord.word);
@@ -723,11 +704,11 @@ public class Manager1_4B : OverridableMonoBehaviour
             log.SaveEstatistica(9, 1, true);
             _soundManager.startSoundFX(audios[0]);
             highlight.startCerto("Parabéns! Você acertou!");
-//                textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
             scoreController.amountValue.Value += amountScorePerCorrectSyllabes;
             //Iniciar Contagem de Letras.
             textEnunciadoComponent.text = "Quantas sílabas tem essa palavra?";
             currentGameState.Value = GameState.SecondStateAlternate;
+            currentGameState.Value = currentRound >= 5 ? GameState.SecondState : GameState.MainStateAlternate;
             StartRoutineTwo();
         }
         else
@@ -735,18 +716,17 @@ public class Manager1_4B : OverridableMonoBehaviour
             //Errou a palavra.
             log.SaveEstatistica(9, 1, false);
             _soundManager.startSoundFX(audios[1]);
-            currentRound++;
+            
             highlight.startErrado("Você errou! O correto era: " + ToTitleCase(currentWord.word) + string.Empty);
-            currentGameState.Value = GameState.MainStateAlternate;
+            currentGameState.Value = currentRound >= 5 ? GameState.MainState : GameState.MainStateAlternate;
             //Iniciar novo Round.
-//                Timing.RunCoroutine(StartDidatic());
             startGame.Execute();
         }
     }
 
     private void WordDraggedCorretion()
     {
-        string fullPlayerWordGuess = emptyBoxInstances.Where(item => item.thisSyllable != null).Aggregate(string.Empty, (current, item) => current + item.thisSyllable.textComp.text);
+        string fullPlayerWordGuess = blankInstancesOnScene.Where(item => item.thisSyllable != null).Aggregate(string.Empty, (current, item) => current + item.thisSyllable.textComp.text);
 
         fullPlayerWordGuess = ToTitleCase(fullPlayerWordGuess);
         currentWord.word = ToTitleCase(currentWord.word);
@@ -875,8 +855,8 @@ public class Manager1_4B : OverridableMonoBehaviour
         nexPanelGroupComp.DOFade(1f, 0.3f);
         int temp = blueBoxInstances.Length;
         for (int i = 0; i < temp; i++) {
-            blueBoxInstances[i].DoFade(0f);
-            emptyBoxInstances[i].DoFade(0f);
+            blueBoxInstancesOnScene[i].DoFade(0f);
+            blankInstancesOnScene[i].DoFade(0f);
         }
         itemIconImage.DOFade(0f, 0.5f);
     }
@@ -1181,7 +1161,7 @@ public class Manager1_4B : OverridableMonoBehaviour
         {
             var buttonInstance = UnityEngine.Object.Instantiate(_prefab, _hierarchyParent);
             buttonInstance.manager = this._manager;
-            buttonInstance.ResetToDefault(_hierarchyParent);
+            buttonInstance.ResetToDefault();
             buttonInstance.thisCanvasGroup.alpha = 0f;
             buttonInstance.gameObject.SetActive(false);
             return buttonInstance;
@@ -1190,13 +1170,13 @@ public class Manager1_4B : OverridableMonoBehaviour
         protected override void OnBeforeReturn(SyllableHandler1_4B instance)
         {
             instance.gameObject.SetActive(false);
-            instance.ResetToDefault(_hierarchyParent);
+            instance.ResetToDefault();
         }
 
         protected override void OnBeforeRent(SyllableHandler1_4B instance)
         {
 
-            instance.ResetToDefault(_hierarchyParent);
+            instance.ResetToDefault();
             instance.gameObject.SetActive(true);
         }
     }
@@ -1218,7 +1198,7 @@ public class Manager1_4B : OverridableMonoBehaviour
         {
             var buttonInstance = UnityEngine.Object.Instantiate<BlankSpace1_4B>(_prefab, _hierarchyParent);
             buttonInstance.manager = this._manager14B;
-            buttonInstance.ResetToDefault(_hierarchyParent);
+            buttonInstance.ResetToDefault();
             var color = Color.white;
             color.a = 0f;
             buttonInstance.thisImageComp.color = color;
@@ -1227,14 +1207,14 @@ public class Manager1_4B : OverridableMonoBehaviour
 
         protected override void OnBeforeReturn(BlankSpace1_4B instance)
         {
-            instance.ResetToDefault(_hierarchyParent);
+            instance.ResetToDefault();
             instance.gameObject.SetActive(false);
         }
 
         protected override void OnBeforeRent(BlankSpace1_4B instance)
         {
             instance.gameObject.SetActive(true);
-            instance.ResetToDefault(_hierarchyParent);
+            instance.ResetToDefault();
         }
     }
 
