@@ -16,9 +16,12 @@ MonoBehaviour:
   deleteDllAfterBuilds: 1
   AutomateForAllAOTPlatforms: 1
   automateForPlatforms: 0900000014000000
-  lastScan: 636973394713473249
+  lastScan: 636979446208755978
   supportSerializedTypes:
   - TypeName: BlankSpace1_4B, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Boolean, mscorlib
     IsCustom: 0
     Emit: 1
   - TypeName: BulletManager1_3B, Assembly-CSharp
@@ -37,6 +40,12 @@ MonoBehaviour:
     Emit: 1
   - TypeName: System.Collections.Generic.List`1[[UnityEngine.Sprite, UnityEngine.CoreModule]],
       mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Manager1_4B+BlankBoxPool, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Manager1_4B+BlueBoxPool, Assembly-CSharp
     IsCustom: 0
     Emit: 1
   - TypeName: UnityEngine.ParticleSystem, UnityEngine.ParticleSystemModule
@@ -61,10 +70,20 @@ MonoBehaviour:
   - TypeName: UniRx.ReactiveCommand, UniRx
     IsCustom: 0
     Emit: 1
+  - TypeName: UniRx.ReactiveDictionary`2[[System.String, mscorlib],[System.Boolean,
+      mscorlib]], UniRx
+    IsCustom: 0
+    Emit: 1
+  - TypeName: UniRx.ReactiveProperty`1[[System.Boolean, mscorlib]], UniRx
+    IsCustom: 0
+    Emit: 1
   - TypeName: SpacialForms, Assembly-CSharp
     IsCustom: 0
     Emit: 1
   - TypeName: UnityEngine.Sprite, UnityEngine.CoreModule
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.String, mscorlib
     IsCustom: 0
     Emit: 1
   - TypeName: SyllableHandler1_4B, Assembly-CSharp

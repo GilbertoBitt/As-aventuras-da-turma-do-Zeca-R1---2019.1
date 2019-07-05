@@ -786,27 +786,26 @@ public class Manager1_4A : OverridableMonoBehaviour {
         pauseButton.interactable = true;
 
     }
+
+
     public void ChamarMaeZeca() {
-        painelMaeZeza.SetActive(true);
-        checkMaeZeca = true;
-
-        if (hasEndedByTime && currentDificult <= 1)
-        {
-            //Debug.Log("texto1");
-            texProfessora.text = "texto1";
-        }
-        else if (hasEndedByTime == false && currentDificult == 4)
-        {
-            texProfessora.text = "texto2";
-
-        }
-
-    }
-
-    public void chamarDidadica()
-    {
 	    nextManager.InitGame();
+//        painelMaeZeza.SetActive(true);
+//        checkMaeZeca = true;
+//
+//        if (hasEndedByTime && currentDificult <= 1)
+//        {
+//            //Debug.Log("texto1");
+//            texProfessora.text = "texto1";
+//        }
+//        else if (hasEndedByTime == false && currentDificult == 4)
+//        {
+//            texProfessora.text = "texto2";
+//
+//        }
+
     }
+
 
     
 

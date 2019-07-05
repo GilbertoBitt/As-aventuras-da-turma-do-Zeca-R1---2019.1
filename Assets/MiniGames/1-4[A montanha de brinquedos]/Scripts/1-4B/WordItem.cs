@@ -24,7 +24,7 @@ namespace MiniGames.Scripts
         public AlternativeWords alternativeWordsContent;
         public bool buildWithLetters = false;
 
-
+        [Button("Force Validate")]
         private void OnValidate()
         {
             charSyllabes = new string[word.Length];
@@ -46,10 +46,7 @@ namespace MiniGames.Scripts
                 syllables[i] = copy[i];
             }
 
-            if (letters != null && letters.Length == CountLetters) return;
-            {
-                letters = new string[word.Length];
-            }
+            letters = new string[word.Length];
 
             for (int i = 0; i < word.Length; i++)
             {

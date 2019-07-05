@@ -47,4 +47,8 @@ MonoBehaviour:
     enabled: 1
     classification: 4
     syllableAmount: 4
+  alternativeWordsContent:
+    enabled: 0
+    alternativeWords:
+    - 
   buildWithLetters: 1

@@ -16,8 +16,8 @@ MonoBehaviour:
   itemSprite: {fileID: 3286163911610860551, guid: 4abf0acf5f6a6834184775cdcef02839,
     type: 3}
   syllables:
-  - le
   - "\xE3o"
+  - le
   charSyllabes:
   - l
   - e
@@ -35,4 +35,8 @@ MonoBehaviour:
     enabled: 1
     classification: 2
     syllableAmount: 4
+  alternativeWordsContent:
+    enabled: 0
+    alternativeWords:
+    - 
   buildWithLetters: 1

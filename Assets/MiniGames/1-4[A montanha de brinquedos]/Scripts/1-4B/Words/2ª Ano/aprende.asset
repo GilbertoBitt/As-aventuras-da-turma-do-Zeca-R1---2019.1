@@ -16,8 +16,8 @@ MonoBehaviour:
   itemSprite: {fileID: 0}
   syllables:
   - a
-  - pren
   - de
+  - pren
   charSyllabes:
   - a
   - p
@@ -44,5 +44,5 @@ MonoBehaviour:
   alternativeWordsContent:
     enabled: 1
     alternativeWords:
-    - aprende
+    - prende
   buildWithLetters: 0

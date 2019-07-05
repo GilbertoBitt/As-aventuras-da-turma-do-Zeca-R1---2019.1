@@ -7,12 +7,15 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace TutorialSystem.Scripts
 {
     public class DialogComponent : MonoBehaviour
     {
+        public TextMeshProUGUI characterNameComponent;
+        public ICharacterAnimation characterComponent;
         [ReadOnly]
         public DialogSettings dialogSetting;
         public DoTextDuration doTextDuration;
@@ -30,13 +33,29 @@ namespace TutorialSystem.Scripts
         public Button previousDialogButton;
         public Button nextDialogButton;
         public Button replayDialogButton;
-        [ReadOnly]
-        public List<DialogWindowComponent> SubscribedDialogWindowComponents = new List<DialogWindowComponent>();
+        public Button startGame;
+        [FormerlySerializedAs("SubscribedDialogWindowComponents")] [ReadOnly]
+        public List<DialogWindowComponent> subscribedDialogWindowComponents = new List<DialogWindowComponent>();
 
+        public Action startTutorial;
+        public Action endTutorial;
 
-        public void Start()
+        private bool _startInit = false;
+
+        private void Start()
         {
+            Init();
+        }
 
+        public void Init()
+        {
+            if (_startInit) return;
+            _startInit = true;
+            characterComponent = GetComponentInChildren<ICharacterAnimation>();
+            startGame.OnClickAsObservable().Subscribe(unit =>
+            {
+                StopTutorial();
+            });
             eventBus = (EventBus) EventBus.instance;
             dialogSetting = IoC.inject.Get<DialogSettings>(this);
             if (dialogSetting == null)
@@ -49,12 +68,14 @@ namespace TutorialSystem.Scripts
             nextDialogButton.OnClickAsObservable().Subscribe(unit => { NextDialog(); });
             replayDialogButton.OnClickAsObservable().Subscribe(unit => { ReplayVoiceTutorial(); });
 
+            characterNameComponent.SetText(characterComponent.GetCharacterName());
 
             if (!autoStart || currentDialogInfo == null) return;
             //TODO iniciar automaticamente no start
             eventBus.Publish(startEventName);
             DOTween.Kill("tutorialSystem");
-            StartDialog();
+            StartDialogSystem();
+
         }
 
 
@@ -63,18 +84,28 @@ namespace TutorialSystem.Scripts
         [ButtonGroup("DialogControl")]
         public void PreviousDialog()
         {
-            var temp = currentIndex--;
+            var temp = currentIndex - 1;
             if (temp < 0) return;
             DOTween.Kill("tutorialSystem");
-            StartDialog(currentDialogInfo, currentIndex--);
+            StartDialog(currentDialogInfo, temp);
 
         }
 
         [ButtonGroup("DialogControl")]
-        public void StartDialog()
+        public void StartDialogSystem(DialogInfo dialogInfo = null)
         {
-            if (currentDialogInfo == null) return;
-            eventBus.Publish(stopEventName);
+            Init();
+            if (dialogInfo != null)
+            {
+                currentDialogInfo = dialogInfo;
+            }
+            if (!transform.parent.gameObject.activeInHierarchy)
+            {
+                transform.parent.gameObject.SetActive(true);
+            }
+            characterComponent.StartLoopAnimation();
+            eventBus.Publish(startEventName);
+            startTutorial?.Invoke();
             DOTween.Kill("tutorialSystem");
             StartDialog(currentDialogInfo);
         }
@@ -82,16 +113,16 @@ namespace TutorialSystem.Scripts
         [ButtonGroup("DialogControl")]
         public void NextDialog()
         {
-            var temp = currentIndex++;
+            var temp = currentIndex + 1;
             if (temp >= currentDialogInfo.speeches.Count) return;
-            DOTween.Kill("tutorialSystem");
-            StartDialog(currentDialogInfo, currentIndex++);
+            dialogSequenceAnimation.Kill();
+            StartDialog(currentDialogInfo, temp);
         }
 
         [ButtonGroup("DialogControl")]
         public void ReplayVoiceTutorial()
         {
-            DOTween.Kill("tutorialSystem");
+            dialogSequenceAnimation.Kill();
             StartDialog(currentDialogInfo, currentIndex);
         }
 
@@ -117,15 +148,20 @@ namespace TutorialSystem.Scripts
                 if (speech.speechAudioClip.enabled && speech.speechAudioClip != null)
                 {
                     dialogSequenceAnimation.AppendCallback(() =>
-                        DeAudioManager.Play(DeAudioGroupId.Dialogue, speech.speechAudioClip.audioClip));
-                    dialogSequenceAnimation.AppendInterval(speech.speechAudioClip.audioClip.length);
+                        {
+                            DeAudioManager.Play(DeAudioGroupId.Dialogue, speech.speechAudioClip.audioClip);
+                            characterComponent.StartTalking();
+                        });
                     dialogSequenceAnimation.Join(textMeshComponent.DOText(speech.speechText,
                         doTextDuration.enabled ? doTextDuration.timeBetweenSpeechs : dialogSetting.doTextDuration));
+                    dialogSequenceAnimation.AppendInterval(speech.speechAudioClip.audioClip.length);
+                    dialogSequenceAnimation.AppendCallback(() => characterComponent.StopTalking());
                 }
                 else
                 {
                     dialogSequenceAnimation.Append(textMeshComponent.DOText(speech.speechText,
-                        doTextDuration.enabled ? doTextDuration.timeBetweenSpeechs : dialogSetting.doTextDuration));
+                            doTextDuration.enabled ? doTextDuration.timeBetweenSpeechs : dialogSetting.doTextDuration)
+                        .OnStart(() => characterComponent.StartTalking()).OnComplete(() => characterComponent.StopTalking()));
                 }
 
                 dialogSequenceAnimation.AppendInterval(dialogSetting.timeBetweenSpeechs);
@@ -133,8 +169,7 @@ namespace TutorialSystem.Scripts
                 dialogSequenceAnimation.AppendCallback(() => { currentIndex++; });
 
             }
-
-            dialogSequenceAnimation.AppendCallback(() => { eventBus.Publish(stopEventName); });
+            dialogSequenceAnimation.OnComplete(() => { characterComponent.StopLoopAnimation(); });
             dialogSequenceAnimation.Play();
         }
 
@@ -145,7 +180,12 @@ namespace TutorialSystem.Scripts
 
         public void StopTutorial()
         {
-            DOTween.Kill("tutorialSystem");
+            DeAudioManager.Stop(DeAudioGroupId.Dialogue);
+            characterComponent.StopTalking();
+            characterComponent.StopLoopAnimation();
+            dialogSequenceAnimation.Kill();
+            transform.parent.gameObject.SetActive(false);
+            endTutorial?.Invoke();
             eventBus.Publish(stopEventName);
         }
 

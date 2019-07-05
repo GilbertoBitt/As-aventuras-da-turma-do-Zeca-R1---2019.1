@@ -26,10 +26,10 @@ MonoBehaviour:
   - o
   letters:
   - l
-  - "\xE1"
-  - p
   - i
-  - s
+  - v
+  - r
+  - o
   tonicSyllables:
     enabled: 0
     classification: 0
@@ -37,4 +37,8 @@ MonoBehaviour:
     enabled: 1
     classification: 2
     syllableAmount: 4
+  alternativeWordsContent:
+    enabled: 0
+    alternativeWords:
+    - 
   buildWithLetters: 1

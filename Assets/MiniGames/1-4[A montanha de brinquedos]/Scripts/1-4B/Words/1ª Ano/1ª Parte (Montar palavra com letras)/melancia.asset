@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 081c9b890044fb3428a4df19b7bc3466, type: 3}
-  m_Name: "mel\xE3ncia"
+  m_Name: melancia
   m_EditorClassIdentifier: 
-  word: "mel\xE2ncia"
+  word: melancia
   itemSprite: {fileID: 3286163911610860551, guid: 2de818717c38e7249990ba5db9a554c2,
     type: 3}
   syllables:
@@ -23,7 +23,7 @@ MonoBehaviour:
   - m
   - e
   - l
-  - "\xE2"
+  - a
   - n
   - c
   - i
@@ -32,7 +32,7 @@ MonoBehaviour:
   - m
   - e
   - l
-  - "\xE2"
+  - a
   - n
   - c
   - i
@@ -44,4 +44,8 @@ MonoBehaviour:
     enabled: 1
     classification: 3
     syllableAmount: 4
+  alternativeWordsContent:
+    enabled: 0
+    alternativeWords:
+    - 
   buildWithLetters: 1

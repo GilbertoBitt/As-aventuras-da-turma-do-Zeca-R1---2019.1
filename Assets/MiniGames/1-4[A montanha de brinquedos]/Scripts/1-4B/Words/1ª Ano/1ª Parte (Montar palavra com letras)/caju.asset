@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081c9b890044fb3428a4df19b7bc3466, type: 3}
   m_Name: caju
   m_EditorClassIdentifier: 
-  word: caju
+  word: Caju
   itemSprite: {fileID: 3286163911610860551, guid: ad48023d72fe626438db02d97938c775,
     type: 3}
   syllables:
-  - ca
   - ju
+  - ca
   charSyllabes:
   - c
   - a
@@ -35,4 +35,8 @@ MonoBehaviour:
     enabled: 1
     classification: 2
     syllableAmount: 4
+  alternativeWordsContent:
+    enabled: 0
+    alternativeWords:
+    - 
   buildWithLetters: 1

@@ -11,6 +11,7 @@ using MiniGames.Rainbow.Scripts;
 using MiniGames.Rainbow.Scripts._1ª_Ano;
 using Sirenix.OdinInspector;
 using TMPro;
+using TutorialSystem.Scripts;
 using UniRx;
 using Unity.Mathematics;
 using Random = UnityEngine.Random;
@@ -123,13 +124,20 @@ public class managerAddRainbow : MonoBehaviour
 	public string[] facaContaT;
 	public Image[] buttons2;
 	public Sprite[] buttonsSp;
-    tutorPanelArcoirirs tutorPanelArcoirirs2;
     int contNunbAudioPos;
     int contNunbAudioNeg;
     public GameObject pauseBt;
     public SoundManager soundManager;
     public AudioClip acertoAudioClip;
     public AudioClip erroAudioClip;
+
+    public DialogComponent dialogComponent;
+    [TabGroup("Tutoria 1ª Ano")]
+    public DialogInfo dialogYear1;
+    [TabGroup("Tutoria 2ª Ano")]
+    public DialogInfo dialogYear2;
+    [TabGroup("Tutoria 3ª Ano")]
+    public DialogInfo dialogYear3;
 
 
     // Use this for initialization
@@ -156,15 +164,30 @@ public class managerAddRainbow : MonoBehaviour
 		    }
 	    });
 
-		Timing.RunCoroutine(StartGameLate());
+	    dialogComponent.endTutorial = () => { Timing.RunCoroutine(StartGameLate()); };
+
+	    switch (anoLetivo)
+	    {
+		    case 1:
+			    dialogComponent.StartDialogSystem(dialogYear1);
+			    break;
+		    case 2:
+			    dialogComponent.StartDialogSystem(dialogYear2);
+			    break;
+		    case 3:
+			    dialogComponent.StartDialogSystem(dialogYear3);
+			    break;
+		    default:
+			    break;
+	    }
+
+//		Timing.RunCoroutine(StartGameLate());
 
 	}
 
 	IEnumerator<float> StartGameLate(){
-        yield return Timing.WaitForSeconds(0.6f);
         pauseBt.SetActive(false);
         // Debug.Log("Soma e Subtração ativada! açlskdçlaksdçalksdçls");
-        tutorPanelArcoirirs2 = painelTutorial.GetComponent<tutorPanelArcoirirs>();
         int person = PlayerPrefs.GetInt("characterSelected", 0);
         characterImage.sprite = characterImages[person];
         painelTutorial.SetActive(false);
@@ -790,7 +813,6 @@ public class managerAddRainbow : MonoBehaviour
             contNunbAudioPos = 1;
             if (contNunbAudioPos<2) {
                 contNunbAudioPos = contNunbAudioPos+1;
-                tutorPanelArcoirirs2.soundManager.startVoiceFXReturn(tutorPanelArcoirirs2.audiosTutorial[8]);
             }
            
             facaConta.text = facaContaT[0];
@@ -799,7 +821,6 @@ public class managerAddRainbow : MonoBehaviour
 			sinalOfOperationText.text = "-";
             if (contNunbAudioNeg < 2) {
                 contNunbAudioNeg = contNunbAudioNeg+1;
-                tutorPanelArcoirirs2.soundManager.startVoiceFXReturn(tutorPanelArcoirirs2.audiosTutorial[9]);
             }           
             facaConta.text = facaContaT[1];
 		}

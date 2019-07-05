@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using TMPro;
 using UniRx;
 
 public class SyllableHandler1_4B : OverridableMonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler {
@@ -13,7 +14,7 @@ public class SyllableHandler1_4B : OverridableMonoBehaviour, IDragHandler, IEndD
 	public CanvasGroup thisCanvasGroup;
 	Vector3 startDragPos;
 	public Manager1_4B manager;
-	public Text textComp;
+	public TextMeshProUGUI textComp;
 	public string syllable;
 	public bool isOverBlank = false;
 	public bool hasDroped = false;

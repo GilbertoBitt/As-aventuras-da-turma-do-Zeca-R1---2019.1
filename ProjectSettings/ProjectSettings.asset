@@ -125,7 +125,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.2.404
+  bundleVersion: 2.2.406
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -169,9 +169,9 @@ PlayerSettings:
     Android: br.com.eduqbrinq.asaventurasdaturmadozeca
     Standalone: br.com.eduqbrinq.asaventurasdaturmadozeca
   buildNumber:
-    Standalone: 405
-    iPhone: 405
-  AndroidBundleVersionCode: 22404
+    Standalone: 407
+    iPhone: 407
+  AndroidBundleVersionCode: 22407
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -265,7 +265,7 @@ PlayerSettings:
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: C:/Users/Administrador.WIN-2I1P2GRMKPH/Documents/user.keystore
-  AndroidKeyaliasName: mentor
+  AndroidKeyaliasName: interno
   AndroidBuildApkPerCpuArchitecture: 1
   AndroidTVCompatibility: 0
   AndroidIsGame: 1

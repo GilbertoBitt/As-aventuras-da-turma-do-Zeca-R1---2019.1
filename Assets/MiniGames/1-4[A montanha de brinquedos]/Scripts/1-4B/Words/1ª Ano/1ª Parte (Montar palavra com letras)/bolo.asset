@@ -16,8 +16,8 @@ MonoBehaviour:
   itemSprite: {fileID: 3286163911610860551, guid: 669b4f2ffabb0cd4daa98d6bdc3828ed,
     type: 3}
   syllables:
-  - bo
   - lo
+  - bo
   charSyllabes:
   - b
   - o
@@ -35,4 +35,8 @@ MonoBehaviour:
     enabled: 1
     classification: 2
     syllableAmount: 4
+  alternativeWordsContent:
+    enabled: 0
+    alternativeWords:
+    - 
   buildWithLetters: 1

@@ -31,13 +31,13 @@ MonoBehaviour:
   - e
   letters:
   - p
-  - i
-  - r
-  - u
-  - l
-  - i
+  - a
   - t
-  - o
+  - i
+  - n
+  - e
+  - t
+  - e
   tonicSyllables:
     enabled: 0
     classification: 0
@@ -45,4 +45,8 @@ MonoBehaviour:
     enabled: 1
     classification: 4
     syllableAmount: 4
+  alternativeWordsContent:
+    enabled: 0
+    alternativeWords:
+    - 
   buildWithLetters: 1

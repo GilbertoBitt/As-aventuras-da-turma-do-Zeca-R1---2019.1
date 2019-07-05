@@ -11,10 +11,15 @@ using MiniGames.Scripts._1_3A;
 using MiniGames.Scripts._1_3B;
 using Sirenix.OdinInspector;
 using TMPro;
+using TutorialSystem.Scripts;
 
 public class Manager1_3B : OverridableMonoBehaviour {
 
 	#region Vars
+
+	[TabGroup("Tutorial 1ª ano")] public DialogInfo tutorialYear1;
+	[TabGroup("Tutorial 2ª ano")] public DialogInfo tutorialYear2;
+	[TabGroup("Tutorial 3ª ano")] public DialogInfo tutorialYear3;
 
 	public Button habilidadeInfoButton;
 	[FoldoutGroup("1ª Ano")] public List<ItemWord1_3b> allWordsOfList;
@@ -607,67 +612,28 @@ public class Manager1_3B : OverridableMonoBehaviour {
 	}
 
     public void RunDidatica() {
-      //  tutorVacine2.gameObject.SetActive(true);
          ControlSomTutor2.numTutor = 6;
-       // ControlSomTutor2.numTutor = 1;
         checkDitadita2 = true;
 
         checkDitadita2 = false;
         _log.StartTimerLudica(false);
         SequenceToChangeDidatica(false);
-     
-//        if (PlayerPrefs.HasKey("TutorV_IniD") == false || PlayerPrefs.HasKey("TutorV_IniD") == true) {
-//            /*
-//            if (Application.platform == RuntimePlatform.WindowsPlayer == true && (PlayerPrefs.HasKey("TutorV_IniD") == false)) {
-//
-//                checkTutorteclado = true;
-//                PlayerPrefs.SetInt("TutorV_IniD", 1);
-//                ControlTecladoTutor2.didatica = true;
-//                for (int i = 0; i < bolhasDid.Length; i++) {
-//                    bolhasDid[i].enabled = false;
-//                }
-//
-//            }
-//            */
-//             if (Application.platform == RuntimePlatform.WindowsPlayer == false && (PlayerPrefs.HasKey("TutorV_IniD") == false)) {
-//                oldManager.panelTeclado.SetActive(true);
-//                // checkTutorteclado = true;
-//                didadMovel = true;
-//                PlayerPrefs.SetInt("TutorV_IniD", 1);
-//
-//                foreach (var t in ControlTecladoTutor2.tecla)
-//                {
-//	                t.gameObject.SetActive(false);
-//                }
-//
-//            }
-//            tutorVacine2.btTelao.SetActive(false);
-//            tutorVacine2.pularTex.SetActive(false);
-//            //PlayerPrefs.SetInt("TutorV_IniD", 1);
-//            tutorG.SetActive(true);
-//            tutorVacine2.textTutor.text = "Agora, veja o nome do alimento e atire com o canudo na imagem correta.";
-//            //SomTutor(1);
-//            tutorVacine2.Som1();
-//            tutorVacine2.Onprof();
-//            tutorialImageComponent.enabled = true;
-//            tutorVacine2.iniciarG1.SetActive(true);
-//            tutorVacine2.iniciarG2.SetActive(false);
-//            _log.StartTimerLudica(false);
-//            Timing.RunCoroutine(StartDidatica());
-//			SequenceToChangeDidatica(true);
-//            checkDitadita = true;
-//
-//        } else {
-//
-//            checkDitadita2 = false;
-//            _log.StartTimerLudica(false);
-//            SequenceToChangeDidatica(false);
-//            //Timing.RunCoroutine(StartDidatica());
-//
-//
-//        }
+        dialogComponent.endTutorial += () => EndChangeDidatica();
+        switch (anoLetivo)
+        {
+	        case 1:
+		        dialogComponent.StartDialogSystem(tutorialYear1);
+		        break;
+	        case 2:
+		        dialogComponent.StartDialogSystem(tutorialYear2);
+		        break;
+	        case 3:
+		        dialogComponent.StartDialogSystem(tutorialYear3);
+		        break;
+	        default:
+		        break;
+        }
 
-      
     }
 
     void SomTutor(int recNum) {
@@ -695,7 +661,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
         checkDitadita2 = false;
         if (checkDitadita) {
 
-            Timing.RunCoroutine(StartDidatica());
+//            Timing.RunCoroutine(StartDidatica());
 
         }
 
@@ -708,9 +674,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
     public void EndChangeDidatica() {
         //fadeInOutImg.gameObject.SetActive(false);
         //fadeInOutImg.raycastTarget = false;
-        if (!checkDitadita2) {
-            StartGame();
-        }
+        Timing.RunCoroutine(StartDidatica());
         _log.StartTimerDidatica(true);
     }
 
@@ -719,6 +683,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
         fadeInOutImg.raycastTarget = true;
     }
 
+    public DialogComponent dialogComponent;
     public void SequenceToChangeDidatica(bool tutorial) {
 
         oldManager.circleFader.maskValue = 0f;
@@ -727,9 +692,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
         if (tutorial == false) {
             startDidaticaS.Append(fadeInOutImg.DOFade(1f, fadeInDuration));
         }*/
-        startDidaticaS.AppendCallback(() => this.ChangeToDidatica());
         startDidaticaS.Append(fadeInOutImg.DOFade(0f, fadeInDuration));
-        startDidaticaS.AppendCallback(() => this.EndChangeDidatica());
         startDidaticaS.Play();
     }
 

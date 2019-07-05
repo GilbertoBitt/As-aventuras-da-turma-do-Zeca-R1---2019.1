@@ -25,9 +25,9 @@ namespace TutorialSystem.Scripts
             dialogComponent = GetComponentInParent(typeof(DialogComponent))as DialogComponent;
          }
 
-         if (dialogComponent != null && !dialogComponent.SubscribedDialogWindowComponents.Contains(this))
+         if (dialogComponent != null && !dialogComponent.subscribedDialogWindowComponents.Contains(this))
          {
-            dialogComponent.SubscribedDialogWindowComponents.Add(this);
+            dialogComponent.subscribedDialogWindowComponents.Add(this);
          }
       }
    }
