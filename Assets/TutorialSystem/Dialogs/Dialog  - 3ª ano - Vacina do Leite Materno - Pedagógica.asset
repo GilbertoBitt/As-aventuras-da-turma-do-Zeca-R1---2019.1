@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogSettings: {fileID: 11400000, guid: dda8c0251a791324fa5a91e813a15c8e, type: 2}
   speeches:
-  - speechText: "Ajude a turma do Zeca a descobrir o n\xFAmero que falta!"
+  - speechText: Vamos brincar de atirar com o canudinho! Leia o texto abaixo, depois
+      atire na figura que tem a ver com ele.
     speechAudioClip:
       enabled: 0
       audioClip: {fileID: 0}

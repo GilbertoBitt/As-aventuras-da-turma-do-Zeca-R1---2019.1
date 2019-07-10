@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogSettings: {fileID: 11400000, guid: dda8c0251a791324fa5a91e813a15c8e, type: 2}
   speeches:
-  - speechText: "Ajude a turma do Zeca a descobrir o n\xFAmero que falta!"
+  - speechText: "Ajude a turma do Zeca a descobrir o resultado das adi\xE7\xF5es e
+      das subtra\xE7\xF5es."
     speechAudioClip:
       enabled: 0
       audioClip: {fileID: 8300000, guid: 3af15061f40b0694b9168ece5e77fef4, type: 3}

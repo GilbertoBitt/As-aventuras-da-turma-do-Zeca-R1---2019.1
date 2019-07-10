@@ -746,7 +746,9 @@ public class Manager_1_2B : OverridableMonoBehaviour
         if (manager.tutorIni_1 == 0) {
            // manager.tutorIni_1 = PlayerPrefs.GetInt("TutorSP_1", 1);
             Timing.KillCoroutines();
-            manager.tutorTex.text = manager.tutorTexC;
+//            manager.tutorTex.text = manager.tutorTexC;
+	        manager.tutorTex.text = anoLetivo == 1 ? manager.tutorTexC : anoLetivo == 2 ? manager.tutorTexC2 : manager.tutorTexC3;
+	        manager.tutorTex.DOFade(1f, .5f);
             fundoProf.enabled = true;
             fundoProf.sprite = ImageFundo;
             fundoProf.raycastTarget = true;

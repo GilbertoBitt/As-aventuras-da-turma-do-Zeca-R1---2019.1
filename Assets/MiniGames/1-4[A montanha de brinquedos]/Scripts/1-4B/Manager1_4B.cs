@@ -35,6 +35,11 @@ public class Manager1_4B : OverridableMonoBehaviour
     [TabGroup("3ª Ano")]
     public DialogInfo DialogInfoYear3;
 
+    [TabGroup("1ª Ano")] public HabilidadeBNCCInfo Skill1Year;
+    [TabGroup("2ª Ano")] public HabilidadeBNCCInfo Skill2Year;
+    [TabGroup("3ª Ano")] public HabilidadeBNCCInfo Skill3Year;
+    [FoldoutGroup("Geral")] public InfoSkillWindow infoSKill;
+
     public GridLayoutGroup gridLayoutGroup;
     public RectTransform gridLayoutGroupRectTransform;
 
@@ -272,6 +277,7 @@ public class Manager1_4B : OverridableMonoBehaviour
         switch (anoLetivo.Value)
         {
             case AnoLetivoState.Ano1:
+                showInformationButton.OnClickAsObservable().Subscribe(_ => infoSKill.ShowWindowInfo(Skill1Year));
                 buttonPool = new ButtonTMPComponentPool(buttonPrefab, buttonParentTransform);
                 #region SetupPool
                 //Preload and config pool of boxes
@@ -303,6 +309,7 @@ public class Manager1_4B : OverridableMonoBehaviour
                 this.UpdateAsObservable().Subscribe(unit => { updatedGame?.Execute(); });
                 break;
             case AnoLetivoState.Ano2:
+                showInformationButton.OnClickAsObservable().Subscribe(_ => infoSKill.ShowWindowInfo(Skill2Year));
                 buttonPool = new ButtonTMPComponentPool(buttonPrefab, buttonParentTransform);
                 blueBoxInstancesOnScene = new List<SyllableHandler1_4B>();
                 blankInstancesOnScene = new List<BlankSpace1_4B>();
@@ -328,7 +335,7 @@ public class Manager1_4B : OverridableMonoBehaviour
 
                 break;
             case AnoLetivoState.Ano3:
-
+                showInformationButton.OnClickAsObservable().Subscribe(_ => infoSKill.ShowWindowInfo(Skill3Year));
                 buttonPool = new ButtonTMPComponentPool(buttonPrefab3, buttonParentTransform);
                 blueBoxInstancesOnScene = new List<SyllableHandler1_4B>();
                 blankInstancesOnScene = new List<BlankSpace1_4B>();

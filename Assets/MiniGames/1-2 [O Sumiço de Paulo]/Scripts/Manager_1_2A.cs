@@ -4,6 +4,7 @@ using DG.Tweening;
 using MEC;
 using MiniGames.Scripts;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -110,8 +111,10 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 	public Animator tutorPanelAnimator;
 	public GameObject btAvancar;
 	public GameObject btIniciar;
-	public Text tutorTex;
-	public string tutorTexC;
+	public TextMeshProUGUI tutorTex;
+	[BoxGroup("1ª ano")]public string tutorTexC;
+	[BoxGroup("2ª ano")]public string tutorTexC2;
+	[BoxGroup("3ª ano")]public string tutorTexC3;
 	public int tutorIni_0;
 	public int tutorIni_1;
 	Color _color;
@@ -159,7 +162,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 			tutorPanelAnimator.SetInteger(emCenaHash, 1);
 			btIniciar.SetActive(false);
 		
-
+			tutorTex.DOFade(1f, .5f);
 		
 		}
 		else{
@@ -168,13 +171,14 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 			tutorPanelAnimator.SetInteger(emCenaHash, 0);
 			btAvancar.SetActive(false);
 			btIniciar.SetActive(true);
-		
+			tutorTex.DOFade(0f, .5f);
 			
 		}
 		if(PlayerPrefs.HasKey("TutorSP_1")==false){
 			PlayerPrefs.SetInt("TutorSP_1",0);
 			tutorPanelAnimator.SetInteger(emCenaHash, 1);
 			btAvancar.SetActive(true);
+			tutorTex.DOFade(1f, .5f);
 		}
 		else{
 			PlayerPrefs.SetInt("TutorSP_1",1);	
@@ -182,6 +186,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 			tutorPanelAnimator.SetInteger(emCenaHash, 0);	
 			btAvancar.SetActive(false);
 			btIniciar.SetActive(true);
+			tutorTex.DOFade(0f, .5f);
 		
 		}
 
@@ -205,13 +210,14 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 		log.ClearAll ();
 		log.StartTimerLudica (true);
 		}
-	
+
 	
 		public void StartGameOn  () {
 
 		if (tutorIni_0 == 1 && tutorIni_0 == 0) {
 			Timing.RunCoroutine (startGame ());
 			slideColorStart = fillImageSlider.color;
+
 		//Debug.Log("1");
 		}
 		else if(tutorIni_0 == 1 && tutorIni_1 ==0){
@@ -229,6 +235,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 		}
 		log.StartTimerLudica (true);
 		exclamationRect = exclamation.GetComponent<RectTransform>();
+		tutorTex.DOFade(0f, .5f);
        
 //		startpos = personagems.transform.position;
 
@@ -886,7 +893,9 @@ public class Manager_1_2A : OverridableMonoBehaviour {
         if (tutorIni_1 == 0) {
           //  tutorIni_1 = PlayerPrefs.GetInt("TutorSP_1", 1);
             Timing.KillCoroutines();
-            tutorTex.text = GameConfig.Instance.GetAnoLetivo() == 3 ? "Vamos brincar com figuras geométricas planas! Encontre tudo que for pedido" : tutorTexC;
+            var anoLetivo = GameConfig.Instance.GetAnoLetivo();
+            tutorTex.text = anoLetivo == 1 ? tutorTexC : anoLetivo == 2 ? tutorTexC2 : tutorTexC3;
+            tutorTex.DOFade(1f, .5f);
 
 			CancelInvoke ();
             StartCoroutine(GoForEducationTime());
@@ -901,6 +910,8 @@ public class Manager_1_2A : OverridableMonoBehaviour {
         config.Rank(log.idMinigame, scoreAmount, starsAmount);
         //this.enabled = false;
     }
+
+
 	
 	IEnumerator GoForEducationTime(){
         ControlSomTutor2.numTutor = 1;

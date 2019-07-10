@@ -13,7 +13,8 @@ using UnityEngine.Serialization;
 
 public class Manager_1_1B : MonoBehaviour
 {
-
+	[TabGroup("Geral")]
+	public TextMeshProUGUI textTutorialComponent;
 	[TabGroup("Geral")] 
 	public Transform bottomCardsParent;
 	[TabGroup("Geral")] 
@@ -579,16 +580,12 @@ public class Manager_1_1B : MonoBehaviour
 			dragCards[i].RightOneTextComponent.transform.localPosition = new Vector3(0f,0f,0f);
 		}
 
-		// remover com animator.
 		for (int i = 0; i < dragCardsLength; i++){
-            //if(dropCards[i] != null)
-            //dropCards[i].transform.localScale = new Vector3(1f,1f,1f);
            
             if (dropCards[i] != null && dropCards[i].thisoutline != null) {
                 dropCards[i].thisoutline.enabled = false;
             }
 		}
-
 
 		if (anoLetivo == 1)
 		{
@@ -669,22 +666,12 @@ public class Manager_1_1B : MonoBehaviour
 			
 			dropCards[i].Clear();
 		}
-        //ResetCardScale();
+
         yield return Yielders.Get(0.6f);
         zecaCard.posCorpoZeca = 5;
         zecaCard.ControlAnimCorpo.SetInteger("posCorpoZeca", 5);
 
         yield return Yielders.Get(0.5f);
-      //  ResetCardScale();
-
-        //JogarCartas();
-
-        /* for (int i = 0; i < dragCardsLength; i++) {
-             //if (dropCards[i] != null)
-                 dropCards[i].transform.localScale = new Vector3(1f, 1f, 1f);
-
-         }*/
-
 
     }
 
@@ -741,31 +728,25 @@ public class Manager_1_1B : MonoBehaviour
 	public IEnumerator<float> StartBGame(){
 
         LOG.StartTimerDidatica(true);
-       
-      
-
-	
         cardGroup.GroupItemList.Shuffle();
 		int deactiveThisPanelsLength = deactiveThisPanels.Length;
 		for (int i = 0; i < deactiveThisPanelsLength; i++){
 			deactiveThisPanels[i].SetActive(false);
 		}
 		
-			contCart=contCart+1;
-			StartCoroutine(Begin11B());
+		contCart=contCart+1;
+		StartCoroutine(Begin11B());
 		
 		panelDitatica.SetActive(true);
       
         yield return Timing.WaitForOneFrame;
-	//	groupLayoutDrop.gameObject.GetComponent<Animator>().enabled=true;
-		//cardMao.enabled=true;
+
 		partCards.SetActive(true);
 		cardMao.enabled=true;
 		partCards2.SetActive(true);
 
         zecaCard.posCorpoZeca = 5;
         zecaCard.ControlAnimCorpo.SetInteger("posCorpoZeca", 5);
-        //particulasCartsDita.SetActive(true);
 
     }
 

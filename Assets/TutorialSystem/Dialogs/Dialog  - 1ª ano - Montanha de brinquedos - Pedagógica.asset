@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogSettings: {fileID: 11400000, guid: dda8c0251a791324fa5a91e813a15c8e, type: 2}
   speeches:
-  - speechText: "Agora organize as s\xEDlabas para formas as palavras, clique e arraste."
+  - speechText: "Vamos brincar de contar quantas letras e quantas s\xEDlabas cada
+      palavra tem? Preste aten\xE7\xE3o!\r"
     speechAudioClip:
       enabled: 1
       audioClip: {fileID: 8300000, guid: 3af15061f40b0694b9168ece5e77fef4, type: 3}
