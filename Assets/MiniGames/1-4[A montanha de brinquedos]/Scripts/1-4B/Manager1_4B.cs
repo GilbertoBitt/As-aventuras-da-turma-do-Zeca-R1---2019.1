@@ -120,6 +120,10 @@ public class Manager1_4B : OverridableMonoBehaviour
     [FoldoutGroup("2ª ano")] public IntReactiveProperty wrongWordsValue;
     [FoldoutGroup("2ª ano")] public int amountPerCorrectWord;
 
+    [FoldoutGroup("3ª ano")] public WordItem[] wordsList;
+    [LabelText("Prefab Buttons")]
+    [FoldoutGroup("3ª ano")] public ButtonTMPComponent buttonPrefab3;
+
     public ReactiveCommand startGame;
     public ReactiveCommand updatedGame = new ReactiveCommand();
 
@@ -260,7 +264,7 @@ public class Manager1_4B : OverridableMonoBehaviour
 
     public void InitGameConfig()
     {
-        buttonPool = new ButtonTMPComponentPool(buttonPrefab, buttonParentTransform);
+
         //StartConfiguration
         startGame = new ReactiveCommand();
         updatedGame = new ReactiveCommand();
@@ -268,7 +272,7 @@ public class Manager1_4B : OverridableMonoBehaviour
         switch (anoLetivo.Value)
         {
             case AnoLetivoState.Ano1:
-
+                buttonPool = new ButtonTMPComponentPool(buttonPrefab, buttonParentTransform);
                 #region SetupPool
                 //Preload and config pool of boxes
                 
@@ -299,7 +303,7 @@ public class Manager1_4B : OverridableMonoBehaviour
                 this.UpdateAsObservable().Subscribe(unit => { updatedGame?.Execute(); });
                 break;
             case AnoLetivoState.Ano2:
-
+                buttonPool = new ButtonTMPComponentPool(buttonPrefab, buttonParentTransform);
                 blueBoxInstancesOnScene = new List<SyllableHandler1_4B>();
                 blankInstancesOnScene = new List<BlankSpace1_4B>();
 
@@ -324,6 +328,25 @@ public class Manager1_4B : OverridableMonoBehaviour
 
                 break;
             case AnoLetivoState.Ano3:
+
+                buttonPool = new ButtonTMPComponentPool(buttonPrefab3, buttonParentTransform);
+                blueBoxInstancesOnScene = new List<SyllableHandler1_4B>();
+                blankInstancesOnScene = new List<BlankSpace1_4B>();
+
+                #region SetupPool
+                //Preload and config pool of boxes
+
+                poolBlueBox = new BlueBoxPool(prefabBlueBoxInstance, blueBoxParent, this);
+
+                poolBlankBox = new BlankBoxPool(prefabEmptyBoxInstance, emptyBoxParent, this);
+
+                //boxes preload ended
+                #endregion
+
+                wordsList.Shuffle();
+                confirmButton.onClick.AsObservable().Subscribe(_ => CorrectionOfSyllable());
+                startGame.Subscribe(unit => { this.ExecuteDelayed(ThirdYearLoop, 2f); });
+                dragDropPanelContent.SetActive(true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -338,6 +361,55 @@ public class Manager1_4B : OverridableMonoBehaviour
         startGame.Execute();
         Debug.Log("Game inicialization Complete");
 
+    }
+
+
+
+    public void ThirdYearLoop()
+    {
+        if (currentGameRound > maxRound)
+        {
+            endDitatica();
+        }
+        else
+        {
+
+            blueBoxInstancesOnScene.ForEach(box =>
+            {
+                poolBlueBox.Return(box);
+            });
+            blueBoxInstancesOnScene.Clear();
+
+            blankInstancesOnScene.ForEach(box =>
+            {
+                poolBlankBox.Return(box);
+            });
+            blankInstancesOnScene.Clear();
+
+            currentWord = wordsList[currentRound];
+
+            var syllables = currentWord.syllables;
+
+            syllables.ForEach((item, itemIndex) =>
+            {
+                var blueBoxInstance = poolBlueBox.Rent();
+                blueBoxInstance.UpdateTextContent(item.ToUpper());
+                blueBoxInstance.transform.SetSiblingIndex(itemIndex);
+                blueBoxInstance.DoFade(1f);
+                blueBoxInstancesOnScene.Insert(itemIndex, blueBoxInstance);
+            });
+
+            var emptySpace = poolBlankBox.Rent();
+            emptySpace.DoFade(1f);
+            blankInstancesOnScene.Add(emptySpace);
+
+            this.UpdateAsObservable().Where(unit =>blankInstancesOnScene.TrueForAll(box => box.hasDrop && box.thisSyllable != null))
+                .Subscribe(unit => { confirmButton.interactable = true; });
+
+            this.UpdateAsObservable().Where(unit => blankInstancesOnScene.Any(box => !box.hasDrop || box.thisSyllable == null))
+                .Subscribe(unit => { confirmButton.interactable = false; });
+
+        }
     }
 
     private void StartLoopSecondYear()
@@ -374,8 +446,6 @@ public class Manager1_4B : OverridableMonoBehaviour
             });
             blankInstancesOnScene.Clear();
 
-
-
             if (currentGameRound <= maxRound)
             {
                 currentWord = randomWordArray[currentGameRound];
@@ -387,7 +457,6 @@ public class Manager1_4B : OverridableMonoBehaviour
             }
 
             var alternativeWords = currentWord.alternativeWordsContent.alternativeWords.Length;
-            textEnunciadoComponent.DOText($"Forme {alternativeWords} {(alternativeWords == 1 ? "nova palavra" : "novas palavras")}", 1f);
 
             //instance blue box for syllable
 
@@ -461,6 +530,35 @@ public class Manager1_4B : OverridableMonoBehaviour
         });
 
         wrongWordsTextComponent.SetText(sb);
+
+    }
+
+    private void CorrectionOfSyllable()
+    {
+        var syllable = blankInstancesOnScene[0].thisSyllable.textComp.text.ToLower();
+
+        var reversed = currentWord.syllables.Reverse().ToList();
+
+        var correctSyllable = reversed[(int) currentWord.tonicSyllables.classification].ToLower();
+
+        if (string.Equals(correctSyllable, syllable, StringComparison.InvariantCultureIgnoreCase))
+        {
+            Debug.Log($"Current Word [{currentWord.word.ToLower()}] | Tonic Syllable [{correctSyllable}] | Selected By Player [{syllable}] | Word Classeification [{currentWord.tonicSyllables.classification}]");
+
+            scoreController.amountValue.Value += amountPerCorrectWord;
+
+            _soundManager.startSoundFX(audios[0]);
+            highlight.startCerto("Silába tônica correta!");
+            currentGameState.Value = GameState.SecondState;
+        }
+        else
+        {
+            _soundManager.startSoundFX(audios[1]);
+            highlight.startErrado("Você errou... que pena!");
+            currentRound++;
+            currentGameState.SetValueAndForceNotify(GameState.MainState);
+            startGame.Execute();
+        }
 
     }
 
@@ -622,18 +720,6 @@ public class Manager1_4B : OverridableMonoBehaviour
                                 blankInstancesOnScene.Insert(indexItem, emptySpace);
                             });
 
-                            /*for (int i = 0; i < currentWord.CountLetters; i++) {
-
-                                var blueBoxInstance = poolBlueBox.Rent();
-                                blueBoxInstance.UpdateTextContent(currentWord.letters[i].ToUpper());
-                                blueBoxInstance.DoFade(1f);
-                                blueBoxInstancesOnScene.Add(blueBoxInstance);
-
-                                var emptySpace = poolBlankBox.Rent();
-                                emptySpace.DoFade(1f);
-                                blankInstancesOnScene.Add(emptySpace);
-                            }*/
-
                             itemIconImage.sprite = currentWord.itemSprite;
                             itemIconImage.DOFade(1f, 0.5f);
                             isPlaying = true;
@@ -643,24 +729,39 @@ public class Manager1_4B : OverridableMonoBehaviour
                             hasWordComplete = false;
                             Sequence TextFadeChange = DOTween.Sequence();
 
-
                             currentWord = routineTwoList[currentRound];
                             blueBoxInstances = new SyllableHandler1_4B[currentWord.CountSyllables];
                             emptyBoxInstances = new BlankSpace1_4B[currentWord.CountSyllables];
                             currentWord.syllables.Shuffle();
-                            for (int i = 0; i < currentWord.CountSyllables; i++) {
+
+                            currentWord.syllables.ForEach((itemString, indexItem) =>
+                            {
                                 var blueBoxInstance = poolBlueBox.Rent();
-                                blueBoxInstance.UpdateTextContent(currentWord.syllables[i].ToUpper());
+                                blueBoxInstance.UpdateTextContent(itemString.ToUpper());
                                 blueBoxInstance.DoFade(1f);
-                                blueBoxInstancesOnScene.Add(blueBoxInstance);
+                                blueBoxInstance.transform.SetSiblingIndex(indexItem);
+                                blueBoxInstancesOnScene.Insert(indexItem, blueBoxInstance);
 
                                 var emptySpace = poolBlankBox.Rent();
                                 emptySpace.DoFade(1f);
-                                blankInstancesOnScene.Add(emptySpace);
-                            }
+                                emptySpace.transform.SetSiblingIndex(indexItem);
+                                blankInstancesOnScene.Insert(indexItem, emptySpace);
+                            });
+
+
+//                            for (int i = 0; i < currentWord.CountSyllables; i++) {
+//                                var blueBoxInstance = poolBlueBox.Rent();
+//                                blueBoxInstance.UpdateTextContent(currentWord.syllables[i].ToUpper());
+//                                blueBoxInstance.DoFade(1f);
+//                                blueBoxInstancesOnScene.Add(blueBoxInstance);
+//
+//                                var emptySpace = poolBlankBox.Rent();
+//                                emptySpace.DoFade(1f);
+//                                blankInstancesOnScene.Add(emptySpace);
+//                            }
+
                             itemIconImage.sprite = currentWord.itemSprite;
                             itemIconImage.DOFade(1f, 0.5f);
-                            currentGameState.Value = GameState.MainStateAlternate;
                             isPlaying = true;
                             confirmButton.interactable = false;
                             break;
@@ -672,9 +773,6 @@ public class Manager1_4B : OverridableMonoBehaviour
                             throw new ArgumentOutOfRangeException();
                     }
                 }
-                
-
-                
                 break;
             }
             case AnoLetivoState.Ano2:
@@ -721,14 +819,6 @@ public class Manager1_4B : OverridableMonoBehaviour
                 {
                     case AnoLetivoState.Ano1:
                         UpdateEnunciado("Quantas letras a palavra abaixo tem?");
-
-                        buttonInstances.ForEach(component =>
-                        {
-                            buttonPool.Return(component);
-                        });
-
-                        buttonInstances.Clear();
-
                         for (int i = 0; i <= 10; i++)
                         {
                             var instance = buttonPool.Rent();
@@ -741,23 +831,83 @@ public class Manager1_4B : OverridableMonoBehaviour
                             });
                             buttonInstances.Add(instance);
                         }
-
-                        buttonInstances.ForEach(component =>
-                        {
-                            component.gameObject.SetActive(true);
-                            component.Fade(1f);
-
-                        });
                         break;
                     case AnoLetivoState.Ano2:
                         break;
                     case AnoLetivoState.Ano3:
+                        confirmButton.gameObject.SetActive(false);
+                        blueBoxInstancesOnScene.ForEach(box =>
+                        {
+                            poolBlueBox.Return(box);
+                        });
+                        blueBoxInstancesOnScene.Clear();
+
+                        blankInstancesOnScene.ForEach(box =>
+                        {
+                            poolBlankBox.Return(box);
+                        });
+                        blankInstancesOnScene.Clear();
+
+                        string GetTextFromTonicSyllable(int indexEnum)
+                        {
+                            var classification = (WordItem.TonicSyllablesClassification) indexEnum;
+                            switch (classification)
+                            {
+                                case WordItem.TonicSyllablesClassification.Oxitona:
+                                    return "Oxítona";
+                                case WordItem.TonicSyllablesClassification.Paroxitona:
+                                    return "Paroxítona";
+                                case WordItem.TonicSyllablesClassification.Proparoxitona:
+                                    return "Proparoxítona";
+                                default:
+                                    throw new ArgumentOutOfRangeException(nameof(classification), classification, null);
+                            }
+                        }
+
+                        UpdateEnunciado("Classifique a palavra abaixo.");
+                        for (int i = 0; i < 3; i++)
+                        {
+                            var instance = buttonPool.Rent();
+                            instance.textComponent.text =
+                                GetTextFromTonicSyllable(i);
+                            var indexValue = i;
+                            instance.buttonComponent.OnPointerClickAsObservable().Subscribe(data =>
+                                {
+                                    scrollNumber = indexValue;
+                                    CorrectTonicClassification(indexValue);
+                                });
+                            buttonInstances.Add(instance);
+                        }
                         break;
                     default:
                         Debug.Break();
                         throw new ArgumentOutOfRangeException();
                 }
     }
+
+    private void CorrectTonicClassification(int indexValue)
+    {
+        var correctIndex = (int) currentWord.tonicSyllables.classification;
+
+        if (correctIndex == indexValue)
+        {
+            scoreController.amountValue.Value += amountPerCorrectWord;
+
+            _soundManager.startSoundFX(audios[0]);
+            highlight.startCerto("Silába tônica correta!");
+        }
+        else
+        {
+            _soundManager.startSoundFX(audios[1]);
+            highlight.startErrado("Você errou... que pena!");
+        }
+
+        currentRound++;
+        currentGameState.SetValueAndForceNotify(GameState.MainState);
+        startGame.Execute();
+
+    }
+
 
     CompositeDisposable disposables = new CompositeDisposable();
     private void OnMainStateAlternate(GameState state)
@@ -799,6 +949,13 @@ public class Manager1_4B : OverridableMonoBehaviour
             case AnoLetivoState.Ano2:
                 break;
             case AnoLetivoState.Ano3:
+                confirmButton.gameObject.SetActive(true);
+                UpdateEnunciado("Qual a sílaba tônica?");
+                buttonInstances.ForEach(component =>
+                {
+                    buttonPool.Return(component);
+                });
+                disposables.Dispose();
                 break;
             default:
                 Debug.Break();
@@ -815,14 +972,9 @@ public class Manager1_4B : OverridableMonoBehaviour
         });
     }
 
-
-    public override void UpdateMe() {
-
-    }
-
-
     public void InitGame()
     {
+        anoLetivo.Value = (AnoLetivoState) GameConfig.Instance.GetAnoLetivo();
 
         oldPanelDisable.GetComponent<GraphicRaycaster>().enabled = false;
         oldPanelDisable.SetActive(false);
