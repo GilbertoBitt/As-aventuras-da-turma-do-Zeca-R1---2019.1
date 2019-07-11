@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 using MEC;
 using DG.Tweening;
 using MiniGames.Memory.Scripts;
+using Sirenix.OdinInspector;
 using TMPro;
+using TutorialSystem.Scripts;
+using UniRx;
 
 public class MemoryGameManager : OverridableMonoBehaviour {
 
@@ -172,6 +176,17 @@ public class MemoryGameManager : OverridableMonoBehaviour {
     public string[] textos;
 
     public AudioClip[] finalFrase;
+    [BoxGroup("Tutorial")]
+    [LabelText("Diálogo Lúdica")]
+    public DialogInfo dialogInfo;
+    [BoxGroup("Tutorial")]
+    public DialogComponent dialogComponent;
+
+    public GameObject[] activateAfterTutorial;
+
+    [BoxGroup("Tutorial")] public Button buttonTutorial;
+
+
 
     void Start () {
         checkAudio = true;
@@ -181,47 +196,31 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 
         minigame = config.allMinigames[0];
 
-        gTutorMemoryAnimator = gTutorMemory.GetComponent<Animator>();
-
-		if(PlayerPrefs.HasKey("TutorMemory_0")==false){
-			
-				PlayerPrefs.SetInt("TutorMemory_0",0);
-				gTutorMemoryAnimator.SetInteger(NumB,1);
-          
-            // Invoke("SomTutorMemoria", 2f);
-
-            TutorBTavancar.SetActive(true);
-			pauseButton.interactable = false;
-		}
-		else{
-
-				PlayerPrefs.SetInt ("TutorMemory_0", 1);
-				tutorMemor_0 = PlayerPrefs.GetInt ("TutorMemory_0", 1);
-				gTutorMemory.SetActive (true);
-
-		//	StartCoroutine(TimeStartlate());
-			btInicar.SetActive(true);
-			//managerNext.contCart=1;
-			
-		}
-		if(PlayerPrefs.HasKey("TutorMemory_1")==false){
-			//if (gTutorMemory.activeInHierarchy == true) 
-			PlayerPrefs.SetInt("TutorMemory_1",0);
-         
-           // Invoke("SomTutorMemoria", 2f);
-        }
-		else{
-			//	if (gTutorMemory.activeInHierarchy == true) 
-			PlayerPrefs.SetInt("TutorMemory_1",1);
-			tutorMemor_1 = PlayerPrefs.GetInt("TutorMemory_1",1);		
-			
-		}
-			
 		for (int i = 0; i < starsParent.childCount; i++){
 			starsImage[i] = starsParent.GetChild(i).GetComponent<Image>();
 		}
-		
-		
+
+		if (buttonTutorial != null)
+		{
+			buttonTutorial.OnClickAsObservable().Subscribe(_ =>
+			{
+				dialogComponent.StartDialogSystem(dialogInfo);
+			});
+		}
+
+		activateAfterTutorial.ForEach(target =>
+		{
+			target.SetActive(false);
+		});
+
+		dialogComponent.endTutorial = () =>
+		{
+			activateAfterTutorial.ForEach(target =>
+			{
+				target.SetActive(true);
+			});
+			StartGame();
+		};
     }
 
     public void SomTutorMemoria() {
@@ -250,6 +249,12 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 	        Timing.RunCoroutine(TimeStartlate());
         }
 		}
+
+		[Button("Start Game")]
+	public void StartGame()
+	{
+		Timing.RunCoroutine(TimeStartlate());
+	}
 	public IEnumerator<float> TimeStartlate () {
        
 	 SelPersonsR.PersonSel = PlayerPrefs.GetInt("characterSelected", 0);
@@ -319,43 +324,16 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 			managerNext.partCards2 = managerNext.partsCards2[5];
 		}
         managerNext.zecaCard = personReation;
-        if (tutorMemor_0==1){
-	        yield return Timing.WaitForSeconds(0.2f);
-	        SelPersonsG.SetActive(true);
-	        isGameEnded = false;
-	        Timing.RunCoroutine(randomCardsList());
-	        // Debug.Log("test");
-	        timeSlider.maxValue = timePerGame;
-	        ClearStars();
-	        nextCanbeStarted = false;	
-	        if(managerNext.contCart==0){
-		        //managerNext.StartCoroutine(managerNext.StartBGame());
-	        }	
-		
-	        characterSelected = PlayerPrefs.GetInt("characterSelected", 0);
-	        //personReation.ControlAnimCorpo.SetInteger (posCorpoZeca,0);
 
-		}
-		else{
-//		yield return Yielders.Get(3f);
-		
-			yield return Timing.WaitForSeconds(0.2f);
-		
-		SelPersonsG.SetActive(true);
-		isGameEnded = false;
-		Timing.RunCoroutine(randomCardsList());
-		timeSlider.maxValue = timePerGame;
-		ClearStars();
-		nextCanbeStarted = false;
-	//	contCart=contCart +1;
-		if(managerNext.contCart==0){
-			//managerNext.StartCoroutine(managerNext.StartBGame());
-		}
-		characterSelected = PlayerPrefs.GetInt("characterSelected", 0);
-		//personReation.ControlAnimCorpo.SetInteger (posCorpoZeca,0);
+        yield return Timing.WaitForSeconds(0.2f);
 
-
-		}
+        SelPersonsG.SetActive(true);
+        isGameEnded = false;
+        Timing.RunCoroutine(randomCardsList());
+        timeSlider.maxValue = timePerGame;
+        ClearStars();
+        nextCanbeStarted = false;
+        characterSelected = PlayerPrefs.GetInt("characterSelected", 0);
 
 		TutorBTavancarBT = TutorBTavancar.GetComponent<Button>();
        
@@ -1084,11 +1062,17 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		timeSlider.value = timeSlider.minValue;
 		CancelInvoke();		
 		isGameEnded = true;
+
+		ExecuteNextGame();
+
 		Timing.RunCoroutine(makeADeck());	
 		//personReation.ControlAnimCorpo.SetInteger (posCorpoZeca,5);	
 		//nextCanbeStarted = true;
 	}
-		public void BtAvancar () {
+
+
+
+	public void BtAvancar () {
 		if (checkAvancar1 == 0) {
 			checkAvancar1 = 1;
 			if (gTutorMemory.activeInHierarchy == true) {
@@ -1141,9 +1125,35 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 	public void BtAjuda2 () {
 		gTutorMemoryAnimator.SetInteger(NumB,1);
 
-
-
 	}
+
+	private void ExecuteNextGame()
+	{
+		var createDeckHand = DOTween.Sequence();
+		cardInstance.ForEach(o =>
+		{
+			var indexItem = cardInstance.IndexOf(o);
+				if (indexItem == 0)
+				{
+					createDeckHand.Append(o.transform
+						.DOScale(new Vector3(makeDeckScaleSize.x, makeDeckScaleSize.y, makeDeckDuration), 1f).SetEase(makeDeckCurve));
+				}
+				else
+				{
+					createDeckHand.Join(o.transform
+						.DOScale(new Vector3(makeDeckScaleSize.x, makeDeckScaleSize.y, makeDeckDuration), 1f).SetEase(makeDeckCurve));
+				}
+
+				createDeckHand.InsertCallback(makeDeckDuration / 2, () => { cardInstanceMemoryComp[indexItem].updateSprite(false); });
+
+		});
+
+
+
+		managerNext.RunStartB();
+	}
+
+
 	IEnumerator<float> makeADeck(){
 
         checkAudio = false;
@@ -1286,7 +1296,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 				yield return Timing.WaitForSeconds(0.1f);
             //	managerNext.cardMao.enabled=false;
 
-            managerNext.RunStartB();
+
         }
 
 

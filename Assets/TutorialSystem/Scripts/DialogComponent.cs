@@ -71,11 +71,13 @@ namespace TutorialSystem.Scripts
             characterNameComponent.SetText(characterComponent.GetCharacterName());
 
             if (!autoStart || currentDialogInfo == null) return;
-            //TODO iniciar automaticamente no start
-            eventBus.Publish(startEventName);
-            DOTween.Kill("tutorialSystem");
-            StartDialogSystem();
 
+            this.ExecuteDelayed(() =>
+            {
+                eventBus.Publish(startEventName);
+                DOTween.Kill("tutorialSystem");
+                StartDialogSystem();
+            }, 1f);
         }
 
 
@@ -169,7 +171,7 @@ namespace TutorialSystem.Scripts
                 dialogSequenceAnimation.AppendCallback(() => { currentIndex++; });
 
             }
-            dialogSequenceAnimation.OnComplete(() => { characterComponent.StopLoopAnimation(); });
+            dialogSequenceAnimation.OnComplete(() => {  characterComponent.StopLoopAnimation(); });
             dialogSequenceAnimation.Play();
         }
 
