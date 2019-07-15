@@ -9,6 +9,7 @@ using System.IO;
 using System.Text;
 using System.Runtime.CompilerServices;
 using com.csutil;
+using UniRx;
 using UnityEditor;
 
 public class GameConfig : ScriptableObject
@@ -68,6 +69,10 @@ public class GameConfig : ScriptableObject
     public bool isAudioOn = true;
     public bool isAudioFXOn = true;
     public bool isAudioVoiceOn = true;
+
+    public BoolReactiveProperty isAudioOnReactive = new BoolReactiveProperty(true);
+    public BoolReactiveProperty isAudioFxOnReactive = new BoolReactiveProperty(true);
+    public BoolReactiveProperty isAudioVoiceOnOnReactive = new BoolReactiveProperty(true);
 
 	#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
 	[SeparatorAttribute("BROPS")]

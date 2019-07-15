@@ -17,8 +17,8 @@ MonoBehaviour:
   - speechText: "Ol\xE1, crian\xE7as! Vamos aprender o nome dos personagens brincando
       de jogo da mem\xF3ria!"
     speechAudioClip:
-      enabled: 0
-      audioClip: {fileID: 8300000, guid: 3af15061f40b0694b9168ece5e77fef4, type: 3}
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: a69a27683b75b014fb01aaab03d0582e, type: 3}
     speechSpriteAsset:
       enabled: 0
       spriteAsset: {fileID: 0}

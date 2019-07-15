@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.DeAudio;
 using UnityEngine;
 
 namespace MiniGames.Scripts
@@ -11,7 +12,7 @@ namespace MiniGames.Scripts
         public AudioClip[] audiosTutorial;
         public int numTutor;
         public bool checkSom;
-        public AudioSource audio;
+        public DeAudioSource audio;
         bool checkPassou;
 
         public void SomTutor()
@@ -23,10 +24,6 @@ namespace MiniGames.Scripts
                 checkPassou = true;
 
                 audio = soundManager.startVoiceFXReturn(audiosTutorial[numTutor]);
-                if (audio != null)
-                {
-                    audio.ignoreListenerPause = false;
-                }
 
                 //audio.Play();
             }
@@ -41,8 +38,7 @@ namespace MiniGames.Scripts
                     audio = soundManager.startVoiceFXReturn(audiosTutorial[numTutor]);
                 }
 
-                if (audio != null)
-                    audio.ignoreListenerPause = true;
+
                 // audio.Play();
             }
 

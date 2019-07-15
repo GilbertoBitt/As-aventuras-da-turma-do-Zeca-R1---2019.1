@@ -10,28 +10,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d9a6e2f094cf7d4db03d9c4f60076a3, type: 3}
-  m_Name: "Dialog (Pedag\xF3gica - Vacina do Leite Materno)"
+  m_Name: "Dialog  - 1\xAA ano - Quem Somos N\xF3s - Pedag\xF3gica"
   m_EditorClassIdentifier: 
   dialogSettings: {fileID: 11400000, guid: dda8c0251a791324fa5a91e813a15c8e, type: 2}
   speeches:
-  - speechText: Agora vamos encontrar os objetos que lembram algumas das formas geometricas.
+  - speechText: 
     speechAudioClip:
-      enabled: 1
-      audioClip: {fileID: 8300000, guid: beed180f13ee58243a06e4ac43a5ca72, type: 3}
+      enabled: 0
+      audioClip: {fileID: 0}
     speechSpriteAsset:
       enabled: 0
       spriteAsset: {fileID: 0}
-  - speechText: teste 1222312312
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      eventName: 
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
+  - speechText: "Agora, clique e arraste os nomes dos personagens ligando-os \xE0s
+      suas figuras."
     speechAudioClip:
       enabled: 1
-      audioClip: {fileID: 8300000, guid: 171b8ba91e684014f8a62de16c2e35b3, type: 3}
+      audioClip: {fileID: 8300000, guid: 602067f700fa91442abf17d3c0826bf5, type: 3}
     speechSpriteAsset:
       enabled: 0
       spriteAsset: {fileID: 0}
-  - speechText: alguma coisa vai aparecer aqui
-    speechAudioClip:
-      enabled: 1
-      audioClip: {fileID: 8300000, guid: 644f1b2050246b243bee93d38b0e9f2b, type: 3}
-    speechSpriteAsset:
+    speechVideoAsset:
       enabled: 0
-      spriteAsset: {fileID: 0}
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      eventName: 
+      eventDelay:
+        enabled: 0
+        eventDelay: 0

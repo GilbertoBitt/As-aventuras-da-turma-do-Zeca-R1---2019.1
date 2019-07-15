@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Utils;
@@ -11,6 +12,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using TutorialSystem.Scripts;
 using UniRx;
+using Random = UnityEngine.Random;
 
 public class MemoryGameManager : OverridableMonoBehaviour {
 
@@ -182,11 +184,18 @@ public class MemoryGameManager : OverridableMonoBehaviour {
     [BoxGroup("Tutorial")]
     public DialogComponent dialogComponent;
 
-    public GameObject[] activateAfterTutorial;
+    [BoxGroup("Tutorial")] public GameObject[] activateAfterTutorial;
 
     [BoxGroup("Tutorial")] public Button buttonTutorial;
+    [LabelText("Tutorial Didática")]
+    [BoxGroup("Tutorial")] public DialogSplitter dialogs;
 
-
+    [BoxGroup("Tutorial/AlternativeSpeechs")]
+    public SpeechInfo speechInfo1;
+    [BoxGroup("Tutorial/AlternativeSpeechs")]
+    public SpeechInfo speechInfo2;
+    [BoxGroup("Tutorial/AlternativeSpeechs")]
+    public SpeechInfo speechInfo3;
 
     void Start () {
         checkAudio = true;
@@ -1065,7 +1074,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 
 		ExecuteNextGame();
 
-		Timing.RunCoroutine(makeADeck());	
+//		Timing.RunCoroutine(makeADeck());
 		//personReation.ControlAnimCorpo.SetInteger (posCorpoZeca,5);	
 		//nextCanbeStarted = true;
 	}
@@ -1132,25 +1141,57 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		var createDeckHand = DOTween.Sequence();
 		cardInstance.ForEach(o =>
 		{
-			var indexItem = cardInstance.IndexOf(o);
+				var indexItem = cardInstance.IndexOf(o);
 				if (indexItem == 0)
 				{
 					createDeckHand.Append(o.transform
-						.DOScale(new Vector3(makeDeckScaleSize.x, makeDeckScaleSize.y, makeDeckDuration), 1f).SetEase(makeDeckCurve));
+						.DOScale(new Vector3(makeDeckScaleSize.x, makeDeckScaleSize.y, 1f), 1f)
+						.SetEase(makeDeckCurve));
 				}
 				else
 				{
 					createDeckHand.Join(o.transform
-						.DOScale(new Vector3(makeDeckScaleSize.x, makeDeckScaleSize.y, makeDeckDuration), 1f).SetEase(makeDeckCurve));
+						.DOScale(new Vector3(makeDeckScaleSize.x, makeDeckScaleSize.y, 1f), 1f)
+						.SetEase(makeDeckCurve));
 				}
 
-				createDeckHand.InsertCallback(makeDeckDuration / 2, () => { cardInstanceMemoryComp[indexItem].updateSprite(false); });
+				createDeckHand.Join(o.transform.DOMove(characterDeckLocation.position, makeDeckDuration));
 
 		});
 
+		createDeckHand.InsertCallback(makeDeckDuration/2, () =>
+		{
+			cardInstanceMemoryComp.ForEach(card =>
+			{
+				card.updateSprite(false);
+			});
+		});
 
+		createDeckHand.OnComplete(() =>
+		{
+			int deactiveThisPanelsLength = managerNext.deactiveThisPanels.Length;
+			for (int i = 0; i < deactiveThisPanelsLength; i++){
+				managerNext.deactiveThisPanels[i].SetActive(false);
+			}
 
-		managerNext.RunStartB();
+			if (levelDificult == 0 && correctsAmount == 0) {
+				dialogs.dialog.speeches[0] = speechInfo1;
+			} else if (levelDificult >= 0 && correctsAmount >= 0 && correctsAmount <= 8 && levelDificult <= 6) {
+				dialogs.dialog.speeches[0] = speechInfo2;
+			} else if (levelDificult == 6 && correctsAmount == 9) {
+				dialogs.dialog.speeches[0] = speechInfo3;
+			}
+
+			dialogComponent.endTutorial = () =>
+			{
+				managerNext.RunStartB();
+			};
+			dialogComponent.StartDialogSystem(dialogs.dialog);
+		});
+
+		createDeckHand.Play();
+
+//		managerNext.RunStartB();
 	}
 
 

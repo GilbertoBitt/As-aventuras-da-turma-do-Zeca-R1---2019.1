@@ -6,6 +6,7 @@ using System.Net;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using DG.DeAudio;
 using MEC;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -65,22 +66,25 @@ public class gameSelection : MonoBehaviour {
     public Text textComponentCliente;
     public PlayableDirector director;
     public double currentTime;
+    [ReadOnly]
+    public SoundManager soundManager;
 
     public void Awake() {
         Timing.RunCoroutine(LoadStoreData());
+        soundManager = FindObjectOfType(typeof(SoundManager)) as SoundManager;
     }
 
 
 
 
     public void TrocaUsu() {
-        gameConfigs.UpdateCurrent(gameConfigs.currentUser);
-        texBrops.text = $"{gameConfigs.BropsAmount}";
-        texPoints.text = $"{gameConfigs.TotalPoints}";
-        texNameAluno.text = $"{gameConfigs.namefull}";
-        textClass.text = gameConfigs.currentClass.descTurma;
-        textSchool.text = gameConfigs.currentSchool.nomeEscola;
-        textYear.text = $"{gameConfigs.currentClass.idAnoLetivo} ANO";
+        GameConfig.Instance.UpdateCurrent(GameConfig.Instance.currentUser);
+        texBrops.text = $"{GameConfig.Instance.BropsAmount}";
+        texPoints.text = $"{GameConfig.Instance.TotalPoints}";
+        texNameAluno.text = $"{GameConfig.Instance.namefull}";
+        textClass.text = GameConfig.Instance.currentClass.descTurma;
+        textSchool.text = GameConfig.Instance.currentSchool.nomeEscola;
+        textYear.text = $"{GameConfig.Instance.currentClass.idAnoLetivo} ANO";
     }
 
     public void ActiveNomeGame(bool check) {
@@ -221,21 +225,20 @@ public class gameSelection : MonoBehaviour {
 	/// 3 - Tela de Login/Acesso.
 	/// </summary>
 	/// <param name="i">The other Collider involved in this collision.</param>
-	public void	PanelsActivation(int panelIndex){
-		for (int i = 0; i < Panels.Length; i++)
+	public void	PanelsActivation(int panelIndex)
+	{
+		foreach (var t in Panels)
 		{
-			if(Panels[i] == Panels[panelIndex]){
-				Panels[i].enabled  = true;
-			} else {
-				Panels[i].enabled  = false;
-			}
+			t.enabled = t == Panels[panelIndex];
 		}
 	}
 
-	public void	PanelsActivationOver(int panelsIndex){
-		for (int i = 0; i < Panels.Length; i++){
-			if(Panels[i] == Panels[panelsIndex]){
-				Panels[i].enabled  = true;
+	public void	PanelsActivationOver(int panelsIndex)
+	{
+		foreach (var t in Panels)
+		{
+			if(t == Panels[panelsIndex]){
+				t.enabled  = true;
 			}
 		}
 	}
@@ -249,56 +252,30 @@ public class gameSelection : MonoBehaviour {
 		loginScreen,
 	}
 
-	public void backgroundMusicValidate(){
-
-		if (Toggles [0].isOn) {
-			gameConfigs.isAudioOn = false;
-		} else {
-			gameConfigs.isAudioOn = true;
-		}
+	public void backgroundMusicValidate()
+	{
+		GameConfig.Instance.isAudioOn = !Toggles [0].isOn;
 
 	}
 
 
-	public void soundFXValidate(){
-
-		if (Toggles [1].isOn) {
-			gameConfigs.isAudioFXOn = false;
-		} else {
-			gameConfigs.isAudioFXOn = true;
-		}
-
+	public void soundFXValidate()
+	{
+		GameConfig.Instance.isAudioFXOn = !Toggles [1].isOn;
 	}
 
-	public void VoicesValidate(){
-
-		if (Toggles [2].isOn) {
-			gameConfigs.isAudioVoiceOn = false;
-		} else {
-			gameConfigs.isAudioVoiceOn = true;
-		}
-
+	public void VoicesValidate()
+	{
+		GameConfig.Instance.isAudioVoiceOn = !Toggles [2].isOn;
 	}
 
 	public void OpenConfig(){
 
-		if (gameConfigs.isAudioOn) {
-			Toggles [0].isOn = false;
-		} else {
-			Toggles [0].isOn = true;
-		}
+		Toggles [0].isOn = !gameConfigs.isAudioOn;
 
-		if (gameConfigs.isAudioFXOn) {
-			Toggles [1].isOn = false;
-		} else {
-			Toggles [1].isOn = true;
-		}
+		Toggles [1].isOn = !gameConfigs.isAudioFXOn;
 
-		if (gameConfigs.isAudioVoiceOn) {
-			Toggles [2].isOn = false;
-		} else {
-			Toggles [2].isOn = true;
-		}
+		Toggles [2].isOn = !gameConfigs.isAudioVoiceOn;
 
 		UpdateState (menuState.config);
 

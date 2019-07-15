@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector.Editor;
+﻿#if UNITY_EDITOR
+using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using System;
@@ -133,3 +134,5 @@ public class ScriptableObjectCreator : OdinMenuEditorWindow
         }
     }
 }
+
+#endif

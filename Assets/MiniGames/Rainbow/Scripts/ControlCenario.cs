@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.DeAudio;
 
 public class ControlCenario : MonoBehaviour {
 
@@ -8,7 +9,7 @@ public class ControlCenario : MonoBehaviour {
 	public SoundManager audioArco;
 	public AudioClip arcoiris;
 	public AudioClip somCria;
-	private AudioSource audioSource;
+	private DeAudioSource audioSource;
 	public GameObject arcoirisG;
 
 	void Start () {
@@ -24,9 +25,7 @@ public class ControlCenario : MonoBehaviour {
 	}
 
 	public void StarSom(){
-		if (audioSource != null) {
-			audioSource.Stop ();
-		}
+		audioSource?.Stop ();
 		audioArco.startSoundFX (arcoiris);
 	//	GetComponent<Animator> ().SetInteger ("introCheck", 2);
 	}

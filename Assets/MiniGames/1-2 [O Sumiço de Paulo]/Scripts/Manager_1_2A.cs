@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Utils;
 using DG.Tweening;
 using MEC;
 using MiniGames.Scripts;
 using Sirenix.OdinInspector;
 using TMPro;
+using TutorialSystem.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -143,52 +145,61 @@ public class Manager_1_2A : OverridableMonoBehaviour {
     public Image FadeOutBlurImage;
     public Text textFinalMessage;
     private IEnumerator timeToPointsRoutine;
+    public GameObject[] activatedItems;
+    public GameObject[] deactiveItems;
+    public DialogComponent dialogComponent;
+    public DialogInfo dialogInfo;
+    public DialogSplitter splitter;
 
 
     [TextArea()]
     public string[] textos;
     void Start () {
-		isGameRunning = false;
+	    dialogComponent = FindObjectOfType(typeof(DialogComponent)) as DialogComponent;
+	    if (dialogComponent != null) dialogComponent.endTutorial = () => { BT_Inicar(); };
+	    if (dialogComponent != null) dialogComponent.StartDialogSystem(dialogInfo);
+	    splitter = FindObjectOfType(typeof(DialogSplitter)) as DialogSplitter;
+	    isGameRunning = false;
         Input.multiTouchEnabled = false;
 
         Resources.UnloadUnusedAssets();
 
         minigame = config.allMinigames[1];
 
-        tutorPanelAnimator = tutorPanel.GetComponent<Animator>();
-		_color = buttonsOnPanel[0].exclamationPoint.color;
-		if(PlayerPrefs.HasKey("TutorSP_0")==false){
-			PlayerPrefs.SetInt("TutorSP_0",0);
-			tutorPanelAnimator.SetInteger(emCenaHash, 1);
-			btIniciar.SetActive(false);
-		
-			tutorTex.DOFade(1f, .5f);
-		
-		}
-		else{
-			PlayerPrefs.SetInt("TutorSP_0",1);
-			tutorIni_0 = PlayerPrefs.GetInt("TutorSP_0",1);	
-			tutorPanelAnimator.SetInteger(emCenaHash, 0);
-			btAvancar.SetActive(false);
-			btIniciar.SetActive(true);
-			tutorTex.DOFade(0f, .5f);
-			
-		}
-		if(PlayerPrefs.HasKey("TutorSP_1")==false){
-			PlayerPrefs.SetInt("TutorSP_1",0);
-			tutorPanelAnimator.SetInteger(emCenaHash, 1);
-			btAvancar.SetActive(true);
-			tutorTex.DOFade(1f, .5f);
-		}
-		else{
-			PlayerPrefs.SetInt("TutorSP_1",1);	
-		//	tutorIni_1 = PlayerPrefs.GetInt("TutorSP_1",1);		
-			tutorPanelAnimator.SetInteger(emCenaHash, 0);	
-			btAvancar.SetActive(false);
-			btIniciar.SetActive(true);
-			tutorTex.DOFade(0f, .5f);
-		
-		}
+//        tutorPanelAnimator = tutorPanel.GetComponent<Animator>();
+//		_color = buttonsOnPanel[0].exclamationPoint.color;
+//		if(PlayerPrefs.HasKey("TutorSP_0")==false){
+//			PlayerPrefs.SetInt("TutorSP_0",0);
+//			tutorPanelAnimator.SetInteger(emCenaHash, 1);
+//			btIniciar.SetActive(false);
+//
+//			tutorTex.DOFade(1f, .5f);
+//
+//		}
+//		else{
+//			PlayerPrefs.SetInt("TutorSP_0",1);
+//			tutorIni_0 = PlayerPrefs.GetInt("TutorSP_0",1);
+//			tutorPanelAnimator.SetInteger(emCenaHash, 0);
+//			btAvancar.SetActive(false);
+//			btIniciar.SetActive(true);
+//			tutorTex.DOFade(0f, .5f);
+//
+//		}
+//		if(PlayerPrefs.HasKey("TutorSP_1")==false){
+//			PlayerPrefs.SetInt("TutorSP_1",0);
+//			tutorPanelAnimator.SetInteger(emCenaHash, 1);
+//			btAvancar.SetActive(true);
+//			tutorTex.DOFade(1f, .5f);
+//		}
+//		else{
+//			PlayerPrefs.SetInt("TutorSP_1",1);
+//		//	tutorIni_1 = PlayerPrefs.GetInt("TutorSP_1",1);
+//			tutorPanelAnimator.SetInteger(emCenaHash, 0);
+//			btAvancar.SetActive(false);
+//			btIniciar.SetActive(true);
+//			tutorTex.DOFade(0f, .5f);
+//
+//		}
 
 		foreach (var t in Levels)
 		{
@@ -205,11 +216,20 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 
     public void BT_Inicar  () {
 		Timing.RunCoroutine (startGame ());
+		activatedItems.ForEach(o =>
+		{
+			o.SetActive(true);
+		});
+		deactiveItems.ForEach(o =>
+		{
+			o.SetActive(false);
+		});
+		this.enabled = true;
 		//nextManager.StartCoroutine(nextManager.lateStart());
-		slideColorStart = fillImageSlider.color;			
+		slideColorStart = fillImageSlider.color;
 		log.ClearAll ();
 		log.StartTimerLudica (true);
-		}
+	}
 
 	
 		public void StartGameOn  () {
@@ -379,7 +399,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 		
 		textErrou.gameObject.SetActive(false);
 		
-		tutorPanelAnimator.SetInteger (emCenaHash, 0);
+//		tutorPanelAnimator.SetInteger (emCenaHash, 0);
 
 		//tutorIni_0 = 1;
 		buttonsOnPanelFinded.Clear();
@@ -845,7 +865,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
         log.pontosLudica = scoreAmount;
         canBeStarted = true;
         Debug.Log("Starting Didatica.");
-        tutorPanel.GetComponent<Image>().enabled = false;
+//        tutorPanel.GetComponent<Image>().enabled = false;
         Timing.RunCoroutine(nextManager.lateStart());
         //TutorialCheking();
         //Timing.RunCoroutine(FinalMessageEffectTransition());		

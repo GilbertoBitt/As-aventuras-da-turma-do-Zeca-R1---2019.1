@@ -541,6 +541,12 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
         fadeImage.DOFade(0f, fadeOutDuration).SetEase(fadeOutCurve);
         fadeImage.gameObject.SetActive(false);
+        manager.dialogComponent.imageComponent.enabled = true;
+        manager.dialogComponent.endTutorial = () =>
+        {
+	        log.StartTimerDidatica (true);
+        };
+        manager.dialogComponent.StartDialogSystem(manager.splitter.dialog);
 		yield return Timing.WaitForOneFrame;
 	}
 
@@ -721,7 +727,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
         yield return Timing.WaitForSeconds(fadeInDuration);
 
-        TutorialCheking();
+//        TutorialCheking();
 
         fadeImage.color = Color.clear;
 		formList.Shuffle();
@@ -734,8 +740,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
         //manager.tutorPanelAnimator.SetInteger("emCena",0);
         manager.enabled = false;
         Timing.RunCoroutine(StartGame());
-		log.StartTimerDidatica (true);
-		
+
 	}
 
     public void TutorialCheking() {

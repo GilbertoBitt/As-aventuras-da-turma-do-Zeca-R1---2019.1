@@ -29,7 +29,7 @@ namespace TutorialSystem.Scripts
     public class SpeechSpriteAsset
     {
         public bool enabled;
-        public TMP_SpriteAsset spriteAsset;
+        public Sprite spriteAsset;
     }
 
     [Serializable, Toggle("enabled")]

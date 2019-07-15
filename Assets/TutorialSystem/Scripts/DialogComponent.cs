@@ -18,6 +18,7 @@ namespace TutorialSystem.Scripts
         public ICharacterAnimation characterComponent;
         [ReadOnly]
         public DialogSettings dialogSetting;
+
         public DoTextDuration doTextDuration;
         public bool autoStart;
         public DialogInfo currentDialogInfo;
@@ -27,6 +28,8 @@ namespace TutorialSystem.Scripts
         public string stopEventName => $"{subscribeEventName}Stopped";
         public string startEventName => $"{subscribeEventName}Started";
         public TextMeshProUGUI textMeshComponent;
+        public TextMeshProUGUI textMeshComponentHalfSized;
+        public Image spriteImage;
         [ReadOnly]
         public Sequence dialogSequenceAnimation;
         [ReadOnly] public EventBus eventBus;
@@ -41,9 +44,26 @@ namespace TutorialSystem.Scripts
         public Action endTutorial;
 
         private bool _startInit = false;
+        public Image imageComponent;
 
         private void Start()
         {
+
+            previousDialogButton.OnClickAsObservable().Subscribe(_ =>
+            {
+                PreviousDialog();
+                Debug.Log("Play Previous Speech");
+            });
+            nextDialogButton.OnClickAsObservable().Subscribe(_ =>
+            {
+                NextDialog();
+                Debug.Log("Play Next Speech");
+            });
+            replayDialogButton.OnClickAsObservable().Subscribe(_ =>
+            {
+                ReplayVoiceTutorial();
+                Debug.Log("Replay current Speech");
+            });
             Init();
         }
 
@@ -51,6 +71,8 @@ namespace TutorialSystem.Scripts
         {
             if (_startInit) return;
             _startInit = true;
+            imageComponent = GetComponent(typeof(Image)) as Image;
+
             characterComponent = GetComponentInChildren<ICharacterAnimation>();
             startGame.OnClickAsObservable().Subscribe(unit =>
             {
@@ -64,24 +86,18 @@ namespace TutorialSystem.Scripts
                 IoC.inject.SetSingleton(dialogSetting);
             }
 
-            previousDialogButton.OnClickAsObservable().Subscribe(unit => { PreviousDialog(); });
-            nextDialogButton.OnClickAsObservable().Subscribe(unit => { NextDialog(); });
-            replayDialogButton.OnClickAsObservable().Subscribe(unit => { ReplayVoiceTutorial(); });
-
             characterNameComponent.SetText(characterComponent.GetCharacterName());
 
             if (!autoStart || currentDialogInfo == null) return;
 
             this.ExecuteDelayed(() =>
             {
+                currentIndex = 0;
                 eventBus.Publish(startEventName);
                 DOTween.Kill("tutorialSystem");
                 StartDialogSystem();
             }, 1f);
         }
-
-
-
 
         [ButtonGroup("DialogControl")]
         public void PreviousDialog()
@@ -96,7 +112,9 @@ namespace TutorialSystem.Scripts
         [ButtonGroup("DialogControl")]
         public void StartDialogSystem(DialogInfo dialogInfo = null)
         {
+
             Init();
+            currentIndex = 0;
             if (dialogInfo != null)
             {
                 currentDialogInfo = dialogInfo;
@@ -144,6 +162,8 @@ namespace TutorialSystem.Scripts
                 {
                     previousDialogButton.gameObject.SetActive(currentIndex != 0);
                     nextDialogButton.gameObject.SetActive(currentIndex != indexEnd-1);
+                    textMeshComponent.SetText(string.Empty);
+                    textMeshComponentHalfSized.SetText(string.Empty);
                 });
 
                 var speech = currentDialogInfo.speeches[index];
@@ -154,16 +174,20 @@ namespace TutorialSystem.Scripts
                             DeAudioManager.Play(DeAudioGroupId.Dialogue, speech.speechAudioClip.audioClip);
                             characterComponent.StartTalking();
                         });
-                    dialogSequenceAnimation.Join(textMeshComponent.DOText(speech.speechText,
-                        doTextDuration.enabled ? doTextDuration.timeBetweenSpeechs : dialogSetting.doTextDuration));
+                    dialogSequenceAnimation.Join(GetSelectedTextMeshComponent(speech).DOText(speech.speechText,
+                        doTextDuration.enabled ? doTextDuration.timeBetweenSpeechs : dialogSetting.doTextDuration).From(string.Empty));
+                    AppendSpriteImage(speech, ref dialogSequenceAnimation);
                     dialogSequenceAnimation.AppendInterval(speech.speechAudioClip.audioClip.length);
                     dialogSequenceAnimation.AppendCallback(() => characterComponent.StopTalking());
                 }
                 else
                 {
-                    dialogSequenceAnimation.Append(textMeshComponent.DOText(speech.speechText,
-                            doTextDuration.enabled ? doTextDuration.timeBetweenSpeechs : dialogSetting.doTextDuration)
+                    dialogSequenceAnimation.Append(GetSelectedTextMeshComponent(speech).DOText(speech.speechText,
+                            doTextDuration.enabled ? doTextDuration.timeBetweenSpeechs : dialogSetting.doTextDuration).From(string.Empty)
                         .OnStart(() => characterComponent.StartTalking()).OnComplete(() => characterComponent.StopTalking()));
+                    AppendSpriteImage(speech, ref dialogSequenceAnimation);
+                    //TODO add duration time default and by speech
+                    dialogSequenceAnimation.AppendInterval(dialogSetting.textDefaultDuration);
                 }
 
                 dialogSequenceAnimation.AppendInterval(dialogSetting.timeBetweenSpeechs);
@@ -171,8 +195,25 @@ namespace TutorialSystem.Scripts
                 dialogSequenceAnimation.AppendCallback(() => { currentIndex++; });
 
             }
-            dialogSequenceAnimation.OnComplete(() => {  characterComponent.StopLoopAnimation(); });
             dialogSequenceAnimation.Play();
+        }
+
+        public void AppendSpriteImage(SpeechInfo speech, ref Sequence sequence)
+        {
+            if (textMeshComponentHalfSized.color.a >= 0.1f)
+            {
+                sequence.Join(textMeshComponentHalfSized.DOFade(0f, .3f));
+            }
+            if (!speech.speechSpriteAsset.enabled) return;
+            sequence.Join(imageComponent.DOFade(1f, .3f).OnStart(() =>
+                {
+                    imageComponent.sprite = speech.speechSpriteAsset.spriteAsset;
+                }).From(0f));
+        }
+
+        public TextMeshProUGUI GetSelectedTextMeshComponent(SpeechInfo speechInfo)
+        {
+            return speechInfo.speechSpriteAsset.enabled ? textMeshComponentHalfSized : textMeshComponent;
         }
 
         public void SetDialogInfo(DialogInfo dialogInfo)

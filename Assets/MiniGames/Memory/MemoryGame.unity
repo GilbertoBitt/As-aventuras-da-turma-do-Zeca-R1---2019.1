@@ -24985,6 +24985,7 @@ GameObject:
   - component: {fileID: 599420761}
   - component: {fileID: 599420762}
   - component: {fileID: 599420755}
+  - component: {fileID: 599420754}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -25000,6 +25001,25 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599420752}
   m_Enabled: 1
+--- !u!114 &599420754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599420752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f61493d83761f04dbef6134b3724254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogList:
+  - anoLetivo: 1
+    dialogInfo: {fileID: 11400000, guid: 8a8b1dca5a2823947a950367b3e05dec, type: 2}
+  - anoLetivo: 2
+    dialogInfo: {fileID: 11400000, guid: f87290fff9cb7db4b92e6aa2e83dc54b, type: 2}
+  - anoLetivo: 3
+    dialogInfo: {fileID: 11400000, guid: f72f398eae90e154c905066428f29199, type: 2}
 --- !u!114 &599420755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25452,6 +25472,58 @@ MonoBehaviour:
   - {fileID: 1181930504}
   - {fileID: 1829855489}
   buttonTutorial: {fileID: 0}
+  dialogs: {fileID: 599420754}
+  speechInfo1:
+    speechText: "Ops! Voc\xEA n\xE3o ganhou pontos. Melhore na pr\xF3xima vez."
+    speechAudioClip:
+      enabled: 0
+      audioClip: {fileID: 0}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      eventName: 
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
+  speechInfo2:
+    speechText: "Muito bem! Voc\xEA est\xE1 se tornando um bom jogador."
+    speechAudioClip:
+      enabled: 0
+      audioClip: {fileID: 0}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      eventName: 
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
+  speechInfo3:
+    speechText: "Parab\xE9ns! Voc\xEA \xE9 muito bom no jogo da mem\xF3ria."
+    speechAudioClip:
+      enabled: 0
+      audioClip: {fileID: 0}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      eventName: 
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
 --- !u!114 &599420759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64881,7 +64953,7 @@ PrefabInstance:
     - target: {fileID: 6429267575170323271, guid: 023fa48991375294fb8387f061c841e8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.5932617
+      value: -0.59375
       objectReference: {fileID: 0}
     - target: {fileID: 6429267575170323271, guid: 023fa48991375294fb8387f061c841e8,
         type: 3}
@@ -64896,12 +64968,17 @@ PrefabInstance:
     - target: {fileID: 6429267575336171689, guid: 023fa48991375294fb8387f061c841e8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 10.691162
+      value: 10.691406
       objectReference: {fileID: 0}
     - target: {fileID: 6429267574364289595, guid: 023fa48991375294fb8387f061c841e8,
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6429267574364289595, guid: 023fa48991375294fb8387f061c841e8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.2109375
       objectReference: {fileID: 0}
     - target: {fileID: 6429267574550196529, guid: 023fa48991375294fb8387f061c841e8,
         type: 3}
@@ -64936,7 +65013,7 @@ PrefabInstance:
     - target: {fileID: 6429267575841184368, guid: 023fa48991375294fb8387f061c841e8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -8.0000305
+      value: -8.000061
       objectReference: {fileID: 0}
     - target: {fileID: 6429267575841184368, guid: 023fa48991375294fb8387f061c841e8,
         type: 3}
@@ -64992,6 +65069,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6429267574953976907, guid: 023fa48991375294fb8387f061c841e8,
+        type: 3}
+      propertyPath: blinkSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6429267574953976907, guid: 023fa48991375294fb8387f061c841e8,
+        type: 3}
+      propertyPath: talkingSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 023fa48991375294fb8387f061c841e8, type: 3}
@@ -97637,7 +97724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1937522612, guid: bc89871f8c5678d48bbaf40bb003069f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -2.0133057
+      value: -2.0136719
       objectReference: {fileID: 0}
     - target: {fileID: 1994575651026610187, guid: bc89871f8c5678d48bbaf40bb003069f,
         type: 3}

@@ -11,5 +11,7 @@ namespace TutorialSystem.Scripts
         [Range(0.1f, 5f)]
         public float doTextDuration = 1f;
 
+        public float textDefaultDuration = 5f;
+
     }
 }

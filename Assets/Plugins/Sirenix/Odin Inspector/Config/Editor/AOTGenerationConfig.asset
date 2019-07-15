@@ -16,7 +16,7 @@ MonoBehaviour:
   deleteDllAfterBuilds: 1
   AutomateForAllAOTPlatforms: 1
   automateForPlatforms: 0900000014000000
-  lastScan: 636983729679996518
+  lastScan: 636988018361654867
   supportSerializedTypes:
   - TypeName: BlankSpace1_4B, Assembly-CSharp
     IsCustom: 0
@@ -28,6 +28,9 @@ MonoBehaviour:
     IsCustom: 0
     Emit: 1
   - TypeName: MiniGames.Scripts.ButtonTMPComponentPool, Assembly-CSharp
+    IsCustom: 0
+    Emit: 1
+  - TypeName: DG.DeAudio.DeAudioSource, DeAudio
     IsCustom: 0
     Emit: 1
   - TypeName: System.Collections.Generic.Dictionary`2[[SpacialForms, Assembly-CSharp],[System.Collections.Generic.List`1[[UnityEngine.Sprite,

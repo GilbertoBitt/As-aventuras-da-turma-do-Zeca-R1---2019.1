@@ -3,17 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using MEC;
 using System.IO;
+using com.csutil;
+using DG.DeAudio;
 using DG.Tweening;
+using UniRx;
 
 public class SoundManager : OverridableMonoBehaviour {
 
 	public AudioClip backgroundMusic;
     public AudioClip endGameTheme;
-	public GameConfig gameConfig;
-    public AudioSource musicBack;
+    public DeAudioSource musicBack;
 	public AudioClip AmbientSFX;
 	public bool hasAmbientFX = false;
-	public AudioSource AmbientSFXComp;
+	public DeAudioSource AmbientSFXComp;
 	public List<AudioSource> fxsList = new List<AudioSource>();
     public List<AudioSource> voiceFxs = new List<AudioSource>();
 	public int amountOfSoundFxs;
@@ -43,41 +45,38 @@ public class SoundManager : OverridableMonoBehaviour {
 
     IEnumerator<float> delayStart()
     {   
-        musicBack = this.GetComponent<AudioSource> ();
-        if (hasBackaudio && musicBack == null) {
-            musicBack = this.gameObject.GetComponent<AudioSource>();
-        }
+        yield return Timing.WaitForSeconds(1.5f);
 
-        yield return Timing.WaitForSeconds(1.5f);       
-
-        if (hasAmbientFX && gameConfig.isAudioFXOn && AmbientSFXComp != null)
+        if (hasAmbientFX && GameConfig.Instance.isAudioFXOn)
         {
-                AmbientSFXComp.velocityUpdateMode = AudioVelocityUpdateMode.Dynamic;
-                AmbientSFXComp.clip = AmbientSFX;
-                AmbientSFXComp.loop = true;
-                if (!isVoicePlaying) {
-                    AmbientSFXComp.volume = hasAmbientFXVolume;
-                } else {
-                    AmbientSFXComp.volume = OnVoiceEffectVolumeAmbient;
-                }
-                AmbientSFXComp.Play();
+	        DeAudioManager.Stop(DeAudioGroupId.Ambient);
+	        AmbientSFXComp = DeAudioManager.Play(DeAudioGroupId.Ambient, AmbientSFX, !isVoicePlaying ? hasAmbientFXVolume : OnVoiceEffectVolumeAmbient, loop:true);
+//                AmbientSFXComp.velocityUpdateMode = AudioVelocityUpdateMode.Dynamic;
+//                AmbientSFXComp.clip = AmbientSFX;
+//                AmbientSFXComp.loop = true;
+//                AmbientSFXComp.volume = !isVoicePlaying ? hasAmbientFXVolume : OnVoiceEffectVolumeAmbient;
+//
+//                AmbientSFXComp.Play();
         } 
 
         if(!hasAmbientFX && AmbientSFXComp != null && AmbientSFXComp.isPlaying) {
-            AmbientSFXComp.Stop();
+//            AmbientSFXComp.Stop();
+            DeAudioManager.Stop(DeAudioGroupId.Ambient);
         }
 
-        if (hasBackaudio && backgroundMusic != null && gameConfig.isAudioOn && musicBack != null)
+        if (hasBackaudio && backgroundMusic != null && GameConfig.Instance.isAudioOn)
         {
-            musicBack.velocityUpdateMode = AudioVelocityUpdateMode.Dynamic;
-            musicBack.clip = backgroundMusic;
-            musicBack.loop = true;
-            if (!isVoicePlaying) {
-                musicBack.volume = backgroundMusicVolume;
-            } else {
-                musicBack.volume = OnVoiceEffectVolumeBackground;
-            }
-            musicBack.Play();
+	        DeAudioManager.Stop(DeAudioGroupId.Music);
+	        musicBack = DeAudioManager.Play(DeAudioGroupId.Music, backgroundMusic, !isVoicePlaying ? backgroundMusicVolume : OnVoiceEffectVolumeBackground, loop:true);
+//            musicBack.velocityUpdateMode = AudioVelocityUpdateMode.Dynamic;
+//            musicBack.clip = backgroundMusic;
+//            musicBack.loop = true;
+//            musicBack.volume = !isVoicePlaying ? backgroundMusicVolume : OnVoiceEffectVolumeBackground;
+//            musicBack.Play();
+        }
+        else
+        {
+	        DeAudioManager.Stop(DeAudioGroupId.Music);
         }
 
         isStarted = true;
@@ -94,22 +93,25 @@ public class SoundManager : OverridableMonoBehaviour {
         StartLate();       
     }
 
-	public AudioSource returnRightSource(AudioClip _clip){
+	public DeAudioSource returnRightSource(AudioClip _clip)
+	{
 
-		if (openWith.ContainsKey(_clip)) {
-			AudioSource d = openWith[_clip];
-			return d;
-		} else {
-			GameObject effectSound = new GameObject ("EffectSound");
-			effectSound.transform.SetParent (this.transform.GetChild (0));
-			effectSound.AddComponent<AudioSource> ();
-			AudioSource d = effectSound.GetComponent<AudioSource>();
+		return DeAudioManager.Play(DeAudioGroupId.FX, _clip);
 
-			d.playOnAwake = false;
-			d.clip = _clip;
-			openWith.Add(_clip, d);
-			return d;
-		}
+//		if (openWith.ContainsKey(_clip)) {
+//			AudioSource d = openWith[_clip];
+//			return d;
+//		} else {
+//			GameObject effectSound = new GameObject ("EffectSound");
+//			effectSound.transform.SetParent (this.transform.GetChild (0));
+//			effectSound.AddComponent<AudioSource> ();
+//			AudioSource d = effectSound.GetComponent<AudioSource>();
+//
+//			d.playOnAwake = false;
+//			d.clip = _clip;
+//			openWith.Add(_clip, d);
+//			return d;
+//		}
 
 	}
 
@@ -160,291 +162,181 @@ public class SoundManager : OverridableMonoBehaviour {
 
     }
 
-    public AudioSource returnRightSource(AudioClip _clip, float _volume){
+    public DeAudioSource returnRightSource(AudioClip _clip, float _volume)
+    {
+	    return DeAudioManager.Play(_clip, _volume);
 
-		if (openWith.ContainsKey(_clip)) {
-			AudioSource d = openWith[_clip];
-			d.volume = _volume;
-			return d;
-		} else {
-			GameObject effectSound = new GameObject ("EffectSound");
-			effectSound.transform.SetParent (this.transform.GetChild (0));
-			effectSound.AddComponent<AudioSource> ();
-			AudioSource d = effectSound.GetComponent<AudioSource>();
-			d.playOnAwake = false;
-			d.clip = _clip;
-			d.volume = _volume;
-			d.velocityUpdateMode = AudioVelocityUpdateMode.Fixed;
-			openWith.Add(_clip, d);
-			return d;
-		}
+//		if (openWith.ContainsKey(_clip)) {
+//			AudioSource d = openWith[_clip];
+//			d.volume = _volume;
+//			return d;
+//		} else {
+//			GameObject effectSound = new GameObject ("EffectSound");
+//			effectSound.transform.SetParent (this.transform.GetChild (0));
+//			effectSound.AddComponent<AudioSource> ();
+//			AudioSource d = effectSound.GetComponent<AudioSource>();
+//			d.playOnAwake = false;
+//			d.clip = _clip;
+//			d.volume = _volume;
+//			d.velocityUpdateMode = AudioVelocityUpdateMode.Fixed;
+//			openWith.Add(_clip, d);
+//			return d;
+//		}
 
-	}
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    /// 
+    }
 
-    public override void UpdateMe(){
-		if (isStarted) {
-			fixSound();
-		}
-	}
-
-	void fixSound(){
-
-        if(musicBack == null){
-             musicBack = this.gameObject.GetComponent<AudioSource>();
-             musicBack.clip = backgroundMusic;
-        }
-
-        if (!hasReferences && !_pause) {
-			hasReferences = true;
-			
-			if(hasAmbientFX){
-				if (gameConfig.isAudioFXOn) {
-					AmbientSFXComp.velocityUpdateMode = AudioVelocityUpdateMode.Dynamic;
-					AmbientSFXComp.clip = AmbientSFX;
-					AmbientSFXComp.loop = true;
-                    if (!isVoicePlaying) {
-                        AmbientSFXComp.volume = hasAmbientFXVolume;
-                    } else {
-                        AmbientSFXComp.volume = OnVoiceEffectVolumeAmbient;
-                    }
-					AmbientSFXComp.Play();
-
-				}
-			}
-
-            if (!hasAmbientFX && AmbientSFXComp != null && AmbientSFXComp.isPlaying) {
-                AmbientSFXComp.Stop();
-            }
-
-            if (hasBackaudio && backgroundMusic != null && gameConfig.isAudioOn) {
-				musicBack.velocityUpdateMode = AudioVelocityUpdateMode.Dynamic;
-				musicBack.clip = backgroundMusic;	
-				musicBack.loop = true;
-                if (!isVoicePlaying) {
-                    musicBack.volume = backgroundMusicVolume;
-                } else {
-                    musicBack.volume = OnVoiceEffectVolumeBackground;
-                }
-                musicBack.Play ();
-			}
-
-			isStarted = true;
-		}
-
-        if (!_pause) {
-            if (hasBackaudio && backgroundMusic != null && musicBack.isPlaying == true && gameConfig.isAudioOn == false)  {
-                musicBack.clip = backgroundMusic;
-                musicBack.Stop();
-            } else if (hasBackaudio && backgroundMusic != null && musicBack.isPlaying == false && gameConfig.isAudioOn == true) {
-                musicBack.clip = backgroundMusic;
-                musicBack.Play();
-            }
-
-            if (!hasAmbientFX && AmbientSFXComp != null && AmbientSFXComp.isPlaying) {
-                AmbientSFXComp.Stop();
-            }
-
-            if (hasAmbientFX) {
-                if (AmbientSFXComp.isPlaying && gameConfig.isAudioFXOn == false) {
-                    AmbientSFXComp.Stop();
-                } else if (AmbientSFXComp.isPlaying == false && gameConfig.isAudioFXOn == true) {
-                    AmbientSFXComp.Play();
-                }
-            }
-        }
-	}
 
 
 	public void stopCurrentFxs(){
-		foreach (var item in fxsList) {
-			item.Stop ();
-		}
+		DeAudioManager.Stop(DeAudioGroupId.FX);
+//		foreach (var item in fxsList) {
+//			item.Stop ();
+//		}
 	}
 
 	public void playCurrentsFxs(){
-		foreach (var item in fxsList) {
-			item.Play ();
-		}
+		DeAudioManager.Resume(DeAudioGroupId.Dialogue);
+//		foreach (var item in fxsList) {
+//			item.Play ();
+//		}
 	}
 
 	public void changeBackgroundMusic(AudioClip song, bool isLoop){
-		if (gameConfig.isAudioOn) {
-			musicBack.Stop ();
-			musicBack.clip = song;
-			musicBack.loop = isLoop;
-			musicBack.Play ();
-		}
-		fixSound();
+		if (!GameConfig.Instance.isAudioOn) return;
+		musicBack.Stop ();
+		musicBack.loop = isLoop;
+//		fixSound();
 	}
 
 
 	public void changeBackgroundMusic(AudioClip song){
-		if (gameConfig.isAudioOn) {
-			musicBack.Stop ();
-			musicBack.clip = song;
-			musicBack.loop = true;
-			musicBack.Play ();
-		}
-		fixSound();
+		if (!GameConfig.Instance.isAudioOn) return;
+		musicBack.Stop ();
+		musicBack.loop = true;
+//		fixSound();
 	}
 
     public void VoiceOverHandler() {
-        int tempCount = voiceFxs.Count;
-
-        for (int i = 0; i < tempCount; i++) {
-            if (voiceFxs[i] != null) {
-                voiceFxs[i].Stop();
-            }
-        }
+	    DeAudioManager.Stop(DeAudioGroupId.Dialogue);
     }
 
     public void StopVoiceEffects() {
-        int tempCount = voiceFxs.Count;
-
-        for (int i = 0; i < tempCount; i++) {
-            if(voiceFxs[i] != null) {
-                voiceFxs[i].Pause();
-            }            
-        }
+        DeAudioManager.Pause(DeAudioGroupId.Dialogue);
     }
 
     public void PlayVoiceEffects() {
-        int tempCount = voiceFxs.Count;
-
-        for (int i = 0; i < tempCount; i++) {
-            if (voiceFxs[i] != null) {
-                voiceFxs[i].UnPause ();
-            }
-        }
+	    DeAudioManager.Resume(DeAudioGroupId.Dialogue);
     }
 
 
     public void startSoundFX(AudioClip effectSong){
-		if (gameConfig.isAudioFXOn) {
-			//AudioSource voic = 
-            returnRightSource(effectSong).PlayOneShot(effectSong);
-            StopVoiceEffects();
-            //voiceFxs.Add(voic);
-            //oic.PlayOneShot(effectSong);
-            //StartCoroutine (playAndDelete (effectSound));
-        }
-		fixSound();
+	    if (!GameConfig.Instance.isAudioFXOn) return;
+	    //AudioSource voic =
+		DeAudioManager.Play(effectSong);
+		StopVoiceEffects();
+		//voiceFxs.Add(voic);
+		//oic.PlayOneShot(effectSong);
+		//StartCoroutine (playAndDelete (effectSound));
+//		fixSound();
 	}
 
     public void startSoundFXDelay(AudioClip effectSong){
-	    if (gameConfig.isAudioFXOn) {
-		    //AudioSource voic =
-		    var source = returnRightSource(effectSong);
-		    source.clip = effectSong;
-		    source.PlayDelayed(.3f);
-		    StopVoiceEffects();
-		    //voiceFxs.Add(voic);
-		    //oic.PlayOneShot(effectSong);
-		    //StartCoroutine (playAndDelete (effectSound));
-	    }
-	    fixSound();
+	    if (!GameConfig.Instance.isAudioFXOn) return;
+	    //AudioSource voic =
+	    this.ExecuteDelayed(() => { DeAudioManager.Play(DeAudioGroupId.FX, effectSong); }, .3f);
+
+//		    var source = returnRightSource(effectSong);
+//
+//		    source.clip = effectSong;
+//		    source.PlayDelayed(.3f);
+	    StopVoiceEffects();
+	    //voiceFxs.Add(voic);
+	    //oic.PlayOneShot(effectSong);
+	    //StartCoroutine (playAndDelete (effectSound));
+//	    fixSound();
     }
 
     public void startSoundFXDelay(AudioClip effectSong, float delay){
-	    if (gameConfig.isAudioFXOn) {
-		    //AudioSource voic =
-		    var source = returnRightSource(effectSong);
-		    source.clip = effectSong;
-		    source.PlayDelayed(delay);
-		    StopVoiceEffects();
-		    //voiceFxs.Add(voic);
-		    //oic.PlayOneShot(effectSong);
-		    //StartCoroutine (playAndDelete (effectSound));
-	    }
-	    fixSound();
+	    if (!GameConfig.Instance.isAudioFXOn) return;
+	    this.ExecuteDelayed(() => { DeAudioManager.Play(DeAudioGroupId.FX, effectSong); }, delay);
+	    //AudioSource voic =
+//	    var source = returnRightSource(effectSong);
+//	    source.clip = effectSong;
+//	    source.PlayDelayed(delay);
+//	    StopVoiceEffects();
+	    //voiceFxs.Add(voic);
+	    //oic.PlayOneShot(effectSong);
+	    //StartCoroutine (playAndDelete (effectSound));
+//	    fixSound();
     }
 
-	public AudioSource startSoundFXWithReturn(AudioClip effectSong){
-		if (gameConfig.isAudioFXOn) {
-			return returnRightSource(effectSong);
-		}
-		return null;
+	public DeAudioSource startSoundFXWithReturn(AudioClip effectSong)
+	{
+		return GameConfig.Instance.isAudioFXOn ? DeAudioManager.Play(DeAudioGroupId.FX, effectSong) : null;
 	}
 
 	public void startSoundFX(AudioClip effectSong, float volume){
-		if (gameConfig.isAudioFXOn) {
-			returnRightSource(effectSong, volume).PlayOneShot(effectSong);
+		if (GameConfig.Instance.isAudioFXOn)
+		{
+			DeAudioManager.Play(DeAudioGroupId.FX, effectSong, volume);
 		}
 	}
 
 	public void startSoundFX(AudioClip effectSong, float volume, float delay){
 		Timing.RunCoroutine (startSoundFXdelayed (effectSong, volume, delay));
-		fixSound();
+//		fixSound();
 	}
 
 	IEnumerator<float> startSoundFXdelayed(AudioClip effectSong, float volume, float delay){
 		yield return Timing.WaitForSeconds (delay);
-		if (gameConfig.isAudioFXOn) {
-			returnRightSource(effectSong, volume).PlayOneShot(effectSong);
+		if (GameConfig.Instance.isAudioFXOn) {
+			DeAudioManager.Play(DeAudioGroupId.FX, effectSong, volume);
 		}
 	}
 
 	public void startVoiceFX(AudioClip VoiceSound){
         SomBT2();
-        if (VoiceSound != null && gameConfig.isAudioVoiceOn) {
-            AudioSource voic = VoiceEffectSource(VoiceSound);
-            VoiceOverHandler();
-            voiceFxs.Add(voic);
-            voic.volume = 1f;
-            voic.clip = VoiceSound;
-            voic.Play();
-            isVoicePlaying = true;
-            Timing.KillCoroutines("soundVoice");
-            Timing.RunCoroutine(BackVolumeOverTime(VoiceSound.length), "soundVoice");
+        if (VoiceSound != null && GameConfig.Instance.isAudioVoiceOn)
+        {
+	        DeAudioManager.Play(DeAudioGroupId.Dialogue, VoiceSound);
         }
     }
 
     IEnumerator<float> BackVolumeOverTime(float time) {
         if (hasBackaudio && musicBack != null) {
-            musicBack.volume = OnVoiceEffectVolumeBackground;
+//            musicBack.volume = OnVoiceEffectVolumeBackground;
+            DeAudioManager.FadeSourcesTo(DeAudioGroupId.Music, OnVoiceEffectVolumeBackground);
         }
         if (hasAmbientFX) {
-            AmbientSFXComp.volume = OnVoiceEffectVolumeAmbient;
+//            AmbientSFXComp.volume = OnVoiceEffectVolumeAmbient;
+            DeAudioManager.FadeSourcesTo(DeAudioGroupId.Ambient, OnVoiceEffectVolumeAmbient);
         }
         yield return Timing.WaitForSeconds(time);
         if (hasBackaudio) {
-            musicBack.volume = backgroundMusicVolume;
+//            musicBack.volume = backgroundMusicVolume;/
+            DeAudioManager.FadeSourcesTo(DeAudioGroupId.Music, backgroundMusicVolume);
         }
         if (hasAmbientFX) {
-            AmbientSFXComp.volume = hasAmbientFXVolume;
+//            AmbientSFXComp.volume = hasAmbientFXVolume;
+            DeAudioManager.FadeSourcesTo(DeAudioGroupId.Ambient, hasAmbientFXVolume);
         }
         isVoicePlaying = false;
     }
 
-    public AudioSource startVoiceFXReturn(AudioClip VoiceSound) {
-        if (gameConfig.isAudioVoiceOn && gameConfig.isAudioVoiceOn!=null) {
-            AudioSource voic = VoiceEffectSource(VoiceSound);
-            VoiceOverHandler();
-            voic.volume = 1f;
-            VoiceOverHandler();
-            voiceFxs.Add(voic);
-            voic.clip = VoiceSound;
-            voic.Play();
-            isVoicePlaying = true;
-            Timing.KillCoroutines("soundVoice");
-            Timing.RunCoroutine(BackVolumeOverTime(VoiceSound.length), "soundVoice");
-            return voic;            
-        }
-        return null;
+    public DeAudioSource startVoiceFXReturn(AudioClip VoiceSound)
+    {
+	    return GameConfig.Instance.isAudioVoiceOn ? DeAudioManager.Play(DeAudioGroupId.Dialogue, VoiceSound) : null;
     }
 
     public void startVoiceFX(AudioClip VoiceSound, float volume){
-		if (gameConfig.isAudioVoiceOn) {
-            VoiceEffectSource(VoiceSound, volume).PlayOneShot(VoiceSound);
-            VoiceOverHandler();
-            Timing.KillCoroutines("soundVoice");
-            Timing.RunCoroutine(BackVolumeOverTime(VoiceSound.length), "soundVoice");
-        }
-	}
+	    if (!GameConfig.Instance.isAudioVoiceOn) return;
+	    DeAudioManager.Stop(DeAudioGroupId.Dialogue);
+	    var audio = DeAudioManager.Play(DeAudioGroupId.Dialogue, VoiceSound, volume);
+//	    VoiceEffectSource(VoiceSound, volume).PlayOneShot(VoiceSound);
+//		VoiceOverHandler();
+		Timing.KillCoroutines("soundVoice");
+		Timing.RunCoroutine(BackVolumeOverTime(VoiceSound.length), "soundVoice");
+    }
 
 	public void startVoiceFX(AudioClip VoiceSound, float volume, float delay){
 		
@@ -454,7 +346,7 @@ public class SoundManager : OverridableMonoBehaviour {
 
 	IEnumerator<float> startVoiceFXDekat(AudioClip VoiceSound, float volume, float delay){
 		yield return Timing.WaitForSeconds (delay);
-		if (gameConfig.isAudioVoiceOn) {
+		if (GameConfig.Instance.isAudioVoiceOn) {
             VoiceEffectSource(VoiceSound, volume).PlayOneShot(VoiceSound);
 		}
 	}
@@ -468,18 +360,23 @@ public class SoundManager : OverridableMonoBehaviour {
 		}
 
 		Destroy (soundFX);
-		fixSound();
+//		fixSound();
 	}
 
 	public void OnPause(){
         _pause = true;
-        stopCurrentFxs();
-        StopVoiceEffects();
-        if (musicBack == null) {
-            musicBack = GetComponent<AudioSource>();
-        }
-        musicBack.Pause();
-		AmbientSFXComp.Pause();
+        DeAudioManager.Stop(DeAudioGroupId.Dialogue);
+        DeAudioManager.Stop(DeAudioGroupId.FX);
+//        stopCurrentFxs();
+//        StopVoiceEffects();
+//        if (musicBack == null) {
+//            musicBack = GetComponent<AudioSource>();
+//        }
+		DeAudioManager.Stop(DeAudioGroupId.Music);
+		DeAudioManager.Pause(DeAudioGroupId.Ambient);
+
+//        musicBack.Pause();
+//		AmbientSFXComp.Pause();
         
 
 	}
@@ -487,59 +384,40 @@ public class SoundManager : OverridableMonoBehaviour {
 	public void OnUnPause(){
         _pause = false;
 
-        fixSound();
+//        fixSound();
 
-        if (gameConfig.isAudioFXOn){
-			playCurrentsFxs();
+
+		if(GameConfig.Instance.isAudioOn){
+			DeAudioManager.Stop(DeAudioGroupId.Music);
+			musicBack = DeAudioManager.Play(DeAudioGroupId.Music, backgroundMusic, !isVoicePlaying ? backgroundMusicVolume : OnVoiceEffectVolumeBackground);
+		}
+		else
+		{
+			DeAudioManager.Stop(DeAudioGroupId.Music);
 		}
 
-		if(gameConfig.isAudioOn){
-            if(musicBack.clip == null) {
-                musicBack.clip = backgroundMusic;
-                if (!isVoicePlaying) {
-                    musicBack.volume = backgroundMusicVolume;
-                } else {
-                    musicBack.volume = OnVoiceEffectVolumeBackground;
-                }
-                musicBack.Play();
-            } else if(!musicBack.isPlaying && musicBack.clip != null) {
-                musicBack.UnPause();
-            }			
+		if(GameConfig.Instance.isAudioFXOn && hasAmbientFX){
+			DeAudioManager.Stop(DeAudioGroupId.Ambient);
+			AmbientSFXComp = DeAudioManager.Play(DeAudioGroupId.Ambient, AmbientSFX, !isVoicePlaying ? hasAmbientFXVolume : OnVoiceEffectVolumeAmbient);
+        }
+		else
+		{
+			DeAudioManager.Stop(DeAudioGroupId.Ambient);
 		}
 
-		if(gameConfig.isAudioFXOn && hasAmbientFX){
-            if (AmbientSFXComp.clip == null) {
-                AmbientSFXComp.clip = AmbientSFX;
-                if (!isVoicePlaying) {
-                    AmbientSFXComp.volume = hasAmbientFXVolume;
-                } else {
-                    AmbientSFXComp.volume = OnVoiceEffectVolumeAmbient;
-                }
-                AmbientSFXComp.Play();
-            } else if (!AmbientSFXComp.isPlaying && AmbientSFXComp.clip != null) {
-                AmbientSFXComp.UnPause();
-            }
-        }
-
-        if (!hasAmbientFX && AmbientSFXComp != null && AmbientSFXComp.isPlaying) {
-            AmbientSFXComp.Stop();
-        }
-
-        if (gameConfig.isAudioVoiceOn) {
-            //PlayVoiceEffects();
-        }
+//        if (!hasAmbientFX && AmbientSFXComp != null && AmbientSFXComp.isPlaying) {
+//            AmbientSFXComp.Stop();
+//        }
+//
+//        if (gameConfig.isAudioVoiceOn) {
+//            //PlayVoiceEffects();
+//        }
 
         isStarted = true;
-
-        
-        
 
     }
 
     public void PlayEndGameTheme() {
-        musicBack.Stop();
-        musicBack.clip = endGameTheme;
-        musicBack.Play();
     }
 
 	public void EndAllCoroutines(){

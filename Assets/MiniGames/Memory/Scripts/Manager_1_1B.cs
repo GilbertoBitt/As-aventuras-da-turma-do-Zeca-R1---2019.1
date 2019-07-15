@@ -729,10 +729,7 @@ public class Manager_1_1B : MonoBehaviour
 
         LOG.StartTimerDidatica(true);
         cardGroup.GroupItemList.Shuffle();
-		int deactiveThisPanelsLength = deactiveThisPanels.Length;
-		for (int i = 0; i < deactiveThisPanelsLength; i++){
-			deactiveThisPanels[i].SetActive(false);
-		}
+
 		
 		contCart=contCart+1;
 		StartCoroutine(Begin11B());

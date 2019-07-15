@@ -42,7 +42,7 @@ public class InfoSkillWindow : MonoBehaviour
         _canvasGroup.DOFade(1f, 0.3f).OnComplete(() =>
         {
             pauseManager.Pause();
-            pauseManager.soundManager.musicBack.Play();
+            pauseManager.soundManager.musicBack.Play(pauseManager.soundManager.backgroundMusic);
         });
     }
 

@@ -64,11 +64,11 @@ public class ExternalSoundSystemAdapter : OverridableMonoBehaviour {
     private bool IsAudioTypeOn() {
         switch (ClipType) {
             case SoundClipType.Background:
-                return SoundInstance.gameConfig.isAudioOn;
+                return GameConfig.Instance.isAudioOn;
             case SoundClipType.SoundFXs:
-                return SoundInstance.gameConfig.isAudioFXOn;
+                return GameConfig.Instance.isAudioFXOn;
             case SoundClipType.VoiceSound:
-                return SoundInstance.gameConfig.isAudioVoiceOn;
+                return GameConfig.Instance.isAudioVoiceOn;
         }
         return false;
     }

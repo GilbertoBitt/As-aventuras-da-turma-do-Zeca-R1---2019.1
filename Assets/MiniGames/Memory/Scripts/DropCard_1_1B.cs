@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO.Pipes;
+using DG.DeAudio;
 using MiniGames.Memory.Scripts;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,7 +22,7 @@ public class DropCard_1_1B : MonoBehaviour, IDropHandler, IPointerClickHandler {
 	private Image thisImageComp;
 	public Outline thisoutline;
 	public TextMeshProUGUI cardItemName;
-	private AudioSource _voicePlayer;
+	private DeAudioSource _voicePlayer;
 	private static readonly int PosCorpoZeca = Animator.StringToHash("posCorpoZeca");
 	// Use this for initialization
 	void Start () {
