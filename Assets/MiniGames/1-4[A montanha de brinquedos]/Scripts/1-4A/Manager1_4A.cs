@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using MEC;
+using TutorialSystem.Scripts;
 
 public class Manager1_4A : OverridableMonoBehaviour {
 
@@ -242,20 +243,43 @@ public class Manager1_4A : OverridableMonoBehaviour {
 
     [TextArea()]
     public string[] textos;
+    public ZecaBauMonanha[] ZecaBauMonanhaV;
+
 
     private static readonly int AbrirBau = Animator.StringToHash("AbrirBau");
     private static readonly int FecharBau = Animator.StringToHash("fecharBau");
     private static readonly int NumbBauSort = Animator.StringToHash("NumbBauSort");
     private static readonly int TransporTrue = Animator.StringToHash("TransporTrue");
 
-    // Use this for initialization
-    void Start() {
+    public DialogComponent dialogComponent;
 
-        StartCoroutine(beginGame());
-        startTowerPos = towerParent.position;
-        _chestIndex = Random.Range(0, chests.Count - 1);
-        log.StartTimerLudica(true);
-        Input.multiTouchEnabled = false;
+    // Use this for initialization
+    void Start()
+    {
+	    dialogComponent = FindObjectOfType(typeof(DialogComponent)) as DialogComponent;
+	    if (dialogComponent == null) return;
+	    dialogComponent.endTutorial = () =>
+	    {
+		    StartGame();
+		    foreach (var item in chests)
+		    {
+			    item.enabled = true;
+		    }
+
+		    foreach (var item in ZecaBauMonanhaV)
+		    {
+			    item.enabled = true;
+		    }
+	    };
+    }
+
+    private void StartGame()
+    {
+	    StartCoroutine(beginGame());
+	    startTowerPos = towerParent.position;
+	    _chestIndex = Random.Range(0, chests.Count - 1);
+	    log.StartTimerLudica(true);
+	    Input.multiTouchEnabled = false;
     }
 
 
@@ -424,11 +448,11 @@ public class Manager1_4A : OverridableMonoBehaviour {
 
         updateItemHandlerList();
         StartCoroutine(endGame());
-        InvokeRepeating("DecreaseTimeOverSeconds", 1f, 1f);
-        InvokeRepeating("ItemBonus", breakBetweenBonus, breakBetweenBonus);
-        Invoke("startRandomChest", timeToRandomizeChest);
-        InvokeRepeating("ChooseChest", timeToChestBonus, timeToChestBonus);
-        Invoke("randomChestToCLose", timeToChestClose);
+        InvokeRepeating(nameof(DecreaseTimeOverSeconds), 1f, 1f);
+        InvokeRepeating(nameof(ItemBonus), breakBetweenBonus, breakBetweenBonus);
+        Invoke(nameof(startRandomChest), timeToRandomizeChest);
+        InvokeRepeating(nameof(ChooseChest), timeToChestBonus, timeToChestBonus);
+        Invoke(nameof(randomChestToCLose), timeToChestClose);
         //StartCoroutine(RandomChestsTime());
         //yield return new WaitForSeconds (1f);
         yield return Yielders.Get(1f);
@@ -758,32 +782,30 @@ public class Manager1_4A : OverridableMonoBehaviour {
         itemHandlers.Clear();
         ItemHandlerList.Clear();
 
-        if (starAmount >= 3) {
-            //Debug.Log ("END GAME - CHAMAR DIDATICA!");
-            ChamarMaeZeca();
-        }
+//        if (starAmount >= 3) {
+//            //Debug.Log ("END GAME - CHAMAR DIDATICA!");
+//            ChamarMaeZeca();
+//        }
 
         yield return Yielders.Get(1f);
-
         if (hasEndedByTime || (currentDificult > dificults.Count - 1)) {
 
             log.StartTimerLudica(true);
             log.pontosLudica = scoreAmount;
             log.faseLudica = hasEndedByTime ? currentDificult : 4;
-            if (!checkMaeZeca) {
-                ChamarMaeZeca();
-            }
+            StopAllCoroutines();
+            nextManager.InitGame();
             // isGameEnded = true;
 
-            StopAllCoroutines();
+
         } else {
             _highlight.startChangeLevelAnimation(currentDificult + 1);
-            //yield return new WaitForSeconds(3f);
-            yield return Yielders.Get(3f);
+            yield return new WaitForSeconds(3f);
             StartCoroutine(beginGame());
             //updateStarAmount ();
         }
         pauseButton.interactable = true;
+        this.enabled = false;
 
     }
 
@@ -1031,37 +1053,34 @@ public class Manager1_4A : OverridableMonoBehaviour {
 
 		
 		isClosingChest = true;
-		if (!hasChestClose && isPlaying){
-			float randomTemp = Random.Range(0f,100f);
-            if (chestBonus != null) {
-                chestBonus.isChestBonus = false;
-                chestBonus.ToggleBonusParticle(false);
-            }
-            if (randomTemp <= chancesOfChestClose)
-			{	
-				_chestIndex = Random.Range(0,chests.Count-1);		
-				while (chests[_chestIndex].isChestClose == true || chests[_chestIndex].isChestBonus == true){
-					_chestIndex = Random.Range(0,chests.Count-1);
-				}
-				chests[_chestIndex].jucaFecharBau.enabled=true;
-				chests[_chestIndex].jucaFecharBau.SetBool(FecharBau,true);
-				chests[_chestIndex].jucaFecharBau.SetInteger(NumbBauSort,chests[_chestIndex].GetComponent<ChestHandler1_4A>().bauSort);
-				StartCoroutine (TimeEnableBau());
-			} 
-			
-			else {				
-				Invoke(nameof(randomChestToCLose), timeToChestClose);
-				isClosingChest = false;
+		if (hasChestClose || !isPlaying) return;
+		float randomTemp = Random.Range(0f,100f);
+		if (chestBonus != null) {
+			chestBonus.isChestBonus = false;
+			chestBonus.ToggleBonusParticle(false);
+		}
+		if (randomTemp <= chancesOfChestClose)
+		{
+			_chestIndex = Random.Range(0,chests.Count-1);
+			while (chests[_chestIndex].isChestClose == true || chests[_chestIndex].isChestBonus == true){
+				_chestIndex = Random.Range(0,chests.Count-1);
 			}
+			chests[_chestIndex].jucaFecharBau.enabled=true;
+			chests[_chestIndex].jucaFecharBau.SetBool(FecharBau,true);
+			chests[_chestIndex].jucaFecharBau.SetInteger(NumbBauSort,chests[_chestIndex].GetComponent<ChestHandler1_4A>().bauSort);
+			StartCoroutine (TimeEnableBau());
+		}
 
-            foreach (var t in chests)
-            {
-	            if (t.isChestBonus) {
-		            chestBonus = t;
-	            }
-            }
+		else {
+			Invoke(nameof(randomChestToCLose), timeToChestClose);
+			isClosingChest = false;
+		}
 
-
+		foreach (var t in chests)
+		{
+			if (t.isChestBonus) {
+				chestBonus = t;
+			}
 		}
 	}
 	IEnumerator TimeEnableBau(){

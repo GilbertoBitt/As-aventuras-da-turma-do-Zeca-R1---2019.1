@@ -29,7 +29,7 @@ namespace TutorialSystem.Scripts
         public string startEventName => $"{subscribeEventName}Started";
         public TextMeshProUGUI textMeshComponent;
         public TextMeshProUGUI textMeshComponentHalfSized;
-        public Image spriteImage;
+        public Image imageComponent;
         [ReadOnly]
         public Sequence dialogSequenceAnimation;
         [ReadOnly] public EventBus eventBus;
@@ -44,7 +44,8 @@ namespace TutorialSystem.Scripts
         public Action endTutorial;
 
         private bool _startInit = false;
-        public Image imageComponent;
+        public Image backgroundImageComponent;
+        public Sprite defaultBackgroundImage;
 
         private void Start()
         {
@@ -71,7 +72,7 @@ namespace TutorialSystem.Scripts
         {
             if (_startInit) return;
             _startInit = true;
-            imageComponent = GetComponent(typeof(Image)) as Image;
+            backgroundImageComponent = GetComponent(typeof(Image)) as Image;
 
             characterComponent = GetComponentInChildren<ICharacterAnimation>();
             startGame.OnClickAsObservable().Subscribe(unit =>
@@ -95,8 +96,34 @@ namespace TutorialSystem.Scripts
                 currentIndex = 0;
                 eventBus.Publish(startEventName);
                 DOTween.Kill("tutorialSystem");
-                StartDialogSystem();
+                StartDialogSystem(defaultBackgroundImage, currentDialogInfo);
             }, 1f);
+        }
+
+        public void UpdateImageBackground(Sprite spriteImage)
+        {
+            if (backgroundImageComponent == null) return;
+            backgroundImageComponent.sprite = spriteImage;
+        }
+
+        public void StartDialogSystem()
+        {
+            StartDialogSystem();
+        }
+
+        public void StartDialogSystem(Sprite backgroundImage = null, DialogInfo dialogInfo = null)
+        {
+            if (backgroundImage == null)
+            {
+                backgroundImageComponent.enabled = false;
+            }
+            else
+            {
+                backgroundImageComponent.sprite = backgroundImage;
+                backgroundImageComponent.enabled = true;
+            }
+
+            StartDialogSystem(dialogInfo);
         }
 
         [ButtonGroup("DialogControl")]
@@ -119,10 +146,7 @@ namespace TutorialSystem.Scripts
             {
                 currentDialogInfo = dialogInfo;
             }
-            if (!transform.parent.gameObject.activeInHierarchy)
-            {
-                transform.parent.gameObject.SetActive(true);
-            }
+            transform.parent.gameObject.SetActive(true);
             characterComponent.StartLoopAnimation();
             eventBus.Publish(startEventName);
             startTutorial?.Invoke();
@@ -200,9 +224,9 @@ namespace TutorialSystem.Scripts
 
         public void AppendSpriteImage(SpeechInfo speech, ref Sequence sequence)
         {
-            if (textMeshComponentHalfSized.color.a >= 0.1f)
+            if (imageComponent.color.a >= 0.1f)
             {
-                sequence.Join(textMeshComponentHalfSized.DOFade(0f, .3f));
+                sequence.Join(imageComponent.DOFade(0f, .3f));
             }
             if (!speech.speechSpriteAsset.enabled) return;
             sequence.Join(imageComponent.DOFade(1f, .3f).OnStart(() =>

@@ -17,8 +17,8 @@ MonoBehaviour:
   - speechText: Vamos brincar de atirar com o canudinho! Leia a palavra abaixo e atire
       na figura que a representa.
     speechAudioClip:
-      enabled: 0
-      audioClip: {fileID: 0}
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: 75142f7355f677643b6f555ae55b9901, type: 3}
     speechSpriteAsset:
       enabled: 0
       spriteAsset: {fileID: 0}

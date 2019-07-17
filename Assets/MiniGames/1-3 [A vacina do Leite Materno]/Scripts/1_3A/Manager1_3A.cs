@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Utils;
 using DG.Tweening;
 using MEC;
 using MiniGames.Scripts._1_3B;
 using Sirenix.OdinInspector;
+using TutorialSystem.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
@@ -211,8 +213,35 @@ namespace MiniGames.Scripts._1_3A
         public SortingGroup[] SortingGroups;
         public bool textointemCheck;
 
+        public GameObject[] activated;
+        public GameObject[] deactivated;
+        public DialogComponent dialogComponent;
+        public DialogInfo dialogInfo;
+
         void Start () {
 
+            dialogComponent = FindObjectOfType(typeof(DialogComponent)) as DialogComponent;
+            if (dialogComponent != null)
+            {
+                dialogComponent.endTutorial = () =>
+                {
+                    activated.ForEach(o => o.SetActive(true));
+                    deactivated.ForEach(o => o.SetActive(false));
+                    this.enabled = true;
+                    managerNext.enabled = true;
+                    _log.enabled = true;
+                    StartGame();
+                };
+            }
+            this.enabled = false;
+
+
+            // Timing.RunCoroutine(Timer());
+
+        }
+
+        private void StartGame()
+        {
             Input.multiTouchEnabled = true;
 
             circleFader.radiusReset();
@@ -220,57 +249,64 @@ namespace MiniGames.Scripts._1_3A
             minigame = config.allMinigames[2];
 
 
-            for (int i = 0; i < capaVacine.Length; i++)
+            foreach (var t in capaVacine)
             {
-                if (capaVacine[i] != null)
+                if (t != null)
                 {
-                    capaVacine[i].SetActive(false);
+                    t.SetActive(false);
                 }
             }
+
             topLevel.offsetMax = new Vector2(topLevel.offsetMax.x, 80f);
 
             startTime = Time.time;
-            personSel.SetActive (true);
+            personSel.SetActive(true);
             SelPersonsEv.Invoke();
 
             SelPersons2.PersonSel = PlayerPrefs.GetInt("characterSelected", 0);
-            if (SelPersons2.PersonSel == 0) {
+            if (SelPersons2.PersonSel == 0)
+            {
                 // 0 zeca
                 personSel = SelPersons2.personZeca;
                 Destroy(SelPersons2.AmigosZeca);
-
-            } else if (SelPersons2.PersonSel == 1) {
+            }
+            else if (SelPersons2.PersonSel == 1)
+            {
                 // 1 Tati
                 personSel = SelPersons2.AmigosZeca;
                 Destroy(SelPersons2.personZeca);
                 Destroy(SelPersons2.personPaulo);
                 Destroy(SelPersons2.personJoaoManu);
                 Destroy(SelPersons2.personBia);
-
-
-            } else if (SelPersons2.PersonSel == 2) {
+            }
+            else if (SelPersons2.PersonSel == 2)
+            {
                 // 2 Paulo
                 personSel = SelPersons2.AmigosZeca;
                 Destroy(SelPersons2.personZeca);
                 Destroy(SelPersons2.personTatiBia);
                 Destroy(SelPersons2.personJoaoManu);
-
-            } else if (SelPersons2.PersonSel == 3) {
+            }
+            else if (SelPersons2.PersonSel == 3)
+            {
                 // 3 Manu
                 personSel = SelPersons2.AmigosZeca;
                 Destroy(SelPersons2.personZeca);
                 Destroy(SelPersons2.personPaulo);
                 Destroy(SelPersons2.personJoao);
                 Destroy(SelPersons2.personTatiBia);
-            } else if (SelPersons2.PersonSel == 4) {
+            }
+            else if (SelPersons2.PersonSel == 4)
+            {
                 // 4 Joao
                 personSel = SelPersons2.AmigosZeca;
                 Destroy(SelPersons2.personZeca);
                 Destroy(SelPersons2.personPaulo);
                 Destroy(SelPersons2.personManu);
                 Destroy(SelPersons2.personTatiBia);
-
-            } else if (SelPersons2.PersonSel == 5) {
+            }
+            else if (SelPersons2.PersonSel == 5)
+            {
                 // 5 Bia
                 personSel = SelPersons2.AmigosZeca;
                 Destroy(SelPersons2.personZeca);
@@ -288,59 +324,56 @@ namespace MiniGames.Scripts._1_3A
             plataformController2d = personSel.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D>();
             playerCollider = personSel.GetComponent<Collider2D>();
             BoxCollider2DPlayer = personSel.GetComponent<BoxCollider2D>();
-            animPerson = personSel.GetComponent<Animator> ();
+            animPerson = personSel.GetComponent<Animator>();
             imgPersonAnimP = imgPersonAnimG[SelPersons2.PersonSel];
             // imgPersonAnimP.enabled = false;
             lifePersonIm.sprite = lifePerson[SelPersons2.PersonSel];
             plataforms.Shuffle();
             LoadQueueParticle();
-            if (Application.platform == RuntimePlatform.WindowsPlayer) {
+            if (Application.platform == RuntimePlatform.WindowsPlayer)
+            {
                 jumpObj.SetActive(false);
                 slideObj.SetActive(false);
             }
-            else{
+            else
+            {
                 jumpObj.SetActive(true);
                 slideObj.SetActive(true);
-
             }
 
 
-
-            if (Application.platform == RuntimePlatform.WindowsPlayer && PlayerPrefs.HasKey("TutorV_IniTeclado") == false) {
-
+            if (Application.platform == RuntimePlatform.WindowsPlayer && PlayerPrefs.HasKey("TutorV_IniTeclado") == false)
+            {
                 panelTeclado.SetActive(true);
                 PlayerPrefs.SetInt("TutorV_IniTeclado", 1);
                 playpreft1 = PlayerPrefs.GetInt("TutorV_IniTeclado", 1);
-
             }
-            else if(Application.platform == RuntimePlatform.WindowsPlayer && PlayerPrefs.HasKey("TutorV_IniTeclado") == true) {
+            else if (Application.platform == RuntimePlatform.WindowsPlayer && PlayerPrefs.HasKey("TutorV_IniTeclado") == true)
+            {
                 panelTeclado.SetActive(false);
 
                 IniCont();
             }
-            else {
+            else
+            {
                 panelTeclado.SetActive(false);
                 Timing.RunCoroutine(Timer());
                 UpdateLifeText();
 
                 int temp = plataforms.Count;
                 numberV = new int[temp];
-                for (int i = 0; i < temp; i++) {
+                for (int i = 0; i < temp; i++)
+                {
                     number = Random.Range(1, 3);
                     numberV[i] = i;
                     plataforms[i].numbPlataform = i;
                     plataforms[i].numbRandom = number;
-
                 }
 
                 nurseSlider.value = 0;
                 playerSlider.value = 0;
             }
-            // Timing.RunCoroutine(Timer());
-
         }
-
-
 
 
         public void IniCont() {

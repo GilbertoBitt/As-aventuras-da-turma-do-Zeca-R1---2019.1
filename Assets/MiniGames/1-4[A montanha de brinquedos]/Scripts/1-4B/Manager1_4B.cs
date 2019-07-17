@@ -979,28 +979,16 @@ public class Manager1_4B : OverridableMonoBehaviour
         });
     }
 
+
+
     public void InitGame()
     {
         anoLetivo.Value = (AnoLetivoState) GameConfig.Instance.GetAnoLetivo();
+        this.enabled = true;
+//        dialogComponent = FindObjectOfType((typeof(DialogComponent))) as DialogComponent;
 
-        oldPanelDisable.GetComponent<GraphicRaycaster>().enabled = false;
-        oldPanelDisable.SetActive(false);
-
-        switch (anoLetivo.Value)
-        {
-            case AnoLetivoState.Ano1:
-                dialogComponent.currentDialogInfo = DialogInfoYear1;
-                break;
-            case AnoLetivoState.Ano2:
-                dialogComponent.currentDialogInfo = DialogInfoYear2;
-                break;
-            case AnoLetivoState.Ano3:
-                dialogComponent.currentDialogInfo = DialogInfoYear3;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-
+        if (dialogComponent == null) return;
+        dialogComponent.transform.parent.gameObject.SetActive(true);
         dialogComponent.endTutorial = () =>
         {
             Debug.Log("Call Twice!");
@@ -1013,9 +1001,22 @@ public class Manager1_4B : OverridableMonoBehaviour
             InitGameConfig();
         };
 
-        dialogComponent.StartDialogSystem();
-
-
+        switch (anoLetivo.Value)
+        {
+            case AnoLetivoState.Ano1:
+                dialogComponent.StartDialogSystem(DialogInfoYear1);
+                break;
+            case AnoLetivoState.Ano2:
+                dialogComponent.StartDialogSystem(DialogInfoYear2);
+                break;
+            case AnoLetivoState.Ano3:
+                dialogComponent.StartDialogSystem(DialogInfoYear3);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        activateThisPanel.SetActive(true);
+        oldPanelDisable.SetActive(false);
     }
 
     public void ChangeTextTitle(string _text) {

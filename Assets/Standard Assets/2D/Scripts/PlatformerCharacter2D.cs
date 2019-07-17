@@ -350,7 +350,7 @@ namespace UnityStandardAssets._2D
 
             m_Anim.SetBool("BatendoCaixa", false);
             if (!EndedByLife){
-            m_Anim.SetBool("Levantando", true);
+                m_Anim.SetBool("Levantando", true);
             }
             m_Anim.SetInteger("NumCaindo", 0);
 

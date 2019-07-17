@@ -18,6 +18,8 @@ public class ControlCaixa : OverridableMonoBehaviour {
     public int numbCont;
     public PresetPlataforms1_3 PresetPlataforms1_3s;
     public NurseFollow1_3A NurseFollow1_3A2;
+    private static readonly int DelizandoLeite = Animator.StringToHash("DelizandoLeite");
+
     void Start () {
         this.manager = Camera.main.GetComponent<Manager1_3A>();
         this.NurseFollow1_3A2 = manager.enfermeiraG.GetComponent<NurseFollow1_3A>();
@@ -99,10 +101,7 @@ public class ControlCaixa : OverridableMonoBehaviour {
             manager.StopFlyCollision();
         }
 
-        if (manager.deslizandoLeite)
-        {
-            manager.animPerson.SetBool("DelizandoLeite", false);
-        }
+        manager.animPerson.SetBool(DelizandoLeite, false);
 
         // colliderBox.isTrigger = true;
         colliderBox.isTrigger = true;

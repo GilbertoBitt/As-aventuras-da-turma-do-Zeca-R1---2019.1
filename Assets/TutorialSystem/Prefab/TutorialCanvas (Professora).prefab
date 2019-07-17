@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 989079565553145144}
   - component: {fileID: 1680822546449878895}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ImageComponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -67,7 +67,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -469,14 +469,16 @@ MonoBehaviour:
   subscribeEventName: TutorialLudica_VDLM
   textMeshComponent: {fileID: 6429267575841184369}
   textMeshComponentHalfSized: {fileID: 5247667814127626454}
-  spriteImage: {fileID: 1680822546449878895}
+  imageComponent: {fileID: 1680822546449878895}
   previousDialogButton: {fileID: 6429267574364289607}
   nextDialogButton: {fileID: 6429267575336171701}
   replayDialogButton: {fileID: 6429267575170323267}
   startGame: {fileID: 4715410259422986760}
   subscribedDialogWindowComponents:
   - {fileID: 6429267575862639203}
-  imageComponent: {fileID: 0}
+  backgroundImageComponent: {fileID: 6429267574774867089}
+  defaultBackgroundImage: {fileID: 21300000, guid: 5538583c5e5c5d94c8d2f4f4888670ba,
+    type: 3}
 --- !u!114 &6429267574774867089
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,7 +17,9 @@ public class ControlLeiteMaterno : MonoBehaviour {
     public Vector2 posPlayer;
     public AreaEffector2D areaEffector;
     public NurseFollow1_3A NurseFollow1_3A2;
-
+    private static readonly int DelizandoLeite = Animator.StringToHash("DelizandoLeite");
+    private static readonly int Levandando = Animator.StringToHash("Levandando");
+    private static readonly int BatendoCaixa = Animator.StringToHash("BatendoCaixa");
 
 
     void Start () {
@@ -46,6 +48,7 @@ public class ControlLeiteMaterno : MonoBehaviour {
             Manager1_3AR.plataformController2d.isFlying) return;
         areaEffector.enabled = true;
         Manager1_3AR.plataformController2d.checkDeslizando = true;
+        Manager1_3AR.animPerson.SetBool(BatendoCaixa, false);
         Manager1_3AR.animPerson.SetInteger("NumCaindo", 1);
         Manager1_3AR.animPerson.SetBool("DelizandoLeite", true);
         Manager1_3AR.ButtonsEnable(false);
@@ -79,14 +82,15 @@ public class ControlLeiteMaterno : MonoBehaviour {
        // colliderBox.enabled = false;
         Manager1_3AR.numCaindo = 2;
         Manager1_3AR.StopRunning();      
-        Manager1_3AR.animPerson.SetBool("DelizandoLeite", false);
+        Manager1_3AR.animPerson.SetBool(DelizandoLeite, false);
+        Manager1_3AR.animPerson.SetBool(BatendoCaixa, false);
         Manager1_3AR.animPerson.SetInteger("NumCaindo", 1);
         yield return new WaitForSeconds(1f);
-        Manager1_3AR.animPerson.SetBool("DelizandoLeite", false);
+        Manager1_3AR.animPerson.SetBool(DelizandoLeite, false);
         colliderBox.enabled = false;
         CrossPlatformInputManager.SetAxisZero("Vertical");
         yield return new WaitForSeconds(1f);
-        Manager1_3AR.animPerson.SetBool("DelizandoLeite", false);
+        Manager1_3AR.animPerson.SetBool(DelizandoLeite, false);
         Manager1_3AR.deslizandoLeite = false;
         //  Manager1_3AR.BackRunning();
         //Manager1_3AR.ButtonsEnable(true);

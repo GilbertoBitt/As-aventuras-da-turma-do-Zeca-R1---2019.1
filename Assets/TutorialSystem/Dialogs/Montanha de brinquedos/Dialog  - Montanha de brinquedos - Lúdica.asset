@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9a6e2f094cf7d4db03d9c4f60076a3, type: 3}
+  m_Name: "Dialog  - Montanha de brinquedos - L\xFAdica"
+  m_EditorClassIdentifier: 
+  dialogSettings: {fileID: 11400000, guid: dda8c0251a791324fa5a91e813a15c8e, type: 2}
+  speeches:
+  - speechText: "Oi, Crian\xE7as! Vamos arrumar essa montanha de brinquedos?"
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: 6d778d38c25db6c44b8bdc50ffae9c8d, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      eventName: 
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
+  - speechText: "Clique em cada objeto e arraste para o ba\xFA correto."
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: 5b7cd450258453844ac9fa954fcd06ae, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      eventName: 
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
+  - speechText: Arraste primeiro os objetos de cima.
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: 5c2be68a59893e548a7c9513793479ec, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      eventName: 
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
+  - speechText: "Aten\xE7\xE3o! Os ba\xFAs podem mudar de lugar!"
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: 428385f38ef56b24794f88fb6d034134, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      eventName: 
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
+  - speechText: "Olhem! Os ba\xFAs e objetos brilhantes valem mais pontos!"
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: 04db9d335258d974c89c50aad5571fe0, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      eventName: 
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
+  - speechText: "Cuidado! O juca fecha alguns ba\xFAs!"
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: e0451b6a1fc1f1e4d9b697a780dc9e84, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      eventName: 
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
+  - speechText: "N\xE3o peguem os objetos bloqueados."
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: f184fab6ba8a28147b0b6969f682e86e, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      eventName: 
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
