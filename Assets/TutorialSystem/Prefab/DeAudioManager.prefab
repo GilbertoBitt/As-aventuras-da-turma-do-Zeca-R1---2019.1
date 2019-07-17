@@ -63,6 +63,12 @@ MonoBehaviour:
     preallocate: 1
     recycle: 1
     fooVolume: 1
+  - mixerGroup: {fileID: 0}
+    id: 0
+    maxSources: -1
+    preallocate: 1
+    recycle: 1
+    fooVolume: 1
   fooGlobalVolume: 1
   fadeEase: 1
   inspectorUpdater: 0

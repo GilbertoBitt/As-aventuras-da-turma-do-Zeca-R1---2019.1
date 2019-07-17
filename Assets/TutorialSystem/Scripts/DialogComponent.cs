@@ -96,7 +96,7 @@ namespace TutorialSystem.Scripts
                 currentIndex = 0;
                 eventBus.Publish(startEventName);
                 DOTween.Kill("tutorialSystem");
-                StartDialogSystem(defaultBackgroundImage, currentDialogInfo);
+                StartDialogSystemSprite(defaultBackgroundImage, currentDialogInfo);
             }, 1f);
         }
 
@@ -111,7 +111,7 @@ namespace TutorialSystem.Scripts
             StartDialogSystem();
         }
 
-        public void StartDialogSystem(Sprite backgroundImage = null, DialogInfo dialogInfo = null)
+        public void StartDialogSystemSprite(Sprite backgroundImage, DialogInfo dialogInfo = null)
         {
             if (backgroundImage == null)
             {
@@ -126,12 +126,24 @@ namespace TutorialSystem.Scripts
             StartDialogSystem(dialogInfo);
         }
 
+        public void StartDialogSystemSprite(DialogInfo dialogInfo = null)
+        {
+            backgroundImageComponent.sprite = defaultBackgroundImage;
+            backgroundImageComponent.enabled = true;
+
+            StartDialogSystem(dialogInfo);
+        }
+
         [ButtonGroup("DialogControl")]
         public void PreviousDialog()
         {
             var temp = currentIndex - 1;
             if (temp < 0) return;
             DOTween.Kill("tutorialSystem");
+            if (currentDialogInfo.speeches[currentIndex].speechEventSystem.enabled)
+            {
+                currentDialogInfo.speeches[currentIndex].speechEventSystem.stopEvent.Raise();
+            }
             StartDialog(currentDialogInfo, temp);
 
         }
@@ -182,15 +194,17 @@ namespace TutorialSystem.Scripts
 
             for (var index = currentDialogIndex; index < currentDialogInfo.speeches.Count; index++)
             {
+                var speech = currentDialogInfo.speeches[index];
                 dialogSequenceAnimation.AppendCallback(() =>
                 {
                     previousDialogButton.gameObject.SetActive(currentIndex != 0);
                     nextDialogButton.gameObject.SetActive(currentIndex != indexEnd-1);
                     textMeshComponent.SetText(string.Empty);
                     textMeshComponentHalfSized.SetText(string.Empty);
+                    EventSystemHandler(index);
                 });
 
-                var speech = currentDialogInfo.speeches[index];
+
                 if (speech.speechAudioClip.enabled && speech.speechAudioClip != null)
                 {
                     dialogSequenceAnimation.AppendCallback(() =>
@@ -203,6 +217,14 @@ namespace TutorialSystem.Scripts
                     AppendSpriteImage(speech, ref dialogSequenceAnimation);
                     dialogSequenceAnimation.AppendInterval(speech.speechAudioClip.audioClip.length);
                     dialogSequenceAnimation.AppendCallback(() => characterComponent.StopTalking());
+                } else if (speech.speechEventSystem.enabled)
+                {
+                    dialogSequenceAnimation.AppendCallback(() =>
+                    {
+                        speech.speechEventSystem.startEvent.Raise();
+                                endTutorial += () => { speech.speechEventSystem.stopEvent.Raise(); };
+                        });
+                    dialogSequenceAnimation.AppendInterval(speech.speechEventSystem.eventDelay.eventDelay);
                 }
                 else
                 {
@@ -221,6 +243,15 @@ namespace TutorialSystem.Scripts
             }
             dialogSequenceAnimation.Play();
         }
+
+        private void EventSystemHandler(int index)
+        {
+            var (hasItem, nextSpeechInfo) = GetNextSpeech(currentDialogInfo, index);
+            if (hasItem && nextSpeechInfo.speechEventSystem.enabled)
+                nextSpeechInfo.speechEventSystem.stopEvent.Raise();
+        }
+
+        private (bool, SpeechInfo) GetNextSpeech(DialogInfo dialogInfo, int index) => index + 1 >= dialogInfo.speeches.Count - 1 ? (hasNext: false,speechInfo: null) : (hasNext:true,speechInfo: dialogInfo.speeches[index + 1]);
 
         public void AppendSpriteImage(SpeechInfo speech, ref Sequence sequence)
         {

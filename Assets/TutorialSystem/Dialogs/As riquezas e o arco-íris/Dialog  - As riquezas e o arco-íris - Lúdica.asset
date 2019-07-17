@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9a6e2f094cf7d4db03d9c4f60076a3, type: 3}
+  m_Name: "Dialog  - As riquezas e o arco-\xEDris - L\xFAdica"
+  m_EditorClassIdentifier: 
+  dialogSettings: {fileID: 11400000, guid: dda8c0251a791324fa5a91e813a15c8e, type: 2}
+  speeches:
+  - speechText: "Qual \xE9 uma das maiores riquezas que podemos conquistar na escola?"
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: 75c0c2fa73ef2084a9d932f699788473, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      startEvent: {fileID: 0}
+      stopEvent: {fileID: 0}
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
+  - speechText: Vamos descobrir essa resposta.
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: c9cca454808da524e963308bd964c648, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      startEvent: {fileID: 0}
+      stopEvent: {fileID: 0}
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
+  - speechText: "Ajude a turma do zeca a criar um arco-\xEDris!"
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: 389ab18d498bec84d88cacf0583d0c86, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      startEvent: {fileID: 0}
+      stopEvent: {fileID: 0}
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
+  - speechText: clique na mangueira para iniciar a chuva!
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: 60afc2d58f90292458a105260e5e531d, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      startEvent: {fileID: 0}
+      stopEvent: {fileID: 0}
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
+  - speechText: 
+    speechAudioClip:
+      enabled: 0
+      audioClip: {fileID: 0}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 1
+      startEvent: {fileID: 11400000, guid: 0105f2412d492324b9d2e532b1622524, type: 2}
+      stopEvent: {fileID: 11400000, guid: e0933039dafb0a94783c16f3b9f9a55d, type: 2}
+      eventDelay:
+        enabled: 1
+        eventDelay: 5

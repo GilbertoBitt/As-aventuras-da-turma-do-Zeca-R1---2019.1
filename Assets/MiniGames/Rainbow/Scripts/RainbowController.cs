@@ -1,14 +1,26 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using com.csutil;
 using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 using MEC;
+using Sirenix.OdinInspector;
+using TutorialSystem.Scripts;
+using UnityAtoms;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 public class RainbowController : OverridableMonoBehaviour {
+
+
+	public UnityEvent jumpTutorial;
+	[FoldoutGroup("Geral")] public DialogComponent dialogComponent;
+	[FoldoutGroup("Geral")] public DialogInfo dialogInfo;
+	[FoldoutGroup("Geral")] public GameObject itemDisplay;
+	[FoldoutGroup("Geral")] public VoidEvent displayItemEvent;
+	[FoldoutGroup("Geral")] public VoidEvent hideItemEvent;
 
 	public SelPersons SelPersons;
 	public GameObject panelDesafio;
@@ -350,17 +362,29 @@ public class RainbowController : OverridableMonoBehaviour {
         //UpdateStars(scoreT);
 
 	}
- 	
 
-	void Start () {
+	private void Start()
+	{
+		dialogComponent = FindObjectOfType(typeof(DialogComponent)) as DialogComponent;
+		if (dialogComponent != null) dialogComponent.endTutorial = () =>
+		{
+			StartGameInit();
+			jumpTutorial.Invoke();
+		};
+
+		if (dialogComponent != null) dialogComponent.StartDialogSystem(dialogInfo);
+	}
+
+
+	private void StartGameInit() {
         Input.multiTouchEnabled = true;
         if (Application.platform == RuntimePlatform.WindowsPlayer) 
 		// if (Application.platform == RuntimePlatform.WindowsEditor) 
-		 {
-            for (int i = 0; i < notPc.Length; i++) {
-                notPc[i].SetActive(false);				
-            }
-			panelTeclado.SetActive(true);
+        {
+	        for (int i = 0; i < notPc.Length; i++) {
+		        notPc[i].SetActive(false);
+	        }
+	        panelTeclado.SetActive(true);
         } else {
             for (int i = 0; i < notPc.Length; i++) {
                 notPc[i].SetActive(true);				
@@ -371,18 +395,18 @@ public class RainbowController : OverridableMonoBehaviour {
         minigame = config.allMinigames[3];
 
 
-        if (PlayerPrefs.HasKey("TutorArcoIris_D") == false) {
-            PlayerPrefs.SetInt("TutorArcoIris_D", 0);
-
-        } else {
-            PlayerPrefs.SetInt("TutorArcoIris_D", 1);
-            tutor_D = PlayerPrefs.GetInt("TutorArcoIris_D", 1);
-          
-        }
-        PanelProfessora.SetActive(true);
+//        if (PlayerPrefs.HasKey("TutorArcoIris_D") == false) {
+//            PlayerPrefs.SetInt("TutorArcoIris_D", 0);
+//
+//        } else {
+//            PlayerPrefs.SetInt("TutorArcoIris_D", 1);
+//            tutor_D = PlayerPrefs.GetInt("TutorArcoIris_D", 1);
+//
+//        }
+//        PanelProfessora.SetActive(true);
         Resources.UnloadUnusedAssets();
 
-        Timing.RunCoroutine(scrptProf());
+//        Timing.RunCoroutine(scrptProf());
 	//	cenario1.SetActive(true);
 
 		//characterSelected = PlayerPrefs.GetInt("characterSelected", 0);
@@ -485,9 +509,9 @@ public class RainbowController : OverridableMonoBehaviour {
 		//confetesG.SetActive (false);
 		//this.panelDesafio.GetComponent<GameObject>().SetActive(false);
 			panelDesafio.SetActive(false);
-		posViewPort = Camera.main.WorldToViewportPoint(person.transform.position);
+			if (Camera.main != null) posViewPort = Camera.main.WorldToViewportPoint(person.transform.position);
 
-		GameConfig.LOG.personagem = GameConfig.GetCharName(PlayerPrefs.GetInt("characterSelected", 0));
+			GameConfig.LOG.personagem = GameConfig.GetCharName(PlayerPrefs.GetInt("characterSelected", 0));
         tutorPanelArcoirirs2 = PanelProfessora.GetComponent<tutorPanelArcoirirs>();
     }
 
@@ -541,38 +565,39 @@ public class RainbowController : OverridableMonoBehaviour {
 
 		}
 
-		posViewPort = Camera.main.WorldToViewportPoint(person.transform.position);
+		if(person != null)
+			posViewPort = Camera.main.WorldToViewportPoint(person.transform.position);
 
 
 #if UNITY_ANDROID || UNITY_IOS
 
             if (Input.touchCount == 1 && isPlaying == true) {
-		
-				if (Input.touches [0].position.x < Screen.width / 2 && posViewPort.x > 0.1f) {					
+
+				if (Input.touches [0].position.x < Screen.width / 2 && posViewPort.x > 0.1f) {
 					CrossPlatformInputManager.SetAxisNegative ("Horizontal");
 					//checkPersonMove=true;
 				}
-				if (Input.touches [0].position.x > Screen.width / 2 && posViewPort.x < 0.97f) {				
+				if (Input.touches [0].position.x > Screen.width / 2 && posViewPort.x < 0.97f) {
 					CrossPlatformInputManager.SetAxisPositive ("Horizontal");
 					//checkPersonMove=true;
 				}
 		} else if(Input.touchCount > 1 && isPlaying == true){
-	
-				if (Input.touches [0].position.x < Input.touches [1].position.x && posViewPort.x < 0.97f) {					
+
+				if (Input.touches [0].position.x < Input.touches [1].position.x && posViewPort.x < 0.97f) {
 					CrossPlatformInputManager.SetAxisPositive ("Horizontal");
 					//checkPersonMove=true;
-		
+
 				}
-				if (Input.touches [0].position.x > Input.touches [1].position.x && posViewPort.x > 0.1f) {					
+				if (Input.touches [0].position.x > Input.touches [1].position.x && posViewPort.x > 0.1f) {
 					CrossPlatformInputManager.SetAxisNegative ("Horizontal");
 					//checkPersonMove=true;
-			
+
 				}
 		} else if(isPlaying == true && Input.touchCount == 0){
 			posViewPort = Camera.main.WorldToViewportPoint(person.transform.position);
 			CrossPlatformInputManager.SetAxisZero ("Horizontal");
 			//checkPersonMove=false;
-	
+
 		}
 
 #endif
@@ -584,20 +609,20 @@ public class RainbowController : OverridableMonoBehaviour {
 				posViewPort = Camera.main.WorldToViewportPoint(person.transform.position);
 				CrossPlatformInputManager.SetAxisNegative ("Horizontal");
 				//checkPersonMove=true;
-			
-			}			
+
+			}
 		} else if (Input.GetKey(KeyCode.RightArrow) && isPlaying == true){
 			if(posViewPort.x < 0.97f){
 				posViewPort = Camera.main.WorldToViewportPoint(person.transform.position);
 				CrossPlatformInputManager.SetAxisPositive ("Horizontal");
 				//checkPersonMove=true;
-		
+
 			}
 		} else if(isPlaying == true && (!Input.GetKey(KeyCode.LeftArrow) || !Input.GetKey(KeyCode.RightArrow)) ) {
-		
+
 			CrossPlatformInputManager.SetAxisZero ("Horizontal");
 			//checkPersonMove=false;
-			
+
 		}
 
 		#endif
@@ -917,7 +942,9 @@ else if (checkFim==true && checkfim2==true){
 	}
 
 
-	void FixBucketPosition(){
+	void FixBucketPosition()
+	{
+		if (bucketTransform == null) return;
 		//corrigir
 		//Vector3 BucketPosition = Camera.main.WorldToScreenPoint (bucketTransform.position);
 		Vector3 BucketPosition = bucketTransform.position;

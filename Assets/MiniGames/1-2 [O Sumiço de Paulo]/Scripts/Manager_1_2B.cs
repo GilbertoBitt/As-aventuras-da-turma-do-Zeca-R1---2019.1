@@ -147,6 +147,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
     private InfoSkillWindow _infoSkillInfo;
     [TabGroup("Geral")]
     public Button infoSkillButton;
+    private bool tutorialCalled = false;
     [TabGroup("3ª Ano")] [ListDrawerSettings(Expanded = false)] public List<RandomizationSession> sessionsConfig = new List<RandomizationSession>();
 //    public List<RandomizationSession> randomizationItems = new List<RandomizationSession>();
 
@@ -541,18 +542,18 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
         fadeImage.DOFade(0f, fadeOutDuration).SetEase(fadeOutCurve);
         fadeImage.gameObject.SetActive(false);
-        manager.dialogComponent.imageComponent.enabled = true;
-        manager.dialogComponent.endTutorial = () =>
-        {
-	        log.StartTimerDidatica (true);
-        };
-        manager.dialogComponent.StartDialogSystem(manager.splitter.dialog);
+
 		yield return Timing.WaitForOneFrame;
+
+		if (tutorialCalled) yield break;
+		tutorialCalled = true;
+		manager.dialogComponent.imageComponent.enabled = true;
+		manager.dialogComponent.endTutorial = () =>
+		{
+			log.StartTimerDidatica (true);
+		};
+		manager.dialogComponent.StartDialogSystemSprite(manager.splitter.dialog);
 	}
-
-
-
-
 
     // Update is called once per frame
 

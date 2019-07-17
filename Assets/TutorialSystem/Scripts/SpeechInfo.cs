@@ -2,6 +2,7 @@
 using com.csutil;
 using Sirenix.OdinInspector;
 using TMPro;
+using UnityAtoms;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -43,23 +44,10 @@ namespace TutorialSystem.Scripts
     public class SpeechEventBus
     {
         public bool enabled;
-        public string eventName;
+        public VoidEvent startEvent;
+        public VoidEvent stopEvent;
         public SpeechEventBusDelay eventDelay;
 
-        public void Subscribe(object targetSubscriber, Action callbackAction)
-        {
-            EventBus.instance.Subscribe(targetSubscriber, eventName, callbackAction);
-        }
-
-        public void Unsubscribe(object targetSubscriber, Action callbackAction)
-        {
-            EventBus.instance.Unsubscribe(targetSubscriber, eventName);
-        }
-
-        public void FireEvent()
-        {
-            EventBus.instance.Publish(eventName);
-        }
     }
 
     [Serializable, Toggle("enabled")]

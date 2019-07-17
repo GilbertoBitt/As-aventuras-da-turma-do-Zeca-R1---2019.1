@@ -23,6 +23,8 @@ public class managerAddRainbow : MonoBehaviour
 	[FoldoutGroup("Geral")] public TextMeshProUGUI enumciadoTextComponent;
 	[FoldoutGroup("Geral")] public Button showSkillInfoButton;
 
+
+
 	[FoldoutGroup("Geral")]
 	public InfoSkillWindow infoSkillInfo;
 	[FoldoutGroup("1ª Ano")] public GameObject panelAnoLetivoOne;
