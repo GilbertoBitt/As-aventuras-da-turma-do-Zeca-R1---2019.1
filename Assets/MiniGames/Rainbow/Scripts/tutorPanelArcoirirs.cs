@@ -87,7 +87,7 @@ public class tutorPanelArcoirirs : MonoBehaviour {
         Vector3 startOffsetB = offsetFollowB;
         Vector3 endOffsetB = defaultOffsetB;
         float timesB = 0.0f;
-        balaoT.text = textprofessorTutor[numtext].ToUpper();
+//        balaoT.text = textprofessorTutor[numtext].ToUpper();
         while (timesB < transitionDurationB) {
             timesB += Time.deltaTime;
             float s = timesB / transitionDurationB;
@@ -107,7 +107,7 @@ public class tutorPanelArcoirirs : MonoBehaviour {
             avancarTutor.SetActive(true);
         }
         btPular.SetActive(false);
-        balaoT.text = textprofessorTutor[numb].ToUpper();
+//        balaoT.text = textprofessorTutor[numb].ToUpper();
         while (timesB < transitionDurationB) {
             timesB += Time.deltaTime;
             float s = timesB / transitionDurationB;
@@ -117,7 +117,7 @@ public class tutorPanelArcoirirs : MonoBehaviour {
         }
         btPularB.interactable = true;
         if(checkVoz==true)
-        soundManager.startVoiceFX(audiosTutorial[numb]);
+            soundManager.startVoiceFX(audiosTutorial[numb]);
 
     }
 
@@ -133,7 +133,7 @@ public class tutorPanelArcoirirs : MonoBehaviour {
             yield return Timing.WaitForOneFrame;
         }
         numtext = numtext + 1;
-        balaoT.text = textprofessorTutor[numtext].ToUpper();
+//        balaoT.text = textprofessorTutor[numtext].ToUpper();
 
         if (numtext < 5) {
             timesB = 0.0f;

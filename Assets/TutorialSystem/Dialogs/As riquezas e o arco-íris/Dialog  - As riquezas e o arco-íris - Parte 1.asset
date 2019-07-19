@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9a6e2f094cf7d4db03d9c4f60076a3, type: 3}
+  m_Name: "Dialog  - As riquezas e o arco-\xEDris - Parte 1"
+  m_EditorClassIdentifier: 
+  dialogSettings: {fileID: 11400000, guid: dda8c0251a791324fa5a91e813a15c8e, type: 2}
+  speeches:
+  - speechText: Muito bem, Agora vamos contar as riquezas coletadas.
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: 0d05596e6fb6ee3429dd6df01a2b3e4f, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      startEvent: {fileID: 0}
+      stopEvent: {fileID: 0}
+      eventDelay:
+        enabled: 0
+        eventDelay: 0

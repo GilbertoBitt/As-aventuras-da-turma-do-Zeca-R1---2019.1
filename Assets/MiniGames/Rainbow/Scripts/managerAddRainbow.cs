@@ -146,6 +146,7 @@ public class managerAddRainbow : MonoBehaviour
     public void StartGame ()
     {
 
+
 	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
 
 	    infoSkillInfo = IoC.inject.GetOrAddSingleton<InfoSkillWindow>(this);
@@ -166,6 +167,9 @@ public class managerAddRainbow : MonoBehaviour
 		    }
 	    });
 
+//	    dialogComponent = FindObjectOfType(typeof(DialogComponent)) as DialogComponent;
+
+	    if (dialogComponent == null) return;
 	    dialogComponent.endTutorial = () => { Timing.RunCoroutine(StartGameLate()); };
 
 	    switch (anoLetivo)
@@ -871,7 +875,8 @@ public class managerAddRainbow : MonoBehaviour
 			buttonsAlternative[i].interactable = _enable;
 		}
 	}
-		
+
+
 
 
 }

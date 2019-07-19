@@ -63,13 +63,27 @@ public class GameConfig : ScriptableObject
 	public DBOANOLETIVO currentYear;
 	public DBOPONTUACAO currentScore;
 
-	#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
-	[SeparatorAttribute("Audio Config")]
-	#endif
-    public bool isAudioOn = true;
-    public bool isAudioFXOn = true;
-    public bool isAudioVoiceOn = true;
 
+    public bool isAudioOn
+    {
+        get => isAudioOnReactive.Value;
+        set => isAudioOnReactive.Value = value;
+    }
+
+    public bool isAudioFXOn
+    {
+        get => isAudioFxOnReactive.Value;
+        set => isAudioFxOnReactive.Value = value;
+    }
+
+    public bool isAudioVoiceOn
+    {
+        get => isAudioVoiceOnOnReactive.Value;
+        set => isAudioVoiceOnOnReactive.Value = value;
+    }
+#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
+    [SeparatorAttribute("Audio Config")]
+#endif
     public BoolReactiveProperty isAudioOnReactive = new BoolReactiveProperty(true);
     public BoolReactiveProperty isAudioFxOnReactive = new BoolReactiveProperty(true);
     public BoolReactiveProperty isAudioVoiceOnOnReactive = new BoolReactiveProperty(true);

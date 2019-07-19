@@ -18,6 +18,7 @@ public class RainbowController : OverridableMonoBehaviour {
 	public UnityEvent jumpTutorial;
 	[FoldoutGroup("Geral")] public DialogComponent dialogComponent;
 	[FoldoutGroup("Geral")] public DialogInfo dialogInfo;
+	[FoldoutGroup("Geral")] public DialogInfo dialogInfoFirstPart;
 	[FoldoutGroup("Geral")] public GameObject itemDisplay;
 	[FoldoutGroup("Geral")] public VoidEvent displayItemEvent;
 	[FoldoutGroup("Geral")] public VoidEvent hideItemEvent;
@@ -307,7 +308,10 @@ public class RainbowController : OverridableMonoBehaviour {
 
 	public bool checkfim2;
 
-	
+	public void WalkCharacter()
+	{
+		checkfim2 = true;
+	}
 	
     public void MoveCamM(){
 		moveCam=true;
@@ -520,17 +524,17 @@ public class RainbowController : OverridableMonoBehaviour {
     public override void UpdateMe() {
 
 			if (transform.position.x > 0 && (checkStartGame == 1 || checkStartGame == 2) && moveCam==true) {
-			transform.position = Vector3.Lerp(transform.position, posCam.transform.position, (Time.deltaTime * movementTime));
+				transform.position = Vector3.Lerp(transform.position, posCam.transform.position, (Time.deltaTime * movementTime));
 
 		} 	
 		
         if(checkFim==false){	
 			//PanelProfessora.SetActive(true);
 			if(aprendaJogar.GetComponent<aprendaJogarArcoIris>().tutorMoveFim==true && aprendaJogar.activeInHierarchy==true && checkFim==false && tutorPanelArcoirirs2.tutor_0==0){
-			aprendaJogar.GetComponent<aprendaJogarArcoIris> ().tutorMoveFim = false;
-			aprendaJogar.SetActive (false);
-			pararcheckCam = true;
-			Timing.RunCoroutine (PlayAgain ());
+				aprendaJogar.GetComponent<aprendaJogarArcoIris> ().tutorMoveFim = false;
+				aprendaJogar.SetActive (false);
+				pararcheckCam = true;
+				Timing.RunCoroutine (PlayAgain ());
 			
 		}
 			else if(aprendaJogar.GetComponent<aprendaJogarArcoIris>().tutorMoveFim==true && aprendaJogar.activeInHierarchy==true && checkFim==false && tutorPanelArcoirirs2.tutor_0==1){
@@ -653,17 +657,17 @@ public class RainbowController : OverridableMonoBehaviour {
 			TimerUpdate ();
 			LevelVerifier ();
 
-			if (energyBar.value <= 0.01f) {
+			if (energyBar.value <= 0.01f && !checkFim) {
 
 				checkFim = true;
-			PanelProfessora.SetActive(true);
-			tutorPanelArcoirirs2.ChamarPanel2();
-                    tutorPanelArcoirirs2.avancarTutor.SetActive(false);
+				if (dialogComponent != null) dialogComponent.endTutorial = () => { checkfim2 = true; };
 
+				if (dialogComponent != null) dialogComponent.StartDialogSystem(dialogInfoFirstPart);
+//				PanelProfessora.SetActive(true);
+//				tutorPanelArcoirirs2.ChamarPanel2();
+//                tutorPanelArcoirirs2.avancarTutor.SetActive(false);
 
-
-
-            }
+			}
 		} else {
 
 			#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
@@ -702,8 +706,7 @@ public class RainbowController : OverridableMonoBehaviour {
 
 		FixBucketPosition ();
 
-}
-else if (checkFim==true && checkfim2==true){
+} else if (checkFim==true && checkfim2==true){
 
 			if (countEnd.activeInHierarchy == true && PanelProfessora.activeInHierarchy == false) {
 
@@ -783,12 +786,12 @@ else if (checkFim==true && checkfim2==true){
 				}
 
 						
-						plataformCharacter2D.m_MaxSpeed = -4;
-						plataformCharacter2D.m_Anim.SetFloat ("move", -1);
+				plataformCharacter2D.m_MaxSpeed = -4;
+				plataformCharacter2D.m_Anim.SetFloat ("move", -1);
 			
-						CrossPlatformInputManager.SetAxisNegative("Horizontal");
-						controlBalde.particule3.SetActive(true);
-						plataformCharacter2D.m_Anim.SetFloat ("move", -1);
+				CrossPlatformInputManager.SetAxisNegative("Horizontal");
+				controlBalde.particule3.SetActive(true);
+				plataformCharacter2D.m_Anim.SetFloat ("move", -1);
 						
 						
 			
@@ -1093,6 +1096,7 @@ else if (checkFim==true && checkfim2==true){
 		typeItem = 0;
 		//panelEndGame.SetActive (true);
 		waitToStart = true;
+		checkfim2 = true;
 //		countThings(amountTypeItem());
 	}
 
@@ -1685,6 +1689,8 @@ else if (checkFim==true && checkfim2==true){
 			}
 			//panelDesafio.GetComponent<Animator>().SetInteger("panelDesafioNumber",1);
 			managerNext.enabled = true;
+			managerNext.mainPanel.SetActive(true);
+			managerNext.oldPanel.SetActive(false);
 			managerNext.StartGame();
 			//TODO mostrar tela de pontuação aqui.
 			
