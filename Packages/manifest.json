@@ -1,10 +1,9 @@
 {
   "dependencies": {
-    "com.coffee.upm-git-extension": "https://github.com/mob-sakai/UpmGitExtension.git#0.9.1",
     "com.mambojambostudios.unity-atoms": "https://github.com/AdamRamberg/unity-atoms.git#v1.0.0",
     "com.unity.2d.ik": "1.1.0-preview.1",
     "com.unity.2d.psdimporter": "1.1.0-preview.3",
-    "com.unity.2d.spriteshape": "2.0.0-preview.8",
+    "com.unity.2d.spriteshape": "2.0.0-preview.9",
     "com.unity.ads": "2.0.8",
     "com.unity.analytics": "3.3.2",
     "com.unity.burst": "1.1.1",
@@ -12,10 +11,9 @@
     "com.unity.editorcoroutines": "0.0.2-preview.1",
     "com.unity.immediate-window": "1.0.1-preview.1",
     "com.unity.memoryprofiler": "0.1.0-preview.6",
-    "com.unity.mobile.android-logcat": "0.2.7-preview",
-    "com.unity.mobile.notifications": "1.0.0-preview.23",
+    "com.unity.mobile.android-logcat": "1.0.0",
     "com.unity.package-manager-ui": "2.1.2",
-    "com.unity.performance.profile-analyzer": "0.4.0-preview.5",
+    "com.unity.performance.profile-analyzer": "0.4.0-preview.6",
     "com.unity.postprocessing": "2.1.7",
     "com.unity.purchasing": "2.0.6",
     "com.unity.textmeshpro": "2.0.1",
@@ -54,10 +52,6 @@
     "com.unity.modules.xr": "1.0.0"
   },
   "lock": {
-    "com.coffee.upm-git-extension": {
-      "hash": "79fa88282ae1233e4841d87fd256b80f13cd8b62",
-      "revision": "0.9.1"
-    },
     "com.mambojambostudios.unity-atoms": {
       "hash": "bdf81a5e9cbd04207963bc56937a5ddb1948bf07",
       "revision": "v1.0.0"

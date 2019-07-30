@@ -41,8 +41,8 @@ public class InfoSkillWindow : MonoBehaviour
         _canvasGroup.blocksRaycasts = true;
         _canvasGroup.DOFade(1f, 0.3f).OnComplete(() =>
         {
-            pauseManager.Pause();
-            pauseManager.soundManager.musicBack.Play(pauseManager.soundManager.backgroundMusic);
+            pauseManager.PauseWithSound();
+//            pauseManager.soundManager.musicBack.Play(pauseManager.soundManager.backgroundMusic);
         });
     }
 
@@ -53,7 +53,7 @@ public class InfoSkillWindow : MonoBehaviour
         _canvas.enabled = true;
         _canvasGroup.interactable = true;
         _canvasGroup.blocksRaycasts = true;
-        _canvasGroup.DOFade(1f, 0.3f).OnComplete(() => { pauseManager.Pause(); });
+        _canvasGroup.DOFade(1f, 0.3f).OnComplete(() => { pauseManager.PauseWithSound(); });
     }
 
     public void HideWindowsInfo()
@@ -61,7 +61,7 @@ public class InfoSkillWindow : MonoBehaviour
 
         _canvasGroup.interactable = false;
         _canvasGroup.blocksRaycasts = false;
-        pauseManager.Unpause();
+        pauseManager.UnpauseGameWithSound();
         _canvasGroup.DOFade(0f, 0.3f).OnComplete(() =>
         {
             _canvas.enabled = false;

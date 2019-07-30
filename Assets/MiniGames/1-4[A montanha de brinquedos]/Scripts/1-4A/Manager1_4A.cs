@@ -6,6 +6,8 @@ using System.Linq;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using MEC;
+using Sirenix.OdinInspector;
+using TMPro;
 using TutorialSystem.Scripts;
 
 public class Manager1_4A : OverridableMonoBehaviour {
@@ -83,7 +85,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
     public int scoreAmount = 0;
     public int startScoreAmount = 0;
     public int amountScorePerCorrect = 0;
-    public Text scoreTextComp;
+    public TextMeshProUGUI scoreTextComp;
     public float scoreIncreaseDuration = 1.0f;
     public AnimationCurve ScoreIncreaseCurve = AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f);
     public float scoreDecreaseDuration = 1.0f;
@@ -104,7 +106,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
     [SeparatorAttribute("Configuração de Combo")]
 #endif
     public int combo = 0;
-    public Text comboTextComp;
+    public TextMeshProUGUI comboTextComp;
     public float showComboTextDuration = 1.0f;
     public AnimationCurve showComboTextCurve = AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f);
 
@@ -244,6 +246,13 @@ public class Manager1_4A : OverridableMonoBehaviour {
     [TextArea()]
     public string[] textos;
     public ZecaBauMonanha[] ZecaBauMonanhaV;
+
+    [BoxGroup("Lúdica Final")]
+    public SpeechInfo speechInfoFinalLudica1;
+    [BoxGroup("Lúdica Final")]
+    public SpeechInfo speechInfoFinalLudica2;
+    [BoxGroup("Lúdica Final")]
+    public SpeechInfo speechInfoFinalLudica3;
 
 
     private static readonly int AbrirBau = Animator.StringToHash("AbrirBau");
@@ -794,6 +803,28 @@ public class Manager1_4A : OverridableMonoBehaviour {
             log.pontosLudica = scoreAmount;
             log.faseLudica = hasEndedByTime ? currentDificult : 4;
             StopAllCoroutines();
+
+            if (currentDificult == 1)
+            {
+	            nextManager.DialogInfoYear1.speeches[0] = speechInfoFinalLudica1;
+		        nextManager.DialogInfoYear2.speeches[0] = speechInfoFinalLudica1;
+			    nextManager.DialogInfoYear3.speeches[0] = speechInfoFinalLudica1;
+            } else if (currentDificult == 2)
+            {
+				nextManager.DialogInfoYear1.speeches[0] = speechInfoFinalLudica2;
+		        nextManager.DialogInfoYear2.speeches[0] = speechInfoFinalLudica2;
+			    nextManager.DialogInfoYear3.speeches[0] = speechInfoFinalLudica2;
+            } else if (currentDificult == 3 && !hasEndedByTime)
+            {
+				nextManager.DialogInfoYear1.speeches[0] = speechInfoFinalLudica3;
+		        nextManager.DialogInfoYear2.speeches[0] = speechInfoFinalLudica3;
+			    nextManager.DialogInfoYear3.speeches[0] = speechInfoFinalLudica3;
+            }
+
+
+
+
+
             nextManager.InitGame();
             // isGameEnded = true;
 
@@ -811,7 +842,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
 
 
     public void ChamarMaeZeca() {
-	    nextManager.InitGame();
+//	    nextManager.InitGame();
 //        painelMaeZeza.SetActive(true);
 //        checkMaeZeca = true;
 //

@@ -10,6 +10,7 @@ using TMPro;
 using DG.Tweening;
 using MiniGames.Scripts;
 using Sirenix.OdinInspector;
+using TutorialSystem.Scripts;
 using UniRx;
 using Random = UnityEngine.Random;
 
@@ -145,6 +146,14 @@ public class Manager_1_2B : OverridableMonoBehaviour
     public Image fundoProf;
     public Sprite ImageFundo;
     private InfoSkillWindow _infoSkillInfo;
+
+    [BoxGroup("Final Ludica")]
+    public SpeechInfo speechInfoLudicaFinal1;
+    [BoxGroup("Final Ludica")]
+    public SpeechInfo speechInfoLudicaFinal2;
+    [BoxGroup("Final Ludica")]
+    public SpeechInfo speechInfoLudicaFinal3;
+
     [TabGroup("Geral")]
     public Button infoSkillButton;
     private bool tutorialCalled = false;
@@ -552,6 +561,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		{
 			log.StartTimerDidatica (true);
 		};
+
 		manager.dialogComponent.StartDialogSystemSprite(manager.splitter.dialog);
 	}
 
@@ -711,22 +721,25 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
         if (log.faseLudica == 4) {
             //terminou tudo. todas as 3 fases e encontrou todos os personagens.
-            manager.textFinalMessage.text = "Parabéns, Você encontrou toda a turma.";
+//            manager.textFinalMessage.text = "Parabéns, Você encontrou toda a turma.";
+            manager.splitter.dialog.speeches[0] = speechInfoLudicaFinal1;
             //yield return Timing.WaitForOneFrame;
         } else if (log.faseLudica < 4 && manager.amountsFinded > 0) {
+	        manager.splitter.dialog.speeches[0] = speechInfoLudicaFinal2;
             //ainda não terminou tudo mas encontrou algum dos personagens.
-            manager.textFinalMessage.text = "Muito Bem! Tente encontrar todos na próxima.";
+//            manager.textFinalMessage.text = "Muito Bem! Tente encontrar todos na próxima.";
             //yield return Timing.WaitForOneFrame;
         } else {
             //não encontrou nada nem terminou nada. zerado burro cego.
-            manager.textFinalMessage.text = "Ah que pena! procure melhor a turma da próxima vez.";
+            manager.splitter.dialog.speeches[0] = speechInfoLudicaFinal3;
+//            manager.textFinalMessage.text = "Ah que pena! procure melhor a turma da próxima vez.";
             //yield return Timing.WaitForOneFrame;
         }
-        manager.textFinalMessage.gameObject.SetActive(true);
-        fadeImage.DOFade(1f, fadeInDuration);
-        manager.textFinalMessage.DOFade(1f, .3f);
+//        manager.textFinalMessage.gameObject.SetActive(true);
+        fadeImage.DOFade(1f, .3f);
+//        manager.textFinalMessage.DOFade(1f, .3f);
 
-        yield return Timing.WaitForSeconds(fadeInDuration);
+        yield return Timing.WaitForSeconds(.4f);
 
 //        TutorialCheking();
 

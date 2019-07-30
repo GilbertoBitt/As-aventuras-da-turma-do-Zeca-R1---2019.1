@@ -96,7 +96,7 @@ namespace TutorialSystem.Scripts
                 currentIndex = 0;
                 eventBus.Publish(startEventName);
                 DOTween.Kill("tutorialSystem");
-                StartDialogSystemSprite(defaultBackgroundImage, currentDialogInfo);
+                StartDialogSystemSprite(currentDialogInfo);
             }, 1f);
         }
 
@@ -128,9 +128,10 @@ namespace TutorialSystem.Scripts
 
         public void StartDialogSystemSprite(DialogInfo dialogInfo = null)
         {
-            backgroundImageComponent.sprite = defaultBackgroundImage;
-            backgroundImageComponent.enabled = true;
-
+            if (backgroundImageComponent.sprite == null)
+            {
+                backgroundImageComponent.enabled = false;
+            }
             StartDialogSystem(dialogInfo);
         }
 
@@ -178,7 +179,7 @@ namespace TutorialSystem.Scripts
         [ButtonGroup("DialogControl")]
         public void ReplayVoiceTutorial()
         {
-            dialogSequenceAnimation.Kill();
+            DOTween.Kill("tutorialSystem");
             StartDialog(currentDialogInfo, currentIndex);
         }
 

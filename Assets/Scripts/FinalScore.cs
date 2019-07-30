@@ -4,10 +4,13 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using com.csutil;
+using DG.DeAudio;
 using DG.Tweening;
 using MEC;
+using TMPro;
 using UniRx.Async;
 using UnityEngine.SceneManagement;
+using DG.DeAudio;
 
 public class FinalScore : MonoBehaviour {
 
@@ -19,7 +22,7 @@ public class FinalScore : MonoBehaviour {
 	public int bropsAmount;
 	public Text totalPoints;
 	public int totalPointsAmount;
-	public Text endMessage;
+	public TextMeshProUGUI endMessage;
 	public int starsAmount;
 	public Transform starsParent;
 	public Sprite fullStars;
@@ -34,6 +37,7 @@ public class FinalScore : MonoBehaviour {
     public SoundManager soundManager;
     public PanelDesafioControl PanelDesafioControl2;
     public AudioClip audio1;
+    public AudioClip endGameAudioClip;
    // public PanelDesafioControl PanelDesafioControl2;
 
     // Use this for initialization
@@ -45,8 +49,9 @@ public class FinalScore : MonoBehaviour {
 		bropsText.text = bropsAmount.ToString ();
         soundManager = FindObjectOfType<SoundManager>();
         PanelDesafioControl2 = FindObjectOfType<PanelDesafioControl>();
-        audio1 = PanelDesafioControl2.audio[1];}
-	
+        audio1 = PanelDesafioControl2.audio[1];
+
+    }
 	// Update is called once per frame
 
 
@@ -58,6 +63,7 @@ public class FinalScore : MonoBehaviour {
 
 	public void PointsStart()
 	{
+
         Debug.Log("rankSaved");
         int bropsTarget = bropsAmount + scoreAmount;
         gameConfig.BropsAmount = bropsTarget;
@@ -139,7 +145,10 @@ public class FinalScore : MonoBehaviour {
 	}
 
 	public void EndMessage(){
-	
+		DeAudioManager.Stop(DeAudioGroupId.Music);
+		DeAudioManager.Stop(DeAudioGroupId.Ambient);
+		DeAudioManager.Stop(DeAudioGroupId.Dialogue);
+		DeAudioManager.Play(DeAudioGroupId.Music, endGameAudioClip);
 		switch (starsAmount) {
 		case 0:
 			endMessage.text = "Muito bem! Tente melhorar.";

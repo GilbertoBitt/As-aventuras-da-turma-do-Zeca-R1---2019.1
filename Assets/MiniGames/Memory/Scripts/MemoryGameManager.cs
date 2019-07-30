@@ -44,7 +44,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 	[SpaceAttribute(10)]
 	[HeaderAttribute("References")]
 	public Transform cardsParent;
-	public Text animatedText;
+	public TextMeshProUGUI animatedText;
 	public Transform animatedTextTransform;
 	public Transform starsParent;
 	public Image[] starsImage = new Image[3];

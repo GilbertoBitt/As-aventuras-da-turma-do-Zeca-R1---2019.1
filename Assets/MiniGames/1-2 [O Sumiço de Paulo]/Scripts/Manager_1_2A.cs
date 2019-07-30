@@ -51,7 +51,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 	public float timeToPointsDuration = 1.0f;
 	public Image fadeImage;
 	public bool foundPaulo = false;
-	public Text scoreText;
+	public TextMeshProUGUI scoreText;
 	public bool canBeStarted = false;
 	public Manager_1_2B nextManager;
 	public Button rightBT;
@@ -143,7 +143,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
     public float intervalBackgroundMessage;
     public float speedToShowBackground;
     public Image FadeOutBlurImage;
-    public Text textFinalMessage;
+    public TextMeshProUGUI textFinalMessage;
     private IEnumerator timeToPointsRoutine;
     public GameObject[] activatedItems;
     public GameObject[] deactiveItems;

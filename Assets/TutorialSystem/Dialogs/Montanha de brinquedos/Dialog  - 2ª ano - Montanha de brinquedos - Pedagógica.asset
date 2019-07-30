@@ -14,6 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogSettings: {fileID: 11400000, guid: dda8c0251a791324fa5a91e813a15c8e, type: 2}
   speeches:
+  - speechText: 
+    speechAudioClip:
+      enabled: 0
+      audioClip: {fileID: 0}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      startEvent: {fileID: 0}
+      stopEvent: {fileID: 0}
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
   - speechText: "Vamos brincar de tirar s\xEDlabas das palavras para formar novas
       palavras. Voc\xEA pode at\xE9 trocar as s\xEDlabas de lugar. Isso \xE9 muito
       Legal!."
@@ -28,7 +45,8 @@ MonoBehaviour:
       videoAsset: {fileID: 0}
     speechEventSystem:
       enabled: 0
-      eventName: 
+      startEvent: {fileID: 0}
+      stopEvent: {fileID: 0}
       eventDelay:
         enabled: 0
         eventDelay: 0

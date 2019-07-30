@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using MEC;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -20,8 +21,8 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
 	Sprite alterimgIni;
 	public GameObject confirmBt;
 	public Button confirmBt2;
-	public Text questionText;
-	public Text[] alternativesText;
+	public TextMeshProUGUI questionText;
+	public TextMeshProUGUI[] alternativesText;
 	public GameObject control;
 	public GameConfig config;
 	public List<question> questionsToAsk = new List<question>();
@@ -45,7 +46,7 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
 	public GameObject BalaoProfInteragindo;
 	public GameObject prof;
 	public int contN;
-	public Text texBalao;
+	public TextMeshProUGUI texBalao;
 	public Color[] texBalaoColor;
 
 	public string[] texCertoR;
@@ -60,14 +61,14 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
 	public bool timerStart = false;
 	public float timerHere = 0f;
 	public int scoreInteragindo = 0;
-	public Text textPoints;
-	public Text textPoints2;
+	public TextMeshProUGUI textPoints;
+	public TextMeshProUGUI textPoints2;
     public espressFacialProf espressFacialProf2;
     [SpaceAttribute(10)]
 	[HeaderAttribute("Animation Settings")]
 	public AnimationCurve textPointsEffectCurve = AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f);
 
-	public Text confirmProx;
+	public TextMeshProUGUI confirmProx;
 	public string[] confirmProxTex;
 
 	[HeaderAttribute("LOG SYSTEM")]
@@ -282,6 +283,8 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
 
 	}
 	public void PularIntro (){
+		texBalao.DOFade(0, 0.3f);
+
         soundManager.startVoiceFXReturn(audio[1]);
         if (contN==0){
 			contN = 1;
@@ -294,7 +297,9 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
 
 
 	public void Bt_Sim () {
-		if (!checkBtProxima && userchoise >= 0) {
+		if (!checkBtProxima && userchoise >= 0)
+		{
+
 			GetComponent<Animator>().SetInteger(panelDesafioNumberHash, 10);
 			checkBtProxima = true;
 			confirmBt.GetComponent<Button>().interactable=false;

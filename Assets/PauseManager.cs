@@ -40,6 +40,21 @@ public class PauseManager : MonoBehaviour {
 	    Time.timeScale = 0f;
     }
 
+    public void PauseWithSound()
+    {
+	    isOnPause = true;
+//	    OnPauseMenuOpen.Invoke();
+	    Time.timeScale = 0f;
+    }
+
+    public void UnpauseGameWithSound(){
+//	    SomBT();
+//	    btPause.SetActive (true);
+	    UnpausWithSound();
+//	    pausePanel.SetActive (false);
+//	    GameConfig.Instance.SavePrefs ();
+    }
+
     public void UnpauseGame(){
         SomBT();
         btPause.SetActive (true);
@@ -47,6 +62,13 @@ public class PauseManager : MonoBehaviour {
 		pausePanel.SetActive (false);
 		GameConfig.Instance.SavePrefs ();
 	}
+
+    public void UnpausWithSound()
+    {
+	    isOnPause = false;
+	    Time.timeScale = 1f;
+//	    OnPauseMenuClose.Invoke();
+    }
 
     public void Unpause()
     {

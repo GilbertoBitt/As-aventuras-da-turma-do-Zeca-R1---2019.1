@@ -5,6 +5,7 @@ using DG.Tweening;
 using MEC;
 using MiniGames.Scripts._1_3B;
 using Sirenix.OdinInspector;
+using TMPro;
 using TutorialSystem.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
@@ -77,7 +78,7 @@ namespace MiniGames.Scripts._1_3A
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
         [Separator("Contador")]
 #endif
-        public Text textContador;
+        public TextMeshProUGUI textContador;
         bool checkstartRunning;
 
 
@@ -97,7 +98,7 @@ namespace MiniGames.Scripts._1_3A
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
         [Separator("Pontos")]
 #endif
-        public Text textScoreComp;
+        public TextMeshProUGUI textScoreComp;
         public int ScoreAmount;
         public float increaseScoreDuration = 1.0f;
         public AnimationCurve increaseScoreCurve = AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f);
@@ -136,7 +137,7 @@ namespace MiniGames.Scripts._1_3A
         private float journeyLength;
         public Vector3 velocity;
         public bool cameraUP = false;
-        public Text lifeTextAmount;
+        public TextMeshProUGUI lifeTextAmount;
         public Manager1_3B managerNext;
         public int contadorLevel;
         public Sprite[] lifePerson;

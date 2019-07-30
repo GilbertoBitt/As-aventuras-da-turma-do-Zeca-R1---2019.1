@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EF01LP05
   m_EditorClassIdentifier: Assembly-CSharp::HabilidadeBNCCInfo
   codigo: EF01LP05
-  id: 0
+  id: 81
   description: "Reconhecer o sistema de escrita alfab\xE9tica como representa\xE7\xE3o
     dos sons da fala."
