@@ -58,8 +58,8 @@ public class GameDetailWindow : MonoBehaviour {
         idMinigame = id;
         scrollbarGameDetail.value = 1;
         gameconfig.UpdateMinigames();
-		minigame = gselect.gameConfigs.allMinigames [id];
-        thumbnailImage.sprite = gselect.gameConfigs.allMinigames[id].backgroundImage;
+		minigame = GameConfig.Instance.allMinigames [id];
+        thumbnailImage.sprite = GameConfig.Instance.allMinigames[id].backgroundImage;
 
         int tempID = id + 1;
 
@@ -115,7 +115,7 @@ public class GameDetailWindow : MonoBehaviour {
 	public void PlayMinigame(){
 
 
-		LoadManager.LoadAsync (gselect.gameConfigs.allMinigames [gselect.selectedMinigame].SceneName);		
+		LoadManager.LoadAsync (GameConfig.Instance.allMinigames [gselect.selectedMinigame].SceneName);
 
 	}
 
@@ -200,7 +200,7 @@ public class GameDetailWindow : MonoBehaviour {
     }
 
     public void LoadArScene() {
-        LoadManager.LoadAsync(gselect.gameConfigs.allMinigames[gselect.selectedMinigame].sceneNameAR);
+        LoadManager.LoadAsync(GameConfig.Instance.allMinigames[gselect.selectedMinigame].sceneNameAR);
     }
 
     public void UpdateStars(int _startAmount) {

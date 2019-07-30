@@ -28,7 +28,7 @@ public class InfoSkillWindow : MonoBehaviour
         }
         _canvas = GetComponent(typeof(Canvas)) as Canvas;
         _graphicRaycaster = GetComponent(typeof(GraphicRaycaster)) as GraphicRaycaster;
-
+        
         IoC.inject.SetSingleton(this);
     }
 

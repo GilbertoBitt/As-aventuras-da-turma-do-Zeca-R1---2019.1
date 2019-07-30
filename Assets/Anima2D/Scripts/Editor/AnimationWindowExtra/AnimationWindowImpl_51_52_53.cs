@@ -10,7 +10,7 @@ namespace Anima2D
 	{
 		protected Type m_AnimationWindowType = typeof(EditorWindow).Assembly.GetType("UnityEditor.AnimationWindow");
 		protected Type m_AnimationWindowStateType = typeof(EditorWindow).Assembly.GetType("UnityEditorInternal.AnimationWindowState");
-		protected Type m_AnimationWindowUtilityType = typeof(EditorWindow).Assembly.GetType("UnityEditorInternal.AnimationWindowUtility");
+		protected Type m_AnimationWindowUtilityType = typeof(EditorWindow).Assembly.GetType("UnityEditor.AnimationUtility");
 		protected Type m_AnimationWindowCurveType = typeof(EditorWindow).Assembly.GetType("UnityEditorInternal.AnimationWindowCurve");
 		protected Type m_AnimationKeyTimeType = typeof(EditorWindow).Assembly.GetType("UnityEditorInternal.AnimationKeyTime");
 		protected Type m_AnimEditorType = typeof(EditorWindow).Assembly.GetType("UnityEditor.AnimEditor");

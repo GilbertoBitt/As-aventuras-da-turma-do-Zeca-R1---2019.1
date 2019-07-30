@@ -31,7 +31,7 @@ public class StoreItemBox : MonoBehaviour {
 
     public void UpdateItem(StoreItem _item) {
         item = _item;
-        textItemName.text = _item.itemName;
+        textItemName.SetText(_item.itemName);
         imageItemIcon.texture = _item.itemIcon;
         imageItemIcon.color = Color.white;
         

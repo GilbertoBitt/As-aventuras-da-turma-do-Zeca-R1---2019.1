@@ -389,7 +389,7 @@ public class SoundManager : OverridableMonoBehaviour {
 
 		if(GameConfig.Instance.isAudioOn){
 			DeAudioManager.Stop(DeAudioGroupId.Music);
-			musicBack = DeAudioManager.Play(DeAudioGroupId.Music, backgroundMusic, !isVoicePlaying ? backgroundMusicVolume : OnVoiceEffectVolumeBackground);
+			musicBack = DeAudioManager.Play(DeAudioGroupId.Music, backgroundMusic, !isVoicePlaying ? backgroundMusicVolume : OnVoiceEffectVolumeBackground, loop: true);
 		}
 		else
 		{
@@ -398,7 +398,7 @@ public class SoundManager : OverridableMonoBehaviour {
 
 		if(GameConfig.Instance.isAudioFXOn && hasAmbientFX){
 			DeAudioManager.Stop(DeAudioGroupId.Ambient);
-			AmbientSFXComp = DeAudioManager.Play(DeAudioGroupId.Ambient, AmbientSFX, !isVoicePlaying ? hasAmbientFXVolume : OnVoiceEffectVolumeAmbient);
+			AmbientSFXComp = DeAudioManager.Play(DeAudioGroupId.Ambient, AmbientSFX, !isVoicePlaying ? hasAmbientFXVolume : OnVoiceEffectVolumeAmbient, loop: true);
         }
 		else
 		{

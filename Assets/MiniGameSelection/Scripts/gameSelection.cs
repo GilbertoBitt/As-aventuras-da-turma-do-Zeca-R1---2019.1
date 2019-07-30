@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
@@ -29,7 +30,6 @@ public class gameSelection : MonoBehaviour {
 	private menuState oldStateMenu;
 	public Canvas[] Panels;
 
-	public GameConfig gameConfigs;
 	public Toggle[] Toggles;
 
 	public Text bropsText;
@@ -70,12 +70,10 @@ public class gameSelection : MonoBehaviour {
     public SoundManager soundManager;
 
     public void Awake() {
-        Timing.RunCoroutine(LoadStoreData());
+
         soundManager = FindObjectOfType(typeof(SoundManager)) as SoundManager;
+        Timing.RunCoroutine(LoadStoreData());
     }
-
-
-
 
     public void TrocaUsu() {
         GameConfig.Instance.UpdateCurrent(GameConfig.Instance.currentUser);
@@ -109,9 +107,9 @@ public class gameSelection : MonoBehaviour {
 
     IEnumerator<float> waitToStart(){
 		yield return Timing.WaitForSeconds(1f);
-        gameConfigs.BropsAmount = gameConfigs.currentScore.brops;
-        gameConfigs.TotalPoints = gameConfigs.currentScore.pontuacaoTotal;
-        usernameText.text = gameConfigs.currentUser.nomeJogador;
+		GameConfig.Instance.BropsAmount = GameConfig.Instance.currentScore.brops;
+		GameConfig.Instance.TotalPoints = GameConfig.Instance.currentScore.pontuacaoTotal;
+        usernameText.text = GameConfig.Instance.currentUser.nomeJogador;
         stateMenu = menuState.main;
 		selectedChars = -1;
 		UpdateState (stateMenu);
@@ -125,11 +123,11 @@ public class gameSelection : MonoBehaviour {
 
         //gameConfigs.AddOrReplateMinigame
         List<DBOMINIGAMES> dboMinigames = new List<DBOMINIGAMES>();
-        dboMinigames = gameConfigs.OpenDb().GetAllMinigames();
+        dboMinigames = GameConfig.Instance.OpenDb().GetAllMinigames();
 
         int tempCount = dboMinigames.Count;
         for (int i = 0; i < tempCount; i++) {
-            gameConfigs.AddOrReplateMinigame(new MinigameStruct
+	        GameConfig.Instance.AddOrReplateMinigame(new MinigameStruct
             {
                 idMinigame = dboMinigames[i].idMinigames,
                 idLivro = dboMinigames[i].idLivro,
@@ -147,14 +145,14 @@ public class gameSelection : MonoBehaviour {
     // Use this for initialization
     public void StartLate () {
         TrocaUsu();
-        gameConfigs.currentScore = gameConfigs.OpenDb().GetScore(gameConfigs.currentUser.idUsuario);
+        GameConfig.Instance.currentScore = GameConfig.Instance.OpenDb().GetScore(GameConfig.Instance.currentUser.idUsuario);
         
 
 		Timing.RunCoroutine(waitToStart(), Segment.SlowUpdate);
         Resources.UnloadUnusedAssets();
 		textComponentBuildVersion.text = "Versão do Jogo: " + Application.version;
 
-        textComponentCliente.text = "Cliente: " + gameConfigs.ClientName;
+        textComponentCliente.text = "Cliente: " + GameConfig.Instance.ClientName;
 
     }
 
@@ -197,7 +195,7 @@ public class gameSelection : MonoBehaviour {
 
 
 	public void backFromConfig(){
-		gameConfigs.SavePrefs ();
+		GameConfig.Instance.SavePrefs ();
 		UpdateState (menuState.main);
 	}
 
@@ -271,11 +269,11 @@ public class gameSelection : MonoBehaviour {
 
 	public void OpenConfig(){
 
-		Toggles [0].isOn = !gameConfigs.isAudioOn;
+		Toggles [0].isOn = !GameConfig.Instance.isAudioOn;
 
-		Toggles [1].isOn = !gameConfigs.isAudioFXOn;
+		Toggles [1].isOn = !GameConfig.Instance.isAudioFXOn;
 
-		Toggles [2].isOn = !gameConfigs.isAudioVoiceOn;
+		Toggles [2].isOn = !GameConfig.Instance.isAudioVoiceOn;
 
 		UpdateState (menuState.config);
 
@@ -339,23 +337,23 @@ public class gameSelection : MonoBehaviour {
 	}
 
 	public void networkVeryfier(){
-		gameConfigs.isVerifingNetwork = true;
-		gameConfigs.isOnline = true;
+		GameConfig.Instance.isVerifingNetwork = true;
+		GameConfig.Instance.isOnline = true;
 		string HtmlText = GetHtmlFromUri("http://google.com");
 		if(HtmlText == "")     {
 			//No connection
-			gameConfigs.isOnline = false;
+			GameConfig.Instance.isOnline = false;
 		}
 		else if(!HtmlText.Contains("schema.org/WebPage")){
 			//Redirecting since the beginning of googles html contains that 
 			//phrase and it was not found
-			gameConfigs.isOnline = false;
+			GameConfig.Instance.isOnline = false;
 		}
 		else{
-			gameConfigs.isOnline = true;
+			GameConfig.Instance.isOnline = true;
 			//success
 		}
-		gameConfigs.isVerifingNetwork = false;
+		GameConfig.Instance.isVerifingNetwork = false;
 	}
 
 	public string GetHtmlFromUri(string resource){
@@ -422,17 +420,17 @@ public class gameSelection : MonoBehaviour {
     }
 
     public void LoadMyOwnRank() {
-        List<DBORANKING> myRanks = gameConfigs.OpenDb().GetAllUserRanks(gameConfigs.currentUser.idUsuario);
+        List<DBORANKING> myRanks = GameConfig.Instance.OpenDb().GetAllUserRanks(GameConfig.Instance.currentUser.idUsuario);
 
         for (int i = 0; i < myRanks.Count; i++) {
-            gameConfigs.allMinigames[i].highscore = myRanks[i].highscore;
+	        GameConfig.Instance.allMinigames[i].highscore = myRanks[i].highscore;
         }
     }
 
 
     public IEnumerator<float> LoadInventoryData() {
         storeData.buyedItens.Clear();
-        DBOINVENTARIO[] _inventory = gameConfigs.OpenDb().GetInventory(gameConfigs.GetCurrentUserID());
+        DBOINVENTARIO[] _inventory = GameConfig.Instance.OpenDb().GetInventory(GameConfig.Instance.GetCurrentUserID());
         yield return Timing.WaitForSeconds(0.2f);
         int tempCount = _inventory.Length;
         for (int i = 0; i < tempCount; i++) {
@@ -444,11 +442,12 @@ public class gameSelection : MonoBehaviour {
 
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(LoadInventoryData()));
         Debug.Log("Loading Store Data.");
-        storeData.SetDataService(gameConfigs.OpenDb());
-        List<DBOITENS> _itensOnStore = gameConfigs.OpenDb().GetItensStoreList();
+        storeData.SetDataService(GameConfig.Instance.OpenDb());
+        List<DBOITENS> _itensOnStore = GameConfig.Instance.OpenDb().GetItensStoreList();
         //yield return Timing.WaitForSeconds(0.2f);
         int tempCount = _itensOnStore.Count;
         Debug.Log("Itens To Load On Store:" + tempCount);
+
         storeData.itensOnStore.Clear();
         //List<int> DeleteFromList = new List<int>();
         /* for (int i = 0; i < tempCount; i++) {
@@ -465,7 +464,7 @@ public class gameSelection : MonoBehaviour {
                 StoreItem item = storeData.dboItensToStoreItens(_itensOnStore[i]);
 
                 //Verificação da imagem do item dentro do streaming assets.
-                var persistentPathItemIcon = string.Format("{0}{1}.png", gameConfigs.fullPatchItemIcon, _itensOnStore[i].idItem);
+                var persistentPathItemIcon = string.Format("{0}{1}.png", GameConfig.Instance.fullPatchItemIcon, _itensOnStore[i].idItem);
 
                 //Verificar se arquivo de imagem existe no PersistentPath.
                 //Adicionar FLAG de verificação de download. [ ] [WARNING]
@@ -507,7 +506,7 @@ public class gameSelection : MonoBehaviour {
                 }
 
                 streamingAssetPatch.Clear();
-                streamingAssetPatch.Append("Item Name: ").Append(item.itemID).Append(" | Item File: ").Append(gameConfigs.fullPatchItemIcon).Append(_itensOnStore[i].idItem).Append(".png");
+                streamingAssetPatch.Append("Item Name: ").Append(item.itemID).Append(" | Item File: ").Append(GameConfig.Instance.fullPatchItemIcon).Append(_itensOnStore[i].idItem).Append(".png");
                 Debug.Log(streamingAssetPatch.ToString(), this);
                 storeData.itensOnStore.Add(item);
             }
@@ -527,7 +526,7 @@ public class gameSelection : MonoBehaviour {
     }
 
     public void LoadStoreCategoryItem() {
-        storeData.itensCategory = gameConfigs.OpenDb().GetCategoryItem();
+        storeData.itensCategory = GameConfig.Instance.OpenDb().GetCategoryItem();
     }
 
 }

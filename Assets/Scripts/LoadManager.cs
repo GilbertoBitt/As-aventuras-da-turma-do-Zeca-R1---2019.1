@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -23,6 +24,11 @@ public class LoadManager : MonoBehaviour {
 	public float delayStart;
 	public AnimationCurve fadeInCurve = AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f);
 
+	private void Awake()
+	{
+		thisCanvasScaler = GetComponent(typeof(CanvasScaler)) as CanvasScaler;
+		thisGraphicRaycaster = GetComponent(typeof(GraphicRaycaster)) as GraphicRaycaster;
+	}
 
 	void Start(){
         Application.backgroundLoadingPriority = ThreadPriority.High;
@@ -36,6 +42,7 @@ public class LoadManager : MonoBehaviour {
 		}
 
         Timing.RunCoroutine(removeSplash());
+
 
     }
 
@@ -87,6 +94,14 @@ public class LoadManager : MonoBehaviour {
 	}
 
 	public void LoadAsync(string scene){
+
+		if(thisCanvasScaler == null)
+			thisCanvasScaler = GetComponent(typeof(CanvasScaler)) as CanvasScaler;
+
+		if(thisGraphicRaycaster == null)
+			thisGraphicRaycaster = GetComponent(typeof(GraphicRaycaster)) as GraphicRaycaster;
+
+
         Application.backgroundLoadingPriority = ThreadPriority.High;
         thisCanvasScaler.enabled = true;
 		thisGraphicRaycaster.enabled = true;

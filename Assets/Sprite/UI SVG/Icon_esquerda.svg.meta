@@ -15,6 +15,7 @@ ScriptedImporter:
   alignment: 0
   customPivot: {x: 0, y: 0}
   generatePhysicsShape: 0
+  viewportOptions: 0
   preserveViewport: 0
   advancedMode: 0
   predefinedResolutionIndex: 1
@@ -36,7 +37,7 @@ ScriptedImporter:
   spriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: "icon_aten\xE7\xE3o"
+      name: Icon_esquerda
       originalName: 
       pivot: {x: 0.5, y: 0.5}
       alignment: 0
@@ -45,8 +46,8 @@ ScriptedImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 511
-        height: 512
+        width: 512
+        height: 510
       spriteID: b0477fcbb4245854187dbe1fffb21b22
       internalID: 0
     PhysicsOutlines: []

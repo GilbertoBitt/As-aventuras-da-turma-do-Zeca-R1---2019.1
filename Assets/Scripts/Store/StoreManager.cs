@@ -48,24 +48,23 @@ public class StoreManager : MonoBehaviour {
     }
 
     public void BuildStore() {
-        if (!storeHasLoaded) {
-            int count = storeData.itensOnStore.Count;
+        if (storeHasLoaded) return;
+        int count = storeData.itensOnStore.Count;
 
-            int sizeItens = 0;
-            for (int i = 0; i < count; i++) {                
-                if(storeData.itensOnStore[i].itemIcon != null) {
-                    sizeItens++;
-                }
+        int sizeItens = 0;
+        for (int i = 0; i < count; i++) {
+            if(storeData.itensOnStore[i].itemIcon != null) {
+                sizeItens++;
             }
-
-            storeItensBox = new StoreItemBox[sizeItens];
-            for (int i = 0; i < sizeItens; i++) {
-                GameObject storeBoxItem = Instantiate(itemBoxPrefab, parentListTransform) as GameObject;
-                storeItensBox[i] = storeBoxItem.GetComponent<StoreItemBox>();
-                storeItensBox[i].storeManager = this;
-            }
-            storeHasLoaded = true;
         }
+
+        storeItensBox = new StoreItemBox[sizeItens];
+        for (int i = 0; i < sizeItens; i++) {
+            GameObject storeBoxItem = Instantiate(itemBoxPrefab, parentListTransform) as GameObject;
+            storeItensBox[i] = storeBoxItem.GetComponent<StoreItemBox>();
+            storeItensBox[i].storeManager = this;
+        }
+        storeHasLoaded = true;
     }
 
     public void OpenConfirmWindow(StoreItem _item, StoreItemBox _itemBox) {
