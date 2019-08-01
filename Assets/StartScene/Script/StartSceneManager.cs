@@ -44,7 +44,7 @@ public class StartSceneManager : MonoBehaviour {
     public List<string> statusMessagesString = new List<string>();
     public Image statusOnNOfText;
     public GameObject statusOnNOfComp;
-    public Text textOnnOff;
+    public TextMeshProUGUI textOnnOff;
     public Color onlineColor;
     public Color offlineColor;
     public Sprite onSprite;

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.DeAudio;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
@@ -16,7 +17,7 @@ public class ControlActveRA : MonoBehaviour {
     void Start () {
 
         if (objRa[ControlTelaCheia.ArIns]!=null)
-        objRa[ControlTelaCheia.ArIns].SetActive(true);
+            objRa[ControlTelaCheia.ArIns].SetActive(true);
 
     }
 
@@ -46,6 +47,7 @@ public class ControlActveRA : MonoBehaviour {
 
     void ChamarMenu()
     {
+        DeAudioManager.Stop(DeAudioGroupId.Dialogue);
         loadManager.LoadAsync("selectionMinigames");
     }
     void ChamarAR()

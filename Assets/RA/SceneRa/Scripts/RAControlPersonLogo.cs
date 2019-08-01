@@ -77,7 +77,7 @@ public class RAControlPersonLogo : MonoBehaviour {
        
         if (!checkTelacheia) {
 			soundManager = GameObject.FindWithTag ("SoundManager").GetComponent<SoundManager> ();
-			soundManager.startVoiceFX(audios[numbText]);
+//			soundManager.startVoiceFX(audios[numbText]);
         }
 
         tempCount = personG.Length;

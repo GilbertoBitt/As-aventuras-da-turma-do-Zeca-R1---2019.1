@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.DeAudio;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
@@ -135,6 +136,7 @@ public class LoadManager : MonoBehaviour {
 
 
 	IEnumerator<float> AsyncLoad(string scene){
+		DeAudioManager.Stop();
 		OnBeforeLoad.Invoke();
 		//yield return Yielders.Get(0.1f);
 		isLoading = true;

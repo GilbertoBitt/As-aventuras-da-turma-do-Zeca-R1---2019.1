@@ -1,0 +1,53 @@
+fileFormatVersion: 2
+guid: e648dfcfa3a465b4a8a98b184866974d
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: a57477913897c46af95d590f580878bd, type: 3}
+  svgType: 1
+  texturedSpriteMeshType: 0
+  svgPixelsPerUnit: 100
+  gradientResolution: 128
+  alignment: 0
+  customPivot: {x: 0, y: 0}
+  generatePhysicsShape: 0
+  viewportOptions: 0
+  preserveViewport: 0
+  advancedMode: 0
+  predefinedResolutionIndex: 2
+  targetResolution: 720
+  resolutionMultiplier: 1
+  stepDistance: 10
+  samplingStepDistance: 100
+  maxCordDeviationEnabled: 0
+  maxCordDeviation: 1
+  maxTangentAngleEnabled: 0
+  maxTangentAngle: 5
+  keepTextureAspectRatio: 1
+  textureSize: 256
+  textureWidth: 256
+  textureHeight: 256
+  wrapMode: 1
+  filterMode: 1
+  sampleCount: 4
+  spriteData:
+    TessellationDetail: 0
+    SpriteRect:
+      name: expand
+      originalName: 
+      pivot: {x: 0.5, y: 0.5}
+      alignment: 0
+      border: {x: 0, y: 0, z: 0, w: 0}
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 253
+      spriteID: 2840f2656b01f70408216cad724ef0a0
+      internalID: 0
+    PhysicsOutlines: []

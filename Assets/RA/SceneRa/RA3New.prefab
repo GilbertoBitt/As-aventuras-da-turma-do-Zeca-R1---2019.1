@@ -8183,11 +8183,11 @@ MonoBehaviour:
   loadManager: {fileID: 0}
   BTFim: {fileID: 1095562617128910}
   audios:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: b88d58dec4049b64994a1bf89cddfea5, type: 3}
+  - {fileID: 8300000, guid: 68af6312884d9e34289685e5fcb78848, type: 3}
+  - {fileID: 8300000, guid: d3806e46433eb724e9376147d60efb14, type: 3}
+  - {fileID: 8300000, guid: ff1de1affaba5b543af9f3cb080f79db, type: 3}
+  - {fileID: 8300000, guid: 28f5b2b3cdd1d104da993fe4dd649a3b, type: 3}
   soundManager: {fileID: 0}
   checkTelacheia: 0
 --- !u!1 &1495014431622644

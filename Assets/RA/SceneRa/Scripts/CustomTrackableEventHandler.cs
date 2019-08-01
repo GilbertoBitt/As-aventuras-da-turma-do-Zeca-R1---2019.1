@@ -83,10 +83,9 @@ public class CustomTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 
 
 	protected virtual void OnTrackingLost(){
-		if (instancedobj != null) {
-			Timing.KillCoroutines ();
-			Destroy (instancedobj);
-		}
+		if (instancedobj == null) return;
+		Timing.KillCoroutines ();
+		Destroy (instancedobj);
 	}
 
 	#endregion // PRIVATE_METHODS

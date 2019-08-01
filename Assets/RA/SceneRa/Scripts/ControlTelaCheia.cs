@@ -24,6 +24,8 @@ public class ControlTelaCheia : MonoBehaviour
 
     public void LoadAsyncDelay() {
 
+
+
         LoadManager2.LoadAsync("RA3");
     }
 

@@ -13479,7 +13479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4081531017524870
 Transform:
   m_ObjectHideFlags: 0
@@ -17255,7 +17255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &224488082929888366
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18180,18 +18180,18 @@ MonoBehaviour:
   loadManager: {fileID: 0}
   BTFim: {fileID: 1005880029794996}
   audios:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 32948784deb79f8488e4f50ec81fda9a, type: 3}
+  - {fileID: 8300000, guid: 57a385de5a1c77947b959166d95f5321, type: 3}
+  - {fileID: 8300000, guid: f3b08c0d1ed2ffa43abe9f972f247749, type: 3}
+  - {fileID: 8300000, guid: 912d46bc17af1874eb5feef3c224db19, type: 3}
+  - {fileID: 8300000, guid: 5be23a26a6040e34aac47db75938b3f9, type: 3}
+  - {fileID: 8300000, guid: ccd1138dba13c9b47891b9f0d5a46857, type: 3}
+  - {fileID: 8300000, guid: 445edc5ea58ddb24ca477831de5fd459, type: 3}
+  - {fileID: 8300000, guid: 140dbc7469274e644a41744276f1681d, type: 3}
+  - {fileID: 8300000, guid: 7ae6235c11ef351428fee4da8044281b, type: 3}
+  - {fileID: 8300000, guid: 2e80503348f420b4188bda148335e5ee, type: 3}
+  - {fileID: 8300000, guid: c4604c9eb922a1e4a95b2ee23d0c7a44, type: 3}
+  - {fileID: 8300000, guid: d188a33a71205604d8614dc49f04d50d, type: 3}
   soundManager: {fileID: 0}
   checkTelacheia: 0
 --- !u!1 &1309085678846848
@@ -18918,7 +18918,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 7991
 --- !u!114 &114191441807970430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29829,7 +29829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4825328853959904
 Transform:
   m_ObjectHideFlags: 0
@@ -36986,7 +36986,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 7991
 --- !u!1 &1844607570525944
 GameObject:
   m_ObjectHideFlags: 0
@@ -37373,7 +37373,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4661300187214888
 Transform:
   m_ObjectHideFlags: 0
@@ -37480,7 +37480,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4446259238315702
 Transform:
   m_ObjectHideFlags: 0
@@ -42734,7 +42734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4689090723085366
 Transform:
   m_ObjectHideFlags: 0

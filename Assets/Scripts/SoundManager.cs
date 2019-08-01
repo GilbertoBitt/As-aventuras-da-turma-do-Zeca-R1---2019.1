@@ -296,6 +296,7 @@ public class SoundManager : OverridableMonoBehaviour {
 
 	public void startVoiceFX(AudioClip VoiceSound){
         SomBT2();
+        DeAudioManager.Stop(DeAudioGroupId.Dialogue);
         if (VoiceSound != null && GameConfig.Instance.isAudioVoiceOn)
         {
 	        DeAudioManager.Play(DeAudioGroupId.Dialogue, VoiceSound);
