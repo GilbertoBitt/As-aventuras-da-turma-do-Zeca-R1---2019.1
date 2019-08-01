@@ -37,7 +37,7 @@ ScriptedImporter:
   spriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: Bloco_op2branco
+      name: icon_circulo2
       originalName: 
       pivot: {x: 0.5, y: 0.5}
       alignment: 0

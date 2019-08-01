@@ -18,8 +18,8 @@ ScriptedImporter:
   viewportOptions: 0
   preserveViewport: 0
   advancedMode: 0
-  predefinedResolutionIndex: 0
-  targetResolution: 2160
+  predefinedResolutionIndex: 2
+  targetResolution: 720
   resolutionMultiplier: 2
   stepDistance: 10
   samplingStepDistance: 100
@@ -46,8 +46,8 @@ ScriptedImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 248
+        width: 512
+        height: 495
       spriteID: 0f456cdde026cca4cb4bdb190c75538a
       internalID: 0
     PhysicsOutlines:

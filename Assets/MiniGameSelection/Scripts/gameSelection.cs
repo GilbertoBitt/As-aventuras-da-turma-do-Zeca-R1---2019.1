@@ -336,25 +336,7 @@ public class gameSelection : MonoBehaviour {
 		tati
 	}
 
-	public void networkVeryfier(){
-		GameConfig.Instance.isVerifingNetwork = true;
-		GameConfig.Instance.isOnline = true;
-		string HtmlText = GetHtmlFromUri("http://google.com");
-		if(HtmlText == "")     {
-			//No connection
-			GameConfig.Instance.isOnline = false;
-		}
-		else if(!HtmlText.Contains("schema.org/WebPage")){
-			//Redirecting since the beginning of googles html contains that 
-			//phrase and it was not found
-			GameConfig.Instance.isOnline = false;
-		}
-		else{
-			GameConfig.Instance.isOnline = true;
-			//success
-		}
-		GameConfig.Instance.isVerifingNetwork = false;
-	}
+
 
 	public string GetHtmlFromUri(string resource){
      string html = string.Empty;

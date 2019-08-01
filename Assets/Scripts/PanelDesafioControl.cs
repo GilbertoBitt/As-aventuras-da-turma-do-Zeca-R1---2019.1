@@ -24,7 +24,7 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
 	public TextMeshProUGUI questionText;
 	public TextMeshProUGUI[] alternativesText;
 	public GameObject control;
-	public GameConfig config;
+	public GameConfig config => GameConfig.Instance;
 	public List<question> questionsToAsk = new List<question>();
 	public int userchoise = -1;
 

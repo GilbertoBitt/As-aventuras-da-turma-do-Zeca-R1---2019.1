@@ -15,7 +15,7 @@ using Random = UnityEngine.Random;
 public class StartSceneManager : MonoBehaviour {
 
     #region variaveis
-    public GameConfig config;
+    public GameConfig config => GameConfig.Instance;
     public LoadManager loadManager;
     public StoreData storeData;
     public Text textSystemInfo;
@@ -246,10 +246,6 @@ public class StartSceneManager : MonoBehaviour {
     }
 
 
-    private void Start()
-    {
-        config = GameConfig.Instance;
-    }
 
     /*public void Start() {
         Invoke("StartDelayed", 1f);
@@ -304,11 +300,11 @@ public class StartSceneManager : MonoBehaviour {
     void Update() {
         RotatePreload();
 
-        if (!config.isOnline && statusOnNOfText.sprite == onSprite) {
+        if (!config.isOn && statusOnNOfText.sprite == onSprite) {
             statusOnNOfText.sprite = offSprite;
             textOnnOff.text = "Offline";
             textOnnOff.color = offlineColor;
-        } else if (config.isOnline && statusOnNOfText.sprite == offSprite) {
+        } else if (config.isOn && statusOnNOfText.sprite == offSprite) {
             textOnnOff.text = "Online";
             statusOnNOfText.sprite = onSprite;
             textOnnOff.color = onlineColor;
@@ -328,17 +324,16 @@ public class StartSceneManager : MonoBehaviour {
         };
         netHelper.NetworkVeryfier(GameConfig.Instance);
         config.netHelper = netHelper;
-        netHelper.config = GameConfig.Instance;
 
 
         //config.ShowDestinationItemImage();
         yield return new WaitWhile(() => config.isVerifingNetwork);
         statusOnNOfComp.SetActive(true);
-        if (config.isOnline == false) {
+        if (config.isOn == false) {
             string lastLogin = PlayerPrefs.GetString("PlayerLastLogin", string.Empty);
             DBOUSUARIOS user = GameConfig.Instance.OpenDb().GetUser(lastLogin);
 
-            if (lastLogin != string.Empty && user != null && !config.isOnline) {
+            if (lastLogin != string.Empty && user != null && !config.isOn) {
                 isPreloadRotating = true;
                 OfflineAcess(true, user.login, user.senha);
             } else {
@@ -363,19 +358,18 @@ public class StartSceneManager : MonoBehaviour {
 
     IEnumerator<float> BeforeLogin() {
         yield return Timing.WaitForSeconds(0.5f);
-        config = GameConfig.Instance;
 
-        if (config.isOnline) {
+        if (config.isOn) {
 
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.DBOSYNCDOWN(syndDB, config.clientID, config.gameID)));
         }
         yield return Timing.WaitForSeconds(0.5f);
-        if (config.isOnline) {
+        if (config.isOn) {
 
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.GettingDBOSBeforeLogin(config.clientID, GameConfig.Instance.OpenDb(), syncDB2, config.gameID)));
         }
         yield return Timing.WaitForSeconds(0.1f);
-        if (config.isOnline) {
+        if (config.isOn) {
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(netHelper.DelsSync(config.clientID)));
         }
         AutoLogin();
@@ -387,9 +381,9 @@ public class StartSceneManager : MonoBehaviour {
         DBOUSUARIOS user = GameConfig.Instance.OpenDb().GetUser(lastLogin);
         MessageStatus("Acessando com Usuário da Última Sessão");
         if (config.usageCounter < config.usageLimit) {
-            if (!String.IsNullOrEmpty(lastLogin) && user != null && config.isOnline) {
+            if (!String.IsNullOrEmpty(lastLogin) && user != null && config.isOn) {
                 Timing.RunCoroutine(OnlineAcess(user.login, user.senha));
-            } else if (lastLogin != string.Empty && user != null && !config.isOnline) {
+            } else if (lastLogin != string.Empty && user != null && !config.isOn) {
                 OfflineAcess(true, user.login, user.senha);
             } else {
                 ShowPlayButtons();
@@ -733,17 +727,16 @@ public class StartSceneManager : MonoBehaviour {
             passwordOutlineField.effectColor = WrongColorOutline;
         } else {
             if (config.usageCounter < config.usageLimit) {
-                if (config.isOnline) {
+                if (config.isOn) {
                     Debug.Log(config.usageLimit);
                     Timing.RunCoroutine(OnlineAcess(), "LoginRoutine");
                 } else {
                     OfflineAcess(true);
                 }
             } else {
-                if (config.isOnline) {
-                    config.usageCounter = 0;
-                    Timing.RunCoroutine(OnlineAcess(), "LoginRoutine");
-                }
+                if (!config.isOn) return;
+                config.usageCounter = 0;
+                Timing.RunCoroutine(OnlineAcess(), "LoginRoutine");
             }
         }
     }
@@ -1148,7 +1141,7 @@ public class StartSceneManager : MonoBehaviour {
             string md5pass = Md5Sum(passwordInput.text);
             if (md5pass == currentSelectedUser.senha) {
                 if(config.usageCounter < config.usageLimit) {
-                    if (!config.isOnline) {
+                    if (!config.isOn) {
                         //DBOCLIENTES currentCliente = openedDB().GetClient(config.clientID);                   
                         config.UpdateCurrent(currentSelectedEscola, currentSelectedAnoLetivo, currentSelectedTurma, currentSelectedUser);
                         config.hasCredentials = true;
@@ -1165,14 +1158,13 @@ public class StartSceneManager : MonoBehaviour {
                         Timing.RunCoroutine(OnlineAcess2(md5pass, currentSelectedUser.login));
                     }
                 } else {
-                    if (config.isOnline) {
-                        config.UpdateCurrent(currentSelectedEscola, currentSelectedAnoLetivo, currentSelectedTurma, currentSelectedUser);
-                        config.hasCredentials = true;
-                        chooseData.SetActive(false);
-                        Debug.Log("Test  Pass: " + md5pass + " Login: " + currentSelectedUser.login);
-                        config.usageCounter = 0;
-                        Timing.RunCoroutine(OnlineAcess2(md5pass, currentSelectedUser.login));
-                    }
+                    if (!config.isOn) return;
+                    config.UpdateCurrent(currentSelectedEscola, currentSelectedAnoLetivo, currentSelectedTurma, currentSelectedUser);
+                    config.hasCredentials = true;
+                    chooseData.SetActive(false);
+                    Debug.Log("Test  Pass: " + md5pass + " Login: " + currentSelectedUser.login);
+                    config.usageCounter = 0;
+                    Timing.RunCoroutine(OnlineAcess2(md5pass, currentSelectedUser.login));
                 }               
             } else {
                 WrongPassword();

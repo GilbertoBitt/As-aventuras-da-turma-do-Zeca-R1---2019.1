@@ -206,7 +206,6 @@ public class Manager_1_1B : MonoBehaviour
 		parentDropAnimator = parentDrop.GetComponent<Animator>();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
 		managerMemory = GetComponent<MemoryGameManager>();
-		managerMemory.config = GameConfig.Instance;
 		//TODO variação do texto do erro e acerto.
 		Log.d($"Ano letivo Information {JsonWriter.GetWriter().Write(GameConfig.Instance.currentYear)}");
 		anoLetivo = GameConfig.Instance.GetAnoLetivo();

@@ -55,7 +55,7 @@ PlayerSettings:
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 0
   m_MTRendering: 1
-  m_StackTraceTypes: 000000000000000000000000000000000000000001000000
+  m_StackTraceTypes: 010000000100000001000000010000000100000001000000
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
   displayResolutionDialog: 0
@@ -126,11 +126,8 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.2.421
-  preloadedAssets:
-  - {fileID: 2100000, guid: 73ddb2958e9cd451c82f37c26efa5eb0, type: 2}
-  - {fileID: 2100000, guid: 137d858a4eae4d34298f3cdcd31f5e0b, type: 2}
-  - {fileID: 10900000, guid: 728608871d445b94d9f3316efd7029e6, type: 3}
+  bundleVersion: 2.2.423
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -174,10 +171,10 @@ PlayerSettings:
     Android: br.com.eduqbrinq.asaventurasdaturmadozeca
     Standalone: br.com.eduqbrinq.asaventurasdaturmadozeca
   buildNumber:
-    Standalone: 421
-    iPhone: 421
-  AndroidBundleVersionCode: 22421
-  AndroidMinSdkVersion: 19
+    Standalone: 423
+    iPhone: 423
+  AndroidBundleVersionCode: 22423
+  AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 

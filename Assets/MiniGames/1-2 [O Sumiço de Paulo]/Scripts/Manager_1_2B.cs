@@ -16,7 +16,7 @@ using Random = UnityEngine.Random;
 
 public class Manager_1_2B : OverridableMonoBehaviour
 {
-	[TabGroup("Geral")] public GameConfig config;
+	[TabGroup("Geral")] public GameConfig config => GameConfig.Instance;
 	[TabGroup("Geral")] public int anoLetivo;
 	[TabGroup("1ª Ano")] public HabilidadeBNCCInfo Habilidade1;
 
@@ -195,7 +195,6 @@ public class Manager_1_2B : OverridableMonoBehaviour
     void Start()
     {
 	    Populate();
-	    config = GameConfig.Instance;
 	    
 	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();

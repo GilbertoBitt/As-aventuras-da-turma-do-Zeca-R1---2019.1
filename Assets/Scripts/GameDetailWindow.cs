@@ -21,7 +21,7 @@ public class GameDetailWindow : MonoBehaviour {
 	public Sprite starsEmpty;
 	public ScrollRect scrollRect;
 	public ScrollSnap scrollSnap;
-	public GameConfig gameconfig;
+	public GameConfig gameconfig => GameConfig.Instance;
     public Character[] characterList = new Character[6];
     public Image thumbnailImage;
     public Canvas characterSelection;

@@ -18,8 +18,8 @@ ScriptedImporter:
   viewportOptions: 0
   preserveViewport: 0
   advancedMode: 0
-  predefinedResolutionIndex: 1
-  targetResolution: 1080
+  predefinedResolutionIndex: 2
+  targetResolution: 720
   resolutionMultiplier: 10
   stepDistance: 10
   samplingStepDistance: 100
@@ -37,17 +37,17 @@ ScriptedImporter:
   spriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: icon_voltarSprite
+      name: icon_voltar
       originalName: 
-      pivot: {x: 0.49941877, y: 0.4994364}
+      pivot: {x: 0.5, y: 0.5}
       alignment: 0
       border: {x: 0, y: 0, z: 0, w: 0}
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 98
-        height: 97
+        width: 512
+        height: 507
       spriteID: b0477fcbb4245854187dbe1fffb21b22
       internalID: 0
     PhysicsOutlines: []

@@ -11,7 +11,7 @@ using UnityEngine.Networking;
 
 public class EduqbrinqLogger : MonoBehaviour
 {
-    private static GameConfig _config;
+    private static GameConfig _config => GameConfig.Instance;
     private static string UserToken => _config.netHelper.token;
     private static int UserId => _config.GetCurrentUserID();
     private static int ClientId => _config.clientID;
@@ -41,7 +41,6 @@ public class EduqbrinqLogger : MonoBehaviour
             _instance = instanceHome.GetComponent<EduqbrinqLogger>() ?? instanceHome.AddComponent<EduqbrinqLogger>();
             IoC.inject.SetSingleton(_instance);
             IoC.inject.GetOrAddSingleton<EduqbrinqLogger>(_instance);
-            _config =  GameConfig.Instance;
             return _instance;
         }
 //        set => _instance = value;

@@ -588,7 +588,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1729,7 +1729,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4690,7 +4690,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4884,7 +4884,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 39.8
+  m_fontSize: 40.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4995,7 +4995,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 325.8186, y: 0}
+  m_AnchoredPosition: {x: 325.81873, y: 0}
   m_SizeDelta: {x: 0, y: 859}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &169051789
@@ -7212,7 +7212,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9353,7 +9353,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -10022,7 +10022,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13784,7 +13784,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   storeData: {fileID: 11400000, guid: 2ad797790171f2b41851de3792114115, type: 2}
-  configGame: {fileID: 11400000, guid: 8a44dcc961734d549bdf44791a1678c8, type: 2}
   mainPanel: {fileID: 1654817230}
   thisPanel: {fileID: 453527033}
   gameSelectionScript: {fileID: 1487538727}
@@ -14687,7 +14686,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -15782,7 +15781,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -19622,7 +19621,6 @@ MonoBehaviour:
   starsEmpty: {fileID: 21300012, guid: 6b0d9e703e3f5cf41a944604dd46d198, type: 3}
   scrollRect: {fileID: 1547424587}
   scrollSnap: {fileID: 1547424586}
-  gameconfig: {fileID: 11400000, guid: 8a44dcc961734d549bdf44791a1678c8, type: 2}
   characterList:
   - character: 0
     name: Zeca
@@ -24386,7 +24384,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -24543,7 +24541,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -25394,7 +25392,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -31492,7 +31490,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -39813,7 +39811,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -41267,7 +41265,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -44260,7 +44258,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DetailCanvas: {fileID: 308363156}
   RankingCanvas: {fileID: 1460255167}
-  config: {fileID: 11400000, guid: 8a44dcc961734d549bdf44791a1678c8, type: 2}
   parentContentTransform: {fileID: 389829815}
   rankPrefabUI: {fileID: 1918271393339016, guid: 7dd8852e70c43d640a00f7d03f824ef6,
     type: 3}
@@ -51184,7 +51181,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -51604,7 +51601,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -54549,7 +54546,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -57263,7 +57260,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -57605,7 +57602,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -58846,7 +58843,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.65
+  m_fontSize: 28.35
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -60526,8 +60523,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1239751441}
   m_HandleRect: {fileID: 1239751439}
   m_Direction: 2
-  m_Value: 0.5000002
-  m_Size: 0.70259964
+  m_Value: 0.49999982
+  m_Size: 0.70900714
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

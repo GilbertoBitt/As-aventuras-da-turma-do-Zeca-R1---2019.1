@@ -24568,7 +24568,6 @@ MonoBehaviour:
   timeSlider: {fileID: 1829855491}
   gridLayout: {fileID: 1526567684}
   sound: {fileID: 1178725888}
-  config: {fileID: 11400000, guid: 8a44dcc961734d549bdf44791a1678c8, type: 2}
   characterDeckLocation: {fileID: 1725359253}
   managerNext: {fileID: 599420759}
   pauseButton: {fileID: 11839501}
@@ -33567,7 +33566,7 @@ PrefabInstance:
     - target: {fileID: 224751504588971864, guid: a8e2794ebaee44a48a60e193a529c60a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -95.999985
+      value: -96
       objectReference: {fileID: 0}
     - target: {fileID: 224751504588971864, guid: a8e2794ebaee44a48a60e193a529c60a,
         type: 3}
@@ -66488,6 +66487,18 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 46.153515
       objectReference: {fileID: 0}
+    - target: {fileID: 19900000, guid: 54d548b1a922d54449e2bd5424597d57, type: 3}
+      propertyPath: m_SelectedEditorRenderState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19900000, guid: 54d548b1a922d54449e2bd5424597d57, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1565148903
+      objectReference: {fileID: 0}
+    - target: {fileID: 19900000, guid: 54d548b1a922d54449e2bd5424597d57, type: 3}
+      propertyPath: m_SortingOrder
+      value: 479
+      objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 54d548b1a922d54449e2bd5424597d57, type: 3}
       propertyPath: InitialModule.startRotationX.maxCurve.m_Curve.Array.size
       value: 1
@@ -69491,18 +69502,6 @@ PrefabInstance:
     - target: {fileID: 19800000, guid: 54d548b1a922d54449e2bd5424597d57, type: 3}
       propertyPath: InitialModule.startRotationY.scalar
       value: 0.0000
-      objectReference: {fileID: 0}
-    - target: {fileID: 19900000, guid: 54d548b1a922d54449e2bd5424597d57, type: 3}
-      propertyPath: m_SelectedEditorRenderState
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19900000, guid: 54d548b1a922d54449e2bd5424597d57, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1565148903
-      objectReference: {fileID: 0}
-    - target: {fileID: 19900000, guid: 54d548b1a922d54449e2bd5424597d57, type: 3}
-      propertyPath: m_SortingOrder
-      value: 479
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54d548b1a922d54449e2bd5424597d57, type: 3}
@@ -96842,17 +96841,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6097706555979047923, guid: 023fa48991375294fb8387f061c841e8,
+    - target: {fileID: 6097706556588511859, guid: 023fa48991375294fb8387f061c841e8,
         type: 3}
-      propertyPath: m_BlockingMask.m_Bits
-      value: 7991
+      propertyPath: m_AnchoredPosition.x
+      value: -8
       objectReference: {fileID: 0}
-    - target: {fileID: 6097706555708320914, guid: 023fa48991375294fb8387f061c841e8,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 21563344409783084, guid: aee96bc531e6eba468ec405e536f515f,
-        type: 2}
     - target: {fileID: 6097706555917130564, guid: 023fa48991375294fb8387f061c841e8,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -96868,10 +96861,26 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6097706556588511859, guid: 023fa48991375294fb8387f061c841e8,
+    - target: {fileID: 4199146519987257301, guid: 023fa48991375294fb8387f061c841e8,
         type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -8
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4199146520672380237, guid: 023fa48991375294fb8387f061c841e8,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097706555708320914, guid: 023fa48991375294fb8387f061c841e8,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 21563344409783084, guid: aee96bc531e6eba468ec405e536f515f,
+        type: 2}
+    - target: {fileID: 6097706555979047923, guid: 023fa48991375294fb8387f061c841e8,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 7991
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 023fa48991375294fb8387f061c841e8, type: 3}
@@ -97006,6 +97015,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HabilidadeInformation
       objectReference: {fileID: 0}
+    - target: {fileID: 1994575651026610186, guid: bc89871f8c5678d48bbaf40bb003069f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1994575651026610188, guid: bc89871f8c5678d48bbaf40bb003069f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -97126,21 +97140,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1994575651026610187, guid: bc89871f8c5678d48bbaf40bb003069f,
-        type: 3}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1994575651026610186, guid: bc89871f8c5678d48bbaf40bb003069f,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6427292542329242317, guid: bc89871f8c5678d48bbaf40bb003069f,
-        type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 1937522612, guid: bc89871f8c5678d48bbaf40bb003069f, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -2.0136719
@@ -97157,6 +97156,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_firstOverflowCharacterIndex
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994575651026610187, guid: bc89871f8c5678d48bbaf40bb003069f,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427292542329242317, guid: bc89871f8c5678d48bbaf40bb003069f,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc89871f8c5678d48bbaf40bb003069f, type: 3}
@@ -97175,6 +97184,47 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
+        type: 3}
+      propertyPath: serializationData.SerializedFormat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
+        type: 3}
+    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
+        type: 3}
+      propertyPath: control
+      value: 
+      objectReference: {fileID: 599420752}
+    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
+        type: 3}
+      propertyPath: OnFinal.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1178725888}
+    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
+        type: 3}
+      propertyPath: desCen
+      value: 
+      objectReference: {fileID: 1402680662}
+    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
+        type: 3}
+      propertyPath: selperson
+      value: 
+      objectReference: {fileID: 1716587914}
+    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
+        type: 3}
+      propertyPath: log
+      value: 
+      objectReference: {fileID: 599420761}
+    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 1178725888}
     - target: {fileID: 224394646957369046, guid: 4b67ccc20ac177c42a7d5257becc988c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -97311,47 +97361,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1178725888}
     - target: {fileID: 114057594422446344, guid: 4b67ccc20ac177c42a7d5257becc988c,
-        type: 3}
-      propertyPath: soundManager
-      value: 
-      objectReference: {fileID: 1178725888}
-    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
-        type: 3}
-      propertyPath: serializationData.SerializedFormat
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
-        type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
-        type: 3}
-    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
-        type: 3}
-      propertyPath: control
-      value: 
-      objectReference: {fileID: 599420752}
-    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
-        type: 3}
-      propertyPath: OnFinal.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1178725888}
-    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
-        type: 3}
-      propertyPath: desCen
-      value: 
-      objectReference: {fileID: 1402680662}
-    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
-        type: 3}
-      propertyPath: selperson
-      value: 
-      objectReference: {fileID: 1716587914}
-    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
-        type: 3}
-      propertyPath: log
-      value: 
-      objectReference: {fileID: 599420761}
-    - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
         type: 3}
       propertyPath: soundManager
       value: 

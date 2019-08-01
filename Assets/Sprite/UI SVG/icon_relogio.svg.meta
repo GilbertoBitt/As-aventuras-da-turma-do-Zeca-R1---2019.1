@@ -37,7 +37,7 @@ ScriptedImporter:
   spriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: Bloco_op2branco
+      name: icon_relogio
       originalName: 
       pivot: {x: 0.5, y: 0.5}
       alignment: 0
@@ -46,7 +46,7 @@ ScriptedImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
+        width: 251
         height: 256
       spriteID: b0477fcbb4245854187dbe1fffb21b22
       internalID: 0

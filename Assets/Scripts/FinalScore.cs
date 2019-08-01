@@ -14,7 +14,7 @@ using DG.DeAudio;
 
 public class FinalScore : MonoBehaviour {
 
-	public GameConfig gameConfig;
+	public GameConfig gameConfig => GameConfig.Instance;
 
 	public Text scoreText;
 	public int scoreAmount;
@@ -204,13 +204,13 @@ public class FinalScore : MonoBehaviour {
 		}
 	}
 
-	public void saveGame(){
-		if (gameConfig.hasCredentials) {
-			if (gameConfig.isOnline) {
-				//offlineSave();
-			} else {
-				//offlineSave();
-			}
+	public void saveGame()
+	{
+		if (!gameConfig.hasCredentials) return;
+		if (gameConfig.isOn) {
+			//offlineSave();
+		} else {
+			//offlineSave();
 		}
 	}
 

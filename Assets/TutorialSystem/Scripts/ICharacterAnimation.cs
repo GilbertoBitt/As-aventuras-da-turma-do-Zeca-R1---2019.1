@@ -7,9 +7,9 @@ namespace TutorialSystem.Scripts
 
         string GetCharacterName();
         Color GetCharacterNameColor();
-        void StartTalking();
-        void StopTalking();
-        void StartLoopAnimation();
-        void StopLoopAnimation();
+        void StartDefaultAnimation();
+        void StopDefaultAnimation();
+        void StartTalkingAnimation();
+        void StopTalkingAnimation();
     }
 }

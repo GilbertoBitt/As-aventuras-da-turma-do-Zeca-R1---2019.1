@@ -196,7 +196,7 @@ namespace MiniGames.Scripts._1_3A
 #endif
 
 
-        public GameConfig config;
+        public GameConfig config => GameConfig.Instance;
         public Minigames minigame;
         public GameObject panelTeclado;
         public int playpreft1;

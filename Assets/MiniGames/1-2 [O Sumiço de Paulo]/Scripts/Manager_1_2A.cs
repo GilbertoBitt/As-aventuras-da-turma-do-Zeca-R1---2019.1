@@ -134,7 +134,7 @@ public class Manager_1_2A : OverridableMonoBehaviour {
     public ControlSomTutor ControlSomTutor2;
 
     public Minigames minigame;
-    public GameConfig config;
+    public GameConfig config => GameConfig.Instance;
 
     public ScrollRect scrollRectMain;
 

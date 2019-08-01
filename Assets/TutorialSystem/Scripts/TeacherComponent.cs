@@ -1,6 +1,9 @@
 ﻿using System;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.Serialization;
+using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 namespace TutorialSystem.Scripts
@@ -9,69 +12,44 @@ namespace TutorialSystem.Scripts
     {
         public Color characterNameColor;
         public string characterName = String.Empty;
-        public Image overlayTalkSprite;
-        public Image blinkSprite;
+        public Image characterHeadImageComponent;
 
-        private Sequence _talkingSequence;
-        private Sequence _blinkSequence;
+        public PlayableDirector directorComponent;
 
-        public float talkingSpeed = 0.3f;
-        public float blinkSpeed = 0.3f;
+        public PlayableAsset defaultAnimationTimelineAsset;
+        public PlayableAsset talkingAnimationTimelineAsset;
 
-        public void SetupTalkingSequence()
-        {
-            _talkingSequence = DOTween.Sequence();
-            _talkingSequence.SetId(000);
-            _talkingSequence.AppendCallback(ToggleMouth);
-            _talkingSequence.AppendInterval(talkingSpeed);
-            _talkingSequence.SetLoops(-1, LoopType.Restart);
-        }
+        public float talkAnimationSpeed;
+        public float defaultAnimationSpeed;
 
-        public void SetupBlinkLoopAnimation()
-        {
-            _blinkSequence = DOTween.Sequence();
-            _blinkSequence.SetId(001);
-            _blinkSequence.AppendCallback(ToggleBlink);
-            _blinkSequence.AppendInterval(blinkSpeed);
-            _blinkSequence.SetLoops(-1, LoopType.Restart);
-
-        }
-
-        public void ToggleMouth()
-        {
-            overlayTalkSprite.enabled = !overlayTalkSprite.isActiveAndEnabled;
-        }
-
-        public void ToggleBlink()
-        {
-            blinkSprite.enabled = !blinkSprite.isActiveAndEnabled;
-        }
 
         public string GetCharacterName() => characterName;
         public Color GetCharacterNameColor() => characterNameColor;
 
-        public void StartTalking()
+        private void Start()
         {
-            SetupTalkingSequence();
-            _talkingSequence.Play();
+            directorComponent = GetComponent(typeof(PlayableDirector)) as PlayableDirector;
         }
 
-        public void StopTalking()
+        public void StartDefaultAnimation()
         {
-            _talkingSequence.Kill(true);
-            overlayTalkSprite.enabled = false;
+            directorComponent.Play(defaultAnimationTimelineAsset);
         }
 
-        public void StartLoopAnimation()
+        public void StopDefaultAnimation()
         {
-            SetupBlinkLoopAnimation();
-            _blinkSequence.Play();
+            directorComponent.Stop();
         }
 
-        public void StopLoopAnimation()
+        public void StartTalkingAnimation()
         {
-            _blinkSequence.Kill(true);
-            blinkSprite.enabled = false;
+            directorComponent.Play(talkingAnimationTimelineAsset);
+        }
+
+        public void StopTalkingAnimation()
+        {
+            directorComponent.Stop();
+            directorComponent.Play(defaultAnimationTimelineAsset);
         }
     }
 }

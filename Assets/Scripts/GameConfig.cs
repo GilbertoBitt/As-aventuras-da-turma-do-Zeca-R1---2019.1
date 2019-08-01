@@ -20,11 +20,9 @@ public class GameConfig : ScriptableObject
     {
         get
         {
-            if (_config == null)
-            {
-                _config = ResourcesV2.LoadScriptableObjectInstance<GameConfig>("GameConfig.asset");
-                IoC.inject.SetSingleton(_config);
-            }
+            if (_config != null) return _config;
+            _config = ResourcesV2.LoadScriptableObjectInstance<GameConfig>("GameConfig.asset");
+            IoC.inject.SetSingleton(_config);
             return _config;
         }
     }
@@ -46,10 +44,7 @@ public class GameConfig : ScriptableObject
     public string nickname;
     public string namefull;
     public int playerID;
-#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
-    [SeparatorAttribute("Informações de Conexão")]
-	#endif
-    public bool isOnline;
+    public bool isOn => Application.internetReachability != NetworkReachability.NotReachable;
     public bool isVerifingNetwork;
     public string sessionID;
 	#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
@@ -356,7 +351,7 @@ public class GameConfig : ScriptableObject
             _log.idUsuario = currentUser.idUsuario;
         }		
 
-        if (isOnline) {
+        if (isOn) {
             netHelper.SetJogosLogM(_log);
         } else {
             _log.online = 0;
@@ -421,7 +416,7 @@ public class GameConfig : ScriptableObject
 
     public void SaveAllStatistic(List<DBOESTATISTICA_DIDATICA> statisticsTemp) {
       
-        if (isOnline) {
+        if (isOn) {
             netHelper.RunStatistics(statisticsTemp);            
         } else {
             OpenDb().InsertAllStatistic(statisticsTemp);

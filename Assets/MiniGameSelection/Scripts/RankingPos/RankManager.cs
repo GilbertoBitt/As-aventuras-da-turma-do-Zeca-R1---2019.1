@@ -9,7 +9,7 @@ public class RankManager : MonoBehaviour {
     public Canvas DetailCanvas;
     public Canvas RankingCanvas;
 
-    public GameConfig config;
+    public GameConfig config => GameConfig.Instance;
     public Transform parentContentTransform;
     public GameObject rankPrefabUI;
     public TextMeshProUGUI textTitleBar;

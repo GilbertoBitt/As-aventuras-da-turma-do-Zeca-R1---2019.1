@@ -22,7 +22,7 @@ public class networkHelper {
     public bool HasCredentials = false;
     public string token;
     public int userID;
-    public GameConfig config;
+    public GameConfig config => GameConfig.Instance;
     private bool operationFailed = false;
     private string tempToken;
     private StringFast stringfast = new StringFast();
@@ -34,53 +34,16 @@ public class networkHelper {
         switch (Application.internetReachability)
         {
             case NetworkReachability.NotReachable:
-                configs.isOnline = false;
+//                configs.isOn = false;
                 configs.isVerifingNetwork = false;
                 break;
             case NetworkReachability.ReachableViaCarrierDataNetwork:
             case NetworkReachability.ReachableViaLocalAreaNetwork:
-                configs.isOnline = true;
-                /*string HtmlText = GetHtmlFromUri("https://google.com");
-            if (string.IsNullOrEmpty(HtmlText)) {              //No connection
-                configs.isOnline = false;
-                //Debug.Log("[<color=#ffffff>IsOnline</color> " + configs.isOnline + "]");
-            } else if (!HtmlText.Contains("schema.org/WebPage")) {
-                //Redirecting since the beginning of googles html contains that 
-                //phrase and it was not found
-                configs.isOnline = false;
-                //Debug.Log("[<color=#ffffff>IsOnline</color> " + configs.isOnline + "]");
-            } else if (HtmlText.Contains("schema.org/WebPage")){
-                //Lembrar de fazer voltar para o true;
-                //HACK HERE
-                configs.isOnline = true;
-                //Debug.Log("[<color=#ffffff>IsOnline</color> " + configs.isOnline + "]");
-                //success login
-            }*/
+//                configs.isOn = true;
                 configs.isVerifingNetwork = false;
                 break;
         }
         configs.isVerifingNetwork = false;
-        /* string HtmlText = GetHtmlFromUri("http://google.com");
-         if (HtmlText == "") {
-             //No connection
-
-
-             configs.isOnline = false;
-             //Debug.Log("[<color=#ffffff>IsOnline</color> " + configs.isOnline + "]");
-         } else if (!HtmlText.Contains("schema.org/WebPage")) {
-             //Redirecting since the beginning of googles html contains that 
-             //phrase and it was not found
-             configs.isOnline = false;
-             //Debug.Log("[<color=#ffffff>IsOnline</color> " + configs.isOnline + "]");
-         } else {
-             //Lembrar de fazer voltar para o true;
-             //HACK HERE
-             configs.isOnline = true;
-             //Debug.Log("[<color=#ffffff>IsOnline</color> " + configs.isOnline + "]");
-             //success login
-         }
-         configs.isVerifingNetwork = false;
-         //Debug.Log("[<color=#ffffff>IsOnline</color> " + configs.isOnline + "]");*/
     }
 
     
@@ -112,7 +75,7 @@ public class networkHelper {
             yield return Timing.WaitUntilDone(startScene.StartProgressWebRequest(request));
 
             if (request.isNetworkError || request.isHttpError) {
-                config.isOnline = false;
+//                config.isOn = false;
             } else {
                 string response = request.downloadHandler.text;
                 //Debug.Log(response);
@@ -210,7 +173,7 @@ public class networkHelper {
             //Debug.Log(request.error);
 
             if(request.isNetworkError || request.isHttpError) {
-                config.isOnline = false;
+//                config.isOn = false;
                 sceneStart.OnlineAcessFailed();
             } else {
                 sceneStart.OnlineAcessFailed();
@@ -275,14 +238,14 @@ public class networkHelper {
 
         int countTemp = _statisticaToSend.Count;
 
-        if (countTemp >= 1 && config.isOnline) {
+        if (countTemp >= 1 && config.isOn) {
             if (startScene != null) {
                 startScene.MessageStatus("Sincronizando Estatísticas");
             }
             do {
                 yield return Timing.WaitUntilDone(Timing.RunCoroutine(StatisticSave(_statisticaToSend[0], _statisticaToSend)));
                 yield return Timing.WaitForSeconds(0.1f);
-            } while (config.isOnline && _statisticaToSend.Count > 0);
+            } while (config.isOn && _statisticaToSend.Count > 0);
         }
     }
 
@@ -291,7 +254,6 @@ public class networkHelper {
         startScene.MessageStatus("Sincronizando Game");
 
         DataService ds = GameConfig.Instance.OpenDb();
-        config = GameConfig.Instance;
         List<DBOMINIGAMES_LOGS> _logToSend = ds.GetAllMinigamesLog();
 //        yield return Timing.WaitForSeconds(0.1f);
 //        if (_logToSend.Count >= 1) {
@@ -323,19 +285,19 @@ public class networkHelper {
         yield return Timing.WaitForSeconds(0.1f);
         countTemp = _statisticaToSend.Count;
 
-        if (countTemp >= 1 && config.isOnline) {
+        if (countTemp >= 1 && config.isOn) {
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetEstatisticasDidaticas(_statisticaToSend)));
         }
 
         List<DBOGAMES_LOGS> _logsGames = ds.GetAllGamesLOG();
         yield return Timing.WaitForSeconds(0.1f);
         countTemp = _logsGames.Count;
-        if (countTemp >= 1 && config.isOnline) {
+        if (countTemp >= 1 && config.isOn) {
             startScene.MessageStatus("Sincronizando Estatísticas");
             do {
                 yield return Timing.WaitUntilDone(Timing.RunCoroutine(SendGamesLog(_logsGames[0], _logsGames)));
                 yield return Timing.WaitForSeconds(0.1f);
-            } while (config.isOnline && _logsGames.Count > 0);
+            } while (config.isOn && _logsGames.Count > 0);
         }
 
         List<DBOPONTUACAO> userScoreUpdates = ds.GetallScoresOffline();
@@ -348,13 +310,13 @@ public class networkHelper {
         yield return Timing.WaitForSeconds(0.1f);
 
         countTemp = userInventoryUdpdate.Count;
-        if (countTemp >= 1 && config.isOnline) {
+        if (countTemp >= 1 && config.isOn) {
             startScene.MessageStatus("Sincronizando Inventário");
             do {
                 DBOITENS item = config.OpenDb().GetItemStore((userInventoryUdpdate[0].idItem));
                 yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetInventario(userInventoryUdpdate[0], userInventoryUdpdate, item.valor)));
                 yield return Timing.WaitForSeconds(0.1f);
-            } while (userInventoryUdpdate.Count >= 1 && config.isOnline);
+            } while (userInventoryUdpdate.Count >= 1 && config.isOn);
         }
 
     }
@@ -428,7 +390,7 @@ public class networkHelper {
             if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
 
                 if (request.isNetworkError || request.isHttpError) {
-                    config.isOnline = false;
+//                    config.isOn = false;
                 }
                 //LoginFailedEvent(true, config.currentUser.login, config.currentUser.senha);
             } else {
@@ -464,7 +426,7 @@ public class networkHelper {
             
             if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
                 if (request.isNetworkError || request.isHttpError) {
-                    config.isOnline = false;
+//                    config.isOn = false;
                 }
             } else {
                 //TODO deletar todos os logs offline recentemente enviados.
@@ -503,7 +465,7 @@ public class networkHelper {
 
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
             if (request.isNetworkError || request.isHttpError) {
-                config.isOnline = false;
+//                config.isOn = false;
             }
         } else {
             _listStatistc.estatisticas.RemoveAt(0);
@@ -536,7 +498,7 @@ public class networkHelper {
         var result = JSON.Parse(response);
 
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
-            config.isOnline = false;
+//            config.isOn = false;
         } else {
             _list.RemoveAt(0);
             config.OpenDb().DeleteEstatistica(_statistic);
@@ -571,7 +533,7 @@ public class networkHelper {
         
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
             if (request.isNetworkError || request.isHttpError) {
-                config.isOnline = false;
+//                config.isOn = false;
             }
         } else {
             GameConfig.Instance.OpenDb().DeleteEstatisticas(@logs);
@@ -603,7 +565,7 @@ public class networkHelper {
         string response = request.downloadHandler.text;
         
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
-            config.isOnline = false;
+//            config.isOn = false;
             _statistic.online = 0;
             config.OpenDb().InsertStatistic2(_statistic);
         } else {
@@ -635,7 +597,7 @@ public class networkHelper {
 
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
             if (request.isNetworkError || request.isHttpError) {
-                config.isOnline = false;
+//                config.isOn = false;
             }
         } else {
             _list.RemoveAt(0);
@@ -665,7 +627,7 @@ public class networkHelper {
 
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
             if (request.isNetworkError || request.isHttpError) {
-                config.isOnline = false;
+//                config.isOn = false;
             }
         } else {
             config.OpenDb().DeleteGamesLogs(logs);
@@ -700,14 +662,10 @@ public class networkHelper {
         var result = JSON.Parse(response);
 
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
-            if (request.isNetworkError || request.isHttpError) {
-                config.isOnline = false;
-            } else {
-                config.isOnline = false;
-                ranking.online = 0;
-                config.OpenDb().InsertRanking(ranking);
-                Log.d("Ranking offline Atualizado");
-            }
+//            config.isOn = false;
+            ranking.online = 0;
+            config.OpenDb().InsertRanking(ranking);
+            Log.d("Ranking offline Atualizado");
         } else {
             Log.d("Ranking Online Atualizdo");
         }
@@ -742,7 +700,7 @@ public class networkHelper {
             //LoginFailedEvent(true, config.currentUser.login, config.currentUser.senha);
 
             if (request.isNetworkError || request.isHttpError) {
-                config.isOnline = false;
+//                config.isOn = false;
             }
 
         } else {
@@ -814,7 +772,7 @@ public class networkHelper {
         string response = request.downloadHandler.text;
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
             if (request.isNetworkError || request.isHttpError) {
-                config.isOnline = false;
+//                config.isOn = false;
                 score.online = 0;
                 config.OpenDb().InsertOrReplateScore(score);
             }
@@ -860,7 +818,7 @@ public class networkHelper {
         string response = request.downloadHandler.text;
 
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
-            config.isOnline = false;
+//            config.isOn = false;
             _inv.online = 0;
             config.OpenDb().UpdateOrReplateInventory(_inv);
         } else {
@@ -893,7 +851,7 @@ public class networkHelper {
         string response = request.downloadHandler.text;
         if (request.isNetworkError || request.isHttpError || response.Contains("response")) {
             if (request.isNetworkError || request.isHttpError) {
-                config.isOnline = false;
+//                config.isOn = false;
             }
         } else {
             //config.usersIDInventoryUpdate.Remove(inv);
@@ -910,7 +868,6 @@ public class networkHelper {
 
     #region SyncBeforeLogin
     public IEnumerator<float> GettingDBOSBeforeLogin(int idCliente, DataService db, string URI, int idGame) {
-        config = GameConfig.Instance;
         isDoingOperation = true;
 
         List<string> tables = new List<string>();
@@ -1005,7 +962,7 @@ public class networkHelper {
         yield return Timing.WaitUntilDone(startScene.StartProgressWebRequest(requestData));
 
         if (requestData.isNetworkError || requestData.isHttpError) {
-            config.isOnline = false;
+//            config.isOn = false;
         } else {
             string response = requestData.downloadHandler.text;
             var result = JSON.Parse(response);
@@ -1042,19 +999,17 @@ public class networkHelper {
                     //TODO async WhenAllTask();
                     startScene.MessageStatus("Atualizando Itens " + (i + 1) + "/" + size + "");
 
-                    if (_itensDB[i].ativo == 1 && config.isOnline == true) {
-
-                        bool downloaded = false;
-                        yield return Timing.WaitUntilDone(Timing.RunCoroutine(LoadImageItem(MyResult => downloaded = MyResult, _itensDB[i].idItem)));
-                        _itensDB[i].downloaded = downloaded ? 1 : 0;
-                        //Debug.Log(_itensDB[i].ToString());
-                    }
+                    if (_itensDB[i].ativo != 1 || config.isOn != true) continue;
+                    bool downloaded = false;
+                    yield return Timing.WaitUntilDone(Timing.RunCoroutine(LoadImageItem(MyResult => downloaded = MyResult, _itensDB[i].idItem)));
+                    _itensDB[i].downloaded = downloaded ? 1 : 0;
+                    //Debug.Log(_itensDB[i].ToString());
                 }
 
                 data.AddItens(_itensDB);
                 yield return Timing.WaitForOneFrame;
 
-                if (config.isOnline == true) {
+                if (config.isOn == true) {
                      if (currentSyncDB.sincModeItens == 1 || currentSyncDB.sincModeItens == 3) {
                          dboG.itens = currentSyncDB.itensG;
                      }
@@ -1069,7 +1024,7 @@ public class networkHelper {
             List<DBOITENS> itensPreviousNotDownloaded = data.NotDownloadedItens();
 
             size = itensPreviousNotDownloaded.Count;
-            if (size >= 1 && config.isOnline) {
+            if (size >= 1 && config.isOn) {
                 for (int i = 0; i < size; i++) {
                     startScene.MessageStatus("Download de Itens Restantes " + (i + 1) + "/" + size + "");
                     bool downloaded = false;
@@ -1133,7 +1088,7 @@ public class networkHelper {
 
 
                 for (int i = 0; i < size; i++) {
-                    if (perguntasDB[i].ativo == 1 && config.isOnline && perguntasDB[i].audio == 1) {
+                    if (perguntasDB[i].ativo == 1 && config.isOn && perguntasDB[i].audio == 1) {
                         startScene.MessageStatus("Atualizando Perguntas " + i + "/" + size);
                         stringfast.Clear();
                         stringfast.Append(config.fullAudioClipDestinationQuestions).Append(perguntasDB[i].idPergunta).Append(".ogg");
@@ -1196,7 +1151,7 @@ public class networkHelper {
                     
 
                     for (int i = 0; i < size; i++) {
-                        if (respostasDB[i].ativo == 1 && config.isOnline && respostasDB[i].audio == 1) {
+                        if (respostasDB[i].ativo == 1 && config.isOn && respostasDB[i].audio == 1) {
                             startScene.MessageStatus("Atualizando Perguntas " + i + "/" + size);
                             bool downloaded = false;
                             yield return Timing.WaitUntilDone(Timing.RunCoroutine(LoadAnswerID(MyResult => downloaded = MyResult, respostasDB[i].idResposta)));
@@ -1351,8 +1306,8 @@ public class networkHelper {
 
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
             //Debug.Log(request.error);
-            if (request.isNetworkError || request.isHttpError) {
-                config.isOnline = false;
+            if (request.isNetworkError) {
+//                config.isOn = false;
                 _startScene.OnlineAcessFailed();
             } else {
                 _startScene.OnlineAcessFailed();
@@ -1601,8 +1556,8 @@ public class networkHelper {
         var result = JSON.Parse(response);
 
         if (request.isNetworkError || request.isHttpError || response.Contains("erro")) {
-            if (request.isNetworkError || request.isHttpError) {
-                config.isOnline = false;
+            if (request.isNetworkError) {
+//                config.isOn = false;
                 _startScene.OnlineAcessFailed();
             } else {
                 _startScene.OnlineAcessFailed();
@@ -1802,7 +1757,6 @@ public class networkHelper {
     public IEnumerator<float> DelsSync(int clientID) {
         isDoingOperation = true;
         clientID = 1;
-        config = GameConfig.Instance;
         DataService db = GameConfig.Instance.OpenDb();
         startScene.MessageStatus("Verificando Remoção de Perguntas");
         DBOSINCRONIZACAO dbo = GameConfig.Instance.OpenDb().GetSync(clientID);
@@ -1820,7 +1774,7 @@ public class networkHelper {
             yield return Timing.WaitUntilDone(startScene.StartProgressWebRequest(request));
 
             if (request.isNetworkError || request.isHttpError) {
-                config.isOnline = false;
+
             } else {
 
                 var jsonDecode = JSON.Parse(request.downloadHandler.text);
@@ -1921,7 +1875,9 @@ public class networkHelper {
             yield return Timing.WaitUntilDone(www.SendWebRequest());
 
             if (www.isNetworkError || www.isHttpError) {
-                config.isOnline = false;
+
+
+
                 MyResult(false);
                 www.Dispose();
             } else {

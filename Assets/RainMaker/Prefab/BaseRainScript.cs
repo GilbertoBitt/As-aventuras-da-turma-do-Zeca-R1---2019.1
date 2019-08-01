@@ -67,7 +67,7 @@ namespace DigitalRuby.RainMaker
         private float lastRainIntensityValue = -1.0f;
       //  private float nextWindTime;
 
-		public GameConfig gameconfig;
+		public GameConfig gameconfig => GameConfig.Instance;
 
 
 
@@ -77,77 +77,75 @@ namespace DigitalRuby.RainMaker
 
         private void CheckForRainChange()
         {
-            if (lastRainIntensityValue != RainIntensity)
+            if (Math.Abs(lastRainIntensityValue - RainIntensity) < 0.1f) return;
+            lastRainIntensityValue = RainIntensity;
+            if (RainIntensity <= 0.01f)
             {
-                lastRainIntensityValue = RainIntensity;
-                if (RainIntensity <= 0.01f)
-                {
                    
-                    if (RainFallParticleSystem != null)
-                    {
-                        ParticleSystem.EmissionModule e = RainFallParticleSystem.emission;
-                        e.enabled = false;
-                        RainFallParticleSystem.Stop();
-                    }
-                    if (RainMistParticleSystem != null)
-                    {
-                        ParticleSystem.EmissionModule e = RainMistParticleSystem.emission;
-                        e.enabled = false;
-                        RainMistParticleSystem.Stop();
-                    }
+                if (RainFallParticleSystem != null)
+                {
+                    ParticleSystem.EmissionModule e = RainFallParticleSystem.emission;
+                    e.enabled = false;
+                    RainFallParticleSystem.Stop();
+                }
+                if (RainMistParticleSystem != null)
+                {
+                    ParticleSystem.EmissionModule e = RainMistParticleSystem.emission;
+                    e.enabled = false;
+                    RainMistParticleSystem.Stop();
+                }
+            }
+            else
+            {
+                // LoopingAudioSource newSource;
+                if (RainIntensity >= 0.67f)
+                {
+                    // newSource = audioSourceRainHeavy;
+                }
+                else if (RainIntensity >= 0.33f)
+                {
+                    //  newSource = audioSourceRainMedium;
                 }
                 else
                 {
-                   // LoopingAudioSource newSource;
-                    if (RainIntensity >= 0.67f)
+                    //  newSource = audioSourceRainLight;
+                }
+                    
+                if (RainFallParticleSystem != null)
+                {
+                    ParticleSystem.EmissionModule e = RainFallParticleSystem.emission;
+                    e.enabled = RainFallParticleSystem.GetComponent<Renderer>().enabled = true;
+                    if (!RainFallParticleSystem.isPlaying)
                     {
-                       // newSource = audioSourceRainHeavy;
+                        RainFallParticleSystem.Play();
                     }
-                    else if (RainIntensity >= 0.33f)
+                    ParticleSystem.MinMaxCurve rate = e.rate;
+                    rate.mode = ParticleSystemCurveMode.Constant;
+                    //  rate.constantMin = rate.constantMax = RainFallEmissionRate();
+                    e.rate = rate;
+                }
+                if (RainMistParticleSystem != null)
+                {
+                    ParticleSystem.EmissionModule e = RainMistParticleSystem.emission;
+                    e.enabled = RainMistParticleSystem.GetComponent<Renderer>().enabled = true;
+                    if (!RainMistParticleSystem.isPlaying)
                     {
-                      //  newSource = audioSourceRainMedium;
+                        RainMistParticleSystem.Play();
+                    }
+                    float emissionRate;
+                    if (RainIntensity < RainMistThreshold)
+                    {
+                        emissionRate = 0.0f;
                     }
                     else
                     {
-                      //  newSource = audioSourceRainLight;
+                        // must have RainMistThreshold or higher rain intensity to start seeing mist
+                        //  emissionRate = MistEmissionRate();
                     }
-                    
-                    if (RainFallParticleSystem != null)
-                    {
-                        ParticleSystem.EmissionModule e = RainFallParticleSystem.emission;
-                        e.enabled = RainFallParticleSystem.GetComponent<Renderer>().enabled = true;
-                        if (!RainFallParticleSystem.isPlaying)
-                        {
-                            RainFallParticleSystem.Play();
-                        }
-                        ParticleSystem.MinMaxCurve rate = e.rate;
-                        rate.mode = ParticleSystemCurveMode.Constant;
-                      //  rate.constantMin = rate.constantMax = RainFallEmissionRate();
-                        e.rate = rate;
-                    }
-                    if (RainMistParticleSystem != null)
-                    {
-                        ParticleSystem.EmissionModule e = RainMistParticleSystem.emission;
-                        e.enabled = RainMistParticleSystem.GetComponent<Renderer>().enabled = true;
-                        if (!RainMistParticleSystem.isPlaying)
-                        {
-                            RainMistParticleSystem.Play();
-                        }
-                        float emissionRate;
-                        if (RainIntensity < RainMistThreshold)
-                        {
-                            emissionRate = 0.0f;
-                        }
-                        else
-                        {
-                            // must have RainMistThreshold or higher rain intensity to start seeing mist
-                          //  emissionRate = MistEmissionRate();
-                        }
-                        ParticleSystem.MinMaxCurve rate = e.rate;
-                        rate.mode = ParticleSystemCurveMode.Constant;
+                    ParticleSystem.MinMaxCurve rate = e.rate;
+                    rate.mode = ParticleSystemCurveMode.Constant;
 //                        rate.constantMin = rate.constantMax = emissionRate;
-                        e.rate = rate;
-                    }
+                    e.rate = rate;
                 }
             }
         }

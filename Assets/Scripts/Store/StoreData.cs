@@ -8,7 +8,7 @@ public class StoreData : ScriptableObject {
     public List<StoreItem> itensOnStore = new List<StoreItem>();
     public List<int> buyedItens = new List<int>();
     public DBOITENS_CATEGORIAS[] itensCategory;
-    public GameConfig config;
+    public GameConfig config => GameConfig.Instance;
     private DataService db;
 
     public StoreItem GetItem(int id) {
@@ -50,7 +50,7 @@ public class StoreData : ScriptableObject {
         };
         
         
-        if (!config.isOnline) {
+        if (!config.isOn) {
             itemInv.online = 0;
             db.UpdateOrReplateInventory(itemInv);
             config.UpdateScore(config.BropsAmount, config.TotalPoints);

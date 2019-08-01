@@ -53,7 +53,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 	public GridLayoutGroup gridLayout;
 
 	public SoundManager sound;
-	public GameConfig config;
+	public GameConfig config => GameConfig.Instance;
 	public Transform characterDeckLocation;
 	public Manager_1_1B managerNext;
 	public Button pauseButton;

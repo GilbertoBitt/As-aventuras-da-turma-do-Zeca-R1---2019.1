@@ -232,7 +232,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
     public LayerMask layerItemHandler = new LayerMask();
    // public TutorMontanha TutorMontanha2;
 
-    public GameConfig config;
+    public GameConfig config => GameConfig.Instance;
     public Minigames minigame;
 
     private CoroutineHandle chestBonusEnd;
@@ -413,7 +413,6 @@ public class Manager1_4A : OverridableMonoBehaviour {
                 imageItem.GetComponent<Canvas>().sortingOrder = itemHandler.sortingOrder;
             }
             itemHandler.UpdateItemHandlerOnChilds();
-            itemHandler.UpdateDragItem();
             itemHandler.ActiveCollider2D();
             itemHandler.UpdateStartList();
             //yield return new WaitForSeconds (.2f);
@@ -421,6 +420,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
             itemHandler.slotCount = itemHandler.itemsOnSlot.Count;
             itemHandler.UpdateItemHandlersHistory();
             itemHandler.StartMaxBadItemsUpdate();
+            itemHandler.UpdateDragItem();
         }
 
         if (checkBauIni == false) {
@@ -841,25 +841,6 @@ public class Manager1_4A : OverridableMonoBehaviour {
     }
 
 
-    public void ChamarMaeZeca() {
-//	    nextManager.InitGame();
-//        painelMaeZeza.SetActive(true);
-//        checkMaeZeca = true;
-//
-//        if (hasEndedByTime && currentDificult <= 1)
-//        {
-//            //Debug.Log("texto1");
-//            texProfessora.text = "texto1";
-//        }
-//        else if (hasEndedByTime == false && currentDificult == 4)
-//        {
-//            texProfessora.text = "texto2";
-//
-//        }
-
-    }
-
-
     
 
 	void updateItemHandlerList(){
@@ -1004,7 +985,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
 		yield return new WaitUntil(() => checkJucaBau == false);
 		yield return new WaitUntil(() => checkZecaBau == false);
 		yield return new WaitUntil(() => isOpeningChest == false);
-		
+
 		yield return new WaitUntil(() => chooseChestBonus == false);
 
 		foreach (var item in partBauTransp)

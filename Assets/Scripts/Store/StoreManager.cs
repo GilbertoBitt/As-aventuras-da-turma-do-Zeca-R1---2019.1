@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class StoreManager : MonoBehaviour { 
 
     public StoreData storeData;
-    public GameConfig configGame;  
+    public GameConfig configGame => GameConfig.Instance;
     public GameObject mainPanel;
     public Canvas thisPanel;
     public gameSelection gameSelectionScript;

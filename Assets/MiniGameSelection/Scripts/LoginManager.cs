@@ -6,8 +6,7 @@ using System.Collections;
 
 public class LoginManager : MonoBehaviour {
 
-	[HeaderAttribute("References")]
-	public GameConfig config;
+	public GameConfig config => GameConfig.Instance;
 	public StatusTexts messagesText;
 	public GameDetailWindow gameDetails;
 	public Button loginButton;
@@ -45,8 +44,8 @@ public class LoginManager : MonoBehaviour {
 		} else {
 				//Debug.Log("Error: Digite sua senha.");
 		currentState = acessState.NetworkCheck;
-		if(usernameInput.text != "" && usernameInput.text != null){
-			if(passwordInput.text != "" && passwordInput.text != null){
+		if(!string.IsNullOrEmpty(usernameInput.text)){
+			if(!string.IsNullOrEmpty(passwordInput.text)){
 				StartCoroutine(loginBegin());
 			} else {
 				//Debug.Log("Error: Digite sua senha.");
@@ -56,7 +55,7 @@ public class LoginManager : MonoBehaviour {
 			//Debug.Log("Error: Digite um nome de usuário/login.");
 			UpdateStatus(acessState.ErroUserNotTyped);
 		}
-	}
+		}
 	}
 
 	IEnumerator loginBegin(){
@@ -64,7 +63,7 @@ public class LoginManager : MonoBehaviour {
 		UpdateStatus(acessState.NetworkCheck);
 		helper.NetworkVeryfier(config);
 		yield return new WaitWhile(()=> config.isVerifingNetwork);
-		if(config.isOnline == false){
+		if(config.isOn == false){
 			//startOfflineAcess();
 		} else	{
 			//startOnlineAcess();

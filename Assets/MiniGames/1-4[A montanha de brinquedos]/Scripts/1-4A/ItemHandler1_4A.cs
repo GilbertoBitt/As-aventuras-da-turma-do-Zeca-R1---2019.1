@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using System.Linq;
 
-public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IInitializePotentialDragHandler {
 
 //	[SeparatorAttribute("Referencias")]
 	public Manager1_4A gameManager;
@@ -62,6 +62,8 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 	#region DragAndDrop
 	private ItemGroup1_4A _privateItem;
+
+
 	public void OnBeginDrag (PointerEventData eventData){
 		int temp = slotCount - 1;
 		if (blockDrag != false || gameManager.isDragging != false || isBeenDrag != false || gameManager.isRemoving ||
@@ -187,7 +189,16 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	public void UpdateDragItem(){
 		if (itemsOnSlot.Count <= 0) return;
 		slotCount = itemsOnSlot.Count;
-		itemToDrag = itemsOnSlot [slotCount - 1];
+		var invertedList = itemsOnSlot;
+		invertedList.Reverse();
+		itemToDrag = invertedList [slotCount-1];
+		itemsOnSlot.ForEach(item =>
+		{
+			var itemGroup = item.GetComponent(typeof(CanvasGroup)) as CanvasGroup;
+			if (itemGroup == null) return;
+			itemGroup.interactable = item == itemToDrag;
+			itemGroup.blocksRaycasts = item == itemToDrag;
+		});
 		//blockDrag = false;
 	}
 
@@ -195,9 +206,7 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	{
 		foreach (var t in itemsOnSlot)
 		{
-			ItemHistory1_4A item = new ItemHistory1_4A ();
-			item.itemComp = t;
-			item.sibblingIndex = t.transform.GetSiblingIndex ();
+			ItemHistory1_4A item = new ItemHistory1_4A {itemComp = t, sibblingIndex = t.transform.GetSiblingIndex()};
 			originalItems.Add (item);
 		}
 	}
@@ -327,7 +336,11 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 		removeRedItem ();
 	}
 
-	
+
+	public void OnInitializePotentialDrag(PointerEventData eventData)
+	{
+		UpdateDragItem();
+	}
 }
 
 [System.Serializable]

@@ -77,42 +77,41 @@ public class ItemGroup1_4A : OverridableMonoBehaviour {
 	}
 
 	public void startDragging(){
-		if (!isBeenDrag) {
-			RaycastHit2D hit = Physics2D.Raycast (this.transform.position, manager.directionOfRayRight.normalized, Mathf.Infinity, manager.layerItemHandler);
-			if (hit.collider != null) {
-				//Debug.DrawRay (transform.position, manager.directionOfRayRight, manager.debugDrawRayColorRight);
-				Debug.DrawLine (this.transform.position, hit.point, manager.debugDrawRayColorRight);
-				ItemGroup1_4A item = hit.collider.gameObject.GetComponent<ItemGroup1_4A> ();
-				if (item != null && hit.collider.transform.IsChildOf (this.parent) == false) {
-					hasObjectOnRight = true;
-					rightObject = hit.collider.transform;
-					//Debug.Log (hit.collider.name);
-				} else {
-					hasObjectOnRight = false;
-					rightObject = null;
-				}
+		if (isBeenDrag) return;
+		RaycastHit2D hit = Physics2D.Raycast (this.transform.position, manager.directionOfRayRight.normalized, Mathf.Infinity, manager.layerItemHandler);
+		if (hit.collider != null) {
+			//Debug.DrawRay (transform.position, manager.directionOfRayRight, manager.debugDrawRayColorRight);
+			Debug.DrawLine (this.transform.position, hit.point, manager.debugDrawRayColorRight);
+			ItemGroup1_4A item = hit.collider.gameObject.GetComponent<ItemGroup1_4A> ();
+			if (item != null && hit.collider.transform.IsChildOf (this.parent) == false) {
+				hasObjectOnRight = true;
+				rightObject = hit.collider.transform;
+				//Debug.Log (hit.collider.name);
 			} else {
 				hasObjectOnRight = false;
 				rightObject = null;
 			}
+		} else {
+			hasObjectOnRight = false;
+			rightObject = null;
+		}
 
-			RaycastHit2D hitLeft = Physics2D.Raycast (this.transform.position, manager.directionOfRayLeft.normalized, Mathf.Infinity, manager.layerItemHandler);
-			if (hitLeft.collider != null) {
-				//Debug.DrawRay (transform.position, manager.directionOfRayLeft, manager.debugDrawRayColorLeft);
-				Debug.DrawLine (this.transform.position, hitLeft.collider.transform.position, manager.debugDrawRayColorLeft);
-				ItemGroup1_4A item = hitLeft.collider.gameObject.GetComponent<ItemGroup1_4A> ();
-				if (item != null && hitLeft.collider.transform.IsChildOf (this.parent) == false) {
-					hasObjectOnLeft = true;
-					leftObject = hitLeft.collider.transform;
-					//Debug.Log (hitLeft.collider.name);
-				} else {
-					hasObjectOnLeft = false;
-					leftObject = null;
-				}
+		RaycastHit2D hitLeft = Physics2D.Raycast (this.transform.position, manager.directionOfRayLeft.normalized, Mathf.Infinity, manager.layerItemHandler);
+		if (hitLeft.collider != null) {
+			//Debug.DrawRay (transform.position, manager.directionOfRayLeft, manager.debugDrawRayColorLeft);
+			Debug.DrawLine (this.transform.position, hitLeft.collider.transform.position, manager.debugDrawRayColorLeft);
+			ItemGroup1_4A item = hitLeft.collider.gameObject.GetComponent<ItemGroup1_4A> ();
+			if (item != null && hitLeft.collider.transform.IsChildOf (this.parent) == false) {
+				hasObjectOnLeft = true;
+				leftObject = hitLeft.collider.transform;
+				//Debug.Log (hitLeft.collider.name);
 			} else {
 				hasObjectOnLeft = false;
 				leftObject = null;
 			}
+		} else {
+			hasObjectOnLeft = false;
+			leftObject = null;
 		}
 	}
 	
