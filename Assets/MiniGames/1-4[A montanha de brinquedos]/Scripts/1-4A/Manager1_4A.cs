@@ -774,7 +774,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
     }
 
     IEnumerator endGame() {
-        yield return new WaitUntil(() => itemHandlers.All(x => x.hasEnded != false));
+        yield return new WaitUntil(() => itemHandlers.All(x => x.hasEnded || hasEndedByTime));
         pauseButton.interactable = false;
         CancelInvoke();
         isPlaying = false;
@@ -796,26 +796,28 @@ public class Manager1_4A : OverridableMonoBehaviour {
             log.pontosLudica = scoreAmount;
             log.faseLudica = hasEndedByTime ? currentDificult : 4;
 
-            if (currentDificult == 1)
+            switch (currentDificult)
             {
-	            nextManager.DialogInfoYear1.speeches[0] = speechInfoFinalLudica1;
-		        nextManager.DialogInfoYear2.speeches[0] = speechInfoFinalLudica1;
-			    nextManager.DialogInfoYear3.speeches[0] = speechInfoFinalLudica1;
-            } else if (currentDificult == 2)
-            {
-				nextManager.DialogInfoYear1.speeches[0] = speechInfoFinalLudica2;
-		        nextManager.DialogInfoYear2.speeches[0] = speechInfoFinalLudica2;
-			    nextManager.DialogInfoYear3.speeches[0] = speechInfoFinalLudica2;
-            } else if (currentDificult == 3 && !hasEndedByTime)
-            {
-				nextManager.DialogInfoYear1.speeches[0] = speechInfoFinalLudica3;
-		        nextManager.DialogInfoYear2.speeches[0] = speechInfoFinalLudica3;
-			    nextManager.DialogInfoYear3.speeches[0] = speechInfoFinalLudica3;
+	            case 1:
+		            nextManager.DialogInfoYear1.speeches[0] = speechInfoFinalLudica1;
+		            nextManager.DialogInfoYear2.speeches[0] = speechInfoFinalLudica1;
+		            nextManager.DialogInfoYear3.speeches[0] = speechInfoFinalLudica1;
+		            break;
+	            case 2:
+		            nextManager.DialogInfoYear1.speeches[0] = speechInfoFinalLudica2;
+		            nextManager.DialogInfoYear2.speeches[0] = speechInfoFinalLudica2;
+		            nextManager.DialogInfoYear3.speeches[0] = speechInfoFinalLudica2;
+		            break;
+	            case 3 when !hasEndedByTime:
+		            nextManager.DialogInfoYear1.speeches[0] = speechInfoFinalLudica3;
+		            nextManager.DialogInfoYear2.speeches[0] = speechInfoFinalLudica3;
+		            nextManager.DialogInfoYear3.speeches[0] = speechInfoFinalLudica3;
+		            break;
             }
-            this.enabled = false;
+
             nextManager.InitGame();
             // isGameEnded = true;
-
+            this.enabled = false;
 
         } else {
             _highlight.startChangeLevelAnimation(currentDificult + 1);
