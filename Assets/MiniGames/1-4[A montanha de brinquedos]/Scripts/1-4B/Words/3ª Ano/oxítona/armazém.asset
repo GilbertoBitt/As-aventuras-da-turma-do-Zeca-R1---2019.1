@@ -15,16 +15,31 @@ MonoBehaviour:
   word: "armaz\xE9m"
   itemSprite: {fileID: 0}
   syllables:
-  - AR
-  - "MAZ\xC9M"
-  charSyllabes: []
-  letters: []
+  - ar
+  - ma
+  - "z\xE9m"
+  charSyllabes:
+  - a
+  - r
+  - m
+  - a
+  - z
+  - "\xE9"
+  - m
+  letters:
+  - a
+  - r
+  - m
+  - a
+  - z
+  - "\xE9"
+  - m
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 2
+    classification: 3
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

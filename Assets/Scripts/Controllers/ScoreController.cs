@@ -15,19 +15,22 @@ namespace Controllers
         [Range(0.1f, 2f)]
         public float animationDuration;
 
-        private void Awake()
-        {
-            scoreTextComponent = GetComponent(typeof(TextMeshProUGUI)) as TextMeshProUGUI;
-        }
-
         private void Start()
         {
-            amountValue.Subscribe(updateValue =>
+            scoreTextComponent = GetComponent(typeof(TextMeshProUGUI)) as TextMeshProUGUI;
+            amountValue.ObserveEveryValueChanged(x => x.Value).Subscribe(updateValue =>
             {
                 scoreTextComponent.DOTextInt(_lastValue, updateValue, animationDuration)
                     .OnComplete(() => { _lastValue = updateValue; });
             });
         }
+
+        [Button("Add Score")]
+        public void AddPoints(int value)
+        {
+            amountValue.Value += value;
+        }
+
 
         public void ResetScore()
         {

@@ -148,7 +148,10 @@ public class FinalScore : MonoBehaviour {
 		DeAudioManager.Stop(DeAudioGroupId.Music);
 		DeAudioManager.Stop(DeAudioGroupId.Ambient);
 		DeAudioManager.Stop(DeAudioGroupId.Dialogue);
-		DeAudioManager.Play(DeAudioGroupId.Music, endGameAudioClip);
+
+		if(GameConfig.Instance.isAudioOn)
+			DeAudioManager.Play(DeAudioGroupId.Music, endGameAudioClip);
+
 		switch (starsAmount) {
 		case 0:
 			endMessage.text = "Muito bem! Tente melhorar.";

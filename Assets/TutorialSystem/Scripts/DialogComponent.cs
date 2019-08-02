@@ -204,7 +204,7 @@ namespace TutorialSystem.Scripts
 
         private void StartDialog(DialogInfo dialogInfo, int currentDialogIndex = 0)
         {
-            indexEnd = dialogInfo.speeches.Count;
+            indexEnd = dialogInfo.speeches.Count-1;
             currentIndex = currentDialogIndex;
             //TODO adicionar animação do personagem piscando e falando.    
             dialogSequenceAnimation = DOTween.Sequence();
@@ -218,7 +218,7 @@ namespace TutorialSystem.Scripts
                 dialogSequenceAnimation.AppendCallback(() =>
                 {
                     previousDialogButton.gameObject.SetActive(currentIndex != 0);
-                    nextDialogButton.gameObject.SetActive(currentIndex != indexEnd-1);
+                    nextDialogButton.gameObject.SetActive(currentIndex != indexEnd);
                     textMeshComponent.SetText(string.Empty);
                     textMeshComponentHalfSized.SetText(string.Empty);
                     EventSystemHandler(index);
@@ -229,7 +229,8 @@ namespace TutorialSystem.Scripts
                 {
                     dialogSequenceAnimation.AppendCallback(() =>
                         {
-                            DeAudioManager.Play(DeAudioGroupId.Dialogue, speech.speechAudioClip.audioClip);
+                            if(GameConfig.Instance.isAudioVoiceOn)
+                                DeAudioManager.Play(DeAudioGroupId.Dialogue, speech.speechAudioClip.audioClip);
                             characterComponent.StartTalkingAnimation();
                         });
                     dialogSequenceAnimation.Join(GetSelectedTextMeshComponent(speech).DOText(speech.speechText,
@@ -259,9 +260,9 @@ namespace TutorialSystem.Scripts
                 dialogSequenceAnimation.AppendInterval(dialogSetting.timeBetweenSpeechs);
 
                 dialogSequenceAnimation.AppendCallback(() => { currentIndex++; });
-
             }
-            characterComponent.StopDefaultAnimation();
+
+            dialogSequenceAnimation.OnComplete(() => { currentIndex = indexEnd; });
             dialogSequenceAnimation.Play();
         }
 

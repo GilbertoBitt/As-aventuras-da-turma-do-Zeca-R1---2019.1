@@ -23,6 +23,7 @@ public class BubbleFood1_3B : MonoBehaviour {
     public Transform bolha;
     private ParticleSystem _particle;
     public TextMeshPro textItem;
+    public SpriteRenderer incorrectIcon;
     public void Awake() {
         _particle = partExploBolha.GetComponent<ParticleSystem>();
     }
@@ -40,6 +41,7 @@ public class BubbleFood1_3B : MonoBehaviour {
 	    iconSpriteRender.sprite = wordTemp.itemSprite;
 	    originalPos = this.transform.position;
 	    textItem.SetText(word.itemWord.ToUpperInvariant());
+	    incorrectIcon.DOFade(0f, 0.1f);
     }
 
 	void Update(){
@@ -64,15 +66,14 @@ public class BubbleFood1_3B : MonoBehaviour {
         iconSpriteRender.DOFade(0f, _delay);
         bubbleSpriteRender.DOFade(0f, _delay);
         this.transform.DOScale(Vector3.zero, _delay).OnComplete(returnToOrigin);
-        if (textItem.color.a >= 0.3f)
-        {
-	        textItem.DOFade(0f, .3f);
-        }
+        if(textItem.color.a >= 0.3f) textItem.DOFade(0f, .3f);
+        if(incorrectIcon.color.a >= .3f) incorrectIcon.DOFade(0f, 0.1f);
         //Timing.RunCoroutine (FadeOut (_delay));
 	}
 
 	public void MakeItRed(){
         bubbleSpriteRender.color = Color.red;
+        incorrectIcon.DOFade(1f, .3f);
     }
 
     IEnumerator<float> FadeIn(float delay){

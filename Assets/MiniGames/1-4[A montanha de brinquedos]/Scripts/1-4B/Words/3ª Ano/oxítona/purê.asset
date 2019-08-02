@@ -15,15 +15,24 @@ MonoBehaviour:
   word: "pur\xEA"
   itemSprite: {fileID: 0}
   syllables:
-  - "PUR\xCA"
-  charSyllabes: []
-  letters: []
+  - pu
+  - "r\xEA"
+  charSyllabes:
+  - p
+  - u
+  - r
+  - "\xEA"
+  letters:
+  - p
+  - u
+  - r
+  - "\xEA"
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 1
+    classification: 2
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

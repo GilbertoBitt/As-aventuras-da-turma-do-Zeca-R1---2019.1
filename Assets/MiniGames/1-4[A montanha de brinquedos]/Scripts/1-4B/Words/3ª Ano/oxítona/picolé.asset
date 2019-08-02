@@ -15,16 +15,29 @@ MonoBehaviour:
   word: "picol\xE9"
   itemSprite: {fileID: 0}
   syllables:
-  - PICO
-  - "L\xC9"
-  charSyllabes: []
-  letters: []
+  - pi
+  - co
+  - "l\xE9"
+  charSyllabes:
+  - p
+  - i
+  - c
+  - o
+  - l
+  - "\xE9"
+  letters:
+  - p
+  - i
+  - c
+  - o
+  - l
+  - "\xE9"
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 2
+    classification: 3
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

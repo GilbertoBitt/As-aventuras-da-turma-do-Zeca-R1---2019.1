@@ -15,15 +15,24 @@ MonoBehaviour:
   word: aqui
   itemSprite: {fileID: 0}
   syllables:
-  - AQUI
-  charSyllabes: []
-  letters: []
+  - a
+  - qui
+  charSyllabes:
+  - a
+  - q
+  - u
+  - i
+  letters:
+  - a
+  - q
+  - u
+  - i
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 1
+    classification: 2
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

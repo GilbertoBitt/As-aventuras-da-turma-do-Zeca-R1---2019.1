@@ -15,15 +15,24 @@ MonoBehaviour:
   word: "rob\xF4"
   itemSprite: {fileID: 0}
   syllables:
-  - "ROB\xD4"
-  charSyllabes: []
-  letters: []
+  - ro
+  - "b\xF4"
+  charSyllabes:
+  - r
+  - o
+  - b
+  - "\xF4"
+  letters:
+  - r
+  - o
+  - b
+  - "\xF4"
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 1
+    classification: 2
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

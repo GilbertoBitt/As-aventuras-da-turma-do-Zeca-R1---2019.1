@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,26 +41,18 @@ public class ExternalSoundSystemAdapter : OverridableMonoBehaviour {
 
     private bool latestAudioState = false;
 
-    private void Start() {
-        latestAudioState = IsAudioTypeOn();
+    private void OnEnable()
+    {
+        if (SoundSource.enabled == GameConfig.Instance.isAudioFXOn) return;
+        SoundSource.enabled = GameConfig.Instance.isAudioFXOn;
     }
 
-    private void FixedUpdate() {
-        if (latestAudioState == IsAudioTypeOn()) return;
-        latestAudioState = IsAudioTypeOn();
-        var audioIsOn = latestAudioState;
-        if (SoundSource.isPlaying && !audioIsOn) {
-            if (ContinuousPlay) {
-                SoundSource.Pause();
-            } else {
-                SoundSource.Stop();
-            }
-        } else if(!SoundSource.isPlaying && audioIsOn) {
-            SoundSource.Play();
-        } else {
-            return;
-        }
+    public void Update()
+    {
+        if (SoundSource.enabled == GameConfig.Instance.isAudioFXOn) return;
+        SoundSource.enabled = GameConfig.Instance.isAudioFXOn;
     }
+
 
     private bool IsAudioTypeOn() {
         switch (ClipType) {

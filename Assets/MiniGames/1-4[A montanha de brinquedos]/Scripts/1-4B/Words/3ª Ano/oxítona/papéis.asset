@@ -17,8 +17,20 @@ MonoBehaviour:
   syllables:
   - PA
   - "P\xC9IS"
-  charSyllabes: []
-  letters: []
+  charSyllabes:
+  - p
+  - a
+  - p
+  - "\xE9"
+  - i
+  - s
+  letters:
+  - p
+  - a
+  - p
+  - "\xE9"
+  - i
+  - s
   tonicSyllables:
     enabled: 1
     classification: 0

@@ -15,15 +15,24 @@ MonoBehaviour:
   word: "est\xE1"
   itemSprite: {fileID: 0}
   syllables:
-  - "EST\xC1"
-  charSyllabes: []
-  letters: []
+  - es
+  - "t\xE1"
+  charSyllabes:
+  - e
+  - s
+  - t
+  - "\xE1"
+  letters:
+  - e
+  - s
+  - t
+  - "\xE1"
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 1
+    classification: 2
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

@@ -15,15 +15,22 @@ MonoBehaviour:
   word: "av\xF3"
   itemSprite: {fileID: 0}
   syllables:
-  - "AV\xD3"
-  charSyllabes: []
-  letters: []
+  - a
+  - "v\xF3"
+  charSyllabes:
+  - a
+  - v
+  - "\xF3"
+  letters:
+  - a
+  - v
+  - "\xF3"
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 1
+    classification: 2
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

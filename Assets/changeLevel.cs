@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using DG.DeAudio;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,10 +39,9 @@ public class changeLevel : MonoBehaviour {
         if (soundManager2 == null) {
             soundManager2 = FindObjectOfType<SoundManager>();
         }
-        if (audio1 != null ) {
-          
-          soundManager2.startVoiceFX(audio1);
-        }
+
+        if (GameConfig.Instance.isAudioFXOn)
+	        DeAudioManager.Play(DeAudioGroupId.FX, audio1);
           
         anim.enabled = true;
 		thisText.text = textLevelChange.Replace ("<level>", level.ToString ());

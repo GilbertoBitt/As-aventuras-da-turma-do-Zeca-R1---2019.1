@@ -1,0 +1,53 @@
+fileFormatVersion: 2
+guid: 75fc32fee796e3c4ab13d3d39041c385
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: a57477913897c46af95d590f580878bd, type: 3}
+  svgType: 1
+  texturedSpriteMeshType: 0
+  svgPixelsPerUnit: 100
+  gradientResolution: 128
+  alignment: 0
+  customPivot: {x: 0, y: 0}
+  generatePhysicsShape: 0
+  viewportOptions: 0
+  preserveViewport: 0
+  advancedMode: 0
+  predefinedResolutionIndex: 1
+  targetResolution: 1080
+  resolutionMultiplier: 1
+  stepDistance: 10
+  samplingStepDistance: 100
+  maxCordDeviationEnabled: 0
+  maxCordDeviation: 1
+  maxTangentAngleEnabled: 0
+  maxTangentAngle: 5
+  keepTextureAspectRatio: 1
+  textureSize: 256
+  textureWidth: 256
+  textureHeight: 256
+  wrapMode: 0
+  filterMode: 1
+  sampleCount: 4
+  spriteData:
+    TessellationDetail: 0
+    SpriteRect:
+      name: Bloco_op2_Fala_personagem_sem_outlineSprite
+      originalName: 
+      pivot: {x: 0.50047195, y: 0.5007971}
+      alignment: 0
+      border: {x: 38, y: 35, z: 38, w: 34}
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 223
+        height: 69
+      spriteID: e25232b4a5bdb6040b119e7960f69031
+      internalID: 0
+    PhysicsOutlines: []

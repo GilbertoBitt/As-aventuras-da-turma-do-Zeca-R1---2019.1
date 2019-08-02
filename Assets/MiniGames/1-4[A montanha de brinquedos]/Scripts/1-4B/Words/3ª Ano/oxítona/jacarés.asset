@@ -15,11 +15,25 @@ MonoBehaviour:
   word: "jacar\xE9s"
   itemSprite: {fileID: 0}
   syllables:
-  - JAC
-  - A
-  - "R\xC9S"
-  charSyllabes: []
-  letters: []
+  - ja
+  - ca
+  - "r\xE9s"
+  charSyllabes:
+  - j
+  - a
+  - c
+  - a
+  - r
+  - "\xE9"
+  - s
+  letters:
+  - j
+  - a
+  - c
+  - a
+  - r
+  - "\xE9"
+  - s
   tonicSyllables:
     enabled: 1
     classification: 0

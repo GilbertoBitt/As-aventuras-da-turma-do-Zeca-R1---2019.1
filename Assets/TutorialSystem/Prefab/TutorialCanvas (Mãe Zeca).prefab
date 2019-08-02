@@ -1763,7 +1763,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 16
+  m_fontStyle: 0
   m_textAlignment: 514
   m_characterSpacing: 20
   m_wordSpacing: 0
@@ -1942,6 +1942,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611423945268949464, guid: 55feee1a9fd6d644d83e6bb6e82d0d48,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.2999878
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55feee1a9fd6d644d83e6bb6e82d0d48, type: 3}

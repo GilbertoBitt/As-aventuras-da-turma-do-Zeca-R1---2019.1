@@ -15,15 +15,26 @@ MonoBehaviour:
   word: "fara\xF3"
   itemSprite: {fileID: 0}
   syllables:
-  - "FARA\xD3"
-  charSyllabes: []
-  letters: []
+  - fa
+  - "ra\xF3"
+  charSyllabes:
+  - f
+  - a
+  - r
+  - a
+  - "\xF3"
+  letters:
+  - f
+  - a
+  - r
+  - a
+  - "\xF3"
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 1
+    classification: 2
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

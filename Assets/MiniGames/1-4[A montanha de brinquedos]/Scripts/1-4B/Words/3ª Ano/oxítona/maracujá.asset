@@ -15,18 +15,35 @@ MonoBehaviour:
   word: "maracuj\xE1"
   itemSprite: {fileID: 0}
   syllables:
-  - MAR
-  - A
-  - "CUJ\xC1"
-  charSyllabes: []
-  letters: []
+  - ma
+  - ra
+  - cu
+  - "j\xE1"
+  charSyllabes:
+  - m
+  - a
+  - r
+  - a
+  - c
+  - u
+  - j
+  - "\xE1"
+  letters:
+  - m
+  - a
+  - r
+  - a
+  - c
+  - u
+  - j
+  - "\xE1"
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 3
-    syllableAmount: 0
+    classification: 4
+    syllableAmount: 4
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

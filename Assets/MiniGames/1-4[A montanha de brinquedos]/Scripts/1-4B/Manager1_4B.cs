@@ -14,6 +14,7 @@ using Sirenix.Utilities;
 using TMPro;
 using TutorialSystem.Scripts;
 using UniRx;
+using UniRx.Async;
 using UniRx.Toolkit;
 using UniRx.Triggers;
 using UnityEngine;
@@ -393,7 +394,7 @@ public class Manager1_4B : OverridableMonoBehaviour
             });
             blankInstancesOnScene.Clear();
 
-            currentWord = wordsList[currentRound];
+            currentWord = wordsList[currentGameRound];
 
             var syllables = currentWord.syllables;
 
@@ -562,7 +563,7 @@ public class Manager1_4B : OverridableMonoBehaviour
         {
             _soundManager.startSoundFX(audios[1]);
             highlight.startErrado("Você errou... que pena!");
-            currentRound++;
+            currentGameRound++;
             currentGameState.SetValueAndForceNotify(GameState.MainState);
             startGame.Execute();
         }
@@ -871,6 +872,9 @@ public class Manager1_4B : OverridableMonoBehaviour
                             }
                         }
 
+                        completeWordTextComponent.SetText(currentWord.word.ToTitleCase());
+                        completeWordTextComponent.DOFade(1f, .3f);
+
                         UpdateEnunciado("Classifique a palavra abaixo.");
                         for (int i = 0; i < 3; i++)
                         {
@@ -909,7 +913,9 @@ public class Manager1_4B : OverridableMonoBehaviour
             highlight.startErrado("Você errou... que pena!");
         }
 
-        currentRound++;
+        completeWordTextComponent.DOFade(0f, .3f);
+
+        currentGameRound++;
         currentGameState.SetValueAndForceNotify(GameState.MainState);
         startGame.Execute();
 
@@ -985,7 +991,7 @@ public class Manager1_4B : OverridableMonoBehaviour
     {
         anoLetivo.Value = (AnoLetivoState) GameConfig.Instance.GetAnoLetivo();
         this.enabled = true;
-//        dialogComponent = FindObjectOfType((typeof(DialogComponent))) as DialogComponent;
+        dialogComponent = FindObjectOfType((typeof(DialogComponent))) as DialogComponent;
 
         if (dialogComponent == null) return;
         dialogComponent.transform.parent.gameObject.SetActive(true);

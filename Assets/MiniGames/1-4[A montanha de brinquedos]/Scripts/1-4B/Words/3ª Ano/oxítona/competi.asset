@@ -15,16 +15,31 @@ MonoBehaviour:
   word: competi
   itemSprite: {fileID: 0}
   syllables:
-  - COM
-  - PETI
-  charSyllabes: []
-  letters: []
+  - com
+  - pe
+  - ti
+  charSyllabes:
+  - c
+  - o
+  - m
+  - p
+  - e
+  - t
+  - i
+  letters:
+  - c
+  - o
+  - m
+  - p
+  - e
+  - t
+  - i
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 2
+    classification: 3
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

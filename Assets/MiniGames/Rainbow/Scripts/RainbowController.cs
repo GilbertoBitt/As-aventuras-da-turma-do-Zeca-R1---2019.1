@@ -1679,15 +1679,12 @@ public class RainbowController : OverridableMonoBehaviour {
             Timing.RunCoroutine (NextTargetCount (currentIndexedItem, oldIndexItem));
 			userAnswers = -1;
 
-		} else if(isChanging == false) {
+		} else {
 			this.person.GetComponent<Animator> ().enabled = false;
 			if(checkDesafio==false){
-			//	checkDesafio=true;
-			//	panelDesafio.SetActive(checkDesafio);
 				Timing.RunCoroutine (TimePanels ());
 
 			}
-			//panelDesafio.GetComponent<Animator>().SetInteger("panelDesafioNumber",1);
 			managerNext.enabled = true;
 			managerNext.mainPanel.SetActive(true);
 			managerNext.oldPanel.SetActive(false);

@@ -15,16 +15,33 @@ MonoBehaviour:
   word: divertir
   itemSprite: {fileID: 0}
   syllables:
-  - DI
-  - VERTIR
-  charSyllabes: []
-  letters: []
+  - di
+  - ver
+  - tir
+  charSyllabes:
+  - d
+  - i
+  - v
+  - e
+  - r
+  - t
+  - i
+  - r
+  letters:
+  - d
+  - i
+  - v
+  - e
+  - r
+  - t
+  - i
+  - r
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 2
+    classification: 3
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

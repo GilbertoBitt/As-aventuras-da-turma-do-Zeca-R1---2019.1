@@ -197,9 +197,8 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 			var itemGroup = item.GetComponent(typeof(CanvasGroup)) as CanvasGroup;
 			if (itemGroup == null) return;
 			itemGroup.interactable = item == itemToDrag;
-			itemGroup.blocksRaycasts = item == itemToDrag;
+			itemGroup.blocksRaycasts = !item == itemToDrag;
 		});
-		//blockDrag = false;
 	}
 
 	public void UpdateStartList()

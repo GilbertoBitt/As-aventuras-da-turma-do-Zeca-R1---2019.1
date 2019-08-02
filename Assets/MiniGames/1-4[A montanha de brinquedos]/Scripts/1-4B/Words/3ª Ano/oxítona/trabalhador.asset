@@ -16,11 +16,33 @@ MonoBehaviour:
   itemSprite: {fileID: 0}
   syllables:
   - TRA
-  - BAL
-  - HA
+  - BA
+  - LHA
   - DOR
-  charSyllabes: []
-  letters: []
+  charSyllabes:
+  - t
+  - r
+  - a
+  - b
+  - a
+  - l
+  - h
+  - a
+  - d
+  - o
+  - r
+  letters:
+  - t
+  - r
+  - a
+  - b
+  - a
+  - l
+  - h
+  - a
+  - d
+  - o
+  - r
   tonicSyllables:
     enabled: 1
     classification: 0

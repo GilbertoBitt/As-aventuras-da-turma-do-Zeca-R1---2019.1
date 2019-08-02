@@ -15,18 +15,35 @@ MonoBehaviour:
   word: especial
   itemSprite: {fileID: 0}
   syllables:
-  - ES
-  - PE
-  - CIAL
-  charSyllabes: []
-  letters: []
+  - es
+  - pe
+  - ci
+  - al
+  charSyllabes:
+  - e
+  - s
+  - p
+  - e
+  - c
+  - i
+  - a
+  - l
+  letters:
+  - e
+  - s
+  - p
+  - e
+  - c
+  - i
+  - a
+  - l
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 3
-    syllableAmount: 0
+    classification: 4
+    syllableAmount: 4
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

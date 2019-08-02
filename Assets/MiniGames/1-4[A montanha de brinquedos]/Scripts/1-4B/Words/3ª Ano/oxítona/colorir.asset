@@ -15,11 +15,25 @@ MonoBehaviour:
   word: colorir
   itemSprite: {fileID: 0}
   syllables:
-  - COL
-  - O
+  - CO
+  - LO
   - RIR
-  charSyllabes: []
-  letters: []
+  charSyllabes:
+  - c
+  - o
+  - l
+  - o
+  - r
+  - i
+  - r
+  letters:
+  - c
+  - o
+  - l
+  - o
+  - r
+  - i
+  - r
   tonicSyllables:
     enabled: 1
     classification: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using com.csutil;
+using DG.DeAudio;
 using MEC;
 using DG.Tweening;
 using MiniGames.Scripts;
@@ -539,12 +540,13 @@ public class Manager1_3B : OverridableMonoBehaviour {
 	}
 
     public void CorrectionSucess() {
-        soundM.startSoundFX(soundFXs[1]);
+//        soundM.startSoundFX(soundFXs[1]);
+        if(GameConfig.Instance.isAudioFXOn) DeAudioManager.Play(DeAudioGroupId.FX, soundFXs[1]);
         changeLevel2.startCerto("Parabéns! Você acertou!");
     }
 
     public void CorrectionFail() {
-        soundM.startSoundFX(soundFXs[2]);
+        if(GameConfig.Instance.isAudioFXOn) DeAudioManager.Play(DeAudioGroupId.FX, soundFXs[2]);
         changeLevel2.startErrado("Você errou! O certo era:");
     }
 

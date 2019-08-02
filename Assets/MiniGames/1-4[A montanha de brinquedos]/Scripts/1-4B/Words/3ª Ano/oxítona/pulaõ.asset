@@ -12,13 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081c9b890044fb3428a4df19b7bc3466, type: 3}
   m_Name: "pula\xF5"
   m_EditorClassIdentifier: 
-  word: "pula\xF5"
+  word: "pul\xE3o"
   itemSprite: {fileID: 0}
   syllables:
-  - PU
-  - "LA\xD5"
-  charSyllabes: []
-  letters: []
+  - pu
+  - "l\xE3o"
+  charSyllabes:
+  - p
+  - u
+  - l
+  - "\xE3"
+  - o
+  letters:
+  - p
+  - u
+  - l
+  - "\xE3"
+  - o
   tonicSyllables:
     enabled: 1
     classification: 0

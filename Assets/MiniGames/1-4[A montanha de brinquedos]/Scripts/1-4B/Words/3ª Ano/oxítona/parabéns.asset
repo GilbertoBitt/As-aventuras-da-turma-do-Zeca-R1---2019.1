@@ -15,15 +15,33 @@ MonoBehaviour:
   word: "parab\xE9ns"
   itemSprite: {fileID: 0}
   syllables:
-  - "PARAB\xC9NS"
-  charSyllabes: []
-  letters: []
+  - pa
+  - ra
+  - "b\xE9ns"
+  charSyllabes:
+  - p
+  - a
+  - r
+  - a
+  - b
+  - "\xE9"
+  - n
+  - s
+  letters:
+  - p
+  - a
+  - r
+  - a
+  - b
+  - "\xE9"
+  - n
+  - s
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 1
+    classification: 3
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

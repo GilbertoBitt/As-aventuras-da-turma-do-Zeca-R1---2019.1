@@ -15,15 +15,28 @@ MonoBehaviour:
   word: gritar
   itemSprite: {fileID: 0}
   syllables:
-  - GRITAR
-  charSyllabes: []
-  letters: []
+  - gri
+  - tar
+  charSyllabes:
+  - g
+  - r
+  - i
+  - t
+  - a
+  - r
+  letters:
+  - g
+  - r
+  - i
+  - t
+  - a
+  - r
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 1
+    classification: 2
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

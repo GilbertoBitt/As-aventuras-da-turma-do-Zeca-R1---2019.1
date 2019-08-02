@@ -15,10 +15,20 @@ MonoBehaviour:
   word: civil
   itemSprite: {fileID: 0}
   syllables:
-  - CIV
-  - IL
-  charSyllabes: []
-  letters: []
+  - ci
+  - vil
+  charSyllabes:
+  - c
+  - i
+  - v
+  - i
+  - l
+  letters:
+  - c
+  - i
+  - v
+  - i
+  - l
   tonicSyllables:
     enabled: 1
     classification: 0

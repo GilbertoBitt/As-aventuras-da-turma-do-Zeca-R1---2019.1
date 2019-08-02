@@ -15,10 +15,18 @@ MonoBehaviour:
   word: pedi
   itemSprite: {fileID: 0}
   syllables:
-  - PED
-  - I
-  charSyllabes: []
-  letters: []
+  - PE
+  - DI
+  charSyllabes:
+  - p
+  - e
+  - d
+  - i
+  letters:
+  - p
+  - e
+  - d
+  - i
   tonicSyllables:
     enabled: 1
     classification: 0

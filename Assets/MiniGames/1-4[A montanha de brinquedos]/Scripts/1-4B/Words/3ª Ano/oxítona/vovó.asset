@@ -15,15 +15,24 @@ MonoBehaviour:
   word: "vov\xF3"
   itemSprite: {fileID: 0}
   syllables:
-  - "VOV\xD3"
-  charSyllabes: []
-  letters: []
+  - vo
+  - "v\xF3"
+  charSyllabes:
+  - v
+  - o
+  - v
+  - "\xF3"
+  letters:
+  - v
+  - o
+  - v
+  - "\xF3"
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 1
+    classification: 2
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

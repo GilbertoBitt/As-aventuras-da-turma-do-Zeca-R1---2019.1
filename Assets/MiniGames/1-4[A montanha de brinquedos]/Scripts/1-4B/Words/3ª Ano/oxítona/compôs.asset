@@ -15,15 +15,28 @@ MonoBehaviour:
   word: "comp\xF4s"
   itemSprite: {fileID: 0}
   syllables:
-  - "COMP\xD4S"
-  charSyllabes: []
-  letters: []
+  - com
+  - "p\xF4s"
+  charSyllabes:
+  - c
+  - o
+  - m
+  - p
+  - "\xF4"
+  - s
+  letters:
+  - c
+  - o
+  - m
+  - p
+  - "\xF4"
+  - s
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 1
+    classification: 2
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

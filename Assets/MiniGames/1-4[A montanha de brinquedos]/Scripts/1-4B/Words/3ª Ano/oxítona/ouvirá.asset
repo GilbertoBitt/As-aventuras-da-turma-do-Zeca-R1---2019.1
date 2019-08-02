@@ -15,16 +15,29 @@ MonoBehaviour:
   word: "ouvir\xE1"
   itemSprite: {fileID: 0}
   syllables:
-  - OU
-  - "VIR\xC1"
-  charSyllabes: []
-  letters: []
+  - ou
+  - vi
+  - "r\xE1"
+  charSyllabes:
+  - o
+  - u
+  - v
+  - i
+  - r
+  - "\xE1"
+  letters:
+  - o
+  - u
+  - v
+  - i
+  - r
+  - "\xE1"
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 2
+    classification: 3
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

@@ -15,11 +15,23 @@ MonoBehaviour:
   word: "palit\xF3"
   itemSprite: {fileID: 0}
   syllables:
-  - PAL
-  - I
+  - PA
+  - LI
   - "T\xD3"
-  charSyllabes: []
-  letters: []
+  charSyllabes:
+  - p
+  - a
+  - l
+  - i
+  - t
+  - "\xF3"
+  letters:
+  - p
+  - a
+  - l
+  - i
+  - t
+  - "\xF3"
   tonicSyllables:
     enabled: 1
     classification: 0

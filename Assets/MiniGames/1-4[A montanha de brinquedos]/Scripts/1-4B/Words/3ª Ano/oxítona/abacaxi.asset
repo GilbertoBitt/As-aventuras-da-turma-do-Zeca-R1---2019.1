@@ -15,12 +15,26 @@ MonoBehaviour:
   word: abacaxi
   itemSprite: {fileID: 0}
   syllables:
-  - AB
-  - A
-  - CAX
-  - I
-  charSyllabes: []
-  letters: []
+  - a
+  - ba
+  - ca
+  - xi
+  charSyllabes:
+  - a
+  - b
+  - a
+  - c
+  - a
+  - x
+  - i
+  letters:
+  - a
+  - b
+  - a
+  - c
+  - a
+  - x
+  - i
   tonicSyllables:
     enabled: 1
     classification: 0

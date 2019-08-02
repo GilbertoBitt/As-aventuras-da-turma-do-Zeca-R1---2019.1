@@ -16,8 +16,16 @@ MonoBehaviour:
   itemSprite: {fileID: 0}
   syllables:
   - "S\xD3IS"
-  charSyllabes: []
-  letters: []
+  charSyllabes:
+  - s
+  - "\xF3"
+  - i
+  - s
+  letters:
+  - s
+  - "\xF3"
+  - i
+  - s
   tonicSyllables:
     enabled: 1
     classification: 0

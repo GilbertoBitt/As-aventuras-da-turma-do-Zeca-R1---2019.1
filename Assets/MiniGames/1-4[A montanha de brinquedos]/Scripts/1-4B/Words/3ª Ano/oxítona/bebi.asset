@@ -15,10 +15,18 @@ MonoBehaviour:
   word: bebi
   itemSprite: {fileID: 0}
   syllables:
-  - BEB
-  - I
-  charSyllabes: []
-  letters: []
+  - be
+  - bi
+  charSyllabes:
+  - b
+  - e
+  - b
+  - i
+  letters:
+  - b
+  - e
+  - b
+  - i
   tonicSyllables:
     enabled: 1
     classification: 0

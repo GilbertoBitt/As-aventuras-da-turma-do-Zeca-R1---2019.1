@@ -15,16 +15,33 @@ MonoBehaviour:
   word: escrever
   itemSprite: {fileID: 0}
   syllables:
-  - ESCREV
-  - ER
-  charSyllabes: []
-  letters: []
+  - es
+  - cre
+  - ver
+  charSyllabes:
+  - e
+  - s
+  - c
+  - r
+  - e
+  - v
+  - e
+  - r
+  letters:
+  - e
+  - s
+  - c
+  - r
+  - e
+  - v
+  - e
+  - r
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 2
+    classification: 3
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

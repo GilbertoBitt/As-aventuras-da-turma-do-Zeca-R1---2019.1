@@ -69,7 +69,6 @@ public class ItemGroup1_4A : OverridableMonoBehaviour {
 	public void BonusItemFix(){
 		if(isBonusItem && bonusItemParticle.activeInHierarchy == false){
 			bonusItemParticle.SetActive(true);
-			//StartCoroutine (TimeitemBonus());
 
 		} else if (!isBonusItem && bonusItemParticle.activeInHierarchy == true){
 			bonusItemParticle.SetActive(false);
@@ -86,7 +85,6 @@ public class ItemGroup1_4A : OverridableMonoBehaviour {
 			if (item != null && hit.collider.transform.IsChildOf (this.parent) == false) {
 				hasObjectOnRight = true;
 				rightObject = hit.collider.transform;
-				//Debug.Log (hit.collider.name);
 			} else {
 				hasObjectOnRight = false;
 				rightObject = null;

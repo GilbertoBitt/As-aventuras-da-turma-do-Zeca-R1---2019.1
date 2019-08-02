@@ -784,17 +784,10 @@ public class Manager1_4A : OverridableMonoBehaviour {
             Destroy(circlesOnScene[i]);
         }
 
-        //Debug.Log ("DONE DESTROY");
-
         circlesOnScene.Clear();
         imagesLayerOnScene.Clear();
         itemHandlers.Clear();
         ItemHandlerList.Clear();
-
-//        if (starAmount >= 3) {
-//            //Debug.Log ("END GAME - CHAMAR DIDATICA!");
-//            ChamarMaeZeca();
-//        }
 
         yield return Yielders.Get(1f);
         if (hasEndedByTime || (currentDificult > dificults.Count - 1)) {
@@ -802,7 +795,6 @@ public class Manager1_4A : OverridableMonoBehaviour {
             log.StartTimerLudica(true);
             log.pontosLudica = scoreAmount;
             log.faseLudica = hasEndedByTime ? currentDificult : 4;
-            StopAllCoroutines();
 
             if (currentDificult == 1)
             {
@@ -820,11 +812,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
 		        nextManager.DialogInfoYear2.speeches[0] = speechInfoFinalLudica3;
 			    nextManager.DialogInfoYear3.speeches[0] = speechInfoFinalLudica3;
             }
-
-
-
-
-
+            this.enabled = false;
             nextManager.InitGame();
             // isGameEnded = true;
 
@@ -836,7 +824,6 @@ public class Manager1_4A : OverridableMonoBehaviour {
             //updateStarAmount ();
         }
         pauseButton.interactable = true;
-        this.enabled = false;
 
     }
 

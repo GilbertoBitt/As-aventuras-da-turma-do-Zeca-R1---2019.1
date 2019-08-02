@@ -126,7 +126,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.2.425
+  bundleVersion: 2.2.426
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -171,9 +171,9 @@ PlayerSettings:
     Android: br.com.eduqbrinq.asaventurasdaturmadozeca
     Standalone: br.com.eduqbrinq.asaventurasdaturmadozeca
   buildNumber:
-    Standalone: 425
-    iPhone: 425
-  AndroidBundleVersionCode: 22425
+    Standalone: 426
+    iPhone: 427
+  AndroidBundleVersionCode: 22427
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
