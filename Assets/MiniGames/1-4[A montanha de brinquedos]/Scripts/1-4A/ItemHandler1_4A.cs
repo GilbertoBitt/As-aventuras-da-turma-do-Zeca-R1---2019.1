@@ -195,9 +195,11 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 		itemsOnSlot.ForEach(item =>
 		{
 			var itemGroup = item.GetComponent(typeof(CanvasGroup)) as CanvasGroup;
+			var itemCollider = item.GetComponent(typeof(CircleCollider2D)) as CircleCollider2D;
 			if (itemGroup == null) return;
 			itemGroup.interactable = item == itemToDrag;
-			itemGroup.blocksRaycasts = !item == itemToDrag;
+			itemGroup.blocksRaycasts = item == itemToDrag;
+			if (itemCollider != null) itemCollider.enabled = item == itemToDrag;
 		});
 	}
 
