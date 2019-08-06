@@ -1,24 +1,21 @@
-# Starter pipeline
+- task: UnityBuildTask@3
+  inputs:
+    buildTarget: 'standalone'
+    outputPath: '$(Build.BinariesDirectory)'
+    outputFileName: 'drop'
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: '**/*.apk'
+    apksignerKeystoreFile: 'user.keystore'
+    apksignerKeystorePassword: 'mentsl408'
+    apksignerKeystoreAlias: 'mentor'
+    apksignerKeyPassword: 'mentsl408'
+- task: CopyFiles@2
+  inputs:
+    Contents: '**'
+    TargetFolder: $(Build.ArtifactStagingDirectory)
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-trigger:
-- master
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
