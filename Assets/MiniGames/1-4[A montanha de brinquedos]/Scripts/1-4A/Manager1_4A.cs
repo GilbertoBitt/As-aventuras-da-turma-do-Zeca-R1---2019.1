@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -360,10 +360,11 @@ public class Manager1_4A : OverridableMonoBehaviour {
 		StartCoroutine (beginGame ());
 	}*/
     public IEnumerator beginGame() {
+
         isPlaying = false;
         hasEndedByTime = false;
         timerSlider.value = 0f;
-        ////Debug.Log("Game Started");
+        Debug.Log("Game Loop Started");
 
 
         dificult = dificults[currentDificult];
@@ -774,7 +775,9 @@ public class Manager1_4A : OverridableMonoBehaviour {
     }
 
     IEnumerator endGame() {
-        yield return new WaitUntil(() => itemHandlers.All(x => x.hasEnded || hasEndedByTime));
+        yield return new WaitUntil(() => itemHandlers.All(x => x.hasEnded) || hasEndedByTime);
+        Debug.Log("Game Loop Ended");
+        isPlaying = false;
         pauseButton.interactable = false;
         CancelInvoke();
         isPlaying = false;
@@ -808,16 +811,14 @@ public class Manager1_4A : OverridableMonoBehaviour {
 		            nextManager.DialogInfoYear2.speeches[0] = speechInfoFinalLudica2;
 		            nextManager.DialogInfoYear3.speeches[0] = speechInfoFinalLudica2;
 		            break;
-	            case 3 when !hasEndedByTime:
+	            case 3:
 		            nextManager.DialogInfoYear1.speeches[0] = speechInfoFinalLudica3;
 		            nextManager.DialogInfoYear2.speeches[0] = speechInfoFinalLudica3;
 		            nextManager.DialogInfoYear3.speeches[0] = speechInfoFinalLudica3;
 		            break;
             }
-
-            nextManager.InitGame();
-            // isGameEnded = true;
-            this.enabled = false;
+			Debug.Log("Start Didática Game Loop");
+            Timing.RunCoroutine(nextManager.CallNextInitGame(this));
 
         } else {
             _highlight.startChangeLevelAnimation(currentDificult + 1);
@@ -1124,7 +1125,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
 
 
 	void ChooseChest(){
-        Debug.Log("Bau Bonus Starting");
+       Debug.Log("Bau Bonus Starting");
        if (hasChestBonus || !isPlaying) return;
        float randomTemp = Random.Range(0f,100f);
 		if (!(randomTemp <= chancesOfChestBonus)) return;
@@ -1148,7 +1149,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
 			Debug.Log("Bau Bonus Nulled");
 		}
 		chestBonus.isChestBonus = true;
-		chestBonus.particleBonusChest.SetActive(true);
+		chestBonus.ToggleBonusParticle(true);
 
 		hasChestBonus = true;
 		Debug.Log("Bau Bonus");

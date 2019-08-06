@@ -229,15 +229,22 @@ namespace TutorialSystem.Scripts
                 {
                     dialogSequenceAnimation.AppendCallback(() =>
                         {
-                            if(GameConfig.Instance.isAudioVoiceOn)
+                            if (GameConfig.Instance.isAudioVoiceOn)
+                            {
                                 DeAudioManager.Play(DeAudioGroupId.Dialogue, speech.speechAudioClip.audioClip);
+                                FadeAudiosOnVoiceTo(0.10f);
+                            }
                             characterComponent.StartTalkingAnimation();
                         });
                     dialogSequenceAnimation.Join(GetSelectedTextMeshComponent(speech).DOText(speech.speechText,
                         doTextDuration.enabled ? doTextDuration.timeBetweenSpeechs : dialogSetting.doTextDuration).From(string.Empty));
                     AppendSpriteImage(speech, ref dialogSequenceAnimation);
                     dialogSequenceAnimation.AppendInterval(speech.speechAudioClip.audioClip.length);
-                    dialogSequenceAnimation.AppendCallback(() => characterComponent.StopTalkingAnimation());
+                    dialogSequenceAnimation.AppendCallback(() =>
+                    {
+                        characterComponent.StopTalkingAnimation();
+                        FadeAudiosOnVoiceTo(1f);
+                    });
                 } else if (speech.speechEventSystem.enabled)
                 {
                     dialogSequenceAnimation.AppendCallback(() =>
@@ -264,6 +271,13 @@ namespace TutorialSystem.Scripts
 
             dialogSequenceAnimation.OnComplete(() => { currentIndex = indexEnd; });
             dialogSequenceAnimation.Play();
+        }
+
+        private static void FadeAudiosOnVoiceTo(float volumeTo)
+        {
+            DeAudioManager.FadeTo(DeAudioGroupId.Music, volumeTo, .3f);
+            DeAudioManager.FadeTo(DeAudioGroupId.Ambient, volumeTo, .3f);
+            DeAudioManager.FadeTo(DeAudioGroupId.FX, volumeTo, .3f);
         }
 
         private void EventSystemHandler(int index)

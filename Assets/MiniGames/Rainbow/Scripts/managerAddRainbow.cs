@@ -196,7 +196,7 @@ public class managerAddRainbow : MonoBehaviour
         // Debug.Log("Soma e Subtração ativada! açlskdçlaksdçalksdçls");
         int person = PlayerPrefs.GetInt("characterSelected", 0);
         characterImage.sprite = characterImages[person];
-        painelTutorial.SetActive(false);
+//        painelTutorial.SetActive(false);
 		acertoErrohash = Animator.StringToHash("acertoErro");
 		panelDesafioNumberHash = Animator.StringToHash("panelDesafioNumber");
 		chalengePanel.SetActive(false);
@@ -488,12 +488,12 @@ public class managerAddRainbow : MonoBehaviour
 							throw new ArgumentOutOfRangeException();
 					}
 					//Update Group and bottom value.
-					firstValueTextComponent.text = $"<u>{equation.firstValue}</u>";
+					firstValueTextComponent.text = $"{equation.firstValue}";
 
 					firstValueGroupContentComponent.itemSprite.Value = equation.rainbowItem;
 					firstValueGroupContentComponent.itemAmount.Value = equation.firstValue;
 
-					secondValueTextComponent.text = $"<u>{equation.secondValue}</u>";
+					secondValueTextComponent.text = $"{equation.secondValue}";
 
 					secondValueGroupContentComponent.itemSprite.Value = equation.rainbowItem;
 					secondValueGroupContentComponent.itemAmount.Value = equation.secondValue;
@@ -604,12 +604,12 @@ public class managerAddRainbow : MonoBehaviour
 							throw new ArgumentOutOfRangeException();
 					}
 					//Update Group and bottom value.
-					firstValueTextComponent.text = $"<u>{equationContent.firstValue}</u>";
+					firstValueTextComponent.text = $"{equationContent.firstValue}";
 
 					firstValueGroupContentComponent.itemSprite.Value = equationContent.rainbowItem;
 					firstValueGroupContentComponent.itemAmount.Value = equationContent.firstValue;
 
-					secondValueTextComponent.text = $"<u>{equationContent.secondValue}</u>";
+					secondValueTextComponent.text = $"{equationContent.secondValue}";
 
 					secondValueGroupContentComponent.itemSprite.Value = equationContent.rainbowItem;
 					secondValueGroupContentComponent.itemAmount.Value = equationContent.secondValue;

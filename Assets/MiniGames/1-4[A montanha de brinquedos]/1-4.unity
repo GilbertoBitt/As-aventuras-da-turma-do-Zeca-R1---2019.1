@@ -12023,10 +12023,10 @@ RectTransform:
   m_Father: {fileID: 442935315}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.07684211, y: 0.34311467}
-  m_AnchorMax: {x: 0.86872184, y: 0.8042304}
+  m_AnchorMin: {x: 0.11769424, y: 0.2072985}
+  m_AnchorMax: {x: 0.8940351, y: 0.80217993}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -0.00000047683716, y: 0.00000047683716}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &214633717
 CanvasRenderer:
@@ -12124,7 +12124,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -1.1998634, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 214633718}
     characterCount: 1
@@ -17209,12 +17209,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261689726}
   m_Mesh: {fileID: 4300002, guid: 6b2f78a717387dd40ba794fc1ebfd999, type: 3}
---- !u!1 &274743981 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1961786120837976, guid: 4b67ccc20ac177c42a7d5257becc988c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1322178501}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &275266358
 GameObject:
   m_ObjectHideFlags: 0
@@ -28550,8 +28544,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300006, guid: 6b0d9e703e3f5cf41a944604dd46d198, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 3286163911610860551, guid: b2f190cde06529a4bbc16e1c5122388d,
+    type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -28559,7 +28554,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.79
 --- !u!222 &909756428
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -29587,7 +29582,6 @@ MonoBehaviour:
   load: {fileID: 1249752886}
   pausePanel: {fileID: 1243875295}
   panelLoad: {fileID: 1830069301}
-  btPause: {fileID: 274743981}
   OnPauseMenuOpen:
     m_PersistentCalls:
       m_Calls:
@@ -36716,9 +36710,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300012, guid: c48bdd043cc7190448b69990b0eee063, type: 3}
+  m_Sprite: {fileID: 3286163911610860551, guid: 2969ace35d55d81438fa01f716862157,
+    type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -43364,7 +43359,6 @@ MonoBehaviour:
   load: {fileID: 1249752886}
   pausePanel: {fileID: 249249722}
   panelLoad: {fileID: 1830069301}
-  btPause: {fileID: 274743981}
   OnPauseMenuOpen:
     m_PersistentCalls:
       m_Calls:
@@ -44396,11 +44390,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114122279667893602, guid: 4b67ccc20ac177c42a7d5257becc988c,
-        type: 3}
-      propertyPath: idMinigame
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
         type: 3}
       propertyPath: audio.Array.size
@@ -44507,6 +44496,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 114177554241864008, guid: 4b67ccc20ac177c42a7d5257becc988c,
         type: 3}
+    - target: {fileID: 114122279667893602, guid: 4b67ccc20ac177c42a7d5257becc988c,
+        type: 3}
+      propertyPath: idMinigame
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 114057594422446344, guid: 4b67ccc20ac177c42a7d5257becc988c,
         type: 3}
       propertyPath: sound
@@ -53959,6 +53953,7 @@ GameObject:
   - component: {fileID: 1538700941}
   - component: {fileID: 1538700940}
   - component: {fileID: 1538700942}
+  - component: {fileID: 1538700944}
   - component: {fileID: 1538700943}
   m_Layer: 5
   m_Name: Group01-Sports
@@ -54086,6 +54081,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1538700944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538700938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0848bff101191904ead4bb831f7084db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BlurFactor: 1
+  m_Style: 1
+  m_AdditionalShadows: []
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1549946800
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,14 +38,17 @@ public class ChestHandler1_4A : MonoBehaviour, IDropHandler, IPointerClickHandle
 
 	bool checkIni;
 	bool checkIni2;
+	private static readonly int CheckPass = Animator.StringToHash("_checkPass");
+	private static readonly int Bau = Animator.StringToHash("itemBau");
+	private static readonly int FecharBau = Animator.StringToHash("fecharBau");
 
- 
+
 	public void BauAbrindo1 () {
 	imageTamp.sprite = tampBauA[0];	
 	if(numJ==0){
 
-	manager.checkJucaBau=false;
-	jucaFecharBau.SetBool("fecharBau",manager.checkJucaBau);
+		manager.checkJucaBau=false;
+		jucaFecharBau.SetBool(FecharBau,manager.checkJucaBau);
 
 	}
 	numJ=numJ+1;
@@ -63,13 +66,10 @@ public class ChestHandler1_4A : MonoBehaviour, IDropHandler, IPointerClickHandle
 
 	public void ItemBau () {
 
-	GetComponent<Animator>().SetBool("itemBau",false);	
+	GetComponent<Animator>().SetBool(Bau,false);
 	brinqEnter.GetComponent<Image>().enabled=false;
 		if(imageComp.raycastTarget==false)
 			GetComponent<Animator> ().enabled = true;
-		
-			//GetComponent<Animator> ().enabled = false;
-		//StartCoroutine (TimeBau);
 	}
 
 	void Start () {
@@ -128,7 +128,7 @@ public class ChestHandler1_4A : MonoBehaviour, IDropHandler, IPointerClickHandle
 						brinqEnter.GetComponent<Image>().enabled = true;
 						brinqEnter.GetComponent<Image>().sprite = item.itemInfo.itemImage;
 						GetComponent<Animator>().enabled = true;
-						GetComponent<Animator>().SetBool("itemBau", true);
+						GetComponent<Animator>().SetBool(Bau, true);
 						//Debug.Log ("Item Organizado com Sucesso!");
 						item.DisableBackgroundImage();
 					} else {
@@ -190,7 +190,7 @@ public class ChestHandler1_4A : MonoBehaviour, IDropHandler, IPointerClickHandle
 		imageComp.raycastTarget = _enable;	
 
 
-		GetComponent<Animator>().SetBool("_checkPass",imageComp.raycastTarget);
+		GetComponent<Animator>().SetBool(CheckPass,imageComp.raycastTarget);
 		
 		GetComponent<Animator>().SetBool("_enable",imageComp.raycastTarget);
 	}
@@ -205,8 +205,8 @@ public class ChestHandler1_4A : MonoBehaviour, IDropHandler, IPointerClickHandle
 		particleBonusChest.SetActive(_enable);
 	}
 	public void CheckPassM(){
-		if(GetComponent<Animator>().enabled==true)
-		GetComponent<Animator>().SetBool("_checkPass",false);
+		if(GetComponent<Animator>().enabled)
+			GetComponent<Animator>().SetBool(CheckPass,false);
 	}
 
 		

@@ -985,14 +985,21 @@ public class Manager1_4B : OverridableMonoBehaviour
         });
     }
 
+    public IEnumerator<float> CallNextInitGame(Manager1_4A manager14A)
+    {
+        enabled = true;
+        manager14A.enabled = false;
+        yield return Timing.WaitForOneFrame;
+        InitGame();
+    }
 
 
     public void InitGame()
     {
-        anoLetivo.Value = (AnoLetivoState) GameConfig.Instance.GetAnoLetivo();
-        this.enabled = true;
-        dialogComponent = FindObjectOfType((typeof(DialogComponent))) as DialogComponent;
 
+        anoLetivo.Value = (AnoLetivoState) GameConfig.Instance.GetAnoLetivo();
+        Debug.Log($"Call Twice! Ano Letivo: {anoLetivo.Value}");
+//        dialogComponent = FindObjectOfType(typeof(DialogComponent)) as DialogComponent;
         if (dialogComponent == null) return;
         dialogComponent.transform.parent.gameObject.SetActive(true);
         dialogComponent.endTutorial = () =>

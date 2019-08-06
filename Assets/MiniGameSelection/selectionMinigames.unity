@@ -4997,7 +4997,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 325.81854, y: 0}
+  m_AnchoredPosition: {x: 325.8186, y: 0}
   m_SizeDelta: {x: 0, y: 859}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &169051789
@@ -12594,7 +12594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: 356.14938
+  m_MinWidth: 356.1494
   m_MinHeight: -1
   m_PreferredWidth: -1
   m_PreferredHeight: -1
@@ -21439,7 +21439,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1000711297}
-        m_MethodName: startSoundFXDelay
+        m_MethodName: startVoiceFX
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 8300000, guid: f82aae8200be7754396db0c210a72ddd,
@@ -22647,14 +22647,6 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -127554941
       objectReference: {fileID: 0}
-    - target: {fileID: 1000014255917798, guid: 40482f5722b28114b80056e27c2f17a3, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000014255917798, guid: 40482f5722b28114b80056e27c2f17a3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1000014220418706, guid: 40482f5722b28114b80056e27c2f17a3, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -23137,6 +23129,14 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000014255917798, guid: 40482f5722b28114b80056e27c2f17a3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000014255917798, guid: 40482f5722b28114b80056e27c2f17a3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114000010942288262, guid: 40482f5722b28114b80056e27c2f17a3,
         type: 3}
@@ -23808,7 +23808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: 356.14938
+  m_MinWidth: 356.1494
   m_MinHeight: -1
   m_PreferredWidth: -1
   m_PreferredHeight: -1
@@ -24078,7 +24078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: 356.14938
+  m_MinWidth: 356.1494
   m_MinHeight: -1
   m_PreferredWidth: -1
   m_PreferredHeight: -1
@@ -25572,7 +25572,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1000711297}
-        m_MethodName: startSoundFXDelay
+        m_MethodName: startVoiceFX
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 8300000, guid: ac127f864d164fc4a9eb0cd552a88983,
@@ -30282,7 +30282,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1000711297}
-        m_MethodName: startSoundFXDelay
+        m_MethodName: startVoiceFX
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 8300000, guid: 3e18a5381796ad94991a5505d5f105fa,
@@ -31155,7 +31155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: 356.14938
+  m_MinWidth: 356.1494
   m_MinHeight: -1
   m_PreferredWidth: -1
   m_PreferredHeight: -1
@@ -39769,7 +39769,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1000711297}
-        m_MethodName: startSoundFXDelay
+        m_MethodName: startVoiceFX
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 8300000, guid: e6028bf0a9bc52a4d82cfb64da443503,
@@ -44583,7 +44583,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1000711297}
-        m_MethodName: startSoundFXDelay
+        m_MethodName: startVoiceFX
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 8300000, guid: fc20c5488b78b244ca110cff21b34572,
@@ -46185,7 +46185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: 356.14938
+  m_MinWidth: 356.1494
   m_MinHeight: -1
   m_PreferredWidth: -1
   m_PreferredHeight: -1
@@ -46494,7 +46494,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1000711297}
-        m_MethodName: startSoundFXDelay
+        m_MethodName: startVoiceFX
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 8300000, guid: 3fc107abef8f6264dafcabc22d4961ca,
@@ -60757,7 +60757,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1239751439}
   m_Direction: 2
   m_Value: 0.49999976
-  m_Size: 0.79034054
+  m_Size: 0.77788377
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

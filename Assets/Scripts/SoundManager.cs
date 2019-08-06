@@ -366,53 +366,50 @@ public class SoundManager : OverridableMonoBehaviour {
 
 	public void OnPause(){
         _pause = true;
-        DeAudioManager.Stop(DeAudioGroupId.Dialogue);
+        DeAudioManager.Pause(DeAudioGroupId.Dialogue);
         DeAudioManager.Stop(DeAudioGroupId.FX);
-//        stopCurrentFxs();
-//        StopVoiceEffects();
-//        if (musicBack == null) {
-//            musicBack = GetComponent<AudioSource>();
-//        }
-		DeAudioManager.Stop(DeAudioGroupId.Music);
+		DeAudioManager.Pause(DeAudioGroupId.Music);
 		DeAudioManager.Pause(DeAudioGroupId.Ambient);
-
-//        musicBack.Pause();
-//		AmbientSFXComp.Pause();
-        
-
 	}
 
 	public void OnUnPause(){
         _pause = false;
 
-//        fixSound();
-
-
 		if(GameConfig.Instance.isAudioOn){
-			DeAudioManager.Stop(DeAudioGroupId.Music);
-			musicBack = DeAudioManager.Play(DeAudioGroupId.Music, backgroundMusic, !isVoicePlaying ? backgroundMusicVolume : OnVoiceEffectVolumeBackground, loop: true);
+			if (musicBack != null && musicBack.isPaused)
+			{
+				musicBack.Resume();
+			}
+			else
+			{
+				musicBack = DeAudioManager.Play(DeAudioGroupId.Music, backgroundMusic, !isVoicePlaying ? backgroundMusicVolume : OnVoiceEffectVolumeBackground, loop: true);
+			}
 		}
 		else
 		{
+			DeAudioManager.StopAllPaused(DeAudioGroupId.Music);
 			DeAudioManager.Stop(DeAudioGroupId.Music);
 		}
 
 		if(GameConfig.Instance.isAudioFXOn && hasAmbientFX){
-			DeAudioManager.Stop(DeAudioGroupId.Ambient);
-			AmbientSFXComp = DeAudioManager.Play(DeAudioGroupId.Ambient, AmbientSFX, !isVoicePlaying ? hasAmbientFXVolume : OnVoiceEffectVolumeAmbient, loop: true);
+			if (AmbientSFXComp != null && AmbientSFXComp.isPaused)
+			{
+				AmbientSFXComp.Resume();
+			}
+			else
+			{
+
+				AmbientSFXComp = DeAudioManager.Play(DeAudioGroupId.Ambient, AmbientSFX, !isVoicePlaying ? hasAmbientFXVolume : OnVoiceEffectVolumeAmbient, loop: true);
+			}
+
         }
 		else
 		{
+			DeAudioManager.StopAllPaused(DeAudioGroupId.Ambient);
 			DeAudioManager.Stop(DeAudioGroupId.Ambient);
 		}
 
-//        if (!hasAmbientFX && AmbientSFXComp != null && AmbientSFXComp.isPlaying) {
-//            AmbientSFXComp.Stop();
-//        }
-//
-//        if (gameConfig.isAudioVoiceOn) {
-//            //PlayVoiceEffects();
-//        }
+		DeAudioManager.Resume(DeAudioGroupId.Dialogue);
 
         isStarted = true;
 

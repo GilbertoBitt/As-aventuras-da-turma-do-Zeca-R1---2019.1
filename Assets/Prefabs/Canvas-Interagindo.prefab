@@ -5465,7 +5465,6 @@ MonoBehaviour:
   load: {fileID: 0}
   pausePanel: {fileID: 1094020222767698}
   panelLoad: {fileID: 0}
-  btPause: {fileID: 1961786120837976}
   OnPauseMenuOpen:
     m_PersistentCalls:
       m_Calls:
@@ -10382,7 +10381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -10590,7 +10589,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300012, guid: c48bdd043cc7190448b69990b0eee063, type: 3}
+  m_Sprite: {fileID: 3286163911610860551, guid: cbaddb4eaf49d6d4dbcc574d8d39c8b6,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

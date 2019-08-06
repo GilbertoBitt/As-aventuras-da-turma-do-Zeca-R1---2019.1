@@ -61,20 +61,44 @@ public class GameConfig : ScriptableObject
 
     public bool isAudioOn
     {
-        get => isAudioOnReactive.Value;
-        set => isAudioOnReactive.Value = value;
+        get
+        {
+            isAudioOnReactive.Value = PlayerPrefsV2.GetBool("audioOn", true);
+            return isAudioOnReactive.Value;
+        }
+        set
+        {
+            isAudioOnReactive.Value = value;
+            PlayerPrefsV2.SetBool("audioOn", isAudioOnReactive.Value);
+        }
     }
 
     public bool isAudioFXOn
     {
-        get => isAudioFxOnReactive.Value;
-        set => isAudioFxOnReactive.Value = value;
+        get
+        {
+            isAudioFxOnReactive.Value = PlayerPrefsV2.GetBool("audioFx", true);
+            return isAudioFxOnReactive.Value;
+        }
+        set
+        {
+            isAudioFxOnReactive.Value = value;
+            PlayerPrefsV2.SetBool("audioFx", isAudioFxOnReactive.Value);
+        }
     }
 
     public bool isAudioVoiceOn
     {
-        get => isAudioVoiceOnOnReactive.Value;
-        set => isAudioVoiceOnOnReactive.Value = value;
+        get
+        {
+            isAudioVoiceOnOnReactive.Value = PlayerPrefsV2.GetBool("AudioVoice", true);
+            return isAudioVoiceOnOnReactive.Value;
+        }
+        set
+        {
+            isAudioVoiceOnOnReactive.Value = value;
+            PlayerPrefsV2.SetBool("AudioVoice", isAudioVoiceOnOnReactive.Value);
+        }
     }
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
     [SeparatorAttribute("Audio Config")]

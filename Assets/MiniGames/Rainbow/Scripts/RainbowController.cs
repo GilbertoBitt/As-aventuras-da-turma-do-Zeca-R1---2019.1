@@ -708,43 +708,43 @@ public class RainbowController : OverridableMonoBehaviour {
 
 } else if (checkFim==true && checkfim2==true){
 
-			if (countEnd.activeInHierarchy == true && PanelProfessora.activeInHierarchy == false) {
-
-                if (Time.realtimeSinceStartup - timeM > 10f && userAnswers == -1)
-				{
-					timeM = Time.realtimeSinceStartup;
-					ajudaBt.text = "Fechar";
-					//ajudaBt.fontSize = 70;
-					//professoraAjuda = 1;
-                    //PanelProfessora.SetActive (true);		
-                    //PanelProfessora.GetComponent<tutorPanelArcoirirs>().BalaoScaleM2();
-					perg.enabled = true;
-					//if(checkPassou){
-						//PanelProfessora.GetComponent<Animator> ().SetInteger ("numText",10);
-					//}
-					checkPassou = !checkPassou;
-				
-
-					//Debug.Log("ponto 1");
-					timeM = Time.realtimeSinceStartup;
-				}
-				if (Time.realtimeSinceStartup - timeM > 10f && userAnswers > -1)
-				{
-					timeM = Time.realtimeSinceStartup;
-					ajudaBt.text = "Fechar";
-					professoraAjuda = 2;
-					//ajudaBt.fontSize = 70;
-					//PanelProfessora.SetActive (true);
-                    //PanelProfessora.GetComponent<tutorPanelArcoirirs>().BalaoScaleM3();
-
-                   // PanelProfessora.GetComponent<Animator> ().enabled=true;
-					perg.enabled = true;
-					//Debug.Log("ponto 2");
-					//PanelProfessora.GetComponent<Animator> ().SetInteger ("numText",10);
-					timeM = Time.realtimeSinceStartup;
-				}
-                
-			}
+//			if (countEnd.activeInHierarchy == true && PanelProfessora.activeInHierarchy == false) {
+//
+//                if (Time.realtimeSinceStartup - timeM > 10f && userAnswers == -1)
+//				{
+//					timeM = Time.realtimeSinceStartup;
+//					ajudaBt.text = "Fechar";
+//					//ajudaBt.fontSize = 70;
+//					//professoraAjuda = 1;
+//                    //PanelProfessora.SetActive (true);
+//                    //PanelProfessora.GetComponent<tutorPanelArcoirirs>().BalaoScaleM2();
+//					perg.enabled = true;
+//					//if(checkPassou){
+//						//PanelProfessora.GetComponent<Animator> ().SetInteger ("numText",10);
+//					//}
+//					checkPassou = !checkPassou;
+//
+//
+//					//Debug.Log("ponto 1");
+//					timeM = Time.realtimeSinceStartup;
+//				}
+//				if (Time.realtimeSinceStartup - timeM > 10f && userAnswers > -1)
+//				{
+//					timeM = Time.realtimeSinceStartup;
+//					ajudaBt.text = "Fechar";
+//					professoraAjuda = 2;
+//					//ajudaBt.fontSize = 70;
+//					//PanelProfessora.SetActive (true);
+//                    //PanelProfessora.GetComponent<tutorPanelArcoirirs>().BalaoScaleM3();
+//
+//                   // PanelProfessora.GetComponent<Animator> ().enabled=true;
+//					perg.enabled = true;
+//					//Debug.Log("ponto 2");
+//					//PanelProfessora.GetComponent<Animator> ().SetInteger ("numText",10);
+//					timeM = Time.realtimeSinceStartup;
+//				}
+//
+//			}
 
 
 	if(moveCaPassou==false){

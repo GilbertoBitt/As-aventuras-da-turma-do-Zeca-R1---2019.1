@@ -126,7 +126,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.2.426
+  bundleVersion: 2.2.427
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -682,7 +682,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    1: UNITY_POST_PROCESSING_STACK_V2;CROSS_PLATFORM_INPUT;ODIN_INSPECTOR
+    1: UNITY_POST_PROCESSING_STACK_V2;CROSS_PLATFORM_INPUT;ODIN_INSPECTOR;TMP_PRESENT
     4: CROSS_PLATFORM_INPUT;MOBILE_INPUT
     7: CROSS_PLATFORM_INPUT;MOBILE_INPUT;ODIN_INSPECTOR;UNITY_POST_PROCESSING_STACK_V2
     13: UNITY_POST_PROCESSING_STACK_V2

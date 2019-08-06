@@ -196,7 +196,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
     {
 	    Populate();
 	    
-	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
+//	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
 
 		if (_infoSkillInfo == null)
@@ -392,8 +392,12 @@ public class Manager_1_2B : OverridableMonoBehaviour
 			randomList?.Shuffle();
 		}
 
-
-
+		List<Sprite> listOfCurrentSelected = new List<Sprite>();
+		if (anoLetivo == 2)
+		{
+			listOfCurrentSelected = spatialFormsSprites[selectedForm];
+			listOfCurrentSelected.Shuffle();
+		}
 
 		for (int i = 0; i < needFind; i++){
 			switch (anoLetivo)
@@ -403,11 +407,8 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					AllPlaces[i].updateImage(returnList(formList[dificult])[i]);
 					break;
 				case 2:
-					do
-					{
-						AllPlaces[i].spacialForm = selectedForm;
-					} while (AllPlaces[i].spacialForm == SpacialForms.None);
-					AllPlaces[i].updateImage(spatialFormsSprites[selectedForm][i]);
+					AllPlaces[i].updateImage(listOfCurrentSelected[i]);
+					AllPlaces[i].spacialForm = selectedForm;
 					break;
 				case 3:
 					AllPlaces[i].planeObject = randomList[i].itemObjectPlane;

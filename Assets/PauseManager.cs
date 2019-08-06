@@ -12,7 +12,6 @@ public class PauseManager : MonoBehaviour {
 	public GameObject pausePanel;
 
 	public GameObject panelLoad;
-	public GameObject btPause;
 
 	public UnityEvent OnPauseMenuOpen;
 	public UnityEvent OnPauseMenuClose;
@@ -23,13 +22,14 @@ public class PauseManager : MonoBehaviour {
         if (soundManager == null) {
             soundManager = FindObjectOfType<SoundManager>();
         }
-        soundManager.startVoiceFX(audio1);
+        soundManager.startSoundFX(audio1);
     }
 
     public void PauseGame(){
         SomBT();
         Pause();
         OpenConfig ();
+        soundManager.OnPause();
 		pausePanel.SetActive (true);
 	}
 
@@ -57,7 +57,7 @@ public class PauseManager : MonoBehaviour {
 
     public void UnpauseGame(){
         SomBT();
-        btPause.SetActive (true);
+//        btPause.SetActive (true);
 		Unpause();
 		pausePanel.SetActive (false);
 		GameConfig.Instance.SavePrefs ();
@@ -74,6 +74,7 @@ public class PauseManager : MonoBehaviour {
     {
 	    isOnPause = false;
 	    Time.timeScale = 1f;
+	    soundManager.OnUnPause();
 	    OnPauseMenuClose.Invoke();
     }
 

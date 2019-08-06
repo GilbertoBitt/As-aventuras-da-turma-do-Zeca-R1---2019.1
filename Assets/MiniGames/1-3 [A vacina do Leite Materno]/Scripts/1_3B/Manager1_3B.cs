@@ -157,7 +157,10 @@ public class Manager1_3B : OverridableMonoBehaviour {
     #endregion
 
     // Use this for initialization
-     void Start() {
+     void Start()
+     {
+
+	     anoLetivo = GameConfig.Instance.GetAnoLetivo();
         canudo = cannonManager.gameObject;
         ControlSomTutor2 = GetComponent<ControlSomTutor>();
         _log = GetComponent<LogSystem>();
@@ -715,7 +718,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
         scoreAmount = oldManager.ScoreAmount;
         scoreText.text = scoreAmount.ToString();
        // yield return Timing.WaitForOneFrame;
-        pausemanager.btPause = buttonPause.gameObject;
+//        pausemanager.btPause = buttonPause.gameObject;
 
         yield return Timing.WaitForOneFrame;
         

@@ -26,8 +26,8 @@ public class ControlCenario : MonoBehaviour {
 
 	public void StarSom(){
 		audioSource?.Stop ();
-		audioArco.startSoundFX (arcoiris);
-	//	GetComponent<Animator> ().SetInteger ("introCheck", 2);
+		DeAudioManager.Play(DeAudioGroupId.Ambient, arcoiris);
+		//	GetComponent<Animator> ().SetInteger ("introCheck", 2);
 	}
 
 }
