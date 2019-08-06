@@ -171,8 +171,8 @@ PlayerSettings:
     Android: br.com.eduqbrinq.asaventurasdaturmadozeca
     Standalone: br.com.eduqbrinq.asaventurasdaturmadozeca
   buildNumber:
-    Standalone: 428
-    iPhone: 428
+    Standalone: 429
+    iPhone: 429
   AndroidBundleVersionCode: 22428
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0

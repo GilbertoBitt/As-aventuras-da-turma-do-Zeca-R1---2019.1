@@ -196,7 +196,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
     {
 	    Populate();
 	    
-//	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
+	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
 
 		if (_infoSkillInfo == null)
