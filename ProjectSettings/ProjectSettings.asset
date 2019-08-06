@@ -126,7 +126,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.2.427
+  bundleVersion: 2.2.428
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -171,9 +171,9 @@ PlayerSettings:
     Android: br.com.eduqbrinq.asaventurasdaturmadozeca
     Standalone: br.com.eduqbrinq.asaventurasdaturmadozeca
   buildNumber:
-    Standalone: 426
-    iPhone: 427
-  AndroidBundleVersionCode: 22427
+    Standalone: 428
+    iPhone: 428
+  AndroidBundleVersionCode: 22428
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -684,7 +684,7 @@ PlayerSettings:
   scriptingDefineSymbols:
     1: UNITY_POST_PROCESSING_STACK_V2;CROSS_PLATFORM_INPUT;ODIN_INSPECTOR;TMP_PRESENT
     4: CROSS_PLATFORM_INPUT;MOBILE_INPUT
-    7: CROSS_PLATFORM_INPUT;MOBILE_INPUT;ODIN_INSPECTOR;UNITY_POST_PROCESSING_STACK_V2
+    7: CROSS_PLATFORM_INPUT;MOBILE_INPUT;ODIN_INSPECTOR;UNITY_POST_PROCESSING_STACK_V2;TMP_PRESENT
     13: UNITY_POST_PROCESSING_STACK_V2
     14: CROSS_PLATFORM_INPUT;MOBILE_INPUT
     19: UNITY_POST_PROCESSING_STACK_V2

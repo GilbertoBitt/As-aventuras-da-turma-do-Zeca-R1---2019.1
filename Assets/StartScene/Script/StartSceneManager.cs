@@ -18,7 +18,7 @@ public class StartSceneManager : MonoBehaviour {
     public GameConfig config => GameConfig.Instance;
     public LoadManager loadManager;
     public StoreData storeData;
-    public Text textSystemInfo;
+    public TextMeshProUGUI textSystemInfo;
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
     [SeparatorAttribute("Configurações do Preloader")]
 #endif
@@ -139,7 +139,7 @@ public class StartSceneManager : MonoBehaviour {
 
     [Header("Start Fix")]
     public GameObject[] activeAll;
-    public Text buildVersionTextComp;
+    public TextMeshProUGUI buildVersionTextComp;
     public GameObject logoShow;
     
     [ContextMenu("Update ComponentList")]
@@ -266,7 +266,8 @@ public class StartSceneManager : MonoBehaviour {
 
         //activate or Nor the dataservice removeLinq;
         loginTabNavigation.enabled = false;
-        buildVersionTextComp.text = "Cliente: " + config.ClientName + " | Versão do jogo: " + Application.version + "| Usos: " + config.usageCounter;
+        buildVersionTextComp.text = "Cliente: " + config.ClientName + " |  Versão do jogo: " + Application.version + "| Usos: " + config.usageCounter;
+        buildVersionTextComp.text = $"Cliente {GameConfig.Instance.ClientName} | {Info.Instance.BuildDate} | Versão do Jogo {Application.version} | Usos: {GameConfig.Instance.usageCounter} ";
 
         ActiveOnStart();
 

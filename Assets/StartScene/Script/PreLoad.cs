@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using MEC;
+using TMPro;
 
 public class PreLoad :MonoBehaviour {
 
@@ -12,7 +13,7 @@ public class PreLoad :MonoBehaviour {
     public GameObject eventSystemComp;
     public GameObject CameraMain;
     public Text textPercentageComp;
-    public Text textBuildVersion;
+    public TextMeshProUGUI textBuildVersion;
 
     public Texture2D newCursors;
     public Vector2 hotspot;

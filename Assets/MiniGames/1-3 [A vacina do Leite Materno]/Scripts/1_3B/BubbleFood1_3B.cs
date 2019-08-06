@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 using MEC;
@@ -24,6 +25,7 @@ public class BubbleFood1_3B : MonoBehaviour {
     private ParticleSystem _particle;
     public TextMeshPro textItem;
     public SpriteRenderer incorrectIcon;
+    public ParticleSystem[] particleSystems;
     public void Awake() {
         _particle = partExploBolha.GetComponent<ParticleSystem>();
     }
@@ -126,7 +128,17 @@ public class BubbleFood1_3B : MonoBehaviour {
 		isLooping = false;
         Vector3 worldCenterPosition = manager.positionCenter.position;
         worldCenterPosition.z = this.transform.position.z;
-        this.transform.DOMove(worldCenterPosition, delay);
+        this.transform.DOMove(worldCenterPosition, delay).OnComplete(() =>
+        {
+	        particleSystems.ForEach(system =>
+	        {
+		        system.Play();
+	        });
+	        particleSystems.ForEach(system =>
+	        {
+		        system.Stop();
+	        });
+        });
 //		Timing.RunCoroutine (GoToCenter (delay));
 	}
 
