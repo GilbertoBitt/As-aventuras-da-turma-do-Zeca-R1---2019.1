@@ -1,12 +1,14 @@
 - task: UnityBuildTask@3
   inputs:
-    buildTarget: 'standalone'
+    buildTarget: 'Android'
+    unityEditorsPathMode: 'environmentVariable'
+    unityProjectPath: 'E:\As Aventuras da Turma do Zeca - R1 - Unity 2019.1'
     outputPath: '$(Build.BinariesDirectory)'
     outputFileName: 'drop'
 - task: AndroidSigning@3
   inputs:
     apkFiles: '**/*.apk'
-    apksignerKeystoreFile: 'user.keystore'
+    apksignerKeystoreFile: 'E:\As Aventuras da Turma do Zeca - R1 - Unity 2019.1\user.keystore'
     apksignerKeystorePassword: 'mentsl408'
     apksignerKeystoreAlias: 'mentor'
     apksignerKeyPassword: 'mentsl408'
