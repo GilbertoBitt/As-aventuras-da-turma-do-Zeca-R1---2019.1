@@ -1,0 +1,23 @@
+- task: UnityBuildTask@3
+  inputs:
+    buildTarget: 'Android'
+    unityEditorsPathMode: 'environmentVariable'
+    unityProjectPath: 'E:\As Aventuras da Turma do Zeca - R1 - Unity 2019.1'
+    outputPath: '$(Build.BinariesDirectory)'
+    outputFileName: 'drop'
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: '**/*.apk'
+    apksignerKeystoreFile: 'E:\As Aventuras da Turma do Zeca - R1 - Unity 2019.1\user.keystore'
+    apksignerKeystorePassword: 'mentsl408'
+    apksignerKeystoreAlias: 'mentor'
+    apksignerKeyPassword: 'mentsl408'
+- task: CopyFiles@2
+  inputs:
+    Contents: '**'
+    TargetFolder: $(Build.ArtifactStagingDirectory)
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
