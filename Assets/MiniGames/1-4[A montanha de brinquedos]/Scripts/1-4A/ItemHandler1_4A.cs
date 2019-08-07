@@ -17,6 +17,7 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	public bool hasEnded = false;
 	public int maxBadItems = 0;
 	public int amountBadItems = 0;
+	public int towerFloor;
 	public List<ItemHandler1_4A> handlersOfTheFloor = new List<ItemHandler1_4A> ();
 	public bool isRed = false;
 	[HideInInspector]
@@ -65,10 +66,9 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 
 	public void OnBeginDrag (PointerEventData eventData){
-		int temp = slotCount - 1;
 		if (blockDrag != false || gameManager.isDragging != false || isBeenDrag != false || gameManager.isRemoving ||
 		    isRed != false) return;
-		UpdateDragItem ();
+		floorParent.CheckFloorDone();
 		gameManager.checkItensPos();
 		itemToDrag.GetComponent<CanvasGroup> ().blocksRaycasts = false;
 		startPosition = itemToDrag.transform.position;
@@ -112,26 +112,20 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 		itemToDrag.GetComponent<Canvas>().sortingOrder = sortingOrderStart;
 	}
 
-	public void EndDrag() {
-		if (itemToDrag == null) return;
-		itemToDrag.GetComponent<CanvasGroup> ().blocksRaycasts = true;
-		itemToDrag.transform.SetParent (this.transform);
-		itemToDrag.transform.position = startPosition;
-		itemToDrag.transform.localScale = startScale;
-		isBeenDrag = false;
-		gameManager.isDragging = false;
+
+	public void UpdateDragCanvas()
+	{
+		_privateItem = itemToDrag.GetComponent<ItemGroup1_4A>();
+		_privateItem.isBeenDrag = true;
+		_privateItem.DisableBackgroundImage();
+		sortingOrderStart = itemToDrag.GetComponent<Canvas>().sortingOrder;
+		itemToDrag.GetComponent<Canvas>().sortingOrder = 7;
 		_privateItem.isBeenDrag = false;
 		_privateItem.EnableBackgroundImage();
 		itemToDrag.GetComponent<Canvas>().sortingOrder = sortingOrderStart;
 	}
 
-	private void LateUpdate() {
-//		if(gameManager.isDragging) return;
-//		if(Input.GetMouseButton(0)) return;
-//		if (itemToDrag == null) return;
-//		if (_privateItem == null || _privateItem.isBeenDrag || !gameManager.isPlaying) return;
-//		EndDrag();
-	}
+
 
 	#endregion
 
@@ -148,10 +142,13 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	/// </summary>
 	/// <param name="id">Identifier.</param>
 	/// <param name="spriteImage">Sprite image.</param>
-	public void UpdateItemInfo(int id,Item1_4A itemInfo){
-		if (id > itemsOnSlot.Count) return;
-		itemsOnSlot [id].GetComponent<ItemGroup1_4A> ().itemInfo = itemInfo;
-		itemsOnSlot [id].GetComponent<ItemGroup1_4A> ().UpdateImage ();
+	public void UpdateItemInfos(){
+
+		itemsOnSlot.ForEach(o =>
+		{
+			o.GetComponent<ItemGroup1_4A> ().UpdateImage ();
+		});
+
 	}
 
 	public void UpdateItemInfo(int id,Item1_4A itemInfo, float alphaImage){
@@ -175,7 +172,7 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	public void removeItemInFront(bool _isRight){
 		int temp = slotCount - 1;
 		if (!(itemsOnSlot[temp] != null)) return;
-		GameObject item = itemsOnSlot[temp];
+		GameObject item = itemsOnSlot[slotCount-1];
         itemsOnSlot[temp].GetComponent<ItemGroup1_4A>().DisableBackgroundImage();
         itemsOnSlot.RemoveAt(temp);
         if (_isRight) {
@@ -189,9 +186,7 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	public void UpdateDragItem(){
 		if (itemsOnSlot.Count <= 0) return;
 		slotCount = itemsOnSlot.Count;
-		var invertedList = itemsOnSlot;
-		invertedList.Reverse();
-		itemToDrag = invertedList [slotCount-1];
+		itemToDrag = itemsOnSlot[slotCount-1];
 		itemsOnSlot.ForEach(item =>
 		{
 			var itemGroup = item.GetComponent(typeof(CanvasGroup)) as CanvasGroup;
@@ -201,6 +196,7 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 			itemGroup.blocksRaycasts = item == itemToDrag;
 			if (itemCollider != null) itemCollider.enabled = item == itemToDrag;
 		});
+		floorParent.CheckFloorDone();
 	}
 
 	public void UpdateStartList()
@@ -242,7 +238,6 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 		amountBadItems = 0;
 		maxBadItems = startMaxBadItems;
 		hasEnded = false;
-		UpdateDragItem ();
 		disableAllLocks();
 		disableAllColliders2D ();
 		ActiveCollider2D ();
@@ -337,10 +332,9 @@ public class ItemHandler1_4A : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 		removeRedItem ();
 	}
 
-
 	public void OnInitializePotentialDrag(PointerEventData eventData)
 	{
-		UpdateDragItem();
+		floorParent.CheckFloorDone();
 	}
 }
 

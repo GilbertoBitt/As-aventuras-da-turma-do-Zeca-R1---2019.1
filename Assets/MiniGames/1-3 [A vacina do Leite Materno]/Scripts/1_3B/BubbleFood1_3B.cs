@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using MEC;
 using DG.Tweening;
 using MiniGames.Scripts._1_3B;
+using Sirenix.OdinInspector;
 using TMPro;
 
 public class BubbleFood1_3B : MonoBehaviour {
@@ -128,18 +129,14 @@ public class BubbleFood1_3B : MonoBehaviour {
 		isLooping = false;
         Vector3 worldCenterPosition = manager.positionCenter.position;
         worldCenterPosition.z = this.transform.position.z;
-        this.transform.DOMove(worldCenterPosition, delay).OnComplete(() =>
-        {
-	        particleSystems.ForEach(system =>
-	        {
-		        system.Play();
-	        });
-	        particleSystems.ForEach(system =>
-	        {
-		        system.Stop();
-	        });
-        });
+        this.transform.DOMove(worldCenterPosition, delay).OnComplete(() => { ParticleTrigger(); });
 //		Timing.RunCoroutine (GoToCenter (delay));
+	}
+
+	[Button("Trigger Particles")]
+	private void ParticleTrigger()
+	{
+		particleSystems.ForEach(system => { system.Play(); });
 	}
 
 	IEnumerator<float> GoToCenter(float delay){

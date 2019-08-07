@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-using UnityEngine.Events;
+ using com.csutil;
+ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using MEC;
 using Sirenix.OdinInspector;
@@ -366,7 +367,6 @@ public class Manager1_4A : OverridableMonoBehaviour {
         timerSlider.value = 0f;
         Debug.Log("Game Loop Started");
 
-
         dificult = dificults[currentDificult];
         timerStartValue = dificult.timeToComplete;
         timerSlider.maxValue = timerStartValue;
@@ -384,12 +384,13 @@ public class Manager1_4A : OverridableMonoBehaviour {
             for (int j = tempSizeOfTower - 1; j >= 0; j--) {
                 GameObject circleOfItem = Instantiate(circlesOnGrid, Grids[i].gameObject.transform) as GameObject;
                 ItemHandler1_4A itemHandler = circleOfItem.GetComponent<ItemHandler1_4A>();
+                itemHandler.towerFloor = i;
                 circleOfItem.transform.localScale = new Vector3(1f, 1f, 1f);
                 itemHandler.gameManager = this;
                 circlesOnScene.Add(circleOfItem);
                 itemHandler.floorParent = Grids[i].GetComponent<Floor1_4A>();
                 Grids[i].GetComponent<Floor1_4A>().floorItems.Add(itemHandler);
-                handlersOfThis.Add(itemHandler);
+	            handlersOfThis.Add(itemHandler);
                 itemHandler.sortingOrder = tempSizeOfTower;
             }
             setHandlerOnHandler(handlersOfThis);
@@ -399,8 +400,7 @@ public class Manager1_4A : OverridableMonoBehaviour {
         Grids.ReturnReverseList();
         int circlesOnSceneCount = circlesOnScene.Count;
         for (int i = 0; i < circlesOnSceneCount; i++) {
-            int tempIndex = dificult.sizeOfLayers;
-            tempIndex = tempIndex - 1;
+            int tempIndex = dificult.sizeOfLayers - 1;
             ItemHandler1_4A itemHandler = circlesOnScene[i].GetComponent<ItemHandler1_4A>();
             ItemHandlerList.Add(itemHandler);
             for (int j = 0; j < dificult.sizeOfLayers; j++) {
@@ -413,6 +413,10 @@ public class Manager1_4A : OverridableMonoBehaviour {
                 tempIndex--;
                 imageItem.GetComponent<Canvas>().sortingOrder = itemHandler.sortingOrder;
             }
+
+            itemHandler.itemsOnSlot.Reverse();
+
+            itemHandler.floorParent.CheckFloorDone();
             itemHandler.UpdateItemHandlerOnChilds();
             itemHandler.ActiveCollider2D();
             itemHandler.UpdateStartList();
@@ -455,8 +459,8 @@ public class Manager1_4A : OverridableMonoBehaviour {
         hasChestBonus = false;
         hasChestClose = false;
 
-
         updateItemHandlerList();
+
         StartCoroutine(endGame());
         InvokeRepeating(nameof(DecreaseTimeOverSeconds), 1f, 1f);
         InvokeRepeating(nameof(ItemBonus), breakBetweenBonus, breakBetweenBonus);
@@ -466,6 +470,15 @@ public class Manager1_4A : OverridableMonoBehaviour {
         //StartCoroutine(RandomChestsTime());
         //yield return new WaitForSeconds (1f);
         yield return Yielders.Get(1f);
+        itemHandlers.ForEach(a =>
+        {
+	        a.UpdateItemInfos();
+	        a.UpdateDragCanvas();
+	        a.ResetItemsPos();
+	        a.UpdateDragItem();
+	        a.OnBeginDrag(new PointerEventData(EventSystem.current));
+	        a.OnEndDrag(new PointerEventData(EventSystem.current));
+        });
         isPlaying = true;
     }
     IEnumerator DesativBauAnim() {

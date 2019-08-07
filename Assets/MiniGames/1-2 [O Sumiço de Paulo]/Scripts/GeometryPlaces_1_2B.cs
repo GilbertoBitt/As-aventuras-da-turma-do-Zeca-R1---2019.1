@@ -99,6 +99,7 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 		imageComponent.color = Color.white;
 		imageComponent.enabled = true;
 		imageComponent.preserveAspect = true;
+		imageComponent.enabled = true;
 		canbeFound = true;
 	}
 
@@ -106,6 +107,7 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 		imageComponent.sprite = spriteItem;
 		imageComponent.color = Outline;
 		imageComponent.preserveAspect = true;
+		imageComponent.enabled = true;
 		canbeFound = true;
 		if (_outline == null)
 		{

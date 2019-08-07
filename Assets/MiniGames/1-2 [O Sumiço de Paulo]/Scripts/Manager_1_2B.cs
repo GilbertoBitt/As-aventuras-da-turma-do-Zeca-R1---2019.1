@@ -176,7 +176,11 @@ public class Manager_1_2B : OverridableMonoBehaviour
 			{
 				foreach (var colorItem in Colors)
 				{
-					GeometricPlaneObject itemObject = Instantiate(item);
+					var itemObject = Instantiate(item);
+					itemObject.allSidesSameSizes = item.allSidesSameSizes;
+					itemObject.allSidesDiferentSizes = item.allSidesDiferentSizes;
+					itemObject.numberOfSides = item.numberOfSides;
+					itemObject.numberOfVertices = item.numberOfVertices;
 					itemObject.ItemColor = colorItem;
 					session.objectsOfSession.Add(new RandomizationItem
 					{
@@ -412,7 +416,11 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					break;
 				case 3:
 					AllPlaces[i].planeObject = randomList[i].itemObjectPlane;
-					AllPlaces[i].updateImage(randomList[i].itemObjectPlane.objectImage, randomList[i].itemObjectPlane.ItemColor);
+					AllPlaces[i].updateImage(randomList[i].itemObjectPlane.objectImage,
+						new Color(
+						Random.Range(0f, 1f),
+						Random.Range(0f, 1f),
+						Random.Range(0f, 1f)));
 					AllPlaces[i].transform.rotation = Quaternion.Euler(0f,0f,Random.Range(0f,360f));
 					break;
 			}
@@ -494,7 +502,11 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					break;
 				case 3:
 					//TODO refazer sistema de escolha das outras formas selecionadas.
-					choosenPlaces[i].updateImage(otherObjects[i].itemObjectPlane.objectImage, otherObjects[i].itemObjectPlane.ItemColor);
+					choosenPlaces[i].updateImage(otherObjects[i].itemObjectPlane.objectImage,
+						new Color(
+						Random.Range(0f, 1f),
+						Random.Range(0f, 1f),
+						Random.Range(0f, 1f)));
 					choosenPlaces[i].planeObject = otherObjects[i].itemObjectPlane;
 					choosenPlaces[i].transform.rotation = Quaternion.Euler(0f,0f,Random.Range(0f,360f));
 					break;

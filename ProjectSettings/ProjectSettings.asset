@@ -126,7 +126,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.2.428
+  bundleVersion: 2.2.429
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -173,7 +173,7 @@ PlayerSettings:
   buildNumber:
     Standalone: 429
     iPhone: 429
-  AndroidBundleVersionCode: 22428
+  AndroidBundleVersionCode: 22429
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
