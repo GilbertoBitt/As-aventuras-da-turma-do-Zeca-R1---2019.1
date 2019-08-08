@@ -339,7 +339,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 
 		textFoodName.text = $"Atire no alimento que começa com a letra {choosenWords[foodQuestionMade].startLetter}";
 
-		var tempList = allWordsOfList.Where(x => x.startLetter != choosenWords[foodQuestionMade].startLetter).Take(3).ToList();
+		var tempList = allWordsOfList.Where(x => x.startLetter != choosenWords[foodQuestionMade].startLetter).Take(foodQuestionTodo).ToList();
 		tempList.Add(choosenWords[foodQuestionMade]);
 		tempList.Shuffle();
 

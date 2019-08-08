@@ -136,6 +136,7 @@ public class BubbleFood1_3B : MonoBehaviour {
 	[Button("Trigger Particles")]
 	private void ParticleTrigger()
 	{
+		if (bubbleSpriteRender.color.a >= 0.2f) return;
 		particleSystems.ForEach(system => { system.Play(); });
 	}
 

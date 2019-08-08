@@ -55,7 +55,7 @@ PlayerSettings:
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 0
   m_MTRendering: 1
-  m_StackTraceTypes: 010000000100000001000000010000000100000001000000
+  m_StackTraceTypes: 020000000100000001000000010000000200000001000000
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
   displayResolutionDialog: 0
@@ -126,8 +126,17 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.2.429
-  preloadedAssets: []
+  bundleVersion: 2.2.431
+  preloadedAssets:
+  - {fileID: 21526175493101198, guid: 9767346c44a58584398664efb4aca847, type: 2}
+  - {fileID: 2100000, guid: 8e09fe9790039844d88a46589fd2faa8, type: 2}
+  - {fileID: 2100000, guid: 06c393a0aa56afc48ab96a14e06d56cf, type: 2}
+  - {fileID: 2100000, guid: e1a046f63fb645b44b5c3fe3f9802c03, type: 2}
+  - {fileID: 2100000, guid: ff8a74c19176692488d950d6c6b764c3, type: 2}
+  - {fileID: 2100000, guid: f075cdbbc05eab447bb393f82c9a9ec7, type: 2}
+  - {fileID: 2100000, guid: 5412751f7417bfc4c875d97b0fb25f55, type: 2}
+  - {fileID: 2100000, guid: bad62d8677d81a4469dbbf4f08ccccd2, type: 2}
+  - {fileID: 11400000, guid: 9767346c44a58584398664efb4aca847, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -171,9 +180,9 @@ PlayerSettings:
     Android: br.com.eduqbrinq.asaventurasdaturmadozeca
     Standalone: br.com.eduqbrinq.asaventurasdaturmadozeca
   buildNumber:
-    Standalone: 429
-    iPhone: 429
-  AndroidBundleVersionCode: 22429
+    Standalone: 432
+    iPhone: 432
+  AndroidBundleVersionCode: 22431
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -185,9 +194,9 @@ PlayerSettings:
   ForceSDCardPermission: 1
   CreateWallpaper: 0
   APKExpansionFiles: 0
-  keepLoadedShadersAlive: 0
+  keepLoadedShadersAlive: 1
   StripUnusedMeshComponents: 1
-  VertexChannelCompressionMask: 4054
+  VertexChannelCompressionMask: -1
   iPhoneSdkVersion: 988
   iOSTargetOSVersionString: 9.0
   tvOSSdkVersion: 0
@@ -770,7 +779,8 @@ PlayerSettings:
     daydream:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    UNet: 1
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 

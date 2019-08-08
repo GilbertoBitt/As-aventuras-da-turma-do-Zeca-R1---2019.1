@@ -61,10 +61,9 @@ public class StartSceneManager : MonoBehaviour {
     [SeparatorAttribute("LoginPass Config")]
 #endif
     public TMP_InputField loginInputField;
-    public Outline loginOutlineField;
+
     public GameObject loginCredentialsPanel;
     public TMP_InputField passwordInputField;
-    public Outline passwordOutlineField;
     public Color defaultColorOutline;
     public Color WrongColorOutline;
     public TextMeshProUGUI textWrong;
@@ -173,13 +172,13 @@ public class StartSceneManager : MonoBehaviour {
             Timing.KillCoroutines("ProgressBar");
             _progressBarGameObject.SetActive(false);
         };
-        Timing.RunCoroutine(CalculateProgress(requestt), "ProgressBar");
+        if(!requestt.isDone) Timing.RunCoroutine(CalculateProgress(requestt), "ProgressBar");
         return asyncOperation;
     }
     
     IEnumerator<float> CalculateProgress(UnityWebRequest request) {
         if (request == null) yield break;
-        ProgressSliderBar.value = 0;
+        if(ProgressSliderBar!= null) ProgressSliderBar.value = 0;
         if (_progressBarGameObject == null) {
             _progressBarGameObject = ProgressSliderBar.gameObject;
         }
@@ -197,7 +196,7 @@ public class StartSceneManager : MonoBehaviour {
             }
             yield return Timing.WaitForOneFrame;
         }
-        ProgressSliderBar.value = ProgressSliderBar.maxValue;
+        if(ProgressSliderBar!= null) ProgressSliderBar.value = ProgressSliderBar.maxValue;
         yield return Timing.WaitForOneFrame;
     }
 
@@ -314,7 +313,6 @@ public class StartSceneManager : MonoBehaviour {
     }
 
     IEnumerator IsDeviceConnectAsync() {
-
 
 
         MessageStatus("Verificando Conexão");
@@ -718,25 +716,19 @@ public class StartSceneManager : MonoBehaviour {
     }
 
     public void LoginC() {
-
         if (loginInputField.text.Length < 1) {
-            //Login Incompleto ou Inválido.
-
-            loginOutlineField.effectColor = WrongColorOutline;
         } else if (passwordInputField.text.Length < 4) {
-            //Insirá uma senha valida.
-            passwordOutlineField.effectColor = WrongColorOutline;
         } else {
-            if (config.usageCounter < config.usageLimit) {
-                if (config.isOn) {
+            if (GameConfig.Instance.usageCounter < GameConfig.Instance.usageLimit) {
+                if (GameConfig.Instance.isOn) {
                     Debug.Log(config.usageLimit);
                     Timing.RunCoroutine(OnlineAcess(), "LoginRoutine");
                 } else {
                     OfflineAcess(true);
                 }
             } else {
-                if (!config.isOn) return;
-                config.usageCounter = 0;
+                if (!GameConfig.Instance.isOn) return;
+                GameConfig.Instance.usageCounter = 0;
                 Timing.RunCoroutine(OnlineAcess(), "LoginRoutine");
             }
         }
@@ -861,8 +853,6 @@ public class StartSceneManager : MonoBehaviour {
         //loginInputField.placeholder.enabled = false;
         //loginInputField.textComponent.enabled = true;
         passwordInput.textComponent.text = string.Empty;
-        loginOutlineField.effectColor = WrongColorOutline;
-        passwordOutlineField.effectColor = WrongColorOutline;
         //PlayerPrefs.SetString("PlayerLastLogin", "");
         passwordInputField.text = string.Empty;
         MessageStatus(string.Empty);
@@ -903,8 +893,6 @@ public class StartSceneManager : MonoBehaviour {
             //Login ou senha errado.
             textWrong.enabled = true;
             textWrong.DOFade(1f, 0.3f);
-            loginOutlineField.effectColor = WrongColorOutline;
-            passwordOutlineField.effectColor = WrongColorOutline;
             PlayerPrefs.SetString("PlayerLastLogin", string.Empty);
             passwordInputField.text = string.Empty;
             MessageStatus(string.Empty);
@@ -945,8 +933,6 @@ public class StartSceneManager : MonoBehaviour {
             //Login ou senha errado.
             textWrong.enabled = true;
             textWrong.DOFade(1f, 0.3f);
-            loginOutlineField.effectColor = WrongColorOutline;
-            passwordOutlineField.effectColor = WrongColorOutline;
             passwordInputField.text = string.Empty;
             PlayerPrefs.SetString("PlayerLastLogin", string.Empty);
             MessageStatus(string.Empty);
@@ -1055,12 +1041,10 @@ public class StartSceneManager : MonoBehaviour {
 
 
     public void BackToDefaultLogin() {
-        loginOutlineField.effectColor = defaultColorOutline;
         DisableWrongText();
     }
 
     public void BackToDefaulPass() {
-        passwordOutlineField.effectColor = defaultColorOutline;
         DisableWrongText();
     }
 

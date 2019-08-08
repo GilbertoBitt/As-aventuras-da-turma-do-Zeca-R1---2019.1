@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogSettings: {fileID: 11400000, guid: dda8c0251a791324fa5a91e813a15c8e, type: 2}
   speeches:
-  - speechText: "Ajude o seu amiguinho a fugir da seringa voadora, leve-o at\xE9 Juca,
-      ele ir\xE1 salv\xE1-lo."
+  - speechText: "Ajude o seu amiguinho a fugir da seringa voadora, leve-o at\xE9 o
+      Juca, ele ir\xE1 salv\xE1-lo."
     speechAudioClip:
       enabled: 1
       audioClip: {fileID: 8300000, guid: aca4a0c92a5bf694db67705458c41792, type: 3}

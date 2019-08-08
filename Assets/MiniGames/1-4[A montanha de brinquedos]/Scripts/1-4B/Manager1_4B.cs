@@ -268,6 +268,8 @@ public class Manager1_4B : OverridableMonoBehaviour
         gridLayoutGroup.SetLayoutVertical();
     }
 
+    CompositeDisposable _disposables = new CompositeDisposable();
+
     public void InitGameConfig()
     {
 
@@ -803,11 +805,12 @@ public class Manager1_4B : OverridableMonoBehaviour
                     var instance = buttonPool.Rent();
                     instance.textComponent.text = i.ToString();
                     var indexValue = i;
-                    instance.buttonComponent.OnPointerClickAsObservable().Subscribe(data =>
+                    _disposables.Clear();
+                    instance.buttonComponent.OnClickAsObservable().Subscribe(data =>
                     {
                         scrollNumber = indexValue;
                         CorrectionAmountSyllables();
-                    });
+                    }).AddTo(_disposables);
                     buttonInstances.Add(instance);
                 }
                 break;
@@ -827,16 +830,17 @@ public class Manager1_4B : OverridableMonoBehaviour
                 {
                     case AnoLetivoState.Ano1:
                         UpdateEnunciado("Quantas letras a palavra abaixo tem?");
+                        _disposables.Clear();
                         for (int i = 0; i <= 10; i++)
                         {
                             var instance = buttonPool.Rent();
                             instance.textComponent.text = i.ToString();
                             var indexValue = i;
-                            instance.buttonComponent.OnPointerClickAsObservable().Subscribe(data =>
+                            instance.buttonComponent.OnClickAsObservable().Subscribe(data =>
                             {
                                 scrollNumber = indexValue;
                                 CorrectionAmountLetters();
-                            });
+                            }).AddTo(_disposables);
                             buttonInstances.Add(instance);
                         }
                         break;
@@ -876,17 +880,19 @@ public class Manager1_4B : OverridableMonoBehaviour
                         completeWordTextComponent.DOFade(1f, .3f);
 
                         UpdateEnunciado("Classifique a palavra abaixo.");
+                        _disposables.Clear();
                         for (int i = 0; i < 3; i++)
                         {
                             var instance = buttonPool.Rent();
                             instance.textComponent.text =
                                 GetTextFromTonicSyllable(i);
                             var indexValue = i;
-                            instance.buttonComponent.OnPointerClickAsObservable().Subscribe(data =>
+                            instance.buttonComponent.OnClickAsObservable().Subscribe(data =>
                                 {
                                     scrollNumber = indexValue;
                                     CorrectTonicClassification(indexValue);
-                                });
+                                    _disposables.Clear();
+                                }).AddTo(_disposables);
                             buttonInstances.Add(instance);
                         }
                         break;
@@ -922,7 +928,7 @@ public class Manager1_4B : OverridableMonoBehaviour
     }
 
 
-    CompositeDisposable disposables = new CompositeDisposable();
+
     private void OnMainStateAlternate(GameState state)
     {
         switch (anoLetivo.Value)
@@ -933,8 +939,8 @@ public class Manager1_4B : OverridableMonoBehaviour
                 {
                     buttonPool.Return(component);
                 });
-                disposables.Dispose();
-                confirmButton.OnClickAsObservable().Subscribe(unit => { WordSillablesCorrection(); });
+                _disposables.Clear();
+                confirmButton.OnClickAsObservable().Subscribe(unit => { WordSillablesCorrection(); }).AddTo(_disposables);;
                 break;
             case AnoLetivoState.Ano2:
                 break;
@@ -951,24 +957,24 @@ public class Manager1_4B : OverridableMonoBehaviour
         switch (anoLetivo.Value)
         {
             case AnoLetivoState.Ano1:
+                _disposables.Clear();
                 UpdateEnunciado("Forme a palavra de acordo com o item abaixo.");
                 buttonInstances.ForEach(component =>
                 {
                     buttonPool.Return(component);
                 });
-                disposables.Dispose();
-                confirmButton.OnClickAsObservable().Subscribe(unit => { WordDraggedCorretion(); });
+                confirmButton.OnClickAsObservable().Subscribe(unit => { WordDraggedCorretion(); }).AddTo(_disposables);
                 break;
             case AnoLetivoState.Ano2:
                 break;
             case AnoLetivoState.Ano3:
+                _disposables.Clear();
                 confirmButton.gameObject.SetActive(true);
                 UpdateEnunciado("Qual a sílaba tônica?");
                 buttonInstances.ForEach(component =>
                 {
                     buttonPool.Return(component);
                 });
-                disposables.Dispose();
                 break;
             default:
                 Debug.Break();

@@ -67,6 +67,7 @@ public class ControlLeiteMaterno : MonoBehaviour {
 
         if (other.CompareTag("PlayerPe")) {
           StartCoroutine(TimerVolta());
+
         }
       
     }
@@ -92,11 +93,11 @@ public class ControlLeiteMaterno : MonoBehaviour {
         yield return new WaitForSeconds(1f);
         Manager1_3AR.animPerson.SetBool(DelizandoLeite, false);
         Manager1_3AR.deslizandoLeite = false;
-        //  Manager1_3AR.BackRunning();
         //Manager1_3AR.ButtonsEnable(true);
-
         Manager1_3AR.checkPiscar = false;
         Manager1_3AR.imgPersonAnimP.SetBool("Piscar", false);
+        Manager1_3AR.BackRunning();
+
     }
 
 

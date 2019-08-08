@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class ChestHandler1_4A : MonoBehaviour, IDropHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
+public class ChestHandler1_4A : MonoBehaviour, IDropHandler {
 
 //	[SeparatorAttribute("Referencias")]
 	public Manager1_4A manager;
@@ -41,6 +41,7 @@ public class ChestHandler1_4A : MonoBehaviour, IDropHandler, IPointerClickHandle
 	private static readonly int CheckPass = Animator.StringToHash("_checkPass");
 	private static readonly int Bau = Animator.StringToHash("itemBau");
 	private static readonly int FecharBau = Animator.StringToHash("fecharBau");
+	[SerializeField] private Animator _animator;
 
 
 	public void BauAbrindo1 () {
@@ -73,7 +74,7 @@ public class ChestHandler1_4A : MonoBehaviour, IDropHandler, IPointerClickHandle
 	}
 
 	void Start () {
-		
+
 			checkIni2 = true;
 			jucaFecharBau.enabled = false;
 			zecaFecharBau.enabled = false;
@@ -112,7 +113,7 @@ public class ChestHandler1_4A : MonoBehaviour, IDropHandler, IPointerClickHandle
 		if (itemHandler != null && itemHandler.itemToDrag != null) {
 			item = itemHandler.itemToDrag.GetComponent<ItemGroup1_4A> ();
 		}
-		if (manager.isDragging == true && !manager.isRemoving) {			
+		if (manager.isDragging && !manager.isRemoving) {
 			//Debug.Log ("Drop Item! and is Dragging");
 			if (item != null) {
                 item.DisableBackgroundImage();
@@ -151,20 +152,20 @@ public class ChestHandler1_4A : MonoBehaviour, IDropHandler, IPointerClickHandle
 		if (item != null) item.DisableBackgroundImage();
 	}
 
-	public void OnPointerClick (PointerEventData eventData){
-	}
-
-	public void OnPointerEnter (PointerEventData eventData){
-		if (manager.isDragging && !manager.isRemoving) {
-			//Debug.Log ("Item sobre caixa");
-		}
-	}
-
-	public void OnPointerExit (PointerEventData eventData){
-		if (manager.isDragging && !manager.isRemoving) {
-			//ItemBau ();
-		}
-	}
+//	public void OnPointerClick (PointerEventData eventData){
+//	}
+//
+//	public void OnPointerEnter (PointerEventData eventData){
+//		if (manager.isDragging && !manager.isRemoving) {
+//			//Debug.Log ("Item sobre caixa");
+//		}
+//	}
+//
+//	public void OnPointerExit (PointerEventData eventData){
+//		if (manager.isDragging && !manager.isRemoving) {
+//			//ItemBau ();
+//		}
+//	}
 
 	public void UpdateText(string _string){
 		textComp.text = _string;
@@ -187,11 +188,11 @@ public class ChestHandler1_4A : MonoBehaviour, IDropHandler, IPointerClickHandle
 		if(rectComp == null){
 			rectComp = this.GetComponent<RectTransform>();
 		}
-		imageComp.raycastTarget = _enable;	
+		imageComp.raycastTarget = _enable;
 
 
 		GetComponent<Animator>().SetBool(CheckPass,imageComp.raycastTarget);
-		
+
 		GetComponent<Animator>().SetBool("_enable",imageComp.raycastTarget);
 	}
 

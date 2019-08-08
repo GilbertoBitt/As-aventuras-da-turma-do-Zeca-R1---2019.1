@@ -616,10 +616,8 @@ MonoBehaviour:
   onSprite: {fileID: 21300012, guid: 44e69ed1c7cbc9f4a843a371fb19c874, type: 3}
   offSprite: {fileID: 21300010, guid: 44e69ed1c7cbc9f4a843a371fb19c874, type: 3}
   loginInputField: {fileID: 1214636595}
-  loginOutlineField: {fileID: 0}
   loginCredentialsPanel: {fileID: 2117376226}
   passwordInputField: {fileID: 217030617}
-  passwordOutlineField: {fileID: 0}
   defaultColorOutline: {r: 0, g: 0.6689658, b: 1, a: 1}
   WrongColorOutline: {r: 1, g: 0, b: 0.35172415, a: 1}
   textWrong: {fileID: 451451638}
@@ -4934,6 +4932,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 224000010024376192, guid: 40482f5722b28114b80056e27c2f17a3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5023,16 +5031,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 223000010069830858, guid: 40482f5722b28114b80056e27c2f17a3,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 114000010942288262, guid: 40482f5722b28114b80056e27c2f17a3,
         type: 3}
@@ -7405,10 +7403,10 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 65
-  m_fontSizeBase: 65
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 36
   m_fontSizeMax: 65
   m_fontStyle: 0
@@ -7606,10 +7604,10 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 64.95
-  m_fontSizeBase: 65
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 36
   m_fontSizeMax: 65
   m_fontStyle: 0
@@ -7646,14 +7644,14 @@ MonoBehaviour:
   m_pageToDisplay: 1
   m_margin: {x: 21.849276, y: 24.130693, z: 26.78929, w: 27.55062}
   m_textInfo:
-    textComponent: {fileID: 1279619677}
-    characterCount: 16
+    textComponent: {fileID: 1317515409}
+    characterCount: 0
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -8017,10 +8015,10 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 65
-  m_fontSizeBase: 65
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 36
   m_fontSizeMax: 65
   m_fontStyle: 0
@@ -8058,13 +8056,13 @@ MonoBehaviour:
   m_margin: {x: 21.849276, y: 24.130693, z: 26.78929, w: 27.55062}
   m_textInfo:
     textComponent: {fileID: 1398320275}
-    characterCount: 12
+    characterCount: 0
     spriteCount: 0
-    spaceCount: 2
-    wordCount: 3
+    spaceCount: 0
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0

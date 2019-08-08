@@ -321,6 +321,7 @@ namespace TutorialSystem.Scripts
             transform.parent.gameObject.SetActive(false);
             endTutorial?.Invoke();
             eventBus.Publish(stopEventName);
+            FadeAudiosOnVoiceTo(1f);
         }
 
 

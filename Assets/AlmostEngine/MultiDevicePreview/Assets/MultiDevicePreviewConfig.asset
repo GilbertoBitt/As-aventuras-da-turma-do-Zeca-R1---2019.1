@@ -168,20 +168,6 @@ MonoBehaviour:
         iPad Pro 12.9 (2018).png (1).png
       m_IgnoreOrientation: 0
     - m_Active: 1
-      m_Width: 2160
-      m_Height: 1080
-      m_Scale: 1
-      m_Orientation: 0
-      m_ResolutionName: Motorola Moto Z3
-      m_Category: Devices/Motorola
-      m_PPI: 402
-      m_ForcedUnityPPI: 0
-      m_DeviceCanvas: {fileID: 0}
-      m_Ratio: 2:1
-      m_FileName: C:\Users\Administrador.WIN-2I1P2GRMKPH\Pictures\Screenshots/Motorola
-        Moto Z3.png (1).png
-      m_IgnoreOrientation: 0
-    - m_Active: 1
       m_Width: 2960
       m_Height: 1440
       m_Scale: 1
@@ -246,6 +232,149 @@ MonoBehaviour:
       m_ForcedUnityPPI: 0
       m_DeviceCanvas: {fileID: 0}
       m_Ratio: 2:1
+      m_FileName: 
+      m_IgnoreOrientation: 0
+    - m_Active: 1
+      m_Width: 2160
+      m_Height: 1080
+      m_Scale: 1
+      m_Orientation: 0
+      m_ResolutionName: Motorola Moto Z3
+      m_Category: Devices/Motorola
+      m_PPI: 402
+      m_ForcedUnityPPI: 0
+      m_DeviceCanvas: {fileID: 0}
+      m_Ratio: 2:1
+      m_FileName: 
+      m_IgnoreOrientation: 0
+    - m_Active: 1
+      m_Width: 2246
+      m_Height: 1080
+      m_Scale: 1
+      m_Orientation: 0
+      m_ResolutionName: Motorola One Power
+      m_Category: Devices/Motorola
+      m_PPI: 402
+      m_ForcedUnityPPI: 0
+      m_DeviceCanvas: {fileID: 0}
+      m_Ratio: 1123:540
+      m_FileName: 
+      m_IgnoreOrientation: 0
+    - m_Active: 1
+      m_Width: 2960
+      m_Height: 1440
+      m_Scale: 1
+      m_Orientation: 0
+      m_ResolutionName: Samsung Galaxy S9
+      m_Category: Devices/Samsung
+      m_PPI: 568
+      m_ForcedUnityPPI: 0
+      m_DeviceCanvas: {fileID: 0}
+      m_Ratio: 37:18
+      m_FileName: 
+      m_IgnoreOrientation: 0
+    - m_Active: 1
+      m_Width: 1280
+      m_Height: 720
+      m_Scale: 1
+      m_Orientation: 0
+      m_ResolutionName: 30,1%   HD(720p) 1280x720
+      m_Category: Popularity/Unity mobile (Android) 2017-03
+      m_PPI: 0
+      m_ForcedUnityPPI: 0
+      m_DeviceCanvas: {fileID: 0}
+      m_Ratio: 16:9
+      m_FileName: 
+      m_IgnoreOrientation: 0
+    - m_Active: 1
+      m_Width: 1920
+      m_Height: 1080
+      m_Scale: 1
+      m_Orientation: 0
+      m_ResolutionName: 22,1%   FHD(1080p) 1920x1080
+      m_Category: Popularity/Unity mobile (Android) 2017-03
+      m_PPI: 0
+      m_ForcedUnityPPI: 0
+      m_DeviceCanvas: {fileID: 0}
+      m_Ratio: 16:9
+      m_FileName: 
+      m_IgnoreOrientation: 0
+    - m_Active: 1
+      m_Width: 854
+      m_Height: 480
+      m_Scale: 1
+      m_Orientation: 0
+      m_ResolutionName: 9,5%   FWVGA 854x480
+      m_Category: Popularity/Unity mobile (Android) 2017-03
+      m_PPI: 0
+      m_ForcedUnityPPI: 0
+      m_DeviceCanvas: {fileID: 0}
+      m_Ratio: 427:240
+      m_FileName: 
+      m_IgnoreOrientation: 0
+    - m_Active: 1
+      m_Width: 800
+      m_Height: 480
+      m_Scale: 1
+      m_Orientation: 0
+      m_ResolutionName: 9,3%   WVGA 800x480
+      m_Category: Popularity/Unity mobile (Android) 2017-03
+      m_PPI: 0
+      m_ForcedUnityPPI: 0
+      m_DeviceCanvas: {fileID: 0}
+      m_Ratio: 5:3
+      m_FileName: 
+      m_IgnoreOrientation: 0
+    - m_Active: 1
+      m_Width: 1280
+      m_Height: 800
+      m_Scale: 1
+      m_Orientation: 0
+      m_ResolutionName: 5,1%   WXGA 1280x800
+      m_Category: Popularity/Unity mobile (Android) 2017-03
+      m_PPI: 0
+      m_ForcedUnityPPI: 0
+      m_DeviceCanvas: {fileID: 0}
+      m_Ratio: 8:5
+      m_FileName: 
+      m_IgnoreOrientation: 0
+    - m_Active: 1
+      m_Width: 2560
+      m_Height: 1440
+      m_Scale: 1
+      m_Orientation: 0
+      m_ResolutionName: 2,2%   WQHD 2560x1440
+      m_Category: Popularity/Unity mobile (Android) 2017-03
+      m_PPI: 0
+      m_ForcedUnityPPI: 0
+      m_DeviceCanvas: {fileID: 0}
+      m_Ratio: 16:9
+      m_FileName: 
+      m_IgnoreOrientation: 0
+    - m_Active: 1
+      m_Width: 480
+      m_Height: 320
+      m_Scale: 1
+      m_Orientation: 0
+      m_ResolutionName: 1%   HVGA 480x320
+      m_Category: Popularity/Unity mobile (Android) 2017-03
+      m_PPI: 0
+      m_ForcedUnityPPI: 0
+      m_DeviceCanvas: {fileID: 0}
+      m_Ratio: 3:2
+      m_FileName: 
+      m_IgnoreOrientation: 0
+    - m_Active: 1
+      m_Width: 1920
+      m_Height: 1200
+      m_Scale: 1
+      m_Orientation: 0
+      m_ResolutionName: 0,8%   WUXGA 1920x1200
+      m_Category: Popularity/Unity mobile (Android) 2017-03
+      m_PPI: 0
+      m_ForcedUnityPPI: 0
+      m_DeviceCanvas: {fileID: 0}
+      m_Ratio: 8:5
       m_FileName: 
       m_IgnoreOrientation: 0
     m_GameViewResolution:
@@ -325,7 +454,7 @@ MonoBehaviour:
   m_GalleryTextHeight: 30
   m_GalleryBorderSize: 2
   m_Selected: 9
-  m_PreviewGalleryZoom: 1.96
+  m_PreviewGalleryZoom: 0.84
   m_PreviewZoom: 1.38
   m_RefreshMode: 0
   m_AutoRefresh: 0

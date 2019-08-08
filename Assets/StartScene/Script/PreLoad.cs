@@ -82,49 +82,49 @@ public class PreLoad :MonoBehaviour {
             // 0.9f is a hardcoded magic number inside the SceneManager API
             // ... this is OFFICIAL! Not a hack!
                 if (asyncOperation.progress == 0.9f) {
-                textPercentageComp.text = "100%";
-                // asyncOperation.allowSceneActivation = true;
+                    textPercentageComp.text = "100%";
+                    // asyncOperation.allowSceneActivation = true;
 
-                // Unity WILL CORRUPT DATA INTERNALLY AT END OF THIS FRAME
-                // ...unless you do several things here.
+                    // Unity WILL CORRUPT DATA INTERNALLY AT END OF THIS FRAME
+                    // ...unless you do several things here.
 
-                // You MUST disable all AudioListeners, or you will get spammed with errors
-                // FindObjectOfType<AudioListener>().enabled = false;
+                    // You MUST disable all AudioListeners, or you will get spammed with errors
+                    // FindObjectOfType<AudioListener>().enabled = false;
 
-                // Because we're at 0.9f, and scene is about to flip-over,
-                //  you MUST disable your live cameras
-                //oldMainCamera.gameObject.SetActive(false);
-                Scene newScene = SceneManager.GetSceneByName(sceneName);
-                // MUST either delete the old scene,
-                //   OR disable every root gameobject 
-                /* for (int i = 0; i < objsToDelete.Length; i++) {
-                     objsToDelete[i].SetActive(false);
-                 }*/
+                    // Because we're at 0.9f, and scene is about to flip-over,
+                    //  you MUST disable your live cameras
+                    //oldMainCamera.gameObject.SetActive(false);
+                    Scene newScene = SceneManager.GetSceneByName(sceneName);
+                    // MUST either delete the old scene,
+                    //   OR disable every root gameobject
+                    /* for (int i = 0; i < objsToDelete.Length; i++) {
+                         objsToDelete[i].SetActive(false);
+                     }*/
 
 
-                SceneManager.MoveGameObjectToScene(CameraMain, newScene);
-                //SceneManager.MoveGameObjectToScene(eventSystemComp, newScene);
+                    SceneManager.MoveGameObjectToScene(CameraMain, newScene);
+                    //SceneManager.MoveGameObjectToScene(eventSystemComp, newScene);
 
-                // Scene has now loaded; but you MUST manually "activate" it
-				yield return new WaitUntil(() => asyncOperation.isDone);
+                    // Scene has now loaded; but you MUST manually "activate" it
+                    yield return new WaitUntil(() => asyncOperation.isDone);
 
-                SceneManager.SetActiveScene(newScene);
-                //yield return new WaitForFixedUpdate();
+                    SceneManager.SetActiveScene(newScene);
+                    //yield return new WaitForFixedUpdate();
                 
-                StartSceneManager manager = FindObjectOfType(typeof(StartSceneManager)) as StartSceneManager;
-                if(manager != null) {
-                    manager.StartDelayed();
-                } else {
-                    Debug.Log("Null Exception", this);
-                }
-                SceneManager.UnloadSceneAsync(oldScene);
-                //oldMainCamera.enabled = false;
-                yield return null;
+                    StartSceneManager manager = FindObjectOfType(typeof(StartSceneManager)) as StartSceneManager;
+                    if(manager != null) {
+                        manager.StartDelayed();
+                    } else {
+                        Debug.Log("Null Exception", this);
+                    }
+                    SceneManager.UnloadSceneAsync(oldScene);
+                    //oldMainCamera.enabled = false;
+                    yield return null;
                 }
 
             //textPercentageComp.text = string.Format("{0:N0}%", asyncOperation.progress * 100f);
         }
-        }
+    }
     }
 
 
