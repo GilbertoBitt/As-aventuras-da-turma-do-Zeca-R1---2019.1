@@ -16,7 +16,7 @@ MonoBehaviour:
   deleteDllAfterBuilds: 0
   AutomateForAllAOTPlatforms: 1
   automateForPlatforms: 0900000014000000
-  lastScan: 637008811990690320
+  lastScan: 637008924384724865
   supportSerializedTypes:
   - TypeName: BlankSpace1_4B, Assembly-CSharp
     IsCustom: 0
