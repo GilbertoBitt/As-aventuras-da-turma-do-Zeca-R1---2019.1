@@ -2,15 +2,11 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
 using com.csutil;
 using DG.DeAudio;
 using DG.Tweening;
-using MEC;
 using TMPro;
-using UniRx.Async;
 using UnityEngine.SceneManagement;
-using DG.DeAudio;
 
 public class FinalScore : MonoBehaviour {
 

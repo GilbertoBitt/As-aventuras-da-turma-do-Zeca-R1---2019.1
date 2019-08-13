@@ -1838,25 +1838,18 @@ public class RainbowController : OverridableMonoBehaviour {
 		switch (item) {
 		case rainbowItem.lunch:
 			return lunchAmount;
-			break;
 		case rainbowItem.joys:
 			return joysAmount;
-			break;
 		case rainbowItem.manners:
 			return mannersAmount;
-			break;
 		case rainbowItem.knowledge:
 			return knowledgeAmount;
-			break;
 		case rainbowItem.study:
 			return studyAmount;
-			break;
 		case rainbowItem.grades:
 			return gradesAmount;
-			break;
 		default:
 			return 0;
-			break;
 		}
 	}
 
@@ -1864,28 +1857,20 @@ public class RainbowController : OverridableMonoBehaviour {
 		switch (item) {
 		case rainbowItem.lunch:
 			return iconsImage[0];
-			break;
 		case rainbowItem.joys:
 			return iconsImage[1];
-			break;
 		case rainbowItem.manners:
 			return iconsImage[2];
-			break;
 		case rainbowItem.knowledge:
 			return iconsImage[3];
-			break;
 		case rainbowItem.study:
 			return iconsImage[4];
-			break;
 		case rainbowItem.grades:
 			return iconsImage[5];
-			break;
 		case rainbowItem.friendship:
 			return iconsImage[6];
-			break;
 		default:
 			return iconsImage[0];
-			break;
 		}
 	}
 
@@ -1893,28 +1878,20 @@ public class RainbowController : OverridableMonoBehaviour {
 		switch (item) {
 		case rainbowItem.lunch:
 			return "Lanches";
-			break;
 		case rainbowItem.joys:
 			return "Brincadeiras";
-			break;
 		case rainbowItem.manners:
 			return "Boas Maneiras";
-			break;
 		case rainbowItem.knowledge:
 			return "Conhecimento";
-			break;
 		case rainbowItem.study:
 			return "Atividades Fisícas";
-			break;
 		case rainbowItem.grades:
 			return "Boas Notas";
-			break;
 		case rainbowItem.friendship:
 			return "Amizade";
-			break;
 		default:
 			return "none";
-			break;
 		}
 	}
 
@@ -1922,28 +1899,20 @@ public class RainbowController : OverridableMonoBehaviour {
 		switch (item) {
 		case rainbowItem.lunch:
 			return 0;
-			break;
 		case rainbowItem.joys:
 			return 1;
-			break;
 		case rainbowItem.manners:
 			return 2;
-			break;
 		case rainbowItem.knowledge:
 			return 3;
-			break;
 		case rainbowItem.study:
 			return 4;
-			break;
 		case rainbowItem.grades:
 			return 5;
-			break;
 		case rainbowItem.friendship:
 			return 6;
-			break;
 		default:
 			return 0;
-			break;
 		}
 	}
 
@@ -1951,28 +1920,20 @@ public class RainbowController : OverridableMonoBehaviour {
 		switch (id) {
 		case 0:
 			return lunchAmount;
-			break;
 		case 1:
 			return joysAmount;
-			break;
 		case 2:
 			return mannersAmount;
-			break;
 		case 3:
 			return knowledgeAmount;
-			break;
 		case 4:
 			return studyAmount;
-			break;
 		case 5:
 			return gradesAmount;
-			break;
 		case 6:
 			return friendshipAmount;
-			break;
 		default:
 			return 0;
-			break;
 		}
 	}
 
@@ -1980,28 +1941,20 @@ public class RainbowController : OverridableMonoBehaviour {
 		switch (id) {
 		case 0:
 			return rainbowItem.lunch;
-			break;
 		case 1:
 			return rainbowItem.joys;
-			break;
 		case 2:
 			return rainbowItem.manners;
-			break;
 		case 3:
 			return rainbowItem.knowledge;
-			break;
 		case 4:
 			return rainbowItem.study;
-			break;
 		case 5:
 			return rainbowItem.grades;
-			break;
 		case 6:
 			return rainbowItem.friendship;
-			break;
 		default:
 			return rainbowItem.none;
-			break;
 		}
 	}
 
@@ -2009,15 +1962,13 @@ public class RainbowController : OverridableMonoBehaviour {
 
 		List<ItemIndexed> itensAmount = new List<ItemIndexed> ();
 		ItemIndexed[] arrayResult = new ItemIndexed[7];
-		for (int i = 0; i < 7; i++) {
-			int temp = returnAmountsItem (i);
+		for (int i = 0; i < 7; i++)
+		{
+			returnAmountsItem (i);
 			itensAmount.Add (new ItemIndexed(returnAmountsItem(i),i,returnItemType(i)));
 		}
 		var listOrder = itensAmount.OrderByDescending (x => x.amount).ToList ();
 		arrayResult = listOrder.ToArray ();
-		for (int i = 0; i < 7; i++) {
-			
-		}
 		return arrayResult;
 	}
 
@@ -2041,16 +1992,12 @@ public class RainbowController : OverridableMonoBehaviour {
 		Timing.RunCoroutine (fadeOrder (50,imageItens));
         
         if (PlayerPrefs.HasKey("tutorIni2") == false) {
-          //  PanelProfessora.SetActive(true);
-        //    PlayerPrefs.SetInt("tutorIni2", 1);
-        //    tutorPanelArcoirirs2.BalaoScaleM2();
         }
         else if (numbCont < 2) {
             numbCont = numbCont + 1;
             tutorPanelArcoirirs2.soundManager.startVoiceFXReturn(tutorPanelArcoirirs2.audiosTutorial[7]);
 
         }
-      //  Debug.Log("passou");
 
 
     }
@@ -2058,13 +2005,13 @@ public class RainbowController : OverridableMonoBehaviour {
 	IEnumerator<float> fadeOrder(int amount,List<Image> imageItens){
 		for (int i = 0; i < itensToCount [currentIndexedItem].amount; i++) {
 			if (imageItens[i] != null)
-			Timing.RunCoroutine (fadeInItem (imageItens[i], itensToCount [currentIndexedItem]));
+				Timing.RunCoroutine (fadeInItem (imageItens[i], itensToCount [currentIndexedItem]));
 			yield return Timing.WaitForSeconds (0.05f);
 		}
-		if (checkprofessoraAjuda == false) {
-			checkprofessoraAjuda = true;
-			professoraAjuda = 0;
-		}
+
+		if (checkprofessoraAjuda != false) yield break;
+		checkprofessoraAjuda = true;
+		professoraAjuda = 0;
 	}
 
 

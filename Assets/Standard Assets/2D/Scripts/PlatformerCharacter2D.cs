@@ -72,6 +72,7 @@ namespace UnityStandardAssets._2D
 
         public UnityEvent OnWalk;
         public UnityEvent OnVoltarCorrer;
+        public UnityAction<Collider2D[]> onGroundColliders;
 
         #endregion
         //public GameObject trigLimt;
@@ -120,6 +121,7 @@ namespace UnityStandardAssets._2D
                         collVoando.enabled = false;
                       //  boxCollider2D.enabled = true;
                         OnGrounded.Invoke();
+                        onGroundColliders?.Invoke(colliders);
                     }
                 }
 

@@ -37,10 +37,6 @@ public class ToFileDownloadHandler : DownloadHandlerScript {
         fileStream.Close();
     }
 
-    protected override void ReceiveContentLength(int contentLength) {
-        expected = contentLength;
-    }
-
     public void Cancel() {
         canceled = true;
         fileStream.Close();

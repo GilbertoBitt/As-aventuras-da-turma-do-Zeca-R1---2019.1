@@ -13,6 +13,7 @@ using MiniGames.Scripts._1_3B;
 using Sirenix.OdinInspector;
 using TMPro;
 using TutorialSystem.Scripts;
+using UniRx.Async;
 
 public class Manager1_3B : OverridableMonoBehaviour {
 
@@ -154,7 +155,10 @@ public class Manager1_3B : OverridableMonoBehaviour {
     public bool didadMovel;
     public Image tutorialImageComponent;
     [ReadOnly] public InfoSkillWindow infoSkillWindow;
+    public bool canDownFall = false;
     #endregion
+    
+    public Collider2D colliderUsedOnEffector;
 
     // Use this for initialization
      void Start()
@@ -181,6 +185,8 @@ public class Manager1_3B : OverridableMonoBehaviour {
 	        }
         });
      }
+
+    
 
     void StartGame () {
         // topLevelG = topLevel.offsetMax;Timing.RunCoroutine(StartDidatica());
@@ -267,7 +273,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 		{
 			case 1:
 				var temp = new List<ItemWord1_3b>();
-				for (int i = 0; i < 4; i++)
+				for (int i = 0; i < foodQuestionTodo+1; i++)
 				{
 					ItemWord1_3b itemSelected = null;
 					do
@@ -339,7 +345,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 
 		textFoodName.text = $"Atire no alimento que começa com a letra {choosenWords[foodQuestionMade].startLetter}";
 
-		var tempList = allWordsOfList.Where(x => x.startLetter != choosenWords[foodQuestionMade].startLetter).Take(foodQuestionTodo).ToList();
+		var tempList = allWordsOfList.Where(x => x.startLetter != choosenWords[foodQuestionMade].startLetter).Take(3).ToList();
 		tempList.Add(choosenWords[foodQuestionMade]);
 		tempList.Shuffle();
 

@@ -79,7 +79,7 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
 	[HeaderAttribute("Animation Settings")]
     public float IncreaseScoreEffectDuration = 0.3f;
     public SoundManager soundManager;
-    public AudioClip[] audio;
+    public new AudioClip[] audio;
     bool ExpressFacialProfCheck=false;
 
 
@@ -165,7 +165,6 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
             ExpressFacialProfCheck = true;
             StartCoroutine(ExpressFacialProf());
         }
-       // StartCoroutine(ExpressFacialProf());
 
         if (contN == 0) {
 			GetComponent<Animator>().SetInteger(contNHash, contN);
@@ -244,7 +243,7 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
     }
 	IEnumerator ChamarCanvas(){
 			if(CanvasFim != null){
-			yield return Yielders.Get (0.1f);
+				yield return Yielders.Get (0.1f);
 				CanvasFim.SetActive(true);
 			}
 		
@@ -388,9 +387,7 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
 			texBalao.text = texCertoR[rn];
 			texBalao.color = texBalaoColor [0];
 			SaveEstatistica(questionsToAsk[numberPergunt], true);
-            //scoreAmount += correctAmount;
             Timing.RunCoroutine(scoreIncrease(correctAmount));
-			//textPoints.text =  "" + (int)Mathf.Lerp (scoreAmount, correctAmount, textPointsEffectCurve.Evaluate (1));
 			if (log != null) {
 				log.AddPontosInteragindo (correctAmount);
 			}
@@ -405,7 +402,6 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
 			SaveEstatistica(questionsToAsk[numberPergunt], false);
 			for (int i = 0; i < 4; i++) {
 				if (questionsToAsk[numberPergunt].alternatives[i].isCorrect){
-				//	yield return Yielders.Get(0.2f);
 					btAlternatives[i].GetComponent<Image>().sprite = btAltCerta;
 				} 
 
@@ -492,12 +488,12 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
 			log.SendGameLog ();
 		}
 		GetComponent<Animator>().SetBool(PanelFinalHash,true);
-		scoreFinal.scoreAmount = this.scoreAmount;
-		scoreFinal.starsAmount = this.starAmount;
+		scoreFinal.scoreAmount = scoreAmount;
+		scoreFinal.starsAmount = starAmount;
 		scoreFinal.OnFinalStart.Invoke ();
 	}
 	public void PauseOff(){
-		if (PauseButton.activeInHierarchy == true) {
+		if (PauseButton.activeInHierarchy) {
 			PauseButton.SetActive (false);
 		}   
 	}
@@ -518,7 +514,7 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
                     int count = questionsToAsk[i].alternatives.Count;
                     for (int j = 0; j < count; j++) {
                         using(UnityWebRequest answerWWW = UnityWebRequestMultimedia.GetAudioClip("file://" + config.fullAudioClipDestinationAnswers + questionsToAsk[i].alternatives[j].idPergunta + ".ogg", AudioType.OGGVORBIS)) {
-							yield return Timing.WaitUntilDone(answerWWW.Send());
+							yield return Timing.WaitUntilDone(answerWWW.SendWebRequest());
 
                             if (www.isNetworkError) {
 
@@ -536,7 +532,7 @@ public class PanelDesafioControl : OverridableMonoBehaviour {
         return new Alternatives() {
             idPergunta = dboResposta.idPergunta,
             idResposta = dboResposta.idResposta,
-            isCorrect = dboResposta.correta == 1 ? true : false,
+            isCorrect = dboResposta.correta == 1,
             textoPergunta = dboResposta.textoResposta,
         };
     }

@@ -12,7 +12,7 @@ namespace MiniGames.Scripts
         public AudioClip[] audiosTutorial;
         public int numTutor;
         public bool checkSom;
-        public DeAudioSource audio;
+        public new DeAudioSource audio;
         bool checkPassou;
 
         public void SomTutor()

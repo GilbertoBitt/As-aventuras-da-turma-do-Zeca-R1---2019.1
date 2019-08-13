@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Utils;
+using com.csutil;
 using DG.Tweening;
 using MEC;
 using MiniGames.Scripts._1_3B;
 using Sirenix.OdinInspector;
 using TMPro;
 using TutorialSystem.Scripts;
+using UniRx;
+using UniRx.Async;
+using UniRx.Async.Triggers;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
@@ -218,6 +224,8 @@ namespace MiniGames.Scripts._1_3A
         public GameObject[] deactivated;
         public DialogComponent dialogComponent;
         public DialogInfo dialogInfo;
+        [SerializeField] private bool canDownFall;
+        [SerializeField] private Collider2D colliderUsedOnEffector;
 
         void Start () {
 
@@ -323,6 +331,7 @@ namespace MiniGames.Scripts._1_3A
             playerTransform = personSel.GetComponent<Transform>();
             plataformControlerUser = personSel.GetComponent<UnityStandardAssets._2D.Platformer2DUserControl>();
             plataformController2d = personSel.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D>();
+            plataformController2d.onGroundColliders = OnGroundColliders;
             playerCollider = personSel.GetComponent<Collider2D>();
             BoxCollider2DPlayer = personSel.GetComponent<BoxCollider2D>();
             animPerson = personSel.GetComponent<Animator>();
@@ -374,8 +383,62 @@ namespace MiniGames.Scripts._1_3A
                 nurseSlider.value = 0;
                 playerSlider.value = 0;
             }
+            
+//            var arrowClickStream = Observable.EveryUpdate()
+//                .Where(_ => Input.GetKeyDown(KeyCode.DownArrow)); 
+//            
+//            var buttonClick = Observable.EveryUpdate()
+//                .Where(_ => slideButton.GetAsyncPointerClickTrigger());
+
+            slideButton.OnPointerClickAsObservable().Buffer(TimeSpan.FromMilliseconds(1000), 2)
+                .Where(buffer => buffer.Count >= 2 && !batendoCaixa && !deslizandoLeite)
+                .Subscribe(_ =>
+                {
+                    MakeUserFall();
+                    Debug.Log("DoubleClick Detected! Count:");
+                });
+
+//            slideButton.OnPointerClickAsObservable().Subscribe(data =>
+//            {
+//                if (data.clickCount >= 2)
+//                {
+//                    MakeUserFall();
+//                    Debug.Log("DoubleClick Detected!");
+//                }
+//            });
+            
+            
+            Observable.EveryUpdate().Where(_ => Input.GetKeyDown(KeyCode.DownArrow))
+                .Buffer(TimeSpan.FromMilliseconds(1000), 2)
+                .Where(buffer => buffer.Count >= 2 && !batendoCaixa && !deslizandoLeite)
+                .Subscribe(_ =>
+                {
+                    MakeUserFall();
+                    Debug.Log("DoubleClick Detected! Count:");
+                });
+
+            
         }
 
+        private void MakeUserFall()
+        {
+            if (colliderUsedOnEffector == null) return;
+            colliderUsedOnEffector.enabled = false;
+            this.ExecuteDelayed(() =>
+            {
+                if (colliderUsedOnEffector == null) return;
+                colliderUsedOnEffector.enabled = true;
+            }, 1f);
+        }
+        
+
+        private void OnGroundColliders(Collider2D[] collides)
+        {
+            canDownFall = !collides.Any(x => x.usedByEffector);
+            if (canDownFall) return;
+            colliderUsedOnEffector = collides.First(coll => coll.usedByEffector);
+            if (colliderUsedOnEffector == null) canDownFall = false;
+        }
 
         public void IniCont() {
             Timing.RunCoroutine(Timer());
@@ -388,9 +451,7 @@ namespace MiniGames.Scripts._1_3A
                 numberV[i] = i;
                 plataforms[i].numbPlataform = i;
                 plataforms[i].numbRandom = number;
-
             }
-
             nurseSlider.value = 0;
             playerSlider.value = 0;
         }

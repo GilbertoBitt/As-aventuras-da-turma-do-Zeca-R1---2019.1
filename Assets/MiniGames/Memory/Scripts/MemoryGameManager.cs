@@ -76,7 +76,7 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 	private bool startTimerIsRunning = false;
 	public changeLevel animationChangeLevel;
 	public GameObject panelHighLightsR;
-	public AudioClip[] audio;
+	public new AudioClip[] audio;
 	public int characterSelected = 0;
 
 	public float offTime = 1f;

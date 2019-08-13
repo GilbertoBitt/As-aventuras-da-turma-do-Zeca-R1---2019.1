@@ -102,3 +102,20 @@ MonoBehaviour:
       eventDelay:
         enabled: 0
         eventDelay: 0
+  - speechText: Clique duas vezes em "abaixar" para descer.
+    speechAudioClip:
+      enabled: 1
+      audioClip: {fileID: 8300000, guid: 14ca3c76925c4874dbc2815429ce5ad4, type: 3}
+    speechSpriteAsset:
+      enabled: 0
+      spriteAsset: {fileID: 0}
+    speechVideoAsset:
+      enabled: 0
+      videoAsset: {fileID: 0}
+    speechEventSystem:
+      enabled: 0
+      startEvent: {fileID: 0}
+      stopEvent: {fileID: 0}
+      eventDelay:
+        enabled: 0
+        eventDelay: 0
