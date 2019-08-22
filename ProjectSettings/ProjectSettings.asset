@@ -126,7 +126,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.2.439
+  bundleVersion: 2.2.440
   preloadedAssets:
   - {fileID: 21526175493101198, guid: 9767346c44a58584398664efb4aca847, type: 2}
   - {fileID: 2100000, guid: 8e09fe9790039844d88a46589fd2faa8, type: 2}
@@ -180,9 +180,9 @@ PlayerSettings:
     Android: br.com.eduqbrinq.asaventurasdaturmadozeca
     Standalone: br.com.eduqbrinq.asaventurasdaturmadozeca
   buildNumber:
-    Standalone: 439
-    iPhone: 439
-  AndroidBundleVersionCode: 22439
+    Standalone: 440
+    iPhone: 440
+  AndroidBundleVersionCode: 22440
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
