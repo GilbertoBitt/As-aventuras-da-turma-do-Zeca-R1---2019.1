@@ -15,16 +15,29 @@ MonoBehaviour:
   word: acendi
   itemSprite: {fileID: 0}
   syllables:
-  - ACEN
-  - DI
-  charSyllabes: []
-  letters: []
+  - a
+  - cen
+  - di
+  charSyllabes:
+  - a
+  - c
+  - e
+  - n
+  - d
+  - i
+  letters:
+  - a
+  - c
+  - e
+  - n
+  - d
+  - i
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 2
+    classification: 3
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

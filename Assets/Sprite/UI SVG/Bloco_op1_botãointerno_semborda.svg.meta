@@ -37,17 +37,17 @@ ScriptedImporter:
   spriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: Bloco_op2branco
+      name: "Bloco_op1_bot\xE3ointerno_semborda"
       originalName: 
       pivot: {x: 0.5, y: 0.5}
       alignment: 0
-      border: {x: 26, y: 26, z: 26, w: 26}
+      border: {x: 38, y: 26, z: 42, w: 26}
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 256
-        height: 256
+        height: 111
       spriteID: b0477fcbb4245854187dbe1fffb21b22
       internalID: 0
     PhysicsOutlines: []

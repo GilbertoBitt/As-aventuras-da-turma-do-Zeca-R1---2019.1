@@ -66,21 +66,9 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 
 	private void Start()
 	{
-
 		effectComponent = this.GetOrAddComponent<UIEffect>();
 		scaleTransformTarget = transform;
-
-		_outline = GetComponent(typeof(NicerOutline)) as NicerOutline;
-		if (_outline == null)
-		{
-			_outline = gameObject.AddComponent(typeof(NicerOutline)) as NicerOutline;
-		}
-
-		if (_outline == null) return;
-		_outline.enabled = false;
-		_outline.effectDistance = new Vector2(5f, -5f);
-		_outline.effectColor = Color.white;
-
+//		imageComponent.color = Color.clear;
 	}
 
 
@@ -103,18 +91,14 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 		canbeFound = true;
 	}
 
-	public void updateImage(Sprite spriteItem, Color Outline){
+	public void updateImage(Sprite spriteItem, Color outline){
+		effectComponent.effectColor = outline;
+		effectComponent.colorFactor = 1f;
 		imageComponent.sprite = spriteItem;
-		imageComponent.color = Outline;
+		imageComponent.color = outline;
 		imageComponent.preserveAspect = true;
 		imageComponent.enabled = true;
 		canbeFound = true;
-		if (_outline == null)
-		{
-			Start();
-		}
-		_outline.enabled = true;
-		_outline.effectColor = Outline;
 	}
 
 	public void resetConfig(){
@@ -125,12 +109,9 @@ public class GeometryPlaces_1_2B : MonoBehaviour, IPointerClickHandler{
 		canbeFound = false;
 		imageComponent.sprite = null;
 		imageComponent.color = Color.clear;
+		effectComponent.effectColor = Color.clear;
+		effectComponent.colorFactor = 0f;
 		transform.rotation = Quaternion.Euler(0f,0f,0f);
-		if (_outline == null)
-		{
-			Start();
-		}
-		_outline.enabled = false;
 	}
 	
 }

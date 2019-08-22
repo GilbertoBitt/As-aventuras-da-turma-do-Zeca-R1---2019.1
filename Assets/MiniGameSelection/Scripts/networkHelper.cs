@@ -161,7 +161,7 @@ public class networkHelper {
 
         UnityWebRequest request = UnityWebRequest.Post(uri, form);
         request.timeout = 30;
-        request.redirectLimit = 2;
+        request.redirectLimit = 3;
         
         yield return Timing.WaitUntilDone(startScene.StartProgressWebRequest(request));
         

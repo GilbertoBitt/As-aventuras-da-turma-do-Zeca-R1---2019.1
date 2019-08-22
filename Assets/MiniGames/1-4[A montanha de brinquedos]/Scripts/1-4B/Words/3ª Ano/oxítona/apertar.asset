@@ -15,11 +15,25 @@ MonoBehaviour:
   word: apertar
   itemSprite: {fileID: 0}
   syllables:
-  - AP
-  - ER
-  - TAR
-  charSyllabes: []
-  letters: []
+  - a
+  - per
+  - tar
+  charSyllabes:
+  - a
+  - p
+  - e
+  - r
+  - t
+  - a
+  - r
+  letters:
+  - a
+  - p
+  - e
+  - r
+  - t
+  - a
+  - r
   tonicSyllables:
     enabled: 1
     classification: 0

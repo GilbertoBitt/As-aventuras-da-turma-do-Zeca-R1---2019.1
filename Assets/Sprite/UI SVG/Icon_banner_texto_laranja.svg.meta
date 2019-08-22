@@ -37,17 +37,17 @@ ScriptedImporter:
   spriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: Bloco_op2branco
+      name: Icon_banner_texto_laranja
       originalName: 
       pivot: {x: 0.5, y: 0.5}
       alignment: 0
-      border: {x: 26, y: 26, z: 26, w: 26}
+      border: {x: 100, y: 45, z: 95, w: 40}
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 256
-        height: 256
+        height: 101
       spriteID: b0477fcbb4245854187dbe1fffb21b22
       internalID: 0
     PhysicsOutlines: []

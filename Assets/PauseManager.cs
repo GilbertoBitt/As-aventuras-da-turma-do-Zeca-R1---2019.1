@@ -43,21 +43,32 @@ public class PauseManager : MonoBehaviour {
     public void PauseWithSound()
     {
 	    isOnPause = true;
-//	    OnPauseMenuOpen.Invoke();
 	    Time.timeScale = 0f;
+    }
+    
+    public void OpenConfigPanel()
+    {
+	    OpenConfig();
+	    isOnPause = true;
+	    OnPauseMenuOpen.Invoke();
+	    pausePanel.SetActive (true);
+    }
+    public void CloseConfigPanel()
+    {
+	    OpenConfig();
+	    isOnPause = false;
+	    SomBT();
+	    soundManager.OnUnPause();
+	    OnPauseMenuClose.Invoke();
+	    pausePanel.SetActive (false);
     }
 
     public void UnpauseGameWithSound(){
-//	    SomBT();
-//	    btPause.SetActive (true);
-	    UnpausWithSound();
-//	    pausePanel.SetActive (false);
-//	    GameConfig.Instance.SavePrefs ();
+	    UnpausWithSound();;
     }
 
     public void UnpauseGame(){
         SomBT();
-//        btPause.SetActive (true);
 		Unpause();
 		pausePanel.SetActive (false);
 		GameConfig.Instance.SavePrefs ();
@@ -67,7 +78,6 @@ public class PauseManager : MonoBehaviour {
     {
 	    isOnPause = false;
 	    Time.timeScale = 1f;
-//	    OnPauseMenuClose.Invoke();
     }
 
     public void Unpause()
@@ -111,4 +121,15 @@ public class PauseManager : MonoBehaviour {
 		Time.timeScale = 1;
 		load.LoadAsync ("selectionMinigames");
 	}
+
+	public void ExitGame()
+	{
+		Application.Quit();
+	}
+
+	public void ClearCache()
+	{
+		GameConfig.Instance.OpenDb().CloseConnection();
+	}
+	
 }

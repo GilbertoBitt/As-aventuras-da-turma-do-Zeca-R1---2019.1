@@ -68,6 +68,12 @@ public class DataService {
 
 	}
 
+    public void CloseConnection()
+    {
+        _asyncConnection.Dispose();
+        _asyncConnection.Close();
+    }
+
     #region DBOUSUARIO
 
 	    /// <summary>

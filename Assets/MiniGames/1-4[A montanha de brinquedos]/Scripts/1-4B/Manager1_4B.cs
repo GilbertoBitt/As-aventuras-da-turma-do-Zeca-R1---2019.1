@@ -558,7 +558,7 @@ public class Manager1_4B : OverridableMonoBehaviour
             scoreController.amountValue.Value += amountPerCorrectWord;
 
             _soundManager.startSoundFX(audios[0]);
-            highlight.startCerto("Silába tônica correta!");
+            highlight.startCerto("Classificação correta!");
             currentGameState.Value = GameState.SecondState;
         }
         else

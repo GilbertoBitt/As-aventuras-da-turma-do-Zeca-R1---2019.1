@@ -24,6 +24,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 	[TabGroup("1ª Ano")] public int minRandom1;
 	[TabGroup("1ª Ano")] public int maxRandom1;
 	[TabGroup("1ª Ano")] public int scoreAmount1;
+	[TabGroup("1ª Ano")] public int scoreAmountBonus1;
 	[TabGroup("2ª Ano")] public Dictionary<SpacialForms, List<Sprite>> spatialFormsSprites = new Dictionary<SpacialForms, List<Sprite>>();
 
 	[TabGroup("2ª Ano")] public SpacialForms selectedForm = SpacialForms.None;
@@ -31,12 +32,14 @@ public class Manager_1_2B : OverridableMonoBehaviour
 	[TabGroup("2ª Ano")] public int minRandom2;
 	[TabGroup("2ª Ano")] public int maxRandom2;
 	[TabGroup("2ª Ano")] public int scoreAmount2;
+	[TabGroup("2ª Ano")] public int scoreAmountBonus2;
 
 	[TabGroup("3ª Ano")] public List<Color> Colors;
 	[TabGroup("3ª Ano")] public HabilidadeBNCCInfo Habilidade3;
 	[TabGroup("3ª Ano")] public int minRandom3;
 	[TabGroup("3ª Ano")] public int maxRandom3;
 	[TabGroup("3ª Ano")] public int scoreAmount3;
+	[TabGroup("3ª Ano")] public int scoreAmountBonus3;
 	private int numberOfSides;
 	private int numberOfVertices;
 
@@ -198,7 +201,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 
     void Start()
     {
-	    Populate();
+	    
 	    
 	    anoLetivo = GameConfig.Instance.GetAnoLetivo();
 		panelDesafioAnimator = panelDesafio.GetComponent<Animator>();
@@ -249,6 +252,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		var session = sessionsConfig[dificult];
 		if (anoLetivo == 3)
 		{
+			Populate();
 			session = sessionsConfig[dificult];
 			switch (session.randomizationType)
 			{
@@ -352,6 +356,8 @@ public class Manager_1_2B : OverridableMonoBehaviour
 			places.spacialForm = SpacialForms.None;
 			places.planeFigures = PlaneFigures.None;
 			places.planeObject = null;
+			places.imageComponent.color = Color.clear;
+			places.effectComponent.effectFactor = 0f;
 		}
 
 		
@@ -416,17 +422,16 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					break;
 				case 3:
 					AllPlaces[i].planeObject = randomList[i].itemObjectPlane;
-					AllPlaces[i].updateImage(randomList[i].itemObjectPlane.objectImage,
-						new Color(
-						Random.Range(0f, 1f),
-						Random.Range(0f, 1f),
-						Random.Range(0f, 1f)));
+					AllPlaces[i].updateImage(randomList[i].itemObjectPlane.objectImage,randomList[i].itemObjectPlane.ItemColor);
 					AllPlaces[i].transform.rotation = Quaternion.Euler(0f,0f,Random.Range(0f,360f));
 					break;
 			}
 
 			choosenPlaces.Remove(AllPlaces[i]);
 		}
+		
+		
+		
 
 		choosenPlaces.Shuffle();
 
@@ -502,19 +507,13 @@ public class Manager_1_2B : OverridableMonoBehaviour
 					break;
 				case 3:
 					//TODO refazer sistema de escolha das outras formas selecionadas.
-					choosenPlaces[i].updateImage(otherObjects[i].itemObjectPlane.objectImage,
-						new Color(
-						Random.Range(0f, 1f),
-						Random.Range(0f, 1f),
-						Random.Range(0f, 1f)));
+					choosenPlaces[i].updateImage(otherObjects[i].itemObjectPlane.objectImage,otherObjects[i].itemObjectPlane.ItemColor);
 					choosenPlaces[i].planeObject = otherObjects[i].itemObjectPlane;
 					choosenPlaces[i].transform.rotation = Quaternion.Euler(0f,0f,Random.Range(0f,360f));
 					break;
 			}
 
         }
-
-
 
 		canBePlayed = true;
 
@@ -543,7 +542,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 			            _string.Append("Encontre ").Append(needFind).Append(" figuras com ").Append(numberOfSides).Append(" lados.");
 			            break;
 		            case RandomizationType.Vertices:
-			            _string.Append("Encontre ").Append(needFind).Append(" figuras com ").Append(numberOfVertices).Append(" lados.");
+			            _string.Append("Encontre ").Append(needFind).Append(" figuras com ").Append(numberOfVertices).Append(" vertices.");
 			            break;
 		            case RandomizationType.SidesDiferentSize:
 			            _string.Append("Encontre ").Append(needFind).Append(" figuras com todos os lados de tamanhos diferentes.");
@@ -560,6 +559,34 @@ public class Manager_1_2B : OverridableMonoBehaviour
 //	            iconFromText.enabled = false;
         		break;
         }
+		
+		switch (anoLetivo)
+		{
+			case 3:
+				AllPlaces.ForEach(place =>
+				{
+					if (place.planeObject != null) return;
+					place.effectComponent.colorFactor = 0f;
+					place.imageComponent.color = Color.clear;
+				});
+				break;
+			case 2:
+				AllPlaces.ForEach(place =>
+				{
+					if (place.spacialForm != SpacialForms.None) return;
+					place.effectComponent.colorFactor = 0f;
+					place.imageComponent.color = Color.clear;
+				});
+				break;
+			case 1:
+				AllPlaces.ForEach(place =>
+				{
+					if (place.form != geometryForm.none) return;
+					place.effectComponent.colorFactor = 0f;
+					place.imageComponent.color = Color.clear;
+				});
+				break;
+		}
 
         fadeImage.DOFade(0f, fadeOutDuration).SetEase(fadeOutCurve);
         fadeImage.gameObject.SetActive(false);
@@ -734,7 +761,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
         if (log.faseLudica == 4) {
             //terminou tudo. todas as 3 fases e encontrou todos os personagens.
 //            manager.textFinalMessage.text = "Parabéns, Você encontrou toda a turma.";
-            manager.splitter.dialog.speeches[0] = speechInfoLudicaFinal1;
+            manager.splitter.dialog.speeches[0] = speechInfoLudicaFinal3;
             //yield return Timing.WaitForOneFrame;
         } else if (log.faseLudica < 4 && manager.amountsFinded > 0) {
 	        manager.splitter.dialog.speeches[0] = speechInfoLudicaFinal2;
@@ -743,7 +770,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
             //yield return Timing.WaitForOneFrame;
         } else {
             //não encontrou nada nem terminou nada. zerado burro cego.
-            manager.splitter.dialog.speeches[0] = speechInfoLudicaFinal3;
+            manager.splitter.dialog.speeches[0] = speechInfoLudicaFinal1;
 //            manager.textFinalMessage.text = "Ah que pena! procure melhor a turma da próxima vez.";
             //yield return Timing.WaitForOneFrame;
         }
@@ -1156,7 +1183,21 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		
 		//"+" + scoreTemp.ToString() + " Pontos."
 		
-		yield return Timing.WaitForSeconds(3f);
+		yield return Timing.WaitForSeconds(4f);
+		
+		if (tempCorrects == needFind && anoLetivo == 3)
+		{
+			var tempScore = scoreAmountBonus3;
+			congratsPanel.StopAllCoroutines();
+			congratsPanel.customWaitTime = 1f;
+			_string.Clear();
+			_string.Append("Bônus por acertar todos \n +").Append(tempScore).Append(" pontos.");
+			Timing.RunCoroutine(scoreIncrease(tempScore));
+			congratsPanel.startCerto(_string.ToString());
+			soundManager.startSoundFX(clipsAudio[2]);
+			yield return Timing.WaitForSeconds(3f);
+		}
+		
 		nextButtonRef.SetActive(true);
 		//highlightCOmp.SetActive(false);
 		dificult++;

@@ -29,7 +29,6 @@ namespace MiniGames.Scripts
         public int maxVertices = 6;
         [HideIf("isPopulated")]
         public bool isPopulated;
-        [HideIf("isPopulated")]
         public List<GeometricPlaneObject> items;
 
         [ShowIf("isPopulated", true)]

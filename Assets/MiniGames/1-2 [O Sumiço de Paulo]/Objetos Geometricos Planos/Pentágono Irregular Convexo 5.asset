@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4e29ad83aab0f941a38951ce1ea96d0, type: 3}
   m_Name: "Pent\xE1gono Irregular Convexo 5"
   m_EditorClassIdentifier: 
+  formName: "Pent\xE1gono Irregular Convexo 5"
   objectImage: {fileID: 3286163911610860551, guid: 0a99898a38e1fa6498c9add84b29044b,
     type: 3}
+  ItemColor: {r: 0, g: 0, b: 0, a: 0}
   categories: 
-  numberOfSides: 5
-  numberOfVertices: 5
+  numberOfSides: 4
+  numberOfVertices: 4
   allSidesSameSizes: 0
   allSidesDiferentSizes: 1

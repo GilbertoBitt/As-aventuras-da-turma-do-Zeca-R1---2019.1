@@ -166,41 +166,6 @@ public class Manager_1_2A : OverridableMonoBehaviour {
 
         minigame = config.allMinigames[1];
 
-//        tutorPanelAnimator = tutorPanel.GetComponent<Animator>();
-//		_color = buttonsOnPanel[0].exclamationPoint.color;
-//		if(PlayerPrefs.HasKey("TutorSP_0")==false){
-//			PlayerPrefs.SetInt("TutorSP_0",0);
-//			tutorPanelAnimator.SetInteger(emCenaHash, 1);
-//			btIniciar.SetActive(false);
-//
-//			tutorTex.DOFade(1f, .5f);
-//
-//		}
-//		else{
-//			PlayerPrefs.SetInt("TutorSP_0",1);
-//			tutorIni_0 = PlayerPrefs.GetInt("TutorSP_0",1);
-//			tutorPanelAnimator.SetInteger(emCenaHash, 0);
-//			btAvancar.SetActive(false);
-//			btIniciar.SetActive(true);
-//			tutorTex.DOFade(0f, .5f);
-//
-//		}
-//		if(PlayerPrefs.HasKey("TutorSP_1")==false){
-//			PlayerPrefs.SetInt("TutorSP_1",0);
-//			tutorPanelAnimator.SetInteger(emCenaHash, 1);
-//			btAvancar.SetActive(true);
-//			tutorTex.DOFade(1f, .5f);
-//		}
-//		else{
-//			PlayerPrefs.SetInt("TutorSP_1",1);
-//		//	tutorIni_1 = PlayerPrefs.GetInt("TutorSP_1",1);
-//			tutorPanelAnimator.SetInteger(emCenaHash, 0);
-//			btAvancar.SetActive(false);
-//			btIniciar.SetActive(true);
-//			tutorTex.DOFade(0f, .5f);
-//
-//		}
-
 		foreach (var t in Levels)
 		{
 			placesToHide = t.hidenPlaces;

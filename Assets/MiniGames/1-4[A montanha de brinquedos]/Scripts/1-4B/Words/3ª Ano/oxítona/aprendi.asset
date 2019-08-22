@@ -15,16 +15,31 @@ MonoBehaviour:
   word: aprendi
   itemSprite: {fileID: 0}
   syllables:
-  - APREN
-  - DI
-  charSyllabes: []
-  letters: []
+  - a
+  - pren
+  - di
+  charSyllabes:
+  - a
+  - p
+  - r
+  - e
+  - n
+  - d
+  - i
+  letters:
+  - a
+  - p
+  - r
+  - e
+  - n
+  - d
+  - i
   tonicSyllables:
     enabled: 1
     classification: 0
   wordClassification:
     enabled: 1
-    classification: 2
+    classification: 3
     syllableAmount: 0
   alternativeWordsContent:
     enabled: 0

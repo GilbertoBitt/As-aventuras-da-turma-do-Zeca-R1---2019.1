@@ -291,10 +291,7 @@ namespace TutorialSystem.Scripts
 
         public void AppendSpriteImage(SpeechInfo speech, ref Sequence sequence)
         {
-            if (imageComponent.color.a >= 0.1f)
-            {
-                sequence.Join(imageComponent.DOFade(0f, .3f));
-            }
+            sequence.Join(imageComponent.DOFade(0f, .3f).From(imageComponent.color.a));
             if (!speech.speechSpriteAsset.enabled) return;
             sequence.Join(imageComponent.DOFade(1f, .3f).OnStart(() =>
                 {
