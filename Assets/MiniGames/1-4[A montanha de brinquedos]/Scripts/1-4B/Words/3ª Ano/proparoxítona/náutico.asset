@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "n\xE1utico"
   itemSprite: {fileID: 0}
   syllables:
-  - "N\xC1U"
-  - TI
-  - CO
+  - "n\xE1u"
+  - ti
+  - co
   charSyllabes:
   - n
   - "\xE1"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "n\xE1u"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

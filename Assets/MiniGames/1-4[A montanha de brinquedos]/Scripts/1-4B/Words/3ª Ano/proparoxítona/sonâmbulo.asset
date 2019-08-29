@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "son\xE2mbulo"
   itemSprite: {fileID: 0}
   syllables:
-  - SO
-  - "N\xC2M"
-  - BU
-  - LO
+  - so
+  - "n\xE2m"
+  - bu
+  - lo
   charSyllabes:
   - s
   - o
@@ -42,6 +42,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "n\xE2m"
   wordClassification:
     enabled: 1
     classification: 4

@@ -15,32 +15,18 @@ MonoBehaviour:
   word: deitado
   itemSprite: {fileID: 0}
   syllables:
-  - DEI
-  - TA
-  - DO
-  charSyllabes:
-  - d
-  - e
-  - i
-  - t
-  - a
-  - d
-  - o
-  letters:
-  - d
-  - e
-  - i
-  - t
-  - a
-  - d
-  - o
+  - dei
+  - ta
+  - do
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

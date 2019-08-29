@@ -15,27 +15,17 @@ MonoBehaviour:
   word: "t\xEAnis"
   itemSprite: {fileID: 0}
   syllables:
-  - "T\xCA"
-  - NIS
-  charSyllabes:
-  - t
-  - "\xEA"
-  - n
-  - i
-  - s
-  letters:
-  - t
-  - "\xEA"
-  - n
-  - i
-  - s
+  - "t\xEA"
+  - nis
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "p\xE1ssaro"
   itemSprite: {fileID: 0}
   syllables:
-  - "P\xC1S"
-  - SA
-  - RO
+  - "p\xE1s"
+  - sa
+  - ro
   charSyllabes:
   - p
   - "\xE1"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "p\xE1s"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

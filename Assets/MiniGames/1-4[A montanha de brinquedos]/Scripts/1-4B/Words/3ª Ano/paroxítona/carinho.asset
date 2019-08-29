@@ -15,32 +15,18 @@ MonoBehaviour:
   word: carinho
   itemSprite: {fileID: 0}
   syllables:
-  - CA
-  - RI
-  - NHO
-  charSyllabes:
-  - c
-  - a
-  - r
-  - i
-  - n
-  - h
-  - o
-  letters:
-  - c
-  - a
-  - r
-  - i
-  - n
-  - h
-  - o
+  - ca
+  - ri
+  - nho
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

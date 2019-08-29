@@ -15,30 +15,18 @@ MonoBehaviour:
   word: feiura
   itemSprite: {fileID: 0}
   syllables:
-  - FEI
-  - U
-  - RA
-  charSyllabes:
-  - f
-  - e
-  - i
+  - fei
   - u
-  - r
-  - a
-  letters:
-  - f
-  - e
-  - i
-  - u
-  - r
-  - a
+  - ra
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "c\xEDvico"
   itemSprite: {fileID: 0}
   syllables:
-  - "C\xCD"
-  - VI
-  - CO
+  - "c\xED"
+  - vi
+  - co
   charSyllabes:
   - c
   - "\xED"
@@ -35,10 +35,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "c\xED"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

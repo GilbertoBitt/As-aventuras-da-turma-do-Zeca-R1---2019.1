@@ -15,30 +15,18 @@ MonoBehaviour:
   word: geleia
   itemSprite: {fileID: 0}
   syllables:
-  - GE
-  - LEI
-  - A
-  charSyllabes:
-  - g
-  - e
-  - l
-  - e
-  - i
+  - ge
+  - lei
   - a
-  letters:
-  - g
-  - e
-  - l
-  - e
-  - i
-  - a
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

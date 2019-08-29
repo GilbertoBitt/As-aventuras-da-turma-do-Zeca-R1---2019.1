@@ -15,25 +15,17 @@ MonoBehaviour:
   word: deem
   itemSprite: {fileID: 0}
   syllables:
-  - DE
-  - EM
-  charSyllabes:
-  - d
-  - e
-  - e
-  - m
-  letters:
-  - d
-  - e
-  - e
-  - m
+  - de
+  - em
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

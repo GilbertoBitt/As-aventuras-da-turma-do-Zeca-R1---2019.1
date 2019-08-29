@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "t\xE9cnico"
   itemSprite: {fileID: 0}
   syllables:
-  - "T\xC9C"
-  - NI
-  - CO
+  - "t\xE9c"
+  - ni
+  - co
   charSyllabes:
   - t
   - "\xE9"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "t\xE9c"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

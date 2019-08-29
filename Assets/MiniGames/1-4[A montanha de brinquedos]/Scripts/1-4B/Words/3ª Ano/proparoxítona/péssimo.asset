@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "p\xE9ssimo"
   itemSprite: {fileID: 0}
   syllables:
-  - "P\xC9S"
-  - SI
-  - MO
+  - "p\xE9s"
+  - si
+  - mo
   charSyllabes:
   - p
   - "\xE9"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "p\xE9s"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

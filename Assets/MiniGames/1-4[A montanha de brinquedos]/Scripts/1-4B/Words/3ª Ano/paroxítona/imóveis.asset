@@ -15,32 +15,18 @@ MonoBehaviour:
   word: "im\xF3veis"
   itemSprite: {fileID: 0}
   syllables:
-  - I
-  - "M\xD3"
-  - VEIS
-  charSyllabes:
   - i
-  - m
-  - "\xF3"
-  - v
-  - e
-  - i
-  - s
-  letters:
-  - i
-  - m
-  - "\xF3"
-  - v
-  - e
-  - i
-  - s
+  - "m\xF3"
+  - veis
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

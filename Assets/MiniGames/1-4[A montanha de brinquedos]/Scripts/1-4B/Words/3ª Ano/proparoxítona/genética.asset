@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "gen\xE9tica"
   itemSprite: {fileID: 0}
   syllables:
-  - GE
-  - "N\xC9"
-  - TI
-  - CA
+  - ge
+  - "n\xE9"
+  - ti
+  - ca
   charSyllabes:
   - g
   - e
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "n\xE9"
   wordClassification:
     enabled: 1
     classification: 4

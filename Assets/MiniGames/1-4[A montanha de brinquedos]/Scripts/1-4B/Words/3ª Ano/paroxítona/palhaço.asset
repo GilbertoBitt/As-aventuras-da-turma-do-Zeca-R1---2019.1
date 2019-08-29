@@ -15,32 +15,18 @@ MonoBehaviour:
   word: "palha\xE7o"
   itemSprite: {fileID: 0}
   syllables:
-  - PA
-  - LHA
-  - "\xC7O"
-  charSyllabes:
-  - p
-  - a
-  - l
-  - h
-  - a
-  - "\xE7"
-  - o
-  letters:
-  - p
-  - a
-  - l
-  - h
-  - a
-  - "\xE7"
-  - o
+  - pa
+  - lha
+  - "\xE7o"
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

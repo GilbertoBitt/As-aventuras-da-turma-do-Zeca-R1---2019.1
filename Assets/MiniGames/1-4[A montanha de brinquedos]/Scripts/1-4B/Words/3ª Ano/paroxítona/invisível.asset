@@ -15,30 +15,12 @@ MonoBehaviour:
   word: "invis\xEDvel"
   itemSprite: {fileID: 0}
   syllables:
-  - IN
-  - VI
-  - "S\xCD"
-  - VEL
-  charSyllabes:
-  - i
-  - n
-  - v
-  - i
-  - s
-  - "\xED"
-  - v
-  - e
-  - l
-  letters:
-  - i
-  - n
-  - v
-  - i
-  - s
-  - "\xED"
-  - v
-  - e
-  - l
+  - in
+  - vi
+  - "s\xED"
+  - vel
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

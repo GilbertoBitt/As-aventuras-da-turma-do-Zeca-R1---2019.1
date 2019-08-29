@@ -15,29 +15,17 @@ MonoBehaviour:
   word: "c\xF4nsul"
   itemSprite: {fileID: 0}
   syllables:
-  - "C\xD4N"
-  - SUL
-  charSyllabes:
-  - c
-  - "\xF4"
-  - n
-  - s
-  - u
-  - l
-  letters:
-  - c
-  - "\xF4"
-  - n
-  - s
-  - u
-  - l
+  - "c\xF4n"
+  - sul
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

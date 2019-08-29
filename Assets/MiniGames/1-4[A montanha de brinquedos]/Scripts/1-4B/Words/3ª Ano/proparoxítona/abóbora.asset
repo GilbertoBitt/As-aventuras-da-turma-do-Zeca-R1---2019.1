@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "ab\xF3bora"
   itemSprite: {fileID: 0}
   syllables:
-  - A
-  - "B\xD3"
-  - BO
-  - RA
+  - a
+  - "b\xF3"
+  - bo
+  - ra
   charSyllabes:
   - a
   - b
@@ -38,6 +38,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "b\xF3"
   wordClassification:
     enabled: 1
     classification: 4

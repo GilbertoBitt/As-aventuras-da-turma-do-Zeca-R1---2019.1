@@ -15,32 +15,18 @@ MonoBehaviour:
   word: "cad\xE1ver"
   itemSprite: {fileID: 0}
   syllables:
-  - CA
-  - "D\xC1"
-  - VER
-  charSyllabes:
-  - c
-  - a
-  - d
-  - "\xE1"
-  - v
-  - e
-  - r
-  letters:
-  - c
-  - a
-  - d
-  - "\xE1"
-  - v
-  - e
-  - r
+  - ca
+  - "d\xE1"
+  - ver
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "fal\xEAncia"
   itemSprite: {fileID: 0}
   syllables:
-  - FA
-  - "L\xCAN"
-  - CI
-  - A
+  - fa
+  - "l\xEAn"
+  - ci
+  - a
   charSyllabes:
   - f
   - a
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "l\xEAn"
   wordClassification:
     enabled: 1
     classification: 4

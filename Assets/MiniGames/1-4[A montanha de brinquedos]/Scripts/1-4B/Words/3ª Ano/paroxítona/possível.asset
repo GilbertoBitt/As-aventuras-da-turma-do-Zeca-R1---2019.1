@@ -15,34 +15,18 @@ MonoBehaviour:
   word: "poss\xEDvel"
   itemSprite: {fileID: 0}
   syllables:
-  - POS
-  - "S\xCD"
-  - VEL
-  charSyllabes:
-  - p
-  - o
-  - s
-  - s
-  - "\xED"
-  - v
-  - e
-  - l
-  letters:
-  - p
-  - o
-  - s
-  - s
-  - "\xED"
-  - v
-  - e
-  - l
+  - pos
+  - "s\xED"
+  - vel
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

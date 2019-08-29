@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "r\xE9plica"
   itemSprite: {fileID: 0}
   syllables:
-  - "R\xC9"
-  - PLI
-  - CA
+  - "r\xE9"
+  - pli
+  - ca
   charSyllabes:
   - r
   - "\xE9"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "r\xE9"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "fren\xE9tico"
   itemSprite: {fileID: 0}
   syllables:
-  - FRE
-  - "N\xC9"
-  - TI
-  - CO
+  - fre
+  - "n\xE9"
+  - ti
+  - co
   charSyllabes:
   - f
   - r
@@ -42,6 +42,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "n\xE9"
   wordClassification:
     enabled: 1
     classification: 4

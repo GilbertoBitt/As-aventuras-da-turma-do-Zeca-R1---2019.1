@@ -15,27 +15,17 @@ MonoBehaviour:
   word: turma
   itemSprite: {fileID: 0}
   syllables:
-  - TUR
-  - MA
-  charSyllabes:
-  - t
-  - u
-  - r
-  - m
-  - a
-  letters:
-  - t
-  - u
-  - r
-  - m
-  - a
+  - tur
+  - ma
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

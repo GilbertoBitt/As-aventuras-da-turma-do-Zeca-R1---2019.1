@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "gram\xE1tica"
   itemSprite: {fileID: 0}
   syllables:
-  - GRA
-  - "M\xC1"
-  - TI
-  - CA
+  - gra
+  - "m\xE1"
+  - ti
+  - ca
   charSyllabes:
   - g
   - r
@@ -42,6 +42,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "m\xE1"
   wordClassification:
     enabled: 1
     classification: 4

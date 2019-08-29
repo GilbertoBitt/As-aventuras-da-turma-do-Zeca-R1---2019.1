@@ -15,28 +15,12 @@ MonoBehaviour:
   word: poderoso
   itemSprite: {fileID: 0}
   syllables:
-  - PO
-  - DE
-  - RO
-  - SO
-  charSyllabes:
-  - p
-  - o
-  - d
-  - e
-  - r
-  - o
-  - s
-  - o
-  letters:
-  - p
-  - o
-  - d
-  - e
-  - r
-  - o
-  - s
-  - o
+  - po
+  - de
+  - ro
+  - so
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

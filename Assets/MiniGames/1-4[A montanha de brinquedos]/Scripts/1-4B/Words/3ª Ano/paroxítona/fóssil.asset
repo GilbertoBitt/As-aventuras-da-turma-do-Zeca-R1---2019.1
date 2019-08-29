@@ -15,29 +15,17 @@ MonoBehaviour:
   word: "f\xF3ssil"
   itemSprite: {fileID: 0}
   syllables:
-  - "F\xD3S"
-  - SIL
-  charSyllabes:
-  - f
-  - "\xF3"
-  - s
-  - s
-  - i
-  - l
-  letters:
-  - f
-  - "\xF3"
-  - s
-  - s
-  - i
-  - l
+  - "f\xF3s"
+  - sil
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,27 +15,17 @@ MonoBehaviour:
   word: "l\xE1pis"
   itemSprite: {fileID: 0}
   syllables:
-  - "L\xC1"
-  - PIS
-  charSyllabes:
-  - l
-  - "\xE1"
-  - p
-  - i
-  - s
-  letters:
-  - l
-  - "\xE1"
-  - p
-  - i
-  - s
+  - "l\xE1"
+  - pis
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

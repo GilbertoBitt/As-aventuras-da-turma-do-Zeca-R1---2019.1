@@ -15,28 +15,12 @@ MonoBehaviour:
   word: patinete
   itemSprite: {fileID: 0}
   syllables:
-  - PA
-  - TI
-  - NE
-  - TE
-  charSyllabes:
-  - p
-  - a
-  - t
-  - i
-  - n
-  - e
-  - t
-  - e
-  letters:
-  - p
-  - a
-  - t
-  - i
-  - n
-  - e
-  - t
-  - e
+  - pa
+  - ti
+  - ne
+  - te
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

@@ -15,25 +15,17 @@ MonoBehaviour:
   word: bola
   itemSprite: {fileID: 0}
   syllables:
-  - BO
-  - LA
-  charSyllabes:
-  - b
-  - o
-  - l
-  - a
-  letters:
-  - b
-  - o
-  - l
-  - a
+  - bo
+  - la
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

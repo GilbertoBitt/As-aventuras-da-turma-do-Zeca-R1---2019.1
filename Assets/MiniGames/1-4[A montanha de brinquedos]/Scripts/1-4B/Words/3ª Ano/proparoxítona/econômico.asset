@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "econ\xF4mico"
   itemSprite: {fileID: 0}
   syllables:
-  - E
-  - CO
-  - "N\xD4"
-  - MI
-  - CO
+  - e
+  - co
+  - "n\xF4"
+  - mi
+  - co
   charSyllabes:
   - e
   - c
@@ -43,9 +43,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "n\xF4"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

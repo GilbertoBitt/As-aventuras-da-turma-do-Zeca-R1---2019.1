@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "cron\xF4metro"
   itemSprite: {fileID: 0}
   syllables:
-  - CRO
-  - "N\xD4"
-  - ME
-  - TRO
+  - cro
+  - "n\xF4"
+  - me
+  - tro
   charSyllabes:
   - c
   - r
@@ -44,6 +44,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "n\xF4"
   wordClassification:
     enabled: 1
     classification: 4

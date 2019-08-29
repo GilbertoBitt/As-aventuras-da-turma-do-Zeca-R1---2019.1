@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "cen\xE1rio"
   itemSprite: {fileID: 0}
   syllables:
-  - CE
-  - "N\xC1"
-  - RI
-  - O
+  - ce
+  - "n\xE1"
+  - ri
+  - o
   charSyllabes:
   - c
   - e
@@ -38,6 +38,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "n\xE1"
   wordClassification:
     enabled: 1
     classification: 4

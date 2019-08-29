@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "f\xF3rmica"
   itemSprite: {fileID: 0}
   syllables:
-  - "F\xD3R"
-  - MI
-  - CA
+  - "f\xF3r"
+  - mi
+  - ca
   charSyllabes:
   - f
   - "\xF3"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "f\xF3r"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

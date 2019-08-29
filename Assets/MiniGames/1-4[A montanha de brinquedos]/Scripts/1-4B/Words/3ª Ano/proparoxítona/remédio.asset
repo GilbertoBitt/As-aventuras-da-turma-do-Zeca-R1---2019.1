@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "rem\xE9dio"
   itemSprite: {fileID: 0}
   syllables:
-  - RE
-  - "M\xC9"
-  - DI
-  - O
+  - re
+  - "m\xE9"
+  - di
+  - o
   charSyllabes:
   - r
   - e
@@ -38,6 +38,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "m\xE9"
   wordClassification:
     enabled: 1
     classification: 4

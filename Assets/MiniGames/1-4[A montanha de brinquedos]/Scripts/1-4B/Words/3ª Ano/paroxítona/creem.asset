@@ -15,27 +15,17 @@ MonoBehaviour:
   word: creem
   itemSprite: {fileID: 0}
   syllables:
-  - CRE
-  - EM
-  charSyllabes:
-  - c
-  - r
-  - e
-  - e
-  - m
-  letters:
-  - c
-  - r
-  - e
-  - e
-  - m
+  - cre
+  - em
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

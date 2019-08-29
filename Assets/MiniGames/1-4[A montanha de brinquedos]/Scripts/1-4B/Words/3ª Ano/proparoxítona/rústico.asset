@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "r\xFAstico"
   itemSprite: {fileID: 0}
   syllables:
-  - "R\xDAS"
-  - TI
-  - CO
+  - "r\xFAs"
+  - ti
+  - co
   charSyllabes:
   - r
   - "\xFA"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "r\xFAs"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

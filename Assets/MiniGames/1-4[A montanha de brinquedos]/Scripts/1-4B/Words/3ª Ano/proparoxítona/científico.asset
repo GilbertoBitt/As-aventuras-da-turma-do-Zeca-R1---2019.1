@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "cient\xEDfico"
   itemSprite: {fileID: 0}
   syllables:
-  - CI
-  - EN
-  - "T\xCD"
-  - FI
-  - CO
+  - ci
+  - en
+  - "t\xED"
+  - fi
+  - co
   charSyllabes:
   - c
   - i
@@ -45,9 +45,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "t\xED"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

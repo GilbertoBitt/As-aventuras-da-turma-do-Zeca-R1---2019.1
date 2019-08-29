@@ -15,30 +15,18 @@ MonoBehaviour:
   word: comida
   itemSprite: {fileID: 0}
   syllables:
-  - CO
-  - MI
-  - DA
-  charSyllabes:
-  - c
-  - o
-  - m
-  - i
-  - d
-  - a
-  letters:
-  - c
-  - o
-  - m
-  - i
-  - d
-  - a
+  - co
+  - mi
+  - da
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

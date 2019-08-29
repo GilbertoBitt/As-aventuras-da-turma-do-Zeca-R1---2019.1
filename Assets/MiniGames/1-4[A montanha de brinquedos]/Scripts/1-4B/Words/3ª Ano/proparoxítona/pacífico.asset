@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "pac\xEDfico"
   itemSprite: {fileID: 0}
   syllables:
-  - PA
-  - "C\xCD"
-  - FI
-  - CO
+  - pa
+  - "c\xED"
+  - fi
+  - co
   charSyllabes:
   - p
   - a
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "c\xED"
   wordClassification:
     enabled: 1
     classification: 4

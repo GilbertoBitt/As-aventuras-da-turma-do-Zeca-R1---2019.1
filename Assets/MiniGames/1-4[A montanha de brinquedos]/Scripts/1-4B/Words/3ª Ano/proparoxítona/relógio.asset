@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "rel\xF3gio"
   itemSprite: {fileID: 0}
   syllables:
-  - RE
-  - "L\xD3"
-  - GI
-  - O
+  - re
+  - "l\xF3"
+  - gi
+  - o
   charSyllabes:
   - r
   - e
@@ -38,6 +38,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "l\xF3"
   wordClassification:
     enabled: 1
     classification: 4

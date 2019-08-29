@@ -15,32 +15,18 @@ MonoBehaviour:
   word: "bagun\xE7a"
   itemSprite: {fileID: 0}
   syllables:
-  - BA
-  - GUN
-  - "\xC7A"
-  charSyllabes:
-  - b
-  - a
-  - g
-  - u
-  - n
-  - "\xE7"
-  - a
-  letters:
-  - b
-  - a
-  - g
-  - u
-  - n
-  - "\xE7"
-  - a
+  - ba
+  - gun
+  - "\xE7a"
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,29 +15,17 @@ MonoBehaviour:
   word: "\xE1lbuns"
   itemSprite: {fileID: 0}
   syllables:
-  - "\xC1L"
-  - BUNS
-  charSyllabes:
-  - "\xE1"
-  - l
-  - b
-  - u
-  - n
-  - s
-  letters:
-  - "\xE1"
-  - l
-  - b
-  - u
-  - n
-  - s
+  - "\xE1l"
+  - buns
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

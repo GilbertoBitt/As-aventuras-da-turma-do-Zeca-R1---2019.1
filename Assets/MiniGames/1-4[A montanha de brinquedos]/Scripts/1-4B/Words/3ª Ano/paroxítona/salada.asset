@@ -15,30 +15,18 @@ MonoBehaviour:
   word: salada
   itemSprite: {fileID: 0}
   syllables:
-  - SA
-  - LA
-  - DA
-  charSyllabes:
-  - s
-  - a
-  - l
-  - a
-  - d
-  - a
-  letters:
-  - s
-  - a
-  - l
-  - a
-  - d
-  - a
+  - sa
+  - la
+  - da
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

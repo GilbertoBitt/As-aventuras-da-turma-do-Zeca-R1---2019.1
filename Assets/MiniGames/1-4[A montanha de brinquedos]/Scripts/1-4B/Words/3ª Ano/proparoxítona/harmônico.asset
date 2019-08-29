@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "harm\xF4nico"
   itemSprite: {fileID: 0}
   syllables:
-  - HAR
-  - "M\xD4"
-  - NI
-  - CO
+  - har
+  - "m\xF4"
+  - ni
+  - co
   charSyllabes:
   - h
   - a
@@ -42,6 +42,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "m\xF4"
   wordClassification:
     enabled: 1
     classification: 4

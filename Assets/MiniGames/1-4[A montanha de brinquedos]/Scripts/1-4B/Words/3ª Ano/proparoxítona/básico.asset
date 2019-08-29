@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "b\xE1sico"
   itemSprite: {fileID: 0}
   syllables:
-  - "B\xC1"
-  - SI
-  - CO
+  - "b\xE1"
+  - si
+  - co
   charSyllabes:
   - b
   - "\xE1"
@@ -35,10 +35,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "b\xE1"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

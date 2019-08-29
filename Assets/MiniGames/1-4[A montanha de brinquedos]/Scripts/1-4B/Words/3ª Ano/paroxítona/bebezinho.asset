@@ -15,30 +15,12 @@ MonoBehaviour:
   word: bebezinho
   itemSprite: {fileID: 0}
   syllables:
-  - BE
-  - BE
-  - ZI
-  - NHO
-  charSyllabes:
-  - b
-  - e
-  - b
-  - e
-  - z
-  - i
-  - n
-  - h
-  - o
-  letters:
-  - b
-  - e
-  - b
-  - e
-  - z
-  - i
-  - n
-  - h
-  - o
+  - be
+  - be
+  - zi
+  - nho
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

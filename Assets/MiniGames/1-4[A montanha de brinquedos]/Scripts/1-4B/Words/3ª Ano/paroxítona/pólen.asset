@@ -15,27 +15,17 @@ MonoBehaviour:
   word: "p\xF3len"
   itemSprite: {fileID: 0}
   syllables:
-  - "P\xD3"
-  - LEN
-  charSyllabes:
-  - p
-  - "\xF3"
-  - l
-  - e
-  - n
-  letters:
-  - p
-  - "\xF3"
-  - l
-  - e
-  - n
+  - "p\xF3"
+  - len
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

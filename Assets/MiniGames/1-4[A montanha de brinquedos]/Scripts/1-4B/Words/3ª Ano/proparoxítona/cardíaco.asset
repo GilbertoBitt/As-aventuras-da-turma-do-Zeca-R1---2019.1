@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "card\xEDaco"
   itemSprite: {fileID: 0}
   syllables:
-  - CAR
-  - "D\xCD"
-  - A
-  - CO
+  - car
+  - "d\xED"
+  - a
+  - co
   charSyllabes:
   - c
   - a
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "d\xED"
   wordClassification:
     enabled: 1
     classification: 4

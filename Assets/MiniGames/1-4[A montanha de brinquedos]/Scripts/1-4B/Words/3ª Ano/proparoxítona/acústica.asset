@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "ac\xFAstica"
   itemSprite: {fileID: 0}
   syllables:
-  - A
-  - "C\xDAS"
-  - TI
-  - CA
+  - a
+  - "c\xFAs"
+  - ti
+  - ca
   charSyllabes:
   - a
   - c
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "c\xFAs"
   wordClassification:
     enabled: 1
     classification: 4

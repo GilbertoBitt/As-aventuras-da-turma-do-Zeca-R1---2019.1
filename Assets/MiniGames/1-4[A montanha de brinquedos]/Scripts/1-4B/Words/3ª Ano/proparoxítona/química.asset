@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "qu\xEDmica"
   itemSprite: {fileID: 0}
   syllables:
-  - "QU\xCD"
-  - MI
-  - CA
+  - "qu\xED"
+  - mi
+  - ca
   charSyllabes:
   - q
   - u
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "qu\xED"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

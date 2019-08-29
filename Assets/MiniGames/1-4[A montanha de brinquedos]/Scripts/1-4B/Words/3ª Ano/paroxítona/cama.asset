@@ -15,25 +15,17 @@ MonoBehaviour:
   word: cama
   itemSprite: {fileID: 0}
   syllables:
-  - CA
-  - MA
-  charSyllabes:
-  - c
-  - a
-  - m
-  - a
-  letters:
-  - c
-  - a
-  - m
-  - a
+  - ca
+  - ma
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

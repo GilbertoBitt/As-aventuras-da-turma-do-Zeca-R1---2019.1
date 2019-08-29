@@ -15,25 +15,17 @@ MonoBehaviour:
   word: "j\xFAri"
   itemSprite: {fileID: 0}
   syllables:
-  - "J\xDA"
-  - RI
-  charSyllabes:
-  - j
-  - "\xFA"
-  - r
-  - i
-  letters:
-  - j
-  - "\xFA"
-  - r
-  - i
+  - "j\xFA"
+  - ri
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

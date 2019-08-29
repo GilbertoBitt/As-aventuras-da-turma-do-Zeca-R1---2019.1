@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "s\xF3lido"
   itemSprite: {fileID: 0}
   syllables:
-  - "S\xD3"
-  - LI
-  - DO
+  - "s\xF3"
+  - li
+  - do
   charSyllabes:
   - s
   - "\xF3"
@@ -35,10 +35,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "s\xF3"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

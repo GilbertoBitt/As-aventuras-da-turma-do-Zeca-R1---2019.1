@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "t\xE1rtaro"
   itemSprite: {fileID: 0}
   syllables:
-  - "T\xC1R"
-  - TA
-  - RO
+  - "t\xE1r"
+  - ta
+  - ro
   charSyllabes:
   - t
   - "\xE1"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "t\xE1r"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

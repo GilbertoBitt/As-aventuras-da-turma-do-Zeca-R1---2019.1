@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "frut\xEDfero"
   itemSprite: {fileID: 0}
   syllables:
-  - FRU
-  - "T\xCD"
-  - FE
-  - RO
+  - fru
+  - "t\xED"
+  - fe
+  - ro
   charSyllabes:
   - f
   - r
@@ -42,6 +42,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "t\xED"
   wordClassification:
     enabled: 1
     classification: 4

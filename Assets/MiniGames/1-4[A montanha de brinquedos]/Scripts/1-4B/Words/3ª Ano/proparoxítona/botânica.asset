@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "bot\xE2nica"
   itemSprite: {fileID: 0}
   syllables:
-  - BO
-  - "T\xC2"
-  - NI
-  - CA
+  - bo
+  - "t\xE2"
+  - ni
+  - ca
   charSyllabes:
   - b
   - o
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "t\xE2"
   wordClassification:
     enabled: 1
     classification: 4

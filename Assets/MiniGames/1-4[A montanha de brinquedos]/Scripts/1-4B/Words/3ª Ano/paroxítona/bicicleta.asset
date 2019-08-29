@@ -15,30 +15,12 @@ MonoBehaviour:
   word: bicicleta
   itemSprite: {fileID: 0}
   syllables:
-  - BI
-  - CI
-  - CLE
-  - TA
-  charSyllabes:
-  - b
-  - i
-  - c
-  - i
-  - c
-  - l
-  - e
-  - t
-  - a
-  letters:
-  - b
-  - i
-  - c
-  - i
-  - c
-  - l
-  - e
-  - t
-  - a
+  - bi
+  - ci
+  - cle
+  - ta
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

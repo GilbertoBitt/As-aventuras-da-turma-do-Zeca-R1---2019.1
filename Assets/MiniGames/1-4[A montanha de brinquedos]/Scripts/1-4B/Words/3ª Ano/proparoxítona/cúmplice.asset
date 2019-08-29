@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "c\xFAmplice"
   itemSprite: {fileID: 0}
   syllables:
-  - "C\xDAM"
-  - PLI
-  - CE
+  - "c\xFAm"
+  - pli
+  - ce
   charSyllabes:
   - c
   - "\xFA"
@@ -39,10 +39,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "c\xFAm"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

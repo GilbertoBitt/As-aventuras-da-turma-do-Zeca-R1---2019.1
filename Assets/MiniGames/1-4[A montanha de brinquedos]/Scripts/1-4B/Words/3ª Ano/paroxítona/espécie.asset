@@ -15,33 +15,18 @@ MonoBehaviour:
   word: "esp\xE9cie"
   itemSprite: {fileID: 0}
   syllables:
-  - ES
-  - "P\xC9"
-  - CI
-  - E
-  charSyllabes:
-  - e
-  - s
-  - p
-  - "\xE9"
-  - c
-  - i
-  - e
-  letters:
-  - e
-  - s
-  - p
-  - "\xE9"
-  - c
-  - i
-  - e
+  - es
+  - "p\xE9"
+  - cie
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
-    classification: 4
-    syllableAmount: 4
+    classification: 3
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

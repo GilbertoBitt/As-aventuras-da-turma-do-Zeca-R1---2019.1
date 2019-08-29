@@ -15,30 +15,18 @@ MonoBehaviour:
   word: peteca
   itemSprite: {fileID: 0}
   syllables:
-  - PE
-  - TE
-  - CA
-  charSyllabes:
-  - p
-  - e
-  - t
-  - e
-  - c
-  - a
-  letters:
-  - p
-  - e
-  - t
-  - e
-  - c
-  - a
+  - pe
+  - te
+  - ca
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

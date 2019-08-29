@@ -15,30 +15,18 @@ MonoBehaviour:
   word: macaco
   itemSprite: {fileID: 0}
   syllables:
-  - MA
-  - CA
-  - CO
-  charSyllabes:
-  - m
-  - a
-  - c
-  - a
-  - c
-  - o
-  letters:
-  - m
-  - a
-  - c
-  - a
-  - c
-  - o
+  - ma
+  - ca
+  - co
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

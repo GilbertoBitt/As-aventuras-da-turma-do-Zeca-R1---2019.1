@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "rel\xE2mpago"
   itemSprite: {fileID: 0}
   syllables:
-  - RE
-  - "L\xC2M"
-  - PA
-  - GO
+  - re
+  - "l\xE2m"
+  - pa
+  - go
   charSyllabes:
   - r
   - e
@@ -42,6 +42,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "l\xE2m"
   wordClassification:
     enabled: 1
     classification: 4

@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "relat\xF3rio"
   itemSprite: {fileID: 0}
   syllables:
-  - RE
-  - LA
-  - "T\xD3"
-  - RI
-  - O
+  - re
+  - la
+  - "t\xF3"
+  - ri
+  - o
   charSyllabes:
   - r
   - e
@@ -43,9 +43,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "t\xF3"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

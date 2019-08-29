@@ -15,30 +15,12 @@ MonoBehaviour:
   word: borboleta
   itemSprite: {fileID: 0}
   syllables:
-  - BOR
-  - BO
-  - LE
-  - TA
-  charSyllabes:
-  - b
-  - o
-  - r
-  - b
-  - o
-  - l
-  - e
-  - t
-  - a
-  letters:
-  - b
-  - o
-  - r
-  - b
-  - o
-  - l
-  - e
-  - t
-  - a
+  - bor
+  - bo
+  - le
+  - ta
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

@@ -15,41 +15,19 @@ MonoBehaviour:
   word: rapidamente
   itemSprite: {fileID: 0}
   syllables:
-  - RA
-  - PI
-  - DA
-  - MEN
-  - TE
-  charSyllabes:
-  - r
-  - a
-  - p
-  - i
-  - d
-  - a
-  - m
-  - e
-  - n
-  - t
-  - e
-  letters:
-  - r
-  - a
-  - p
-  - i
-  - d
-  - a
-  - m
-  - e
-  - n
-  - t
-  - e
+  - ra
+  - pi
+  - da
+  - men
+  - te
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

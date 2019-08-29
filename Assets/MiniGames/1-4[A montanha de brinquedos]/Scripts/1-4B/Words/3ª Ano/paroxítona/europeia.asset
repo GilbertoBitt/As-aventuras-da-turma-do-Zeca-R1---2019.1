@@ -15,28 +15,12 @@ MonoBehaviour:
   word: europeia
   itemSprite: {fileID: 0}
   syllables:
-  - EU
-  - RO
-  - PEI
-  - A
-  charSyllabes:
-  - e
-  - u
-  - r
-  - o
-  - p
-  - e
-  - i
+  - eu
+  - ro
+  - pei
   - a
-  letters:
-  - e
-  - u
-  - r
-  - o
-  - p
-  - e
-  - i
-  - a
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

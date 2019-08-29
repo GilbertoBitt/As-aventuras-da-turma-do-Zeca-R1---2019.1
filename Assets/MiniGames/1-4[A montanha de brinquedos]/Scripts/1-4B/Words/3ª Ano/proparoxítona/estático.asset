@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "est\xE1tico"
   itemSprite: {fileID: 0}
   syllables:
-  - ES
-  - "T\xC1"
-  - TI
-  - CO
+  - es
+  - "t\xE1"
+  - ti
+  - co
   charSyllabes:
   - e
   - s
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "t\xE1"
   wordClassification:
     enabled: 1
     classification: 4

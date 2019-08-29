@@ -15,29 +15,17 @@ MonoBehaviour:
   word: "p\xF3dium"
   itemSprite: {fileID: 0}
   syllables:
-  - "P\xD3"
-  - DIUM
-  charSyllabes:
-  - p
-  - "\xF3"
-  - d
-  - i
-  - u
-  - m
-  letters:
-  - p
-  - "\xF3"
-  - d
-  - i
-  - u
-  - m
+  - "p\xF3"
+  - dium
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

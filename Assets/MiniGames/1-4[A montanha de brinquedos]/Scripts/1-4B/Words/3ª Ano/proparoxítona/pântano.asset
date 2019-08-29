@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "p\xE2ntano"
   itemSprite: {fileID: 0}
   syllables:
-  - "P\xC2N"
-  - TA
-  - NO
+  - "p\xE2n"
+  - ta
+  - no
   charSyllabes:
   - p
   - "\xE2"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "p\xE2n"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

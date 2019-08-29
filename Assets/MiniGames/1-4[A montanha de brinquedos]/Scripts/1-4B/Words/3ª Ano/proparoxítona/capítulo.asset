@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "cap\xEDtulo"
   itemSprite: {fileID: 0}
   syllables:
-  - CA
-  - "P\xCD"
-  - TU
-  - LO
+  - ca
+  - "p\xED"
+  - tu
+  - lo
   charSyllabes:
   - c
   - a
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "p\xED"
   wordClassification:
     enabled: 1
     classification: 4

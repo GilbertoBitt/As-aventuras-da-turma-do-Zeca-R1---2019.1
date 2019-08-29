@@ -15,25 +15,17 @@ MonoBehaviour:
   word: rato
   itemSprite: {fileID: 0}
   syllables:
-  - RA
-  - TO
-  charSyllabes:
-  - r
-  - a
-  - t
-  - o
-  letters:
-  - r
-  - a
-  - t
-  - o
+  - ra
+  - to
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

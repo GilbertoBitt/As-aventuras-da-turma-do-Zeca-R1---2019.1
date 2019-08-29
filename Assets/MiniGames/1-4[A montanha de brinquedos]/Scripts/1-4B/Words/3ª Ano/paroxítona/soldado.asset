@@ -15,32 +15,18 @@ MonoBehaviour:
   word: soldado
   itemSprite: {fileID: 0}
   syllables:
-  - SOL
-  - DA
-  - DO
-  charSyllabes:
-  - s
-  - o
-  - l
-  - d
-  - a
-  - d
-  - o
-  letters:
-  - s
-  - o
-  - l
-  - d
-  - a
-  - d
-  - o
+  - sol
+  - da
+  - do
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

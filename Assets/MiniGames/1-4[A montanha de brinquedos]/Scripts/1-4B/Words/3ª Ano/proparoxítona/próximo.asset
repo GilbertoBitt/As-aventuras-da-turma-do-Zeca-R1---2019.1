@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "pr\xF3ximo"
   itemSprite: {fileID: 0}
   syllables:
-  - "PR\xD3"
-  - XI
-  - MO
+  - "pr\xF3"
+  - xi
+  - mo
   charSyllabes:
   - p
   - r
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "pr\xF3"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

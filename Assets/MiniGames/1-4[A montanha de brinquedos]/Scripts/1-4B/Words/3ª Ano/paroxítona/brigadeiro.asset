@@ -15,32 +15,12 @@ MonoBehaviour:
   word: brigadeiro
   itemSprite: {fileID: 0}
   syllables:
-  - BRI
-  - GA
-  - DEI
-  - RO
-  charSyllabes:
-  - b
-  - r
-  - i
-  - g
-  - a
-  - d
-  - e
-  - i
-  - r
-  - o
-  letters:
-  - b
-  - r
-  - i
-  - g
-  - a
-  - d
-  - e
-  - i
-  - r
-  - o
+  - bri
+  - ga
+  - dei
+  - ro
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

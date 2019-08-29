@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "caqu\xE9tico"
   itemSprite: {fileID: 0}
   syllables:
-  - CA
-  - "QU\xC9"
-  - TI
-  - CO
+  - ca
+  - "qu\xE9"
+  - ti
+  - co
   charSyllabes:
   - c
   - a
@@ -42,6 +42,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "qu\xE9"
   wordClassification:
     enabled: 1
     classification: 4

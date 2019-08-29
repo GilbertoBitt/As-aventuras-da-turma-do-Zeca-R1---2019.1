@@ -15,27 +15,17 @@ MonoBehaviour:
   word: "bra\xE7o"
   itemSprite: {fileID: 0}
   syllables:
-  - BRA
-  - "\xC7O"
-  charSyllabes:
-  - b
-  - r
-  - a
-  - "\xE7"
-  - o
-  letters:
-  - b
-  - r
-  - a
-  - "\xE7"
-  - o
+  - bra
+  - "\xE7o"
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

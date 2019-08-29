@@ -15,32 +15,18 @@ MonoBehaviour:
   word: vestido
   itemSprite: {fileID: 0}
   syllables:
-  - VES
-  - TI
-  - DO
-  charSyllabes:
-  - v
-  - e
-  - s
-  - t
-  - i
-  - d
-  - o
-  letters:
-  - v
-  - e
-  - s
-  - t
-  - i
-  - d
-  - o
+  - ves
+  - ti
+  - do
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,29 +15,17 @@ MonoBehaviour:
   word: "b\xEDceps"
   itemSprite: {fileID: 0}
   syllables:
-  - "B\xCD"
-  - CEPS
-  charSyllabes:
-  - b
-  - "\xED"
-  - c
-  - e
-  - p
-  - s
-  letters:
-  - b
-  - "\xED"
-  - c
-  - e
-  - p
-  - s
+  - "b\xED"
+  - ceps
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "el\xE9trico"
   itemSprite: {fileID: 0}
   syllables:
-  - E
-  - "L\xC9"
-  - TRI
-  - CO
+  - e
+  - "l\xE9"
+  - tri
+  - co
   charSyllabes:
   - e
   - l
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "l\xE9"
   wordClassification:
     enabled: 1
     classification: 4

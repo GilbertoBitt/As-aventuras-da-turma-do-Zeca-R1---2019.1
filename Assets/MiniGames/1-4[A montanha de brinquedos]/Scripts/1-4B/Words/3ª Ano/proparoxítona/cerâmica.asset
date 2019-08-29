@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "cer\xE2mica"
   itemSprite: {fileID: 0}
   syllables:
-  - CE
-  - "R\xC2"
-  - MI
-  - CA
+  - ce
+  - "r\xE2"
+  - mi
+  - ca
   charSyllabes:
   - c
   - e
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "r\xE2"
   wordClassification:
     enabled: 1
     classification: 4

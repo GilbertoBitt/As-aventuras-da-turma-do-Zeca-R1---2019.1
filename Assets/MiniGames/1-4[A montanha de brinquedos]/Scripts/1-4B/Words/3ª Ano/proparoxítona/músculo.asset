@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "m\xFAsculo"
   itemSprite: {fileID: 0}
   syllables:
-  - "M\xDAS"
-  - CU
-  - LO
+  - "m\xFAs"
+  - cu
+  - lo
   charSyllabes:
   - m
   - "\xFA"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "m\xFAs"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

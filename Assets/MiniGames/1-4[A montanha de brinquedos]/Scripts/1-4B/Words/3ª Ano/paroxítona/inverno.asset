@@ -15,32 +15,18 @@ MonoBehaviour:
   word: inverno
   itemSprite: {fileID: 0}
   syllables:
-  - IN
-  - VER
-  - NO
-  charSyllabes:
-  - i
-  - n
-  - v
-  - e
-  - r
-  - n
-  - o
-  letters:
-  - i
-  - n
-  - v
-  - e
-  - r
-  - n
-  - o
+  - in
+  - ver
+  - no
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

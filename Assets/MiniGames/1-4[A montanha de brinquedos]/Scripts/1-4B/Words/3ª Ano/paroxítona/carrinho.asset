@@ -15,34 +15,18 @@ MonoBehaviour:
   word: carrinho
   itemSprite: {fileID: 0}
   syllables:
-  - CAR
-  - RI
-  - NHO
-  charSyllabes:
-  - c
-  - a
-  - r
-  - r
-  - i
-  - n
-  - h
-  - o
-  letters:
-  - c
-  - a
-  - r
-  - r
-  - i
-  - n
-  - h
-  - o
+  - car
+  - ri
+  - nho
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

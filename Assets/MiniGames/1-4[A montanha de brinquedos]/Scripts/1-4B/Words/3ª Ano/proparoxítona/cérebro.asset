@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "c\xE9rebro"
   itemSprite: {fileID: 0}
   syllables:
-  - "C\xC9"
-  - RE
-  - BRO
+  - "c\xE9"
+  - re
+  - bro
   charSyllabes:
   - c
   - "\xE9"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "c\xE9"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

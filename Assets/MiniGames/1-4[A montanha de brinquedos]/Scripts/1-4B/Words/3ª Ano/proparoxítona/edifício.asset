@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "edif\xEDcio"
   itemSprite: {fileID: 0}
   syllables:
-  - E
-  - DI
-  - "F\xCD"
-  - CI
-  - O
+  - e
+  - di
+  - "f\xED"
+  - ci
+  - o
   charSyllabes:
   - e
   - d
@@ -41,9 +41,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "f\xED"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

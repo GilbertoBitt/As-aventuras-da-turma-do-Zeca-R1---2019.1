@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "est\xF4mago"
   itemSprite: {fileID: 0}
   syllables:
-  - ES
-  - "T\xD4"
-  - MA
-  - GO
+  - es
+  - "t\xF4"
+  - ma
+  - go
   charSyllabes:
   - e
   - s
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "t\xF4"
   wordClassification:
     enabled: 1
     classification: 4

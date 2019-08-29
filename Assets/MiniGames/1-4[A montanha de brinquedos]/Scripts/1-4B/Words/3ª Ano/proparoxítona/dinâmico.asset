@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "din\xE2mico"
   itemSprite: {fileID: 0}
   syllables:
-  - DI
-  - "N\xC2"
-  - MI
-  - CO
+  - di
+  - "n\xE2"
+  - mi
+  - co
   charSyllabes:
   - d
   - i
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "n\xE2"
   wordClassification:
     enabled: 1
     classification: 4

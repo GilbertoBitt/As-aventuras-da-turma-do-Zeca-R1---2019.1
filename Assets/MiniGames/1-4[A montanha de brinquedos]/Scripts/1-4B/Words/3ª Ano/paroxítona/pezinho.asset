@@ -15,32 +15,18 @@ MonoBehaviour:
   word: pezinho
   itemSprite: {fileID: 0}
   syllables:
-  - PE
-  - ZI
-  - NHO
-  charSyllabes:
-  - p
-  - e
-  - z
-  - i
-  - n
-  - h
-  - o
-  letters:
-  - p
-  - e
-  - z
-  - i
-  - n
-  - h
-  - o
+  - pe
+  - zi
+  - nho
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

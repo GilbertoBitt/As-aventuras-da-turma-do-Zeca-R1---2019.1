@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "g\xF3tico"
   itemSprite: {fileID: 0}
   syllables:
-  - "G\xD3"
-  - TI
-  - CO
+  - "g\xF3"
+  - ti
+  - co
   charSyllabes:
   - g
   - "\xF3"
@@ -35,10 +35,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "g\xF3"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

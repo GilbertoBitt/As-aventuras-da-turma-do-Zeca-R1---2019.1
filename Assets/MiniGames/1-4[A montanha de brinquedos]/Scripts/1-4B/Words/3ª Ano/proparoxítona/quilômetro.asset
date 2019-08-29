@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "quil\xF4metro"
   itemSprite: {fileID: 0}
   syllables:
-  - QUI
-  - "L\xD4"
-  - ME
-  - TRO
+  - qui
+  - "l\xF4"
+  - me
+  - tro
   charSyllabes:
   - q
   - u
@@ -44,6 +44,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "l\xF4"
   wordClassification:
     enabled: 1
     classification: 4

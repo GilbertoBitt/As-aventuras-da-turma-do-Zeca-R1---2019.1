@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "c\xE1rie"
   itemSprite: {fileID: 0}
   syllables:
-  - "C\xC1"
-  - RI
-  - E
+  - "c\xE1"
+  - ri
+  - e
   charSyllabes:
   - c
   - "\xE1"
@@ -33,10 +33,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "c\xE1"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

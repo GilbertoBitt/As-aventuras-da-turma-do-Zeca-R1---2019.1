@@ -15,27 +15,17 @@ MonoBehaviour:
   word: "\xEDmpar"
   itemSprite: {fileID: 0}
   syllables:
-  - "\xCDM"
-  - PAR
-  charSyllabes:
-  - "\xED"
-  - m
-  - p
-  - a
-  - r
-  letters:
-  - "\xED"
-  - m
-  - p
-  - a
-  - r
+  - "\xEDm"
+  - par
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "evang\xE9lico"
   itemSprite: {fileID: 0}
   syllables:
-  - E
-  - VAN
-  - "G\xC9"
-  - LI
-  - CO
+  - e
+  - van
+  - "g\xE9"
+  - li
+  - co
   charSyllabes:
   - e
   - v
@@ -45,9 +45,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "g\xE9"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

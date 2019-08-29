@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "ecum\xEAnico"
   itemSprite: {fileID: 0}
   syllables:
-  - E
-  - CU
-  - "M\xCA"
-  - NI
-  - CO
+  - e
+  - cu
+  - "m\xEA"
+  - ni
+  - co
   charSyllabes:
   - e
   - c
@@ -43,9 +43,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "m\xEA"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

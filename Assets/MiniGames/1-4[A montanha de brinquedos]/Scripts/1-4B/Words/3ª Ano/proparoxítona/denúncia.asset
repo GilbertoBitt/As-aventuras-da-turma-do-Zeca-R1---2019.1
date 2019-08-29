@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "den\xFAncia"
   itemSprite: {fileID: 0}
   syllables:
-  - DE
-  - "N\xDAN"
-  - CI
-  - A
+  - de
+  - "n\xFAn"
+  - ci
+  - a
   charSyllabes:
   - d
   - e
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "n\xFAn"
   wordClassification:
     enabled: 1
     classification: 4

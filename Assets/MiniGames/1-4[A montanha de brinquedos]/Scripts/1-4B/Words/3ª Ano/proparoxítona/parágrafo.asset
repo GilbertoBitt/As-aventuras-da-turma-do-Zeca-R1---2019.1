@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "par\xE1grafo"
   itemSprite: {fileID: 0}
   syllables:
-  - PA
-  - "R\xC1"
-  - GRA
-  - FO
+  - pa
+  - "r\xE1"
+  - gra
+  - fo
   charSyllabes:
   - p
   - a
@@ -42,6 +42,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "r\xE1"
   wordClassification:
     enabled: 1
     classification: 4

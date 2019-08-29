@@ -15,34 +15,18 @@ MonoBehaviour:
   word: montanha
   itemSprite: {fileID: 0}
   syllables:
-  - MON
-  - TA
-  - NHA
-  charSyllabes:
-  - m
-  - o
-  - n
-  - t
-  - a
-  - n
-  - h
-  - a
-  letters:
-  - m
-  - o
-  - n
-  - t
-  - a
-  - n
-  - h
-  - a
+  - mon
+  - ta
+  - nha
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

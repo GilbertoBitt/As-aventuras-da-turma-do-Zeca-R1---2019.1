@@ -15,30 +15,18 @@ MonoBehaviour:
   word: melado
   itemSprite: {fileID: 0}
   syllables:
-  - ME
-  - LA
-  - DO
-  charSyllabes:
-  - m
-  - e
-  - l
-  - a
-  - d
-  - o
-  letters:
-  - m
-  - e
-  - l
-  - a
-  - d
-  - o
+  - me
+  - la
+  - do
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

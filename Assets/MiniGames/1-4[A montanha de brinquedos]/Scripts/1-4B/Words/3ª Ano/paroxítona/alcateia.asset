@@ -15,28 +15,12 @@ MonoBehaviour:
   word: alcateia
   itemSprite: {fileID: 0}
   syllables:
-  - AL
-  - CA
-  - TEI
-  - A
-  charSyllabes:
+  - al
+  - ca
+  - tei
   - a
-  - l
-  - c
-  - a
-  - t
-  - e
-  - i
-  - a
-  letters:
-  - a
-  - l
-  - c
-  - a
-  - t
-  - e
-  - i
-  - a
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

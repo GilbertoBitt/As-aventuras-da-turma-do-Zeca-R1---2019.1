@@ -15,30 +15,18 @@ MonoBehaviour:
   word: parado
   itemSprite: {fileID: 0}
   syllables:
-  - PA
-  - RA
-  - DO
-  charSyllabes:
-  - p
-  - a
-  - r
-  - a
-  - d
-  - o
-  letters:
-  - p
-  - a
-  - r
-  - a
-  - d
-  - o
+  - pa
+  - ra
+  - do
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

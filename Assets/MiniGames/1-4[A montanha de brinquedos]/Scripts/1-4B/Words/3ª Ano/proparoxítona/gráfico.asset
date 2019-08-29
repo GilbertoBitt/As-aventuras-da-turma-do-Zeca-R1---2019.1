@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "gr\xE1fico"
   itemSprite: {fileID: 0}
   syllables:
-  - "GR\xC1"
-  - FI
-  - CO
+  - "gr\xE1"
+  - fi
+  - co
   charSyllabes:
   - g
   - r
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "gr\xE1"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

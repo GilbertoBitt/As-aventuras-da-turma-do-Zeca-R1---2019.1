@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "m\xEDnimo"
   itemSprite: {fileID: 0}
   syllables:
-  - "M\xCD"
-  - NI
-  - MO
+  - "m\xED"
+  - ni
+  - mo
   charSyllabes:
   - m
   - "\xED"
@@ -35,10 +35,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "m\xED"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

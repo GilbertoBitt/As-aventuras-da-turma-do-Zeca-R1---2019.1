@@ -15,26 +15,12 @@ MonoBehaviour:
   word: amoroso
   itemSprite: {fileID: 0}
   syllables:
-  - A
-  - MO
-  - RO
-  - SO
-  charSyllabes:
   - a
-  - m
-  - o
-  - r
-  - o
-  - s
-  - o
-  letters:
-  - a
-  - m
-  - o
-  - r
-  - o
-  - s
-  - o
+  - mo
+  - ro
+  - so
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

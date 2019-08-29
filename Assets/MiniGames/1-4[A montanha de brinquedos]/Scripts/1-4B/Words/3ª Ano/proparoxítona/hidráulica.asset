@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "hidr\xE1ulica"
   itemSprite: {fileID: 0}
   syllables:
-  - HI
-  - "DR\xC1U"
-  - LI
-  - CA
+  - hi
+  - "dr\xE1u"
+  - li
+  - ca
   charSyllabes:
   - h
   - i
@@ -44,6 +44,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "dr\xE1u"
   wordClassification:
     enabled: 1
     classification: 4

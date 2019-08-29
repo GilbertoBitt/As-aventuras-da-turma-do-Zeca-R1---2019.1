@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "fan\xE1tico"
   itemSprite: {fileID: 0}
   syllables:
-  - FA
-  - "N\xC1"
-  - TI
-  - CO
+  - fa
+  - "n\xE1"
+  - ti
+  - co
   charSyllabes:
   - f
   - a
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "n\xE1"
   wordClassification:
     enabled: 1
     classification: 4

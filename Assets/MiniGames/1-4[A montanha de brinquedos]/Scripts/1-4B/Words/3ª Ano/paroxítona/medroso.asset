@@ -15,32 +15,18 @@ MonoBehaviour:
   word: medroso
   itemSprite: {fileID: 0}
   syllables:
-  - ME
-  - DRO
-  - SO
-  charSyllabes:
-  - m
-  - e
-  - d
-  - r
-  - o
-  - s
-  - o
-  letters:
-  - m
-  - e
-  - d
-  - r
-  - o
-  - s
-  - o
+  - me
+  - dro
+  - so
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

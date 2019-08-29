@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "h\xE9lice"
   itemSprite: {fileID: 0}
   syllables:
-  - "H\xC9"
-  - LI
-  - CE
+  - "h\xE9"
+  - li
+  - ce
   charSyllabes:
   - h
   - "\xE9"
@@ -35,10 +35,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "h\xE9"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 081c9b890044fb3428a4df19b7bc3466, type: 3}
-  m_Name: aprende
+  m_Name: APRENDE
   m_EditorClassIdentifier: 
-  word: aprende
+  word: APRENDE
   itemSprite: {fileID: 0}
   syllables:
   - a
-  - de
   - pren
+  - de
   charSyllabes:
   - a
   - p
@@ -37,6 +37,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 0
     classification: 0
+    silabaTonica: 
   wordClassification:
     enabled: 1
     classification: 3

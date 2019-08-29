@@ -15,32 +15,18 @@ MonoBehaviour:
   word: pintado
   itemSprite: {fileID: 0}
   syllables:
-  - PIN
-  - TA
-  - DO
-  charSyllabes:
-  - p
-  - i
-  - n
-  - t
-  - a
-  - d
-  - o
-  letters:
-  - p
-  - i
-  - n
-  - t
-  - a
-  - d
-  - o
+  - pin
+  - ta
+  - do
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

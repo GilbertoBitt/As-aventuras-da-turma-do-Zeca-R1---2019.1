@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "ben\xE9fico"
   itemSprite: {fileID: 0}
   syllables:
-  - BE
-  - "N\xC9"
-  - FI
-  - CO
+  - be
+  - "n\xE9"
+  - fi
+  - co
   charSyllabes:
   - b
   - e
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "n\xE9"
   wordClassification:
     enabled: 1
     classification: 4

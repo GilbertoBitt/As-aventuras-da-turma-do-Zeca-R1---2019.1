@@ -15,32 +15,18 @@ MonoBehaviour:
   word: andando
   itemSprite: {fileID: 0}
   syllables:
-  - AN
-  - DAN
-  - DO
-  charSyllabes:
-  - a
-  - n
-  - d
-  - a
-  - n
-  - d
-  - o
-  letters:
-  - a
-  - n
-  - d
-  - a
-  - n
-  - d
-  - o
+  - an
+  - dan
+  - do
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

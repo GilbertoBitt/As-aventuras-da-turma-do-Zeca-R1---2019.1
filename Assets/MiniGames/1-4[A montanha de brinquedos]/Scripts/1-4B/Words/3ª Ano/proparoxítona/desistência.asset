@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "desist\xEAncia"
   itemSprite: {fileID: 0}
   syllables:
-  - DE
-  - SIS
-  - "T\xCAN"
-  - CI
-  - A
+  - de
+  - sis
+  - "t\xEAn"
+  - ci
+  - a
   charSyllabes:
   - d
   - e
@@ -47,9 +47,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "t\xEAn"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

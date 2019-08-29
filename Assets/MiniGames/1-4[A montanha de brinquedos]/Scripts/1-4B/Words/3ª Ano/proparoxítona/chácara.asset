@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "ch\xE1cara"
   itemSprite: {fileID: 0}
   syllables:
-  - "CH\xC1"
-  - CA
-  - RA
+  - "ch\xE1"
+  - ca
+  - ra
   charSyllabes:
   - c
   - h
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "ch\xE1"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

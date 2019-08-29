@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "p\xE1lpebra"
   itemSprite: {fileID: 0}
   syllables:
-  - "P\xC1L"
-  - PE
-  - BRA
+  - "p\xE1l"
+  - pe
+  - bra
   charSyllabes:
   - p
   - "\xE1"
@@ -39,10 +39,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "p\xE1l"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

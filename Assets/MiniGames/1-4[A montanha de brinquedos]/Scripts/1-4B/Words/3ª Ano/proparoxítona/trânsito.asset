@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "tr\xE2nsito"
   itemSprite: {fileID: 0}
   syllables:
-  - "TR\xC2N"
-  - SI
-  - TO
+  - "tr\xE2n"
+  - si
+  - to
   charSyllabes:
   - t
   - r
@@ -39,10 +39,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "tr\xE2n"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

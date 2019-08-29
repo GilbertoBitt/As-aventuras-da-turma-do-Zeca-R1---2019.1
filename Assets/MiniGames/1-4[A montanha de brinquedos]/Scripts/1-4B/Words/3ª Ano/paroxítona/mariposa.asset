@@ -15,28 +15,12 @@ MonoBehaviour:
   word: mariposa
   itemSprite: {fileID: 0}
   syllables:
-  - MA
-  - RI
-  - PO
-  - SA
-  charSyllabes:
-  - m
-  - a
-  - r
-  - i
-  - p
-  - o
-  - s
-  - a
-  letters:
-  - m
-  - a
-  - r
-  - i
-  - p
-  - o
-  - s
-  - a
+  - ma
+  - ri
+  - po
+  - sa
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

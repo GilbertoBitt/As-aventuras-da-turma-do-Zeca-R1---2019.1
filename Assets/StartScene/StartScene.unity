@@ -8207,6 +8207,21 @@ PrefabInstance:
       propertyPath: m_firstOverflowCharacterIndex
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 834594402741681078, guid: 17a1a648b33fc474ca30305e9845204c,
+        type: 3}
+      propertyPath: sound
+      value: 
+      objectReference: {fileID: 1783538551}
+    - target: {fileID: 834594402741681078, guid: 17a1a648b33fc474ca30305e9845204c,
+        type: 3}
+      propertyPath: load
+      value: 
+      objectReference: {fileID: 940843827}
+    - target: {fileID: 834594402741681078, guid: 17a1a648b33fc474ca30305e9845204c,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 1783538551}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17a1a648b33fc474ca30305e9845204c, type: 3}
 --- !u!114 &1345889415 stripped
@@ -11024,6 +11039,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782275567}
   m_CullTransparentMesh: 0
+--- !u!1 &1783538550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1783538552}
+  - component: {fileID: 1783538551}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1783538551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783538550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f797e5787e5a8441869ad203f94321c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: musicBack
+      Entry: 6
+      Data: 
+    - Name: AmbientSFXComp
+      Entry: 6
+      Data: 
+  backgroundMusic: {fileID: 0}
+  endGameTheme: {fileID: 0}
+  AmbientSFX: {fileID: 0}
+  hasAmbientFX: 0
+  fxsList: []
+  voiceFxs: []
+  amountOfSoundFxs: 0
+  isStarted: 0
+  hasBackaudio: 1
+  OnVoiceEffectVolumeBackground: 0.4
+  OnVoiceEffectVolumeAmbient: 0.4
+  isVoicePlaying: 0
+  hasAmbientFXVolume: 0.4
+  backgroundMusicVolume: 0.8
+  PauseManager2: {fileID: 1345889415}
+  audio1: {fileID: 0}
+--- !u!4 &1783538552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783538550}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 486.5154, y: 284.2439, z: -106.31077}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1806441513
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,30 +15,18 @@ MonoBehaviour:
   word: barata
   itemSprite: {fileID: 0}
   syllables:
-  - BA
-  - RA
-  - TA
-  charSyllabes:
-  - b
-  - a
-  - r
-  - a
-  - t
-  - a
-  letters:
-  - b
-  - a
-  - r
-  - a
-  - t
-  - a
+  - ba
+  - ra
+  - ta
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

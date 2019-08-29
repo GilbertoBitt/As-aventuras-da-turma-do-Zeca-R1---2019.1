@@ -15,33 +15,18 @@ MonoBehaviour:
   word: "mem\xF3ria"
   itemSprite: {fileID: 0}
   syllables:
-  - ME
-  - "M\xD3"
-  - RI
-  - A
-  charSyllabes:
-  - m
-  - e
-  - m
-  - "\xF3"
-  - r
-  - i
-  - a
-  letters:
-  - m
-  - e
-  - m
-  - "\xF3"
-  - r
-  - i
-  - a
+  - me
+  - "m\xF3"
+  - ria
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
-    classification: 4
-    syllableAmount: 4
+    classification: 3
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

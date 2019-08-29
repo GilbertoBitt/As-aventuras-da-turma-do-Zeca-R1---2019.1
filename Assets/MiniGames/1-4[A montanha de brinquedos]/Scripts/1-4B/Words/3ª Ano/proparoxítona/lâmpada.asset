@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "l\xE2mpada"
   itemSprite: {fileID: 0}
   syllables:
-  - "L\xC2M"
-  - PA
-  - DA
+  - "l\xE2m"
+  - pa
+  - da
   charSyllabes:
   - l
   - "\xE2"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "l\xE2m"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

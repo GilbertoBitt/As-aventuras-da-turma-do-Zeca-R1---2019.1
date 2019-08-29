@@ -15,32 +15,18 @@ MonoBehaviour:
   word: cansada
   itemSprite: {fileID: 0}
   syllables:
-  - CAN
-  - SA
-  - DA
-  charSyllabes:
-  - c
-  - a
-  - n
-  - s
-  - a
-  - d
-  - a
-  letters:
-  - c
-  - a
-  - n
-  - s
-  - a
-  - d
-  - a
+  - can
+  - sa
+  - da
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

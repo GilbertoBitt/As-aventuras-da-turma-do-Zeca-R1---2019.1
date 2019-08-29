@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "gin\xE1stica"
   itemSprite: {fileID: 0}
   syllables:
-  - GI
-  - "N\xC1S"
-  - TI
-  - CA
+  - gi
+  - "n\xE1s"
+  - ti
+  - ca
   charSyllabes:
   - g
   - i
@@ -42,6 +42,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "n\xE1s"
   wordClassification:
     enabled: 1
     classification: 4

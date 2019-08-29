@@ -15,32 +15,18 @@ MonoBehaviour:
   word: mamando
   itemSprite: {fileID: 0}
   syllables:
-  - MA
-  - MAN
-  - DO
-  charSyllabes:
-  - m
-  - a
-  - m
-  - a
-  - n
-  - d
-  - o
-  letters:
-  - m
-  - a
-  - m
-  - a
-  - n
-  - d
-  - o
+  - ma
+  - man
+  - do
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

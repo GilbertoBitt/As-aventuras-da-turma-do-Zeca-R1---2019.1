@@ -15,30 +15,18 @@ MonoBehaviour:
   word: cabelo
   itemSprite: {fileID: 0}
   syllables:
-  - CA
-  - BE
-  - LO
-  charSyllabes:
-  - c
-  - a
-  - b
-  - e
-  - l
-  - o
-  letters:
-  - c
-  - a
-  - b
-  - e
-  - l
-  - o
+  - ca
+  - be
+  - lo
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

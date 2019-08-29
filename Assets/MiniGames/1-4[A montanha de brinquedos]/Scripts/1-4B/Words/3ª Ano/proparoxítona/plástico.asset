@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "pl\xE1stico"
   itemSprite: {fileID: 0}
   syllables:
-  - "PL\xC1S"
-  - TI
-  - CO
+  - "pl\xE1s"
+  - ti
+  - co
   charSyllabes:
   - p
   - l
@@ -39,10 +39,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "pl\xE1s"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

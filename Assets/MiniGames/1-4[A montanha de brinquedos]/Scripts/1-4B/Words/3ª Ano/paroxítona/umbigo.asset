@@ -15,30 +15,18 @@ MonoBehaviour:
   word: umbigo
   itemSprite: {fileID: 0}
   syllables:
-  - UM
-  - BI
-  - GO
-  charSyllabes:
-  - u
-  - m
-  - b
-  - i
-  - g
-  - o
-  letters:
-  - u
-  - m
-  - b
-  - i
-  - g
-  - o
+  - um
+  - bi
+  - go
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,25 +15,17 @@ MonoBehaviour:
   word: olho
   itemSprite: {fileID: 0}
   syllables:
-  - O
-  - LHO
-  charSyllabes:
   - o
-  - l
-  - h
-  - o
-  letters:
-  - o
-  - l
-  - h
-  - o
+  - lho
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

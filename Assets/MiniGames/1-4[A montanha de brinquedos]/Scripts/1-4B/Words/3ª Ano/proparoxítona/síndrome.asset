@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "s\xEDndrome"
   itemSprite: {fileID: 0}
   syllables:
-  - "S\xCDN"
-  - DRO
-  - ME
+  - "s\xEDn"
+  - dro
+  - me
   charSyllabes:
   - s
   - "\xED"
@@ -39,10 +39,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "s\xEDn"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

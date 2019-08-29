@@ -15,9 +15,10 @@ MonoBehaviour:
   word: "c\xF4mico"
   itemSprite: {fileID: 0}
   syllables:
-  - "C\xD4"
-  - MI
-  - CO
+  - "c\xF4"
+  - mi
+  - 
+  - co
   charSyllabes:
   - c
   - "\xF4"
@@ -35,10 +36,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: mi
   wordClassification:
     enabled: 1
-    classification: 3
-    syllableAmount: 0
+    classification: 4
+    syllableAmount: 4
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

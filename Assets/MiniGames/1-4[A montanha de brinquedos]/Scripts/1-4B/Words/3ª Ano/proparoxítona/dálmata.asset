@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "d\xE1lmata"
   itemSprite: {fileID: 0}
   syllables:
-  - "D\xC1L"
-  - MA
-  - TA
+  - "d\xE1l"
+  - ma
+  - ta
   charSyllabes:
   - d
   - "\xE1"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "d\xE1l"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

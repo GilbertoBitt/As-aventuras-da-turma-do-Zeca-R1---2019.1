@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "dep\xF3sito"
   itemSprite: {fileID: 0}
   syllables:
-  - DE
-  - "P\xD3"
-  - SI
-  - TO
+  - de
+  - "p\xF3"
+  - si
+  - to
   charSyllabes:
   - d
   - e
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "p\xF3"
   wordClassification:
     enabled: 1
     classification: 4

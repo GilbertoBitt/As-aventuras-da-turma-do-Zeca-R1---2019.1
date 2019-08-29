@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "\xEDngreme"
   itemSprite: {fileID: 0}
   syllables:
-  - "\xCDN"
-  - GRE
-  - ME
+  - "\xEDn"
+  - gre
+  - me
   charSyllabes:
   - "\xED"
   - n
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "\xEDn"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

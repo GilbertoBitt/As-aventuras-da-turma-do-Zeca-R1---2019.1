@@ -15,30 +15,18 @@ MonoBehaviour:
   word: camisa
   itemSprite: {fileID: 0}
   syllables:
-  - CA
-  - MI
-  - SA
-  charSyllabes:
-  - c
-  - a
-  - m
-  - i
-  - s
-  - a
-  letters:
-  - c
-  - a
-  - m
-  - i
-  - s
-  - a
+  - ca
+  - mi
+  - sa
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

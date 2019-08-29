@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "c\xEAnico"
   itemSprite: {fileID: 0}
   syllables:
-  - "C\xCA"
-  - NI
-  - CO
+  - "c\xEA"
+  - ni
+  - co
   charSyllabes:
   - c
   - "\xEA"
@@ -35,10 +35,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "c\xEA"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

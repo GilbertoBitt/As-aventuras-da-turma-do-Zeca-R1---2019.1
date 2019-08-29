@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "energ\xE9tico"
   itemSprite: {fileID: 0}
   syllables:
-  - E
-  - NER
-  - "G\xC9"
-  - TI
-  - CO
+  - e
+  - ner
+  - "g\xE9"
+  - ti
+  - co
   charSyllabes:
   - e
   - n
@@ -45,9 +45,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "g\xE9"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

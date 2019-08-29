@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "abd\xF4men"
   itemSprite: {fileID: 0}
   syllables:
-  - AB
-  - "D\xD4"
-  - MEN
+  - ab
+  - "d\xF4"
+  - men
   charSyllabes:
   - a
   - b
@@ -40,7 +40,7 @@ MonoBehaviour:
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

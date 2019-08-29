@@ -15,25 +15,17 @@ MonoBehaviour:
   word: casa
   itemSprite: {fileID: 0}
   syllables:
-  - CA
-  - SA
-  charSyllabes:
-  - c
-  - a
-  - s
-  - a
-  letters:
-  - c
-  - a
-  - s
-  - a
+  - ca
+  - sa
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

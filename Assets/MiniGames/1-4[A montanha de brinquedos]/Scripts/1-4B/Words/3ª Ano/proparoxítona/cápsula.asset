@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "c\xE1psula"
   itemSprite: {fileID: 0}
   syllables:
-  - "C\xC1P"
-  - SU
-  - LA
+  - "c\xE1p"
+  - su
+  - la
   charSyllabes:
   - c
   - "\xE1"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "c\xE1p"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

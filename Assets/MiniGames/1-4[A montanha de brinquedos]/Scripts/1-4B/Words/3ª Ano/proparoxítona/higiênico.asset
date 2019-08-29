@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "higi\xEAnico"
   itemSprite: {fileID: 0}
   syllables:
-  - HI
-  - GI
-  - "\xCA"
-  - NI
-  - CO
+  - hi
+  - gi
+  - "\xEA"
+  - ni
+  - co
   charSyllabes:
   - h
   - i
@@ -43,9 +43,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "\xEA"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

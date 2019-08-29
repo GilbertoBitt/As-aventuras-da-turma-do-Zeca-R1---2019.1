@@ -15,32 +15,18 @@ MonoBehaviour:
   word: "cansa\xE7o"
   itemSprite: {fileID: 0}
   syllables:
-  - CAN
-  - SA
-  - "\xC7O"
-  charSyllabes:
-  - c
-  - a
-  - n
-  - s
-  - a
-  - "\xE7"
-  - o
-  letters:
-  - c
-  - a
-  - n
-  - s
-  - a
-  - "\xE7"
-  - o
+  - can
+  - sa
+  - "\xE7o"
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -125,7 +125,6 @@ public class Manager1_4B : OverridableMonoBehaviour
     [FoldoutGroup("2ª ano")] public TextMeshProUGUI wrongWordsTextComponent;
     [FoldoutGroup("2ª ano")] public IntReactiveProperty wrongWordsValue;
     [FoldoutGroup("2ª ano")] public int amountPerCorrectWord;
-
     [FoldoutGroup("3ª ano")] public WordItem[] wordsList;
     [LabelText("Prefab Buttons")]
     [FoldoutGroup("3ª ano")] public ButtonTMPComponent buttonPrefab3;
@@ -547,9 +546,7 @@ public class Manager1_4B : OverridableMonoBehaviour
     {
         var syllable = blankInstancesOnScene[0].thisSyllable.textComp.text.ToLower();
 
-        var reversed = currentWord.syllables.Reverse().ToList();
-
-        var correctSyllable = reversed[(int) currentWord.tonicSyllables.classification].ToLower();
+        var correctSyllable = currentWord.tonicSyllables.silabaTonica.ToLower();
 
         if (string.Equals(correctSyllable, syllable, StringComparison.InvariantCultureIgnoreCase))
         {
@@ -757,18 +754,6 @@ public class Manager1_4B : OverridableMonoBehaviour
                                 emptySpace.transform.SetSiblingIndex(indexItem);
                                 blankInstancesOnScene.Insert(indexItem, emptySpace);
                             });
-
-
-//                            for (int i = 0; i < currentWord.CountSyllables; i++) {
-//                                var blueBoxInstance = poolBlueBox.Rent();
-//                                blueBoxInstance.UpdateTextContent(currentWord.syllables[i].ToUpper());
-//                                blueBoxInstance.DoFade(1f);
-//                                blueBoxInstancesOnScene.Add(blueBoxInstance);
-//
-//                                var emptySpace = poolBlankBox.Rent();
-//                                emptySpace.DoFade(1f);
-//                                blankInstancesOnScene.Add(emptySpace);
-//                            }
 
                             itemIconImage.sprite = currentWord.itemSprite;
                             itemIconImage.DOFade(1f, 0.5f);
@@ -1003,8 +988,8 @@ public class Manager1_4B : OverridableMonoBehaviour
     public void InitGame()
     {
 
-        anoLetivo.Value = (AnoLetivoState) GameConfig.Instance.GetAnoLetivo();
-        Debug.Log($"Call Twice! Ano Letivo: {anoLetivo.Value}");
+//        anoLetivo.Value = (AnoLetivoState) GameConfig.Instance.GetAnoLetivo();
+//        Debug.Log($"Call Twice! Ano Letivo: {anoLetivo.Value}");
 //        dialogComponent = FindObjectOfType(typeof(DialogComponent)) as DialogComponent;
         if (dialogComponent == null) return;
         dialogComponent.transform.parent.gameObject.SetActive(true);

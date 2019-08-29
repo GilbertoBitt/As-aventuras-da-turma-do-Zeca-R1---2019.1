@@ -15,25 +15,17 @@ MonoBehaviour:
   word: vaca
   itemSprite: {fileID: 0}
   syllables:
-  - VA
-  - CA
-  charSyllabes:
-  - v
-  - a
-  - c
-  - a
-  letters:
-  - v
-  - a
-  - c
-  - a
+  - va
+  - ca
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

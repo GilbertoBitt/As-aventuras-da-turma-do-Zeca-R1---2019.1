@@ -15,30 +15,18 @@ MonoBehaviour:
   word: "almo\xE7o"
   itemSprite: {fileID: 0}
   syllables:
-  - AL
-  - MO
-  - "\xC7O"
-  charSyllabes:
-  - a
-  - l
-  - m
-  - o
-  - "\xE7"
-  - o
-  letters:
-  - a
-  - l
-  - m
-  - o
-  - "\xE7"
-  - o
+  - al
+  - mo
+  - "\xE7o"
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

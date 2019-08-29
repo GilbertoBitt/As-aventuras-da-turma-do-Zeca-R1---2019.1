@@ -15,27 +15,17 @@ MonoBehaviour:
   word: peixe
   itemSprite: {fileID: 0}
   syllables:
-  - PEI
-  - XE
-  charSyllabes:
-  - p
-  - e
-  - i
-  - x
-  - e
-  letters:
-  - p
-  - e
-  - i
-  - x
-  - e
+  - pei
+  - xe
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

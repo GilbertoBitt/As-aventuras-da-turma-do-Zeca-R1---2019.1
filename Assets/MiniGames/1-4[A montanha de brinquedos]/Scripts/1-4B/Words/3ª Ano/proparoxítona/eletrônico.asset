@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "eletr\xF4nico"
   itemSprite: {fileID: 0}
   syllables:
-  - E
-  - LE
-  - "TR\xD4"
-  - NI
-  - CO
+  - e
+  - le
+  - "tr\xF4"
+  - ni
+  - co
   charSyllabes:
   - e
   - l
@@ -45,9 +45,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "tr\xF4"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

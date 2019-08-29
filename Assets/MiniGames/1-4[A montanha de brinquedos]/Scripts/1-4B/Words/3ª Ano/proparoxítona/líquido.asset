@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "l\xEDquido"
   itemSprite: {fileID: 0}
   syllables:
-  - "L\xCD"
-  - QUI
-  - DO
+  - "l\xED"
+  - qui
+  - do
   charSyllabes:
   - l
   - "\xED"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "l\xED"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

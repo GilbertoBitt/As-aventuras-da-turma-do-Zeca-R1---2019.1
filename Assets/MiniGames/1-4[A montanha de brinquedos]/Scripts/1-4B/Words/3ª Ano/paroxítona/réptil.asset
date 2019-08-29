@@ -15,29 +15,17 @@ MonoBehaviour:
   word: "r\xE9ptil"
   itemSprite: {fileID: 0}
   syllables:
-  - "R\xC9P"
-  - TIL
-  charSyllabes:
-  - r
-  - "\xE9"
-  - p
-  - t
-  - i
-  - l
-  letters:
-  - r
-  - "\xE9"
-  - p
-  - t
-  - i
-  - l
+  - "r\xE9p"
+  - til
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

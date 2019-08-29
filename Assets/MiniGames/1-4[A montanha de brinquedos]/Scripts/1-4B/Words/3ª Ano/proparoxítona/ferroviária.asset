@@ -15,12 +15,12 @@ MonoBehaviour:
   word: "ferrovi\xE1ria"
   itemSprite: {fileID: 0}
   syllables:
-  - FER
-  - RO
-  - VI
-  - "\xC1"
-  - RI
-  - A
+  - fer
+  - ro
+  - vi
+  - "\xE1"
+  - ri
+  - a
   charSyllabes:
   - f
   - e
@@ -48,9 +48,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "\xE1"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 6
     syllableAmount: 6
   alternativeWordsContent:
     enabled: 0

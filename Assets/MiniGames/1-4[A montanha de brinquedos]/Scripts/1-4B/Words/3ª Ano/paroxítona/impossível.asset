@@ -15,32 +15,12 @@ MonoBehaviour:
   word: "imposs\xEDvel"
   itemSprite: {fileID: 0}
   syllables:
-  - IM
-  - POS
-  - "S\xCD"
-  - VEL
-  charSyllabes:
-  - i
-  - m
-  - p
-  - o
-  - s
-  - s
-  - "\xED"
-  - v
-  - e
-  - l
-  letters:
-  - i
-  - m
-  - p
-  - o
-  - s
-  - s
-  - "\xED"
-  - v
-  - e
-  - l
+  - im
+  - pos
+  - "s\xED"
+  - vel
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

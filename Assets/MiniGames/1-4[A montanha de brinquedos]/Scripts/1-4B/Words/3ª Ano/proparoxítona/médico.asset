@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "m\xE9dico"
   itemSprite: {fileID: 0}
   syllables:
-  - "M\xC9"
-  - DI
-  - CO
+  - "m\xE9"
+  - di
+  - co
   charSyllabes:
   - m
   - "\xE9"
@@ -35,10 +35,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "m\xE9"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

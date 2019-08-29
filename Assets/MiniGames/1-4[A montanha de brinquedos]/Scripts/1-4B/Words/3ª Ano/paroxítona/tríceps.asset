@@ -15,31 +15,17 @@ MonoBehaviour:
   word: "tr\xEDceps"
   itemSprite: {fileID: 0}
   syllables:
-  - "TR\xCD"
-  - CEPS
-  charSyllabes:
-  - t
-  - r
-  - "\xED"
-  - c
-  - e
-  - p
-  - s
-  letters:
-  - t
-  - r
-  - "\xED"
-  - c
-  - e
-  - p
-  - s
+  - "tr\xED"
+  - ceps
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

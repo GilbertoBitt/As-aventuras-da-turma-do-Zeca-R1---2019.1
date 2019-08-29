@@ -15,31 +15,17 @@ MonoBehaviour:
   word: "b\xEAn\xE7\xE3os"
   itemSprite: {fileID: 0}
   syllables:
-  - "B\xCAN"
-  - "\xC7\xC3OS"
-  charSyllabes:
-  - b
-  - "\xEA"
-  - n
-  - "\xE7"
-  - "\xE3"
-  - o
-  - s
-  letters:
-  - b
-  - "\xEA"
-  - n
-  - "\xE7"
-  - "\xE3"
-  - o
-  - s
+  - "b\xEAn"
+  - "\xE7\xE3os"
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "c\xF3cegas"
   itemSprite: {fileID: 0}
   syllables:
-  - "C\xD3"
-  - CE
-  - GAS
+  - "c\xF3"
+  - ce
+  - gas
   charSyllabes:
   - c
   - "\xF3"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "c\xF3"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

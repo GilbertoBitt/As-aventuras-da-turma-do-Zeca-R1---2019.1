@@ -15,30 +15,18 @@ MonoBehaviour:
   word: caneta
   itemSprite: {fileID: 0}
   syllables:
-  - CA
-  - NE
-  - TA
-  charSyllabes:
-  - c
-  - a
-  - n
-  - e
-  - t
-  - a
-  letters:
-  - c
-  - a
-  - n
-  - e
-  - t
-  - a
+  - ca
+  - ne
+  - ta
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

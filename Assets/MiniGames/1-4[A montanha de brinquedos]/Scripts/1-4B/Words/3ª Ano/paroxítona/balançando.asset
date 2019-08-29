@@ -15,32 +15,12 @@ MonoBehaviour:
   word: "balan\xE7ando"
   itemSprite: {fileID: 0}
   syllables:
-  - BA
-  - LAN
-  - "\xC7AN"
-  - DO
-  charSyllabes:
-  - b
-  - a
-  - l
-  - a
-  - n
-  - "\xE7"
-  - a
-  - n
-  - d
-  - o
-  letters:
-  - b
-  - a
-  - l
-  - a
-  - n
-  - "\xE7"
-  - a
-  - n
-  - d
-  - o
+  - ba
+  - lan
+  - "\xE7an"
+  - do
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

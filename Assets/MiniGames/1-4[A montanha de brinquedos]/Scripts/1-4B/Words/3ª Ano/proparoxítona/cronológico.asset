@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "cronol\xF3gico"
   itemSprite: {fileID: 0}
   syllables:
-  - CRO
-  - NO
-  - "L\xD3"
-  - GI
-  - CO
+  - cro
+  - no
+  - "l\xF3"
+  - gi
+  - co
   charSyllabes:
   - c
   - r
@@ -47,9 +47,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "l\xF3"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

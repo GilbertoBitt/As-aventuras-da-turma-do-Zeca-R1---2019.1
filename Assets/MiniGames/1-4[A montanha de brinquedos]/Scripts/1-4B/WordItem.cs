@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using com.csutil;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
@@ -30,6 +31,17 @@ namespace MiniGames.Scripts
         [Button("Force Validate")]
         private void OnValidate()
         {
+
+            if (tonicSyllables.enabled)
+            {
+                tonicSyllables.silabaTonica = syllables[
+                    tonicSyllables.classification == TonicSyllablesClassification.Oxitona
+                        ? syllables.Length - 1
+                        : tonicSyllables.classification == TonicSyllablesClassification.Paroxitona
+                            ? syllables.Length - 2
+                            : syllables.Length - 3].ToLower();
+            }
+            
             charSyllabes = new string[word.Length];
             for (int i = 0; i < word.Length; i++)
             {
@@ -85,7 +97,7 @@ namespace MiniGames.Scripts
         }
 
         #if UNITY_EDITOR
-        [Button(ButtonSizes.Medium, ButtonStyle.FoldoutButton)]
+        [Button(name:"Genarete 1ª ano",ButtonSizes.Medium, ButtonStyle.FoldoutButton)]
         public void Fonetizars(string strings)
         {
             var tempSyllable = strings.Split("·");
@@ -106,16 +118,35 @@ namespace MiniGames.Scripts
 
         }
 
-        [Button(ButtonSizes.Medium, ButtonStyle.FoldoutButton)]
+        [Button(name:"Generate 2ª ano",ButtonSizes.Medium, ButtonStyle.FoldoutButton)]
         public void GenerateWords(string strings, TonicSyllablesClassification classification)
         {
-            var words = strings.Split(",");
+            var words = strings.Split("!");
+            for (var index = 0; index < words.Length; index++)
+            {
+                var sw = words[index];
+                var final = sw.Split("/");
+                words[index] = final.First();
+            }
+
             words.ForEach(s =>
             {
                 var instance = ScriptableObject.CreateInstance<WordItem>();
-                instance.word = s.ToLower();
-                instance.tonicSyllables = new TonicSyllable {enabled = true, classification = classification};
-                AssetDatabase.CreateAsset(instance, $"Assets/MiniGames/1-4[A montanha de brinquedos]/Scripts/1-4B/Words/3ª Ano/{s.ToLower()}.asset");
+                var wordFromOptions = s.Split("*");
+                instance.word = wordFromOptions.First();
+                instance.alternativeWordsContent = new AlternativeWords
+                {
+                    enabled = true,
+                    alternativeWords = wordFromOptions.Last().Split(",")
+                };
+                try
+                {
+                    AssetDatabase.CreateAsset(instance,
+                        $"Assets/MiniGames/1-4[A montanha de brinquedos]/Scripts/1-4B/Words/2ª Ano/{instance.word}.asset");
+                } catch (Exception e) {
+                    Debug.Log($"Execption {e}");
+                    Debug.DebugBreak();
+                }
             });
             AssetDatabase.SaveAssets ();
             AssetDatabase.Refresh();
@@ -123,31 +154,29 @@ namespace MiniGames.Scripts
 
         }
 
-        [Button(name:"Generate with Fonetic", ButtonSizes.Medium, ButtonStyle.FoldoutButton)]
+        [Button(name:"Generate 3ª ano word", ButtonSizes.Medium, ButtonStyle.FoldoutButton)]
         public void GenerateWordsWithSyllables(string strings, TonicSyllablesClassification classification)
         {
             var words = strings.Split(",");
             words.ForEach(s =>
             {
                 var instance = ScriptableObject.CreateInstance<WordItem>();
-                instance.word = s.Replace("·", "").ToLower();
-                instance.tonicSyllables.enabled = true;
-                instance.tonicSyllables.classification = classification;
-
-                var tempSyllable = s.Split("·");
+                var splittedWord = s.ToLower().Split("-");
                 instance.wordClassification.enabled = true;
-                if (tempSyllable.Length >= 4)
+                instance.wordClassification.classification = (ClassificationBySyllables)splittedWord.Length;
+                instance.syllables = splittedWord;
+                instance.wordClassification.syllableAmount = splittedWord.Length;
+                var sCompleted = s.ToLower().Replace("-", "");
+                instance.word = sCompleted;
+                instance.tonicSyllables = new TonicSyllable {enabled = true, classification = classification};
+                try
                 {
-                    instance.wordClassification.classification = ClassificationBySyllables.Polissilaba;
-                    instance.wordClassification.syllableAmount = tempSyllable.Length;
+                    AssetDatabase.CreateAsset(instance,
+                        $"Assets/MiniGames/1-4[A montanha de brinquedos]/Scripts/1-4B/Words/3ª Ano/{sCompleted}.asset");
+                } catch (Exception e) {
+                    Debug.Log($"Execption {e}");
+                    Debug.DebugBreak();
                 }
-                else
-                {
-                    instance.wordClassification.classification = (ClassificationBySyllables) tempSyllable.Length;
-                }
-
-                instance.syllables = tempSyllable;
-                AssetDatabase.CreateAsset(instance, $"Assets/MiniGames/1-4[A montanha de brinquedos]/Scripts/1-4B/Words/3ª Ano/{s.Replace("·", "").ToLower()}.asset");
             });
             AssetDatabase.SaveAssets ();
             AssetDatabase.Refresh();
@@ -163,6 +192,7 @@ namespace MiniGames.Scripts
     {
         public bool enabled;
         public WordItem.TonicSyllablesClassification classification;
+        public string silabaTonica;
     }
 
     [Serializable, Toggle("enabled")]

@@ -15,12 +15,12 @@ MonoBehaviour:
   word: "caracter\xEDstica"
   itemSprite: {fileID: 0}
   syllables:
-  - CA
-  - RAC
-  - TE
-  - "R\xCDS"
-  - TI
-  - CA
+  - ca
+  - rac
+  - te
+  - "r\xEDs"
+  - ti
+  - ca
   charSyllabes:
   - c
   - a
@@ -54,9 +54,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "r\xEDs"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 6
     syllableAmount: 6
   alternativeWordsContent:
     enabled: 0

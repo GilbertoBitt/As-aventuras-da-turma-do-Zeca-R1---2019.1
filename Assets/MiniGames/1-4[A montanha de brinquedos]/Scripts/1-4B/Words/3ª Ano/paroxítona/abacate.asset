@@ -15,26 +15,12 @@ MonoBehaviour:
   word: abacate
   itemSprite: {fileID: 0}
   syllables:
-  - A
-  - BA
-  - CA
-  - TE
-  charSyllabes:
   - a
-  - b
-  - a
-  - c
-  - a
-  - t
-  - e
-  letters:
-  - a
-  - b
-  - a
-  - c
-  - a
-  - t
-  - e
+  - ba
+  - ca
+  - te
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

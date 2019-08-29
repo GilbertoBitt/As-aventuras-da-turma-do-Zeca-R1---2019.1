@@ -15,30 +15,12 @@ MonoBehaviour:
   word: "autom\xF3vel"
   itemSprite: {fileID: 0}
   syllables:
-  - AU
-  - TO
-  - "M\xD3"
-  - VEL
-  charSyllabes:
-  - a
-  - u
-  - t
-  - o
-  - m
-  - "\xF3"
-  - v
-  - e
-  - l
-  letters:
-  - a
-  - u
-  - t
-  - o
-  - m
-  - "\xF3"
-  - v
-  - e
-  - l
+  - au
+  - to
+  - "m\xF3"
+  - vel
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "f\xEDsica"
   itemSprite: {fileID: 0}
   syllables:
-  - "F\xCD"
-  - SI
-  - CA
+  - "f\xED"
+  - si
+  - ca
   charSyllabes:
   - f
   - "\xED"
@@ -35,10 +35,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "f\xED"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "fot\xF3grafo"
   itemSprite: {fileID: 0}
   syllables:
-  - FO
-  - "T\xD3"
-  - GRA
-  - FO
+  - fo
+  - "t\xF3"
+  - gra
+  - fo
   charSyllabes:
   - f
   - o
@@ -42,6 +42,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "t\xF3"
   wordClassification:
     enabled: 1
     classification: 4

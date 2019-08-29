@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "matem\xE1tica"
   itemSprite: {fileID: 0}
   syllables:
-  - MA
-  - TE
-  - "M\xC1"
-  - TI
-  - CA
+  - ma
+  - te
+  - "m\xE1"
+  - ti
+  - ca
   charSyllabes:
   - m
   - a
@@ -45,9 +45,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "m\xE1"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

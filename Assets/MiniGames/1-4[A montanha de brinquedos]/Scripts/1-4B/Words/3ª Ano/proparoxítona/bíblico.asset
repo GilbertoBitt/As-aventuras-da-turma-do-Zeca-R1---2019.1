@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "b\xEDblico"
   itemSprite: {fileID: 0}
   syllables:
-  - "B\xCD"
-  - BLI
-  - CO
+  - "b\xED"
+  - bli
+  - co
   charSyllabes:
   - b
   - "\xED"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "b\xED"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

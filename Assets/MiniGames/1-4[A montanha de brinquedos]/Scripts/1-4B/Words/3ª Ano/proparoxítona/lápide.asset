@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "l\xE1pide"
   itemSprite: {fileID: 0}
   syllables:
-  - "L\xC1"
-  - PI
-  - DE
+  - "l\xE1"
+  - pi
+  - de
   charSyllabes:
   - l
   - "\xE1"
@@ -35,10 +35,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "l\xE1"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

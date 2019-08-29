@@ -15,32 +15,18 @@ MonoBehaviour:
   word: mercado
   itemSprite: {fileID: 0}
   syllables:
-  - MER
-  - CA
-  - DO
-  charSyllabes:
-  - m
-  - e
-  - r
-  - c
-  - a
-  - d
-  - o
-  letters:
-  - m
-  - e
-  - r
-  - c
-  - a
-  - d
-  - o
+  - mer
+  - ca
+  - do
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

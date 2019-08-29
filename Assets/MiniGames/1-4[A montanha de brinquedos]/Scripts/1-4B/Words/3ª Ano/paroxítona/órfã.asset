@@ -15,25 +15,17 @@ MonoBehaviour:
   word: "\xF3rf\xE3"
   itemSprite: {fileID: 0}
   syllables:
-  - "\xD3R"
-  - "F\xC3"
-  charSyllabes:
-  - "\xF3"
-  - r
-  - f
-  - "\xE3"
-  letters:
-  - "\xF3"
-  - r
-  - f
-  - "\xE3"
+  - "\xF3r"
+  - "f\xE3"
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

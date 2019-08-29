@@ -15,30 +15,12 @@ MonoBehaviour:
   word: primavera
   itemSprite: {fileID: 0}
   syllables:
-  - PRI
-  - MA
-  - VE
-  - RA
-  charSyllabes:
-  - p
-  - r
-  - i
-  - m
-  - a
-  - v
-  - e
-  - r
-  - a
-  letters:
-  - p
-  - r
-  - i
-  - m
-  - a
-  - v
-  - e
-  - r
-  - a
+  - pri
+  - ma
+  - ve
+  - ra
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

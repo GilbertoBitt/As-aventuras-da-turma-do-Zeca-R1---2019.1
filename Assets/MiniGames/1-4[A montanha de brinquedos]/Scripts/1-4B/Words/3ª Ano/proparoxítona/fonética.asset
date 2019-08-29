@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "fon\xE9tica"
   itemSprite: {fileID: 0}
   syllables:
-  - FO
-  - "N\xC9"
-  - TI
-  - CA
+  - fo
+  - "n\xE9"
+  - ti
+  - ca
   charSyllabes:
   - f
   - o
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "n\xE9"
   wordClassification:
     enabled: 1
     classification: 4

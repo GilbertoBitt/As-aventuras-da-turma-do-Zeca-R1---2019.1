@@ -15,32 +15,18 @@ MonoBehaviour:
   word: "balan\xE7o"
   itemSprite: {fileID: 0}
   syllables:
-  - BA
-  - LAN
-  - "\xC7O"
-  charSyllabes:
-  - b
-  - a
-  - l
-  - a
-  - n
-  - "\xE7"
-  - o
-  letters:
-  - b
-  - a
-  - l
-  - a
-  - n
-  - "\xE7"
-  - o
+  - ba
+  - lan
+  - "\xE7o"
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

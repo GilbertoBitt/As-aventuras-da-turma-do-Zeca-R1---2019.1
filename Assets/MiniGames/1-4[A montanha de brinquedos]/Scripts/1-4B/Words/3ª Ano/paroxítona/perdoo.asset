@@ -15,29 +15,18 @@ MonoBehaviour:
   word: perdoo
   itemSprite: {fileID: 0}
   syllables:
-  - PER
-  - DOO
-  charSyllabes:
-  - p
-  - e
-  - r
-  - d
+  - per
+  - do
   - o
-  - o
-  letters:
-  - p
-  - e
-  - r
-  - d
-  - o
-  - o
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
-    classification: 2
-    syllableAmount: 0
+    classification: 3
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

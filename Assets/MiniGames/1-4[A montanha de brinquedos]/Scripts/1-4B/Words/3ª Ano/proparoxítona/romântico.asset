@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "rom\xE2ntico"
   itemSprite: {fileID: 0}
   syllables:
-  - RO
-  - "M\xC2N"
-  - TI
-  - CO
+  - ro
+  - "m\xE2n"
+  - ti
+  - co
   charSyllabes:
   - r
   - o
@@ -42,6 +42,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "m\xE2n"
   wordClassification:
     enabled: 1
     classification: 4

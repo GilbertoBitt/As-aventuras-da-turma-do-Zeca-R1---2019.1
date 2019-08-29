@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "fl\xE2mula"
   itemSprite: {fileID: 0}
   syllables:
-  - "FL\xC2"
-  - MU
-  - LA
+  - "fl\xE2"
+  - mu
+  - la
   charSyllabes:
   - f
   - l
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "fl\xE2"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

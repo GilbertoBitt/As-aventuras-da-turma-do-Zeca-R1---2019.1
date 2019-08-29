@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "\xFAltimo"
   itemSprite: {fileID: 0}
   syllables:
-  - "\xDAL"
-  - TI
-  - MO
+  - "\xFAl"
+  - ti
+  - mo
   charSyllabes:
   - "\xFA"
   - l
@@ -35,10 +35,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "\xFAl"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

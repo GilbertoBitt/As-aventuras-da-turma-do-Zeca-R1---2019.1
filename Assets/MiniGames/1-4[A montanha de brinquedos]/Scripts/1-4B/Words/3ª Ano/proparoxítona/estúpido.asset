@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "est\xFApido"
   itemSprite: {fileID: 0}
   syllables:
-  - ES
-  - "T\xDA"
-  - PI
-  - DO
+  - es
+  - "t\xFA"
+  - pi
+  - do
   charSyllabes:
   - e
   - s
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "t\xFA"
   wordClassification:
     enabled: 1
     classification: 4

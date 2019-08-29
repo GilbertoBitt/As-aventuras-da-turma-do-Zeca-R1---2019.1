@@ -15,28 +15,12 @@ MonoBehaviour:
   word: paranoia
   itemSprite: {fileID: 0}
   syllables:
-  - PA
-  - RA
-  - NOI
-  - A
-  charSyllabes:
-  - p
+  - pa
+  - ra
+  - noi
   - a
-  - r
-  - a
-  - n
-  - o
-  - i
-  - a
-  letters:
-  - p
-  - a
-  - r
-  - a
-  - n
-  - o
-  - i
-  - a
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

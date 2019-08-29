@@ -15,30 +15,18 @@ MonoBehaviour:
   word: abrigo
   itemSprite: {fileID: 0}
   syllables:
-  - A
-  - BRI
-  - GO
-  charSyllabes:
   - a
-  - b
-  - r
-  - i
-  - g
-  - o
-  letters:
-  - a
-  - b
-  - r
-  - i
-  - g
-  - o
+  - bri
+  - go
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

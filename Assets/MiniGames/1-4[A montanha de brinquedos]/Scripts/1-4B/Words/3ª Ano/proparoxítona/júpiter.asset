@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "j\xFApiter"
   itemSprite: {fileID: 0}
   syllables:
-  - "J\xDA"
-  - PI
-  - TER
+  - "j\xFA"
+  - pi
+  - ter
   charSyllabes:
   - j
   - "\xFA"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "j\xFA"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

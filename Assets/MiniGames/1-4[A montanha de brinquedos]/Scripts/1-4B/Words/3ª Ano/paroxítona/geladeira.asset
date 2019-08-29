@@ -15,30 +15,12 @@ MonoBehaviour:
   word: geladeira
   itemSprite: {fileID: 0}
   syllables:
-  - GE
-  - LA
-  - DEI
-  - RA
-  charSyllabes:
-  - g
-  - e
-  - l
-  - a
-  - d
-  - e
-  - i
-  - r
-  - a
-  letters:
-  - g
-  - e
-  - l
-  - a
-  - d
-  - e
-  - i
-  - r
-  - a
+  - ge
+  - la
+  - dei
+  - ra
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1

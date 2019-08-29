@@ -15,31 +15,17 @@ MonoBehaviour:
   word: "pr\xF3tons"
   itemSprite: {fileID: 0}
   syllables:
-  - "PR\xD3"
-  - TONS
-  charSyllabes:
-  - p
-  - r
-  - "\xF3"
-  - t
-  - o
-  - n
-  - s
-  letters:
-  - p
-  - r
-  - "\xF3"
-  - t
-  - o
-  - n
-  - s
+  - "pr\xF3"
+  - tons
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

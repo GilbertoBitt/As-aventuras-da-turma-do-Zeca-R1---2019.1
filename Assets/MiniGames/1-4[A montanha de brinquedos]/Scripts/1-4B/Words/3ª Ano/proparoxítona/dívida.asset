@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "d\xEDvida"
   itemSprite: {fileID: 0}
   syllables:
-  - "D\xCD"
-  - VI
-  - DA
+  - "d\xED"
+  - vi
+  - da
   charSyllabes:
   - d
   - "\xED"
@@ -35,10 +35,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "d\xED"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

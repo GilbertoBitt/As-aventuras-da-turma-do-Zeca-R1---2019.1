@@ -15,27 +15,17 @@ MonoBehaviour:
   word: "s\xF3t\xE3o"
   itemSprite: {fileID: 0}
   syllables:
-  - "S\xD3"
-  - "T\xC3O"
-  charSyllabes:
-  - s
-  - "\xF3"
-  - t
-  - "\xE3"
-  - o
-  letters:
-  - s
-  - "\xF3"
-  - t
-  - "\xE3"
-  - o
+  - "s\xF3"
+  - "t\xE3o"
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

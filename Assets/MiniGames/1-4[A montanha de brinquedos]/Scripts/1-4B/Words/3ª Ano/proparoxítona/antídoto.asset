@@ -15,10 +15,10 @@ MonoBehaviour:
   word: "ant\xEDdoto"
   itemSprite: {fileID: 0}
   syllables:
-  - AN
-  - "T\xCD"
-  - DO
-  - TO
+  - an
+  - "t\xED"
+  - do
+  - to
   charSyllabes:
   - a
   - n
@@ -40,6 +40,7 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "t\xED"
   wordClassification:
     enabled: 1
     classification: 4

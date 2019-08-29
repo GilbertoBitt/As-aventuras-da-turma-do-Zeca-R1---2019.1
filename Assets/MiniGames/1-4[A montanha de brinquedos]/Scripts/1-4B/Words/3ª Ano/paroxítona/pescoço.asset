@@ -15,32 +15,18 @@ MonoBehaviour:
   word: "pesco\xE7o"
   itemSprite: {fileID: 0}
   syllables:
-  - PES
-  - CO
-  - "\xC7O"
-  charSyllabes:
-  - p
-  - e
-  - s
-  - c
-  - o
-  - "\xE7"
-  - o
-  letters:
-  - p
-  - e
-  - s
-  - c
-  - o
-  - "\xE7"
-  - o
+  - pes
+  - co
+  - "\xE7o"
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

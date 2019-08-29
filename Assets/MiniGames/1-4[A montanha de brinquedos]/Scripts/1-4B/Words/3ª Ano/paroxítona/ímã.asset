@@ -15,22 +15,17 @@ MonoBehaviour:
   word: "\xEDm\xE3"
   itemSprite: {fileID: 0}
   syllables:
-  - "\xCDM\xC3"
-  charSyllabes:
   - "\xED"
-  - m
-  - "\xE3"
-  letters:
-  - "\xED"
-  - m
-  - "\xE3"
+  - "m\xE3"
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
-    classification: 1
-    syllableAmount: 0
+    classification: 2
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

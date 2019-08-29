@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "ecol\xF3gico"
   itemSprite: {fileID: 0}
   syllables:
-  - E
-  - CO
-  - "L\xD3"
-  - GI
-  - CO
+  - e
+  - co
+  - "l\xF3"
+  - gi
+  - co
   charSyllabes:
   - e
   - c
@@ -43,9 +43,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "l\xF3"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

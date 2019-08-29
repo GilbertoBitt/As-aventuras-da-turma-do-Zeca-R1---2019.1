@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "b\xE1rbaro"
   itemSprite: {fileID: 0}
   syllables:
-  - "B\xC1R"
-  - BA
-  - RO
+  - "b\xE1r"
+  - ba
+  - ro
   charSyllabes:
   - b
   - "\xE1"
@@ -37,10 +37,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "b\xE1r"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,27 +15,17 @@ MonoBehaviour:
   word: "b\xF4nus"
   itemSprite: {fileID: 0}
   syllables:
-  - "B\xD4"
-  - NUS
-  charSyllabes:
-  - b
-  - "\xF4"
-  - n
-  - u
-  - s
-  letters:
-  - b
-  - "\xF4"
-  - n
-  - u
-  - s
+  - "b\xF4"
+  - nus
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

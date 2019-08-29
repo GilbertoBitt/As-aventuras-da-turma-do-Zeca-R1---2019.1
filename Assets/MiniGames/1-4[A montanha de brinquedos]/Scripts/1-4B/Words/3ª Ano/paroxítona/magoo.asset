@@ -15,27 +15,18 @@ MonoBehaviour:
   word: magoo
   itemSprite: {fileID: 0}
   syllables:
-  - MA
-  - GOO
-  charSyllabes:
-  - m
-  - a
-  - g
+  - ma
+  - go
   - o
-  - o
-  letters:
-  - m
-  - a
-  - g
-  - o
-  - o
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
-    classification: 2
-    syllableAmount: 0
+    classification: 3
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

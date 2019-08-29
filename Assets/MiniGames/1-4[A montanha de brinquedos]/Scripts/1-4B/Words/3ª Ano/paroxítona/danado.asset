@@ -15,30 +15,18 @@ MonoBehaviour:
   word: danado
   itemSprite: {fileID: 0}
   syllables:
-  - DA
-  - NA
-  - DO
-  charSyllabes:
-  - d
-  - a
-  - n
-  - a
-  - d
-  - o
-  letters:
-  - d
-  - a
-  - n
-  - a
-  - d
-  - o
+  - da
+  - na
+  - do
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

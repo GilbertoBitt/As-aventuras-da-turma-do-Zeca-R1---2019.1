@@ -15,27 +15,17 @@ MonoBehaviour:
   word: livro
   itemSprite: {fileID: 0}
   syllables:
-  - LI
-  - VRO
-  charSyllabes:
-  - l
-  - i
-  - v
-  - r
-  - o
-  letters:
-  - l
-  - i
-  - v
-  - r
-  - o
+  - li
+  - vro
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 2
-    syllableAmount: 0
+    syllableAmount: 2
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

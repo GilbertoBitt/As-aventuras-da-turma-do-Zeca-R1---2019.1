@@ -15,30 +15,18 @@ MonoBehaviour:
   word: "cabe\xE7a"
   itemSprite: {fileID: 0}
   syllables:
-  - CA
-  - BE
-  - "\xC7A"
-  charSyllabes:
-  - c
-  - a
-  - b
-  - e
-  - "\xE7"
-  - a
-  letters:
-  - c
-  - a
-  - b
-  - e
-  - "\xE7"
-  - a
+  - ca
+  - be
+  - "\xE7a"
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

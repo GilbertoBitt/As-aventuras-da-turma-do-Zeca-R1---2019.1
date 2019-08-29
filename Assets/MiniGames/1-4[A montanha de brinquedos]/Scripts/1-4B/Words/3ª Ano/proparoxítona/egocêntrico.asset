@@ -15,11 +15,11 @@ MonoBehaviour:
   word: "egoc\xEAntrico"
   itemSprite: {fileID: 0}
   syllables:
-  - E
-  - GO
-  - "C\xCAN"
-  - TRI
-  - CO
+  - e
+  - go
+  - "c\xEAn"
+  - tri
+  - co
   charSyllabes:
   - e
   - g
@@ -47,9 +47,10 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "c\xEAn"
   wordClassification:
     enabled: 1
-    classification: 4
+    classification: 5
     syllableAmount: 5
   alternativeWordsContent:
     enabled: 0

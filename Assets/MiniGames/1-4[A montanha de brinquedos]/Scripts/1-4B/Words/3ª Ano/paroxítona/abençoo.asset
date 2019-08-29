@@ -15,32 +15,19 @@ MonoBehaviour:
   word: "aben\xE7oo"
   itemSprite: {fileID: 0}
   syllables:
-  - A
-  - BEN
-  - "\xC7OO"
-  charSyllabes:
   - a
-  - b
-  - e
-  - n
-  - "\xE7"
+  - ben
+  - "\xE7o"
   - o
-  - o
-  letters:
-  - a
-  - b
-  - e
-  - n
-  - "\xE7"
-  - o
-  - o
+  charSyllabes: []
+  letters: []
   tonicSyllables:
     enabled: 1
     classification: 1
   wordClassification:
     enabled: 1
-    classification: 3
-    syllableAmount: 0
+    classification: 4
+    syllableAmount: 4
   alternativeWordsContent:
     enabled: 0
     alternativeWords:

@@ -15,9 +15,9 @@ MonoBehaviour:
   word: "\xE1libi"
   itemSprite: {fileID: 0}
   syllables:
-  - "\xC1"
-  - LI
-  - BI
+  - "\xE1"
+  - li
+  - bi
   charSyllabes:
   - "\xE1"
   - l
@@ -33,10 +33,11 @@ MonoBehaviour:
   tonicSyllables:
     enabled: 1
     classification: 2
+    silabaTonica: "\xE1"
   wordClassification:
     enabled: 1
     classification: 3
-    syllableAmount: 0
+    syllableAmount: 3
   alternativeWordsContent:
     enabled: 0
     alternativeWords:
