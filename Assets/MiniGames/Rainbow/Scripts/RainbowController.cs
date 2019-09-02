@@ -22,6 +22,7 @@ public class RainbowController : OverridableMonoBehaviour {
 	[FoldoutGroup("Geral")] public GameObject itemDisplay;
 	[FoldoutGroup("Geral")] public VoidEvent displayItemEvent;
 	[FoldoutGroup("Geral")] public VoidEvent hideItemEvent;
+	[FoldoutGroup("Geral")] public int idGameDidatico1Ano;
 
 	public SelPersons SelPersons;
 	public GameObject panelDesafio;
@@ -1497,7 +1498,7 @@ public class RainbowController : OverridableMonoBehaviour {
 					scorePegagogica += 50;
 					parabensText.text = "Acertou! \b +50 Pontos";
 					log.AddPontosPedagogica (50);
-					log.SaveEstatistica (4, idDificuldade, true);
+					log.SaveEstatistica (idGameDidatico1Ano, idDificuldade, true);
 					if (panelAcerto.activeInHierarchy == true) {
                         parabensAnim.enabled = true;
                         parabensAnim.SetInteger ("acertoErro",1);
@@ -1525,7 +1526,7 @@ public class RainbowController : OverridableMonoBehaviour {
 					next ();
 					//parabensText.text = "Errou! \n O certo era " +  itensToCount [currentIndexedItem].amount.ToString();
 					parabensText.text = "Errou! \n O certo era " +  itensToCount [oldIndexItem].amount;
-					log.SaveEstatistica (4, idDificuldade, false);
+					log.SaveEstatistica (idGameDidatico1Ano, idDificuldade, false);
 					//Handheld.Vibrate();
 					if (panelAcerto.activeInHierarchy == true){
                         parabensAnim.enabled = true;

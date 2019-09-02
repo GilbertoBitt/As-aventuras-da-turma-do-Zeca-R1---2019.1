@@ -23,6 +23,11 @@ using UnityEngine.UI;
 public class Manager1_4B : OverridableMonoBehaviour
 {
 
+    [TabGroup("1ª Ano")] public int idGameDidatico1Ano1;
+    [TabGroup("1ª Ano")] public int idGameDidatico1Ano2;
+    [TabGroup("2ª Ano")] public int idGameDidatico2Ano;
+    [TabGroup("3ª Ano")] public int idGameDidatico3Ano;
+
     [BoxGroup("Tutorial Config")] public DialogComponent dialogComponent;
     [BoxGroup("Tutorial Config")]
     [TabGroup("1ª Ano")]
@@ -596,6 +601,7 @@ public class Manager1_4B : OverridableMonoBehaviour
             else
             {
                 highlight.startCerto("Palavra correta!");
+                log.SaveEstatistica(idGameDidatico2Ano, Skill2Year.id, 1, true);
                 //Efeito de acerto e texto
                 ReturnToInitConfiguration();
             }
@@ -621,6 +627,7 @@ public class Manager1_4B : OverridableMonoBehaviour
                 wrongWordsValue.Value++;
                 _soundManager.startSoundFX(audios[1]);
                 highlight.startErrado("Palavra Errada!");
+                log.SaveEstatistica(idGameDidatico2Ano, Skill2Year.id, 1, false);
                 Debug.Log($"Palavra invalida [{playerGuessWord}]");
             }
             ReturnToInitConfiguration();
@@ -897,11 +904,13 @@ public class Manager1_4B : OverridableMonoBehaviour
 
             _soundManager.startSoundFX(audios[0]);
             highlight.startCerto("Silába tônica correta!");
+            log.SaveEstatistica(idGameDidatico3Ano, Skill3Year.id,idDificuldade = 1, true);
         }
         else
         {
             _soundManager.startSoundFX(audios[1]);
             highlight.startErrado("Você errou... que pena!");
+            log.SaveEstatistica(idGameDidatico3Ano, Skill3Year.id, idDificuldade = 1,false);
         }
 
         completeWordTextComponent.DOFade(0f, .3f);
@@ -1055,7 +1064,7 @@ public class Manager1_4B : OverridableMonoBehaviour
         if (string.Equals(fullPlayerWordGuess, currentWord.word, StringComparison.CurrentCultureIgnoreCase))
         {
             //Acertou a palavra.
-            log.SaveEstatistica(9, 1, true);
+            log.SaveEstatistica(idGameDidatico1Ano1, 1, true);
             _soundManager.startSoundFX(audios[0]);
             highlight.startCerto("Parabéns! Você acertou!");
             scoreController.amountValue.Value += amountScorePerCorrectSyllabes;
@@ -1066,7 +1075,7 @@ public class Manager1_4B : OverridableMonoBehaviour
         else
         {
             //Errou a palavra.
-            log.SaveEstatistica(9, 1, false);
+            log.SaveEstatistica(idGameDidatico1Ano1, 1, false);
             _soundManager.startSoundFX(audios[1]);
             
             highlight.startErrado("Você errou! O correto era: " + ToTitleCase(currentWord.word) + string.Empty);
@@ -1085,7 +1094,7 @@ public class Manager1_4B : OverridableMonoBehaviour
         if (string.Equals(fullPlayerWordGuess, currentWord.word, StringComparison.CurrentCultureIgnoreCase))
         {
             //Acertou a palavra.
-            log.SaveEstatistica(9, 1, true);
+            log.SaveEstatistica(idGameDidatico1Ano1, Skill1Year.id,  1, true);
             _soundManager.startSoundFX(audios[0]);
             highlight.startCerto("Parabéns! Você acertou!");
 //                textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
@@ -1097,7 +1106,7 @@ public class Manager1_4B : OverridableMonoBehaviour
         else
         {
             //Errou a palavra.
-            log.SaveEstatistica(9, 1, false);
+            log.SaveEstatistica(idGameDidatico1Ano1, Skill1Year.id, 1, false);
             _soundManager.startSoundFX(audios[1]);
             highlight.startErrado("Você errou! O correto era: " + ToTitleCase(currentWord.word) + string.Empty);
             currentRound++;
@@ -1114,7 +1123,7 @@ public class Manager1_4B : OverridableMonoBehaviour
             _soundManager.startSoundFX(audios[0]);
 //                textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
             scoreController.amountValue.Value += amountScorePerCorrectSyllabes;
-            log.SaveEstatistica(10, 1, true);
+            log.SaveEstatistica(idGameDidatico1Ano2, Skill1Year.id, 1, true);
             highlight.startCerto("Parabéns! Você acertou!");
             currentGameState.Value = GameState.MainStateAlternate;
             EndRoutineTwo();
@@ -1123,7 +1132,7 @@ public class Manager1_4B : OverridableMonoBehaviour
         {
             //errou o numero de letras.
             _soundManager.startSoundFX(audios[1]);
-            log.SaveEstatistica(10, 1, true);
+            log.SaveEstatistica(idGameDidatico1Ano2,Skill1Year.id, 1, true);
             highlight.startErrado("Você errou o certo era: " + currentWord.CountSyllables);
             currentGameState.Value = GameState.MainStateAlternate;
             EndRoutineTwo();
@@ -1138,7 +1147,7 @@ public class Manager1_4B : OverridableMonoBehaviour
             _soundManager.startSoundFX(audios[0]);
 //                textScoreComp.DOTextInt(scoreAmount, (scoreAmount + amountScorePerCorrectSyllabes), 0.5f);
             scoreController.amountValue.Value += amountScorePerCorrectSyllabes;
-            log.SaveEstatistica(10, 1, true);
+            log.SaveEstatistica(idGameDidatico1Ano2,Skill1Year.id, 1, true);
             highlight.startCerto("Parabéns! Você acertou!");
             currentGameState.Value = _isNextRound ? GameState.MainStateAlternate : GameState.MainState;
             EndRoutineTwo();
@@ -1147,7 +1156,7 @@ public class Manager1_4B : OverridableMonoBehaviour
         {
             //errou o numero de letras.
             _soundManager.startSoundFX(audios[1]);
-            log.SaveEstatistica(10, 1, true);
+            log.SaveEstatistica(idGameDidatico1Ano2,Skill1Year.id, 1, true);
             highlight.startErrado("Você errou o certo era: " + currentWord.CountLetters);
             currentGameState.Value = _isNextRound ? GameState.MainStateAlternate : GameState.MainState;
             EndRoutineTwo();

@@ -18,6 +18,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 {
 	[TabGroup("Geral")] public GameConfig config => GameConfig.Instance;
 	[TabGroup("Geral")] public int anoLetivo;
+	[TabGroup("1ª Ano")] public int idGameDidatico1Ano;
 	[TabGroup("1ª Ano")] public HabilidadeBNCCInfo Habilidade1;
 
 	[TabGroup("1ª Ano")] public HabilidadeBNCCInfo Habilidade1_2;
@@ -25,6 +26,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 	[TabGroup("1ª Ano")] public int maxRandom1;
 	[TabGroup("1ª Ano")] public int scoreAmount1;
 	[TabGroup("1ª Ano")] public int scoreAmountBonus1;
+	[TabGroup("1ª Ano")] public int idGameDidatico2Ano;
 	[TabGroup("2ª Ano")] public Dictionary<SpacialForms, List<Sprite>> spatialFormsSprites = new Dictionary<SpacialForms, List<Sprite>>();
 
 	[TabGroup("2ª Ano")] public SpacialForms selectedForm = SpacialForms.None;
@@ -34,6 +36,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 	[TabGroup("2ª Ano")] public int scoreAmount2;
 	[TabGroup("2ª Ano")] public int scoreAmountBonus2;
 
+	[TabGroup("1ª Ano")] public int idGameDidatico3Ano;
 	[TabGroup("3ª Ano")] public List<Color> Colors;
 	[TabGroup("3ª Ano")] public HabilidadeBNCCInfo Habilidade3;
 	[TabGroup("3ª Ano")] public int minRandom3;
@@ -235,19 +238,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 		checkpanelDes=false;
 		fadeImage.gameObject.SetActive(true);
 		fadeImage.DOFade(1f, fadeInDuration).SetEase(fadeInCurve);
-//		float times = 0.0f;
-//		if(fadeImage.color == Color.black){
-//			while (times < fadeInDuration)
-//			{
-//				times += Time.deltaTime;
-//				float s = times / fadeInDuration;
-//
-//				fadeImage.color = Color.Lerp (new Color (1f, 1f, 1f, 0f), Color.black, fadeInCurve.Evaluate (s));
-//
-//				yield return Timing.WaitForOneFrame;
-//
-//			}
-//		}
+		
 		int temp = 0;
 		var session = sessionsConfig[dificult];
 		if (anoLetivo == 3)
@@ -1094,13 +1085,13 @@ public class Manager_1_2B : OverridableMonoBehaviour
 						//scoreAmount += 10;
 						scoreTemp += scoreAmount1;
 						tempCorrects++;
-						log.SaveEstatistica (2, 1, true);
+						log.SaveEstatistica (idGameDidatico1Ano, 1, true);
 						//Debug.Log("Certo!!");
 					} else {
 						//panelCircles[i].outlineImage.effectColor =  wrongColor;
 						//panelCircles[i].correctCompImage.sprite = wrongCheckSprite;
 						//panelCircles[i].correctCompImage.color = Color.white;
-						log.SaveEstatistica (2, 1, false);
+						log.SaveEstatistica (idGameDidatico1Ano, 1, false);
 						//Debug.Log("Errado!!");
 					}
 					break;
@@ -1110,7 +1101,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 						scoreTemp += scoreAmount2;
 						tempCorrects++;
 					}
-					log.SaveEstatistica (2, 1, panelCircles[i].placeOfItem.spacialForm == selectedForm);
+					log.SaveEstatistica (idGameDidatico2Ano, 1, panelCircles[i].placeOfItem.spacialForm == selectedForm);
 					break;
 				case 3:
 					var session = sessionsConfig[dificult];
@@ -1124,7 +1115,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 								scoreTemp += scoreAmount3;
 								tempCorrects++;
 							}
-							log.SaveEstatistica (2, 1, isRighted);
+							log.SaveEstatistica (idGameDidatico3Ano, 1, isRighted);
 							break;
 						case RandomizationType.Vertices:
 							isRighted = panelCircles[i].placeOfItem.planeObject.numberOfVertices == numberOfVertices;
@@ -1133,7 +1124,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 								scoreTemp += scoreAmount3;
 								tempCorrects++;
 							}
-							log.SaveEstatistica (2, 1, isRighted);
+							log.SaveEstatistica (idGameDidatico3Ano, 1, isRighted);
 							break;
 						case RandomizationType.SidesDiferentSize:
 							isRighted = panelCircles[i].placeOfItem.planeObject.allSidesDiferentSizes;
@@ -1142,7 +1133,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 								scoreTemp += scoreAmount3;
 								tempCorrects++;
 							}
-							log.SaveEstatistica (2, 1, isRighted);
+							log.SaveEstatistica (idGameDidatico3Ano, 1, isRighted);
 							break;
 						case RandomizationType.SidesSameSize:
 							isRighted = panelCircles[i].placeOfItem.planeObject.allSidesSameSizes;
@@ -1151,7 +1142,7 @@ public class Manager_1_2B : OverridableMonoBehaviour
 								scoreTemp += scoreAmount3;
 								tempCorrects++;
 							}
-							log.SaveEstatistica (2, 1, isRighted);
+							log.SaveEstatistica (idGameDidatico3Ano, 1, isRighted);
 							break;
 					}
 					break;

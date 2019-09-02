@@ -24,11 +24,15 @@ public class Manager1_3B : OverridableMonoBehaviour {
 	[TabGroup("Tutorial 3ª ano")] public DialogInfo tutorialYear3;
 
 	public Button habilidadeInfoButton;
+	[FoldoutGroup("1ª Ano")] public int idGameDidatico1Ano;
 	[FoldoutGroup("1ª Ano")] public List<ItemWord1_3b> allWordsOfList;
+	
 
 	[FoldoutGroup("1ª Ano")] public List<ItemWord1_3b> choosenWords;
 	[FoldoutGroup("1ª Ano")] public HabilidadeBNCCInfo habilidade1;
+	[FoldoutGroup("2ª Ano")] public int idGameDidatico2Ano;
 	[FoldoutGroup("2ª Ano")] public HabilidadeBNCCInfo habilidade2;
+	[FoldoutGroup("3ª Ano")] public int idGameDidatico3Ano;
 	[LabelText("Frases")]
 	[FoldoutGroup("3ª Ano")]
 	[AssetList(Path = "MiniGames/1-3 [A vacina do Leite Materno]/SO/3ª Ano/")]
@@ -523,7 +527,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 
 	        });
             Invoke("CorrectionSucess", 0.6f);
-            _log.SaveEstatistica(3, 1, true);
+            _log.SaveEstatistica(anoLetivo == 1 ? idGameDidatico1Ano : anoLetivo == 2 ? idGameDidatico2Ano : idGameDidatico3Ano, 1, true);
             userChoiseFood.StartCorrectcenter (gotoCenterDelay);
 			Timing.KillCoroutines ("IncreaseEffectScore");
 //			Timing.RunCoroutine (scoreIncrease (scoreAmountPerRight), "IncreaseEffectScore");
@@ -531,7 +535,7 @@ public class Manager1_3B : OverridableMonoBehaviour {
 
         } else {
             Invoke("CorrectionFail", 0.6f);
-            _log.SaveEstatistica(3, 1, false);
+            _log.SaveEstatistica(anoLetivo == 1 ? idGameDidatico1Ano : anoLetivo == 2 ? idGameDidatico2Ano : idGameDidatico3Ano, 1, false);
             rightBubbleFood.StartCorrectcenter (gotoCenterDelay);
 			userChoiseFood.MakeItRed ();
         }

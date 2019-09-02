@@ -30,6 +30,7 @@ public class Manager_1_1B : MonoBehaviour
 	public GameObject[] partsCards2;
 	public GameObject partCards2;
 	public MemoryGameManager cardManager;
+	[TabGroup("1ª Ano")] public int idGameDidatico1Ano;
 	[TabGroup("1ª Ano")]
 	public CardRandomizationGroup cardGroup;
 	[TabGroup("1ª Ano")]
@@ -125,7 +126,7 @@ public class Manager_1_1B : MonoBehaviour
 	public int idHabilidade;
 	public int idDificuldade;
 	public LogSystem LOG;
-	
+	[TabGroup("2ª Ano")] public int idGameDidatico2Ano;
 	[TabGroup("2ª Ano")]
 	[LabelText("Card Group 2ª Ano")]
 	public CardRandomizationGroup cardGroup2Ano;
@@ -155,6 +156,7 @@ public class Manager_1_1B : MonoBehaviour
 	public int scorePerRight2;
 	[LabelText("Habilidade")][TabGroup("2ª Ano")] public HabilidadeBNCCInfo Habilidade2;
 	
+	[TabGroup("3ª Ano")] public int idGameDidatico3Ano;
 	[TabGroup("3ª Ano")]
 	[LabelText("Card Group 3ª Ano")]
 	public CardRandomizationGroupAlternative cardGroup3Ano;
@@ -380,14 +382,14 @@ public class Manager_1_1B : MonoBehaviour
 			if(dropCards[i].characterSprite.idItem != dropCards[i].cardDraged.characterSprite.idItem){
 				dropCards[i].thisoutline.effectColor = RedColor;
 				if (LOG != null) {
-					LOG.SaveEstatistica (1, 1, false);
+					LOG.SaveEstatistica (anoLetivo == 1 ? idGameDidatico1Ano : anoLetivo == 2 ? idGameDidatico2Ano : idGameDidatico3Ano, 1, false);
 				}
 			} else {
 				dropCards[i].thisoutline.effectColor = GreenColor;
 
 				if (LOG != null) {
 					
-					LOG.SaveEstatistica (1, 1, true);
+					LOG.SaveEstatistica (anoLetivo == 1 ? idGameDidatico1Ano : anoLetivo == 2 ? idGameDidatico2Ano : idGameDidatico3Ano, 1, true);
 				}
 			}
 			dropCards[i].thisoutline.enabled = true;

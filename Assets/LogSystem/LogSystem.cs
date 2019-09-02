@@ -147,6 +147,29 @@ public class LogSystem : OverridableMonoBehaviour {
 	{
 		Timing.RunCoroutine(SaveStatisticaCoroutine(_idGameDidatico, _idGameDidatico, _isRight));
 	}
+	public void SaveEstatistica(int _idGameDidatico, int habilidade, int _idDificuldade, bool _isRight)
+	{
+		Timing.RunCoroutine(SaveStatisticaCoroutine(_idGameDidatico, habilidade,_idGameDidatico, _isRight));
+	}
+	
+	private IEnumerator<float> SaveStatisticaCoroutine(int _idGameDidatico, int habilidade, int _idDificuldade, bool isRight)
+	{
+		var statisticTemp = new DBOESTATISTICA_DIDATICA{
+			acertou = (isRight) ? 1 : 0,
+			idDificuldade = _idDificuldade,
+			idGameDidatico = _idGameDidatico,
+			idHabilidade = habilidade,
+			idMinigame = idMinigame,
+			online = EduqbrinqLogger.Instance.IsOnlineInt,
+			dataInsert = GameConfig.Instance.ReturnCurrentDate()
+		};
+		if (GameConfig.Instance.currentUser != null) {
+			statisticTemp.idUsuario = GameConfig.Instance.currentUser.idUsuario;
+		}
+		statistics.Add(statisticTemp);
+		yield return Timing.WaitForOneFrame;
+	}
+
 
 	private IEnumerator<float> SaveStatisticaCoroutine(int _idGameDidatico, int _idDificuldade, bool isRight)
 	{

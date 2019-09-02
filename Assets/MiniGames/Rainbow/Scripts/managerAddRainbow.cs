@@ -27,6 +27,7 @@ public class managerAddRainbow : MonoBehaviour
 
 	[FoldoutGroup("Geral")]
 	public InfoSkillWindow infoSkillInfo;
+	[FoldoutGroup("1ª Ano")] public int idGameDidatico1Ano;
 	[FoldoutGroup("1ª Ano")] public GameObject panelAnoLetivoOne;
 	[FoldoutGroup("1ª Ano")] public GroupLayoutContentManagerComponent[] groupContent;
 	[FoldoutGroup("1ª Ano")] public RainbowItem[] rainbowItems;
@@ -44,7 +45,9 @@ public class managerAddRainbow : MonoBehaviour
 	[FoldoutGroup("1ª Ano")] public TextMeshProUGUI resultValueTextComponent;
 	[FoldoutGroup("1ª Ano")] public Button[] alternativeButtons;
 	[FoldoutGroup("1ª Ano")] public HabilidadeBNCCInfo habilidade1Ano;
+	[FoldoutGroup("2ª Ano")] public int idGameDidatico2Ano;
 	[FoldoutGroup("2ª Ano")] public HabilidadeBNCCInfo habilidade2Ano;
+	[FoldoutGroup("3ª Ano")] public int idGameDidatico3Ano;
 	[FoldoutGroup("3ª Ano")] public MultiplyInAddition multiplyInAdditionComponent;
 	[FoldoutGroup("3ª Ano")] public TextMeshProUGUI resultOfAdditionTextComponent;
 	[FoldoutGroup("3ª Ano")] public TextMeshProUGUI resultOfMultiplyTextComponent;
@@ -409,7 +412,7 @@ public class managerAddRainbow : MonoBehaviour
         if (isRight) {
 			congratsText.text = "Acertou! \b +30 Pontos";
 			//rainbowController.GameConfig.didaticaStatic(true, idHabilidade, idDificuldade, idMinigame);
-			log.SaveEstatistica (idHabilidade, idDificuldade, true);
+			log.SaveEstatistica (anoLetivo == 1 ? idGameDidatico1Ano : anoLetivo == 2 ? idGameDidatico2Ano : idGameDidatico3Ano, idDificuldade, true);
 			log.AddPontosPedagogica (30);
             scoreAmount += 30;
             scoreDidatica += 30;           
@@ -419,7 +422,7 @@ public class managerAddRainbow : MonoBehaviour
 		} else {
 			congratsText.text = "Errou! \n O certo era " +  rightResult.ToString();
 			//rainbowController.GameConfig.didaticaStatic(false, idHabilidade, idDificuldade, idMinigame);
-			log.SaveEstatistica (idHabilidade, idDificuldade, false);
+			log.SaveEstatistica (anoLetivo == 1 ? idGameDidatico1Ano : anoLetivo == 2 ? idGameDidatico2Ano : idGameDidatico3Ano, idDificuldade, false);
             congratsAnimator.SetInteger (acertoErrohash,2);
             soundManager.startSoundFX(erroAudioClip);
             //Debug.Log("2dt");
