@@ -65,4 +65,35 @@ public static class DatabaseExtensions
         form.AddField("idUsuarioOnline", UserInfo.id);
         return form;
     }
+    
+    public static WWWForm ToForm(this DBOGAMES_LOGS log, (string token, int id, int gameId, int clientId) UserInfo)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("token", UserInfo.token);
+        form.AddField("idUsuario", log.idUsuario);
+        form.AddField("idGame", log.versao);
+        form.AddField("dataAcesso", log.dataAcesso);
+        form.AddField("online", 0);
+        form.AddField("versao", log.versao);
+        form.AddField("deviceID", log.deviceID);
+        form.AddField("idUsuarioOnline", UserInfo.id);
+        return form;
+    }
+    
+    public static WWWForm ToForm(this DBOINVENTARIO inventory, (string token, int id, int gameId, int clientId) UserInfo)
+    {
+        
+        DBOITENS item = GameConfig.Instance.OpenDb().GetItemStore((inventory.idItem));
+        WWWForm form = new WWWForm();
+        
+        form.AddField("idUsuario", inventory.idUsuario);
+        form.AddField("idItem", inventory.idItem);
+        form.AddField("quantidade", inventory.deviceQuantity);
+        form.AddField("ativo", inventory.ativo);
+        form.AddField("deviceID", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("valor", item.valor);
+        form.AddField("token", UserInfo.token);
+        form.AddField("idUsuarioOnline", UserInfo.id);
+        return form;
+    }
 }

@@ -169,6 +169,7 @@ public class gameSelection : MonoBehaviour {
         PlayerPrefs.SetString("PlayerLastLogin", "");
         PlayerPrefs.DeleteKey("PlayerProfile");
         PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene ($"LowSceneLoad");
     }
 
 	

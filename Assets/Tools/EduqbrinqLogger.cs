@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using com.csutil;
 using Sirenix.OdinInspector;
@@ -75,6 +76,16 @@ public class EduqbrinqLogger : MonoBehaviour
         }
         _config.OpenDb().UpdateRanking(rank).ToCoroutine();
     }
+    
+    async UniTask SendRequestSync(UnityWebRequest req, DBOINVENTARIO inv)
+    {
+        var op = await req.SendWebRequest();
+        if (IsValidRequest(op))
+        {
+            inv.online = 1;
+        }
+        _config.OpenDb().SetInventario(inv);
+    }
 
     public void UpdateDatabase(DBORANKING updatedRank)
     {
@@ -99,14 +110,30 @@ public class EduqbrinqLogger : MonoBehaviour
 
     public async UniTask SendRequest(List<DBOPONTUACAO> logs)
     {
+        await UniTask.SwitchToThreadPool();
         var toSend = new List<UniTask>();
         foreach (var log in logs)
         {
             toSend.Add(SendRequestSync(
-                UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setRanking",
+                UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setPontuacao",
                     log.ToForm(UserInfo)), log));
         }
         await UniTask.WhenAll(toSend);
+        await UniTask.SwitchToMainThread();
+    }
+    
+    public async UniTask SendRequest(List<DBOINVENTARIO> inventories)
+    {
+        await UniTask.SwitchToThreadPool();
+        var toSend = new List<UniTask>();
+        foreach (var inventory in inventories)
+        {
+            toSend.Add(SendRequestSync(
+                UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ2/setInventario",
+                    inventory.ToForm(UserInfo)), inventory));
+        }
+        await UniTask.WhenAll(toSend);
+        await UniTask.SwitchToMainThread();
     }
 
     async UniTask SendRequestSync(UnityWebRequest req, DBOPONTUACAO score)
@@ -182,7 +209,7 @@ public class EduqbrinqLogger : MonoBehaviour
 
     async UniTask SendLogs(EduqbringLogGameInfo info)
     {
-        await UniTask.WhenAll(SendEstatisticas(info.Estatisticas),
+        await UniTask.WhenAll(SendRequest(info.Estatisticas),
             GameLog(
                 UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setJogosLogs", info.GameLog.ToForm(UserInfo)), info.GameLog));
     }
@@ -225,17 +252,46 @@ public class EduqbrinqLogger : MonoBehaviour
 
     async UniTask GameLog(UnityWebRequest req, DBOESTATISTICA_DIDATICA estatistica)
     {
-        var op = await req.SendWebRequest();
-        if (IsValidRequest(op))
+        if (GameConfig.Instance.isOn)
         {
-            estatistica.online = 1;
+            var op = await req.SendWebRequest();
+            estatistica.online = IsValidRequest(op) ? 1 : 0;
+        }
+        else
+        {
+            estatistica.online = 0;
         }
         _config.OpenDb().InsertLogAsync(estatistica).ToCoroutine();
 //        Log.d($"Sended or Saved Sucess of [DBOESTATISTICA_DIDATICA]: {JsonWriter.GetWriter().Write(estatistica)}");
     }
     
-
-    async UniTask SendEstatisticas(List<DBOESTATISTICA_DIDATICA> estatisticas)
+    async UniTask GameLog(UnityWebRequest req, DBOGAMES_LOGS estatistica)
+    {
+        if (GameConfig.Instance.isOn)
+        {
+            var op = await req.SendWebRequest();
+            estatistica.online = IsValidRequest(op) ? 1 : 0;
+        }
+        else
+        {
+            estatistica.online = 0;
+        }
+        _config.OpenDb().InsertDBOGAMES_LOG(estatistica);
+    }
+    
+    public async UniTask SendRequest(List<DBOESTATISTICA_DIDATICA> estatisticas)
+    {
+        var toSend = new List<UniTask>();
+        foreach (var estatistica in estatisticas)
+        {
+            toSend.Add(GameLog(
+                UnityWebRequest.Post("https://api.eduqbrinq.com.br/eduqbrinqApi01/EduqbrinqAZ/setEstatisticaDidatica",
+                    estatistica.ToForm(UserInfo)), estatistica));
+        }
+        await UniTask.WhenAll(toSend);
+    }
+    
+    public async UniTask SendRequest(List<DBOGAMES_LOGS> estatisticas)
     {
         var toSend = new List<UniTask>();
         foreach (var estatistica in estatisticas)
@@ -251,6 +307,22 @@ public class EduqbrinqLogger : MonoBehaviour
 
     public static bool IsOnline => Application.internetReachability != NetworkReachability.NotReachable;
     public int IsOnlineInt => IsOnline ? 1 : 0;
+
+    public async UniTask SendOfflineData(List<DBOMINIGAMES_LOGS> minigamesLogs, List<DBORANKING> rankings, List<DBOESTATISTICA_DIDATICA> estatisticasDidaticas, List<DBOGAMES_LOGS> gamesLogs, List<DBOPONTUACAO> pontuacoes, List<DBOINVENTARIO> inventarios)
+    {
+        var tasks = new List<UniTask>
+        {
+            SendRequest(minigamesLogs),
+            SendRequest(rankings),
+            SendRequest(estatisticasDidaticas),
+            SendRequest(gamesLogs),
+            SendRequest(pontuacoes),
+            SendRequest(inventarios)
+        };
+
+        await UniTask.WhenAll(tasks);
+        
+    }
 }
 
 

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
@@ -29,6 +30,12 @@ public class networkHelper {
     public static event Action<bool, string, string> LoginFailedEvent;
     public StartSceneManager startScene;
     public void NetworkVeryfier(GameConfig configs) {
+        
+#if UNITY_ANDROID || UNITY_IOS 
+            
+#else
+#endif
+        
         configs.isVerifingNetwork = true;
 
         switch (Application.internetReachability)
@@ -45,7 +52,6 @@ public class networkHelper {
         }
         configs.isVerifingNetwork = false;
     }
-
     
 
     #region dboSync
@@ -254,51 +260,24 @@ public class networkHelper {
         startScene.MessageStatus("Sincronizando Game");
 
         DataService ds = GameConfig.Instance.OpenDb();
-        List<DBOMINIGAMES_LOGS> _logToSend = ds.GetAllMinigamesLog();
-//        yield return Timing.WaitForSeconds(0.1f);
-//        if (_logToSend.Count >= 1) {
-//            yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetJogosLogs(_logToSend)));
-//        }
-
+        List<DBOMINIGAMES_LOGS> _logToSend = ds.GetAllMinigamesLog().FindAll(x => x.online == 0);
         var eduqbrinq = EduqbrinqLogger.Instance;
+        startScene.MessageStatus("Sincronizando Logs");
         eduqbrinq.SendRequest(_logToSend).GetAwaiter();
-
-        
         
         int countTemp = 0;
         List<DBORANKING> _rankToSend = ds.GetAllOfflineRanks();
-//        yield return Timing.WaitForSeconds(0.1f);
-//        countTemp = _rankToSend.Count;
-//        if (countTemp >= 1 && config.isOnline) {
-//            startScene.MessageStatus("Sincronizando Ranking");
-//            do {
-//
-//                yield return Timing.WaitUntilDone(Timing.RunCoroutine(setRanking(_rankToSend[0], _rankToSend)));
-//                yield return Timing.WaitForSeconds(0.1f);
-//
-//            } while (_rankToSend.Count >= 1 && config.isOnline);
-//        }
         eduqbrinq.SendRequest(_rankToSend).GetAwaiter();
 
-
-        List<DBOESTATISTICA_DIDATICA> _statisticaToSend = ds.GetAllStatisticDidatica();
+        List<DBOESTATISTICA_DIDATICA> _statisticaToSend = ds.GetAllStatisticDidatica().FindAll(x => x.online == 0);
         yield return Timing.WaitForSeconds(0.1f);
-        countTemp = _statisticaToSend.Count;
+        startScene.MessageStatus("Sincronizando Estatisticas");
+        eduqbrinq.SendRequest(_statisticaToSend).GetAwaiter();
 
-        if (countTemp >= 1 && config.isOn) {
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetEstatisticasDidaticas(_statisticaToSend)));
-        }
-
-        List<DBOGAMES_LOGS> _logsGames = ds.GetAllGamesLOG();
+        List<DBOGAMES_LOGS> _logsGames = ds.GetAllGamesLOG().FindAll(x => x.online == 0);
         yield return Timing.WaitForSeconds(0.1f);
-        countTemp = _logsGames.Count;
-        if (countTemp >= 1 && config.isOn) {
-            startScene.MessageStatus("Sincronizando Estatísticas");
-            do {
-                yield return Timing.WaitUntilDone(Timing.RunCoroutine(SendGamesLog(_logsGames[0], _logsGames)));
-                yield return Timing.WaitForSeconds(0.1f);
-            } while (config.isOn && _logsGames.Count > 0);
-        }
+        startScene.MessageStatus("Sincronizando Logs Game");
+        eduqbrinq.SendRequest(_logsGames).GetAwaiter();
 
         List<DBOPONTUACAO> userScoreUpdates = ds.GetallScoresOffline();
         yield return Timing.WaitForSeconds(0.1f);
@@ -308,16 +287,10 @@ public class networkHelper {
 
         List<DBOINVENTARIO> userInventoryUdpdate = ds.GetAllInventory();
         yield return Timing.WaitForSeconds(0.1f);
+        
+        startScene.MessageStatus("Sincronizando Inventarios");
 
-        countTemp = userInventoryUdpdate.Count;
-        if (countTemp >= 1 && config.isOn) {
-            startScene.MessageStatus("Sincronizando Inventário");
-            do {
-                DBOITENS item = config.OpenDb().GetItemStore((userInventoryUdpdate[0].idItem));
-                yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetInventario(userInventoryUdpdate[0], userInventoryUdpdate, item.valor)));
-                yield return Timing.WaitForSeconds(0.1f);
-            } while (userInventoryUdpdate.Count >= 1 && config.isOn);
-        }
+        eduqbrinq.SendRequest(userInventoryUdpdate).GetAwaiter();
 
     }
 
@@ -675,7 +648,7 @@ public class networkHelper {
         isDoingOperation = false;
     }
 
-    IEnumerator<float> setRanking(DBORANKING rankLog, List<DBORANKING> _list) {
+    /*IEnumerator<float> setRanking(DBORANKING rankLog, List<DBORANKING> _list) {
         isDoingOperation = true;
         WWWForm form = new WWWForm();
         form.AddField("token", token);
@@ -713,7 +686,7 @@ public class networkHelper {
         }
         request.Dispose();
         isDoingOperation = false;
-    }
+//    }*/
     
 
     public void RunsetPontuacao(DBOPONTUACAO score, string token) {

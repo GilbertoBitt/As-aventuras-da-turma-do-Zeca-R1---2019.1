@@ -1,6 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using TMPro;
+using UniRx;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour {
 
@@ -17,6 +21,12 @@ public class PauseManager : MonoBehaviour {
 	public UnityEvent OnPauseMenuClose;
     public SoundManager soundManager;
     public AudioClip audio1;
+
+    [Header("Clear Cache Settings")]
+    public Button buttonConfirm;
+    public Button buttonDecline;
+    public GameObject panelCacheCleaner;
+    public TextMeshProUGUI warningTextComponent;
 
     public void SomBT() {
         if (soundManager == null) {
@@ -130,6 +140,59 @@ public class PauseManager : MonoBehaviour {
 	public void ClearCache()
 	{
 		GameConfig.Instance.OpenDb().CloseConnection();
+	}
+
+	public void ShowCacheConfirmWindow()
+	{
+		var ds = GameConfig.Instance.OpenDb();
+		
+		//Get all offline Logs.
+		var _logToSend = ds.GetAllMinigamesLog().FindAll(x => x.online == 0);
+		var _rankToSend = ds.GetAllOfflineRanks();
+		var _statisticaToSend = ds.GetAllStatisticDidatica().FindAll(x => x.online == 0);
+		var _logsGames = ds.GetAllGamesLOG().FindAll(x => x.online == 0);
+		var userScoreUpdates = ds.GetallScoresOffline();
+		var userInventoryUdpdate = ds.GetAllInventory();
+
+		var informationToSync = _logsGames.Count + _rankToSend.Count + _statisticaToSend.Count + _logsGames.Count +
+		                        userScoreUpdates.Count + userInventoryUdpdate.Count;
+		
+		warningTextComponent.text = $"Existem {informationToSync} informações salvas offline esperando para serem sincronizadas. Aguarde um momento e não desconecte-se da internet.";
+		buttonConfirm.OnClickAsObservable().TakeUntilDisable(buttonConfirm).Subscribe(_ =>
+		{
+			EduqbrinqLogger.Instance.SendOfflineData(_logToSend, _rankToSend, _statisticaToSend, _logsGames, userScoreUpdates, userInventoryUdpdate).GetAwaiter().OnCompleted(
+				() =>
+				{
+					
+					_logToSend = ds.GetAllMinigamesLog().FindAll(x => x.online == 0);
+					_rankToSend = ds.GetAllOfflineRanks();
+					_statisticaToSend = ds.GetAllStatisticDidatica().FindAll(x => x.online == 0);
+					_logsGames = ds.GetAllGamesLOG().FindAll(x => x.online == 0);
+					userScoreUpdates = ds.GetallScoresOffline();
+					userInventoryUdpdate = ds.GetAllInventory();
+					
+					informationToSync = _logsGames.Count + _rankToSend.Count + _statisticaToSend.Count + _logsGames.Count +
+					                    userScoreUpdates.Count + userInventoryUdpdate.Count;
+
+					if (informationToSync <= 0 && !GameConfig.Instance.isOn)
+					{
+						PlayerPrefs.SetString("PlayerLastLogin", "");
+						PlayerPrefs.DeleteKey("PlayerProfile");
+						PlayerPrefs.DeleteAll();
+						SceneManager.LoadScene ($"LowSceneLoad");
+					}
+					else
+					{
+						
+					}
+				});
+			
+		});
+
+		buttonDecline.OnClickAsObservable().TakeUntilDisable(buttonDecline).Subscribe(_ =>
+		{
+			panelCacheCleaner.SetActive(false);
+		});
 	}
 	
 }
