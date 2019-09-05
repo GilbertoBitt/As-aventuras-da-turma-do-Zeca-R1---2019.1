@@ -145,11 +145,11 @@ public class LogSystem : OverridableMonoBehaviour {
 
 	public void SaveEstatistica(int _idGameDidatico, int _idDificuldade, bool _isRight)
 	{
-		Timing.RunCoroutine(SaveStatisticaCoroutine(_idGameDidatico, _idGameDidatico, _isRight));
+		Timing.RunCoroutine(SaveStatisticaCoroutine(_idGameDidatico, _idDificuldade, _isRight));
 	}
 	public void SaveEstatistica(int _idGameDidatico, int habilidade, int _idDificuldade, bool _isRight)
 	{
-		Timing.RunCoroutine(SaveStatisticaCoroutine(_idGameDidatico, habilidade,_idGameDidatico, _isRight));
+		Timing.RunCoroutine(SaveStatisticaCoroutine(_idGameDidatico, habilidade,_idDificuldade, _isRight));
 	}
 	
 	private IEnumerator<float> SaveStatisticaCoroutine(int _idGameDidatico, int habilidade, int _idDificuldade, bool isRight)

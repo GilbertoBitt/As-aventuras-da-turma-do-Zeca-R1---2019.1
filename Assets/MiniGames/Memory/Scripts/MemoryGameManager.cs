@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MEC;
 using DG.Tweening;
+using Jumper;
 using MiniGames.Memory.Scripts;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -14,7 +15,7 @@ using TutorialSystem.Scripts;
 using UniRx;
 using Random = UnityEngine.Random;
 
-public class MemoryGameManager : OverridableMonoBehaviour {
+public class MemoryGameManager : OverridableMonoBehaviour, ISkippable {
 
 	public Animator cardsAnimation;
  
@@ -361,8 +362,9 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 
 		#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN 
 
-			if(Input.GetKeyDown(KeyCode.J)){
-				timeSlider.value = timeSlider.minValue;
+			if(Input.GetKeyDown(KeyCode.J))
+			{
+				Skipp();
 			}
 
 		#endif
@@ -399,7 +401,12 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 
 	}
 
-	void DecreaseTime(){
+    private void Skipp()
+    {
+	    timeSlider.value = timeSlider.minValue;
+    }
+
+    void DecreaseTime(){
 		float temp = (float)1f;
 		timeSlider.value -= temp;
 	}
@@ -1406,6 +1413,9 @@ public class MemoryGameManager : OverridableMonoBehaviour {
 		}
 	}
 
-    
 
+	public void SkipCommand()
+	{
+		Skipp();
+	}
 }

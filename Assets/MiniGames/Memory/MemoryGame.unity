@@ -17985,6 +17985,8 @@ GameObject:
   - component: {fileID: 446757790}
   - component: {fileID: 446757792}
   - component: {fileID: 446757791}
+  - component: {fileID: 446757794}
+  - component: {fileID: 446757793}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -18049,6 +18051,48 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446757789}
   m_CullTransparentMesh: 0
+--- !u!114 &446757793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446757789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 446757794}
+          m_MethodName: CallISkipCommand
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 599420758}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.MonoBehaviour, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &446757794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446757789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11cf0152e3249254eb2595a2c9854266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &468302234
 GameObject:
   m_ObjectHideFlags: 0
@@ -34073,7 +34117,7 @@ PrefabInstance:
     - target: {fileID: 224751504588971864, guid: a8e2794ebaee44a48a60e193a529c60a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -96
+      value: -96.000015
       objectReference: {fileID: 0}
     - target: {fileID: 224751504588971864, guid: a8e2794ebaee44a48a60e193a529c60a,
         type: 3}
@@ -96828,7 +96872,7 @@ PrefabInstance:
     - target: {fileID: 6097706556588511859, guid: 023fa48991375294fb8387f061c841e8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -8.000977
+      value: -8.000946
       objectReference: {fileID: 0}
     - target: {fileID: 4916294598365140593, guid: 023fa48991375294fb8387f061c841e8,
         type: 3}
