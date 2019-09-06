@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.Scripts.Utils;
 using com.csutil;
 using DG.Tweening;
+using Jumper;
 using MEC;
 using MiniGames.Scripts._1_3B;
 using Sirenix.OdinInspector;
@@ -22,7 +23,7 @@ using Random = UnityEngine.Random;
 
 namespace MiniGames.Scripts._1_3A
 {
-    public class Manager1_3A : OverridableMonoBehaviour {
+    public class Manager1_3A : OverridableMonoBehaviour, ISkippable {
 
         #region variables
 
@@ -1018,6 +1019,17 @@ namespace MiniGames.Scripts._1_3A
             nurseManager.VelocityMiddle = nurseManager.VelocityByLevel[contadorLevel];
             plataformController2d.currentSpeedChosen = contadorLevel;
             nurseManager.UpdateSpeed();
+        }
+
+        public void SkipCommand()
+        {
+            playerLifes = 0;
+            nurseManager.endGameP = true;
+            plataformController2d.EndedByLife = true;
+            //Debug.Log("3");
+            LostSoundError();
+            TransitionDidaticaByLife();
+            
         }
     }
 }

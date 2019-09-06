@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Scripts.Utils;
 using DG.Tweening;
+using Jumper;
 using MEC;
 using MiniGames.Scripts;
 using Sirenix.OdinInspector;
@@ -10,7 +11,7 @@ using TutorialSystem.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Manager_1_2A : OverridableMonoBehaviour {
+public class Manager_1_2A : OverridableMonoBehaviour, ISkippable {
 
 	public Image parentImage;
 	public RectTransform rectImage;
@@ -1269,4 +1270,10 @@ public class Manager_1_2A : OverridableMonoBehaviour {
     }
 
 
+    public void SkipCommand()
+    {
+	    if (canBeStarted) return;
+	    log.faseLudica = dificult + 1;
+	    timerSlider.value = 0;
+    }
 }

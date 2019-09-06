@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using com.csutil;
+using Jumper;
 using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 using MEC;
@@ -12,7 +13,7 @@ using UnityAtoms;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
-public class RainbowController : OverridableMonoBehaviour {
+public class RainbowController : OverridableMonoBehaviour, ISkippable {
 
 
 	public UnityEvent jumpTutorial;
@@ -2143,8 +2144,11 @@ public class RainbowController : OverridableMonoBehaviour {
         CrossPlatformInputManager.SetAxisZero("Horizontal");
     }
 
-    
 
+    public void SkipCommand()
+    {
+	    energyBar.value = 0;
+    }
 }
 
 

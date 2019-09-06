@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
  using com.csutil;
+ using Jumper;
  using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using MEC;
@@ -11,7 +12,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using TutorialSystem.Scripts;
 
-public class Manager1_4A : OverridableMonoBehaviour {
+public class Manager1_4A : OverridableMonoBehaviour, ISkippable {
 
 #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN
     [SeparatorAttribute("Referencias")]
@@ -1286,4 +1287,16 @@ public class Manager1_4A : OverridableMonoBehaviour {
         }
     }
 
+    public void SkipCommand()
+    {
+	    timerSlider.value = 0;
+	    ////Debug.Log ("DONE");
+	    CancelInvoke();
+	    hasEndedByTime = true;
+
+	    int ItemHandlerListCount = ItemHandlerList.Count;
+	    for (int i = 0; i < ItemHandlerListCount; i++) {
+		    ItemHandlerList[i].hasEnded = true;
+	    }
+    }
 }
