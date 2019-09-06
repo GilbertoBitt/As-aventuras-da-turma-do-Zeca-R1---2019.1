@@ -1023,6 +1023,7 @@ namespace MiniGames.Scripts._1_3A
 
         public void SkipCommand()
         {
+            StopRunning();
             playerLifes = 0;
             nurseManager.endGameP = true;
             plataformController2d.EndedByLife = true;

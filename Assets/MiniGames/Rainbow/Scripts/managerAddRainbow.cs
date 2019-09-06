@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using com.csutil;
+using Jumper;
 using UnityEngine;
 using UnityEngine.UI;
 using MEC;
@@ -16,7 +17,7 @@ using UniRx;
 using Unity.Mathematics;
 using Random = UnityEngine.Random;
 
-public class managerAddRainbow : MonoBehaviour
+public class managerAddRainbow : MonoBehaviour, ISkippable
 {
 
 	[FoldoutGroup("Geral")] public int anoLetivo;
@@ -880,6 +881,8 @@ public class managerAddRainbow : MonoBehaviour
 	}
 
 
-
-
+	public void SkipCommand()
+	{
+		Timing.RunCoroutine(CallChalenge());
+	}
 }

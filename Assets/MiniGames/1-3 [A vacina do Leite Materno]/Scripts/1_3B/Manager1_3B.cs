@@ -7,6 +7,7 @@ using com.csutil;
 using DG.DeAudio;
 using MEC;
 using DG.Tweening;
+using Jumper;
 using MiniGames.Scripts;
 using MiniGames.Scripts._1_3A;
 using MiniGames.Scripts._1_3B;
@@ -15,7 +16,7 @@ using TMPro;
 using TutorialSystem.Scripts;
 using UniRx.Async;
 
-public class Manager1_3B : OverridableMonoBehaviour {
+public class Manager1_3B : OverridableMonoBehaviour, ISkippable {
 
 	#region Vars
 
@@ -759,6 +760,19 @@ public class Manager1_3B : OverridableMonoBehaviour {
     public void KillCoroutines() {
         Timing.KillCoroutines();
         StopAllCoroutines();
+    }
+
+    public void SkipCommand()
+    {
+	    canShoot = false;
+	    interagindoPanel.SetActive(true);
+	    interagindoManager.scoreAmount = scoreAmount;
+	    interagindoManager.scoreInteragindo = scoreAmount;
+	    int tempCount = activeGameObjects.Length;
+	    for (int i = 0; i < tempCount; i++) {
+		    activeGameObjects[i].SetActive(false);
+	    }
+	    enabled = false;
     }
 }
 

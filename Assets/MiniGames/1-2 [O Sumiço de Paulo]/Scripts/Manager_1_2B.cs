@@ -8,13 +8,14 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using Jumper;
 using MiniGames.Scripts;
 using Sirenix.OdinInspector;
 using TutorialSystem.Scripts;
 using UniRx;
 using Random = UnityEngine.Random;
 
-public class Manager_1_2B : OverridableMonoBehaviour
+public class Manager_1_2B : OverridableMonoBehaviour, ISkippable
 {
 	[TabGroup("Geral")] public GameConfig config => GameConfig.Instance;
 	[TabGroup("Geral")] public int anoLetivo;
@@ -1243,6 +1244,14 @@ public class Manager_1_2B : OverridableMonoBehaviour
     }
 
 
-
-
+    public void SkipCommand()
+    {
+	    canBePlayed = false;
+	    hideAllCloseButtons();
+	    soundManager.startSoundFX(clipsAudio[0]);
+	    nextButtonRef.SetActive(false);
+	    panelDesafioController.scoreAmount = scoreAmount;
+	    panelDesafioController.starAmount = manager.starsAmount;
+	    panelDesafio.SetActive(true);
+    }
 }

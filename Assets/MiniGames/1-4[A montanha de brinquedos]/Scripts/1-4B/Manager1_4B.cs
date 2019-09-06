@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using com.csutil;
 using Controllers;
+using Jumper;
 using MiniGames.Scripts;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
@@ -20,7 +21,7 @@ using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Manager1_4B : OverridableMonoBehaviour
+public class Manager1_4B : OverridableMonoBehaviour, ISkippable
 {
 
     [TabGroup("1ª Ano")] public int idGameDidatico1Ano1;
@@ -1525,6 +1526,10 @@ public class Manager1_4B : OverridableMonoBehaviour
         }
     }
 
+    public void SkipCommand()
+    {
+        endDitatica();
+    }
 }
 
 

@@ -1681,22 +1681,30 @@ public class RainbowController : OverridableMonoBehaviour, ISkippable {
             Timing.RunCoroutine (NextTargetCount (currentIndexedItem, oldIndexItem));
 			userAnswers = -1;
 
-		} else {
-			this.person.GetComponent<Animator> ().enabled = false;
-			if(checkDesafio==false){
-				Timing.RunCoroutine (TimePanels ());
-
-			}
-			managerNext.enabled = true;
-			managerNext.mainPanel.SetActive(true);
-			managerNext.oldPanel.SetActive(false);
-			managerNext.StartGame();
+		} else
+		{
+			StopDidatica();
 			//TODO mostrar tela de pontuação aqui.
-			
 		}
 
 		ColorClearButtons ();
 	}
+
+	public void StopDidatica()
+	{
+		this.person.GetComponent<Animator>().enabled = false;
+		if (checkDesafio == false)
+		{
+			Timing.RunCoroutine(TimePanels());
+		}
+		
+		managerNext.enabled = true;
+		managerNext.mainPanel.SetActive(true);
+		managerNext.oldPanel.SetActive(false);
+		managerNext.StartGame();
+	}
+	
+	
 
 
 	public IEnumerator<float> TimePanels(){
@@ -2147,7 +2155,14 @@ public class RainbowController : OverridableMonoBehaviour, ISkippable {
 
     public void SkipCommand()
     {
-	    energyBar.value = 0;
+	    if (managerNext.oldPanel.activeInHierarchy)
+	    {
+		    StopDidatica();
+	    }
+	    else
+	    {
+		    energyBar.value = 0;
+	    }
     }
 }
 
