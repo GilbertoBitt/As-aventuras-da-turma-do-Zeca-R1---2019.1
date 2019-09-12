@@ -21,19 +21,40 @@ public class DataService {
     private SQLiteConnection _asyncConnection;
     [CanBeNull] private string _filepath;
 
-    private SQLiteConnection AsyncConnection => _asyncConnection ?? (_asyncConnection = new SQLiteConnection(_filepath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.FullMutex));
+//    private SQLiteConnection AsyncConnection => _asyncConnection ?? (_asyncConnection = new SQLiteConnection(_filepath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.FullMutex));
+    [SerializeField] private string _databaseName;
+    private SQLiteConnection AsyncConnection
+    {
+        get
+        {
+            if (_asyncConnection != null) return _asyncConnection;
+            Init();
+            return _asyncConnection;
+        }
+    }
 
 
-    public DataService(string DatabaseName){
+    public DataService(string DatabaseName)
+    {
+        _databaseName = DatabaseName;
+        Init();
+    }
 
-        // check if file exists in Application.persistentDataPath
-		var filepath = $"{Application.persistentDataPath}/{DatabaseName}";
-		if (File.Exists(filepath)){
+    private void Init()
+    {
+        string DatabaseName = _databaseName;
+// check if file exists in Application.persistentDataPath
+        var filepath = $"{Application.persistentDataPath}/{DatabaseName}";
+        if (File.Exists(filepath))
+        {
             _filepath = filepath;
-            _asyncConnection = new SQLiteConnection(_filepath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.FullMutex);
+            _asyncConnection = new SQLiteConnection(_filepath,
+                SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.FullMutex);
             //Debug.Log("<color=#ffffff>Final PATH:</color> <color=#33bfea>" + filepath + "</color>"); 
-        } else {
-    #if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_STANDALONE
+        }
+        else
+        {
+#if UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_STANDALONE
             var _loaddb = $"{Application.streamingAssetsPath}/{DatabaseName}";
             Debug.Log(_loaddb);
             var filepathTo = $"{Application.persistentDataPath}/{DatabaseName}";
@@ -43,12 +64,14 @@ public class DataService {
             File.WriteAllBytes(filepathTo, bytesTOLoad);
             filepath = filepathTo;
 #elif UNITY_ANDROID
-            var loadDb = new WWW("jar:file://" + Application.dataPath + "!/assets/" + DatabaseName);  // this is the path to your StreamingAssets in android
+            var loadDb =
+ new WWW("jar:file://" + Application.dataPath + "!/assets/" + DatabaseName);  // this is the path to your StreamingAssets in android
             while (!loadDb.isDone) { }  // CAREFUL here, for safety reasons you shouldn't let this while loop unattended, place a timer and error check
             // then save to Application.persistentDataPath
             File.WriteAllBytes(filepath, loadDb.bytes);
 #elif UNITY_IOS
-           var loadDb = Application.dataPath + "/Raw/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+           var loadDb =
+ Application.dataPath + "/Raw/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
            // then save to Application.persistentDataPath
            File.Copy(loadDb, filepath);
 #elif UNITY_EDITOR || UNITY_EDITOR_64 || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_STANDALONE
@@ -62,11 +85,11 @@ public class DataService {
             filepath = filepathTo;
 #endif
             _filepath = filepath;
-            _asyncConnection = new SQLiteConnection(_filepath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.FullMutex);
+            _asyncConnection = new SQLiteConnection(_filepath,
+                SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.FullMutex);
             //Debug.Log("<color=#ffffff>Final PATH:</color> <color=#33bfea>" + filepath + "</color>");
-		}       
-
-	}
+        }
+    }
 
     public void CloseConnection()
     {

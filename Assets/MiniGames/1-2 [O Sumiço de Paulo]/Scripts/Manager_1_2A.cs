@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Utils;
+using DG.DeAudio;
 using DG.Tweening;
 using Jumper;
 using MEC;
@@ -64,7 +65,7 @@ public class Manager_1_2A : OverridableMonoBehaviour, ISkippable {
 	public bool isGameRunning;
 	public SelPersons personagems;
 	public Vector3 startpos;
-	public Text foundPauloText;
+	public TextMeshProUGUI foundPauloText;
 	public changeLevel nextLevel;
 	public GameObject particlePrefab;
 	public Transform particlesParent;
@@ -109,7 +110,7 @@ public class Manager_1_2A : OverridableMonoBehaviour, ISkippable {
 	public IEnumerator releasePauloRoutine;
 	public float scoreDecreaseDuration = 1.0f;
 	public AnimationCurve ScoreDecreaseCurve = AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f);
-	public Text textErrou;
+	public TextMeshProUGUI textErrou;
 	public GameObject tutorPanel; 
 	public Animator tutorPanelAnimator;
 	public GameObject btAvancar;
@@ -151,6 +152,7 @@ public class Manager_1_2A : OverridableMonoBehaviour, ISkippable {
     public DialogComponent dialogComponent;
     public DialogInfo dialogInfo;
     public DialogSplitter splitter;
+    public AudioClip erroAudioClip;
 
 
     [TextArea()]
@@ -517,20 +519,13 @@ public class Manager_1_2A : OverridableMonoBehaviour, ISkippable {
 
 		Color startColor = foundPauloText.color;
 		Color colorNoAlpha = new Vector4(startColor.r,startColor.g,startColor.b,0f);
-
-		float duration = .5f;
-		float times = 0.0f;
-		while (times < duration)
-		{
-			times += Time.deltaTime;
-			float s = times / duration;
-
-			fadeImage.color = Color.Lerp (new Color (1f, 1f, 1f, 0f), Color.white, fadeInCurve.Evaluate (s));
-			textErrou.color = Color.Lerp(colorNoAlpha, startColor, fadeInCurve.Evaluate (s));
-
-			yield return Timing.WaitForOneFrame;
-		}		
-
+		DeAudioManager.Play(DeAudioGroupId.Dialogue, erroAudioClip);
+		DeAudioManager.SetVolume(DeAudioGroupId.Ambient, soundManager.OnVoiceEffectVolumeAmbient);
+		DeAudioManager.SetVolume(DeAudioGroupId.Music, soundManager.OnVoiceEffectVolumeAmbient);
+		textErrou.DOFade(1f, .5f);
+		fadeImage.DOFade(1f, .5f);
+		
+		
 		Level1_2A level = Levels [dificult];
 
 		particlesParent = level.particlesParent;
@@ -550,10 +545,10 @@ public class Manager_1_2A : OverridableMonoBehaviour, ISkippable {
 		parentImage.gameObject.SetActive(true);
 
 		if(dificult >= 1){
-		for (int i = 0; i <  placesToHide.Count; i++){
+			for (int i = 0; i <  placesToHide.Count; i++){
 				placesToHide[i].transform.rotation = originRotation[i];	
 				placesToHide[i].enabled = false;
-		}
+			}
 		}
 
 		itemsToHide.Shuffle ();
@@ -624,19 +619,23 @@ public class Manager_1_2A : OverridableMonoBehaviour, ISkippable {
 		amountsToFind = 6;
 		amountsFinded = 0;
 
-		yield return Timing.WaitForSeconds(3f);
+		yield return Timing.WaitForSeconds(erroAudioClip.length);
+		DeAudioManager.SetVolume(DeAudioGroupId.Ambient, soundManager.backgroundMusicVolume);
+		DeAudioManager.SetVolume(DeAudioGroupId.Music, soundManager.hasAmbientFXVolume);
+		textErrou.DOFade(0f, .5f);
+		fadeImage.DOFade(0f, .5f);
 
-		times = 0.0f;
-		while (times < duration)
-		{
-			times += Time.deltaTime;
-			float s = times / duration;
-
-			fadeImage.color = Color.Lerp (Color.white,new Color (1f, 1f, 1f, 0f), fadeOutCurve.Evaluate (s));
-			textErrou.color = Color.Lerp(startColor, colorNoAlpha, fadeInCurve.Evaluate (s));
-
-			yield return Timing.WaitForOneFrame;
-		}
+//		times = 0.0f;
+//		while (times < duration)
+//		{
+//			times += Time.deltaTime;
+//			float s = times / duration;
+//
+//			fadeImage.color = Color.Lerp (Color.white,new Color (1f, 1f, 1f, 0f), fadeOutCurve.Evaluate (s));
+////			textErrou.color = Color.Lerp(startColor, colorNoAlpha, fadeInCurve.Evaluate (s));
+//
+//			yield return Timing.WaitForOneFrame;
+//		}
 
 		textError.gameObject.SetActive(false);
 
@@ -737,47 +736,35 @@ public class Manager_1_2A : OverridableMonoBehaviour, ISkippable {
 		Color colorNoAlpha = new Vector4(startColor.r,startColor.g,startColor.b,0f);
 
 		foundPauloText.gameObject.SetActive(true);
-		foundPauloText.color = colorNoAlpha;
-
-		float duration = .5f;
-		float times = 0.0f;
-		while (times < duration)
-		{
-			times += Time.deltaTime;
-			float s = times / duration;
-
-			foundPauloText.color = Color.Lerp(colorNoAlpha, startColor, fadeInCurve.Evaluate (s));
-			fadeImage.color = Color.Lerp (new Color (1f, 1f, 1f, 0f), Color.white, fadeInCurve.Evaluate (s));
-
-			yield return Yielders.EndOfFrame;
-		}
-
-        soundManager.startVoiceFX(sfx[2]);
-		yield return Yielders.Get(3f);
+		foundPauloText.DOFade(1f, 0.5f);
+		fadeImage.DOFade(1f, 0.5f);
+		
+        DeAudioManager.Play(DeAudioGroupId.Dialogue, sfx[2]);
+        DeAudioManager.SetVolume(DeAudioGroupId.Ambient, soundManager.OnVoiceEffectVolumeAmbient);
+        DeAudioManager.SetVolume(DeAudioGroupId.Music, soundManager.OnVoiceEffectVolumeAmbient);
+        
+        yield return Yielders.Get(sfx[2].length);
+        DeAudioManager.SetVolume(DeAudioGroupId.Ambient, soundManager.backgroundMusicVolume);
+        DeAudioManager.SetVolume(DeAudioGroupId.Music, soundManager.hasAmbientFXVolume);
+        
 		placesChoosen[5].imageComponent.color = Color.white;
 		foundPaulo = true;
 
 		for (int i = 0; i < ButtonsPanelG.Length; i++){
 			ButtonsPanelG[i].SetActive(false);
 		}
-
+		
+		foundPauloText.DOFade(0f, .5f);
+		fadeImage.DOFade(0f, .5f);
+		yield return Yielders.Get(.5f);
 		pauloLock.SetActive(true);
 
-		times = 0.0f;
-		while (times < duration)
-		{
-			times += Time.deltaTime;
-			float s = times / duration;
-
-			foundPauloText.color = Color.Lerp(startColor, colorNoAlpha, fadeInCurve.Evaluate (s));
-			fadeImage.color = Color.Lerp (Color.white,new Color (1f, 1f, 1f, 0f), fadeOutCurve.Evaluate (s));
-
-			yield return Yielders.EndOfFrame;
-		}
-
+		
+		
+		
 		fadeImage.gameObject.SetActive(false);
 		foundPauloText.gameObject.SetActive(false);
-		foundPauloText.color = startColor;		
+//		foundPauloText.color = startColor;		
 		destroyPref = false;
 		if (!canBeStarted) {
 			InvokeRepeating ("DecreaseTimeOverSeconds", 1f, 1f);

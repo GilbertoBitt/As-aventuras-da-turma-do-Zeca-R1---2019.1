@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UniRx;
+using UniRx.Async;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -144,6 +145,7 @@ public class PauseManager : MonoBehaviour {
 
 	public void ShowCacheConfirmWindow()
 	{
+		
 		var ds = GameConfig.Instance.OpenDb();
 		
 		//Get all offline Logs.
@@ -158,39 +160,25 @@ public class PauseManager : MonoBehaviour {
 		                        userScoreUpdates.Count + userInventoryUdpdate.Count;
 		
 		warningTextComponent.text = $"Existem {informationToSync} informações salvas offline esperando para serem sincronizadas. Aguarde um momento e não desconecte-se da internet.";
-		buttonConfirm.OnClickAsObservable().TakeUntilDisable(buttonConfirm).Subscribe(_ =>
+		panelCacheCleaner.SetActive(true);
+		buttonConfirm.OnClickAsObservable().Subscribe(_ =>
 		{
+			buttonConfirm.interactable = false;
+			buttonDecline.interactable = false;
 			EduqbrinqLogger.Instance.SendOfflineData(_logToSend, _rankToSend, _statisticaToSend, _logsGames, userScoreUpdates, userInventoryUdpdate).GetAwaiter().OnCompleted(
 				() =>
 				{
-					
-					_logToSend = ds.GetAllMinigamesLog().FindAll(x => x.online == 0);
-					_rankToSend = ds.GetAllOfflineRanks();
-					_statisticaToSend = ds.GetAllStatisticDidatica().FindAll(x => x.online == 0);
-					_logsGames = ds.GetAllGamesLOG().FindAll(x => x.online == 0);
-					userScoreUpdates = ds.GetallScoresOffline();
-					userInventoryUdpdate = ds.GetAllInventory();
-					
-					informationToSync = _logsGames.Count + _rankToSend.Count + _statisticaToSend.Count + _logsGames.Count +
-					                    userScoreUpdates.Count + userInventoryUdpdate.Count;
-
-					if (informationToSync <= 0 && !GameConfig.Instance.isOn)
-					{
-						PlayerPrefs.SetString("PlayerLastLogin", "");
-						PlayerPrefs.DeleteKey("PlayerProfile");
-						PlayerPrefs.DeleteAll();
-						SceneManager.LoadScene ($"LowSceneLoad");
-					}
-					else
-					{
-						
-					}
+					PlayerPrefs.SetString("PlayerLastLogin", "");
+					PlayerPrefs.DeleteKey("PlayerProfile");
+					PlayerPrefs.DeleteAll();
+					SceneManager.LoadScene ("LowSceneLoad");
 				});
 			
 		});
 
 		buttonDecline.OnClickAsObservable().TakeUntilDisable(buttonDecline).Subscribe(_ =>
 		{
+			GameConfig.Instance.OpenDb().CloseConnection();
 			panelCacheCleaner.SetActive(false);
 		});
 	}
